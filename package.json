@@ -1,0 +1,37 @@
+{
+	"name": "shriproperty",
+	"version": "1.0.0",
+	"main": "app.js",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/aayushchugh/shriproperty"
+	},
+	"scripts": {
+		"start": "node app.js",
+		"dev": "nodemon app.js",
+		"scss": "node-sass --output-style compressed --watch ./public/scss/ -o ./public/css/"
+	},
+	"dependencies": {
+		"ejs": "^3.1.6",
+		"express": "^4.17.2",
+		"mysql2": "^2.3.3",
+		"sequelize": "^7.0.0-alpha.2"
+	},
+	"devDependencies": {
+		"eslint": "^8.4.1",
+		"eslint-config-google": "^0.14.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-jsonc": "^2.0.0",
+		"eslint-plugin-no-secrets": "^0.8.9",
+		"eslint-plugin-no-unsanitized": "^4.0.1",
+		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-pii": "^1.0.2",
+		"eslint-plugin-prettier": "^4.0.0",
+		"eslint-plugin-sonarjs": "^0.11.0",
+		"node-sass": "^7.0.0",
+		"nodemon": "^2.0.15",
+		"prettier": "^2.5.1",
+		"prettier-eslint": "^13.0.0"
+	}
+}

@@ -1,0 +1,64 @@
+{
+	"env": {
+		"browser": true,
+		"commonjs": true,
+		"es2021": true,
+		"node": true
+	},
+	"extends": [
+		"google",
+		"plugin:sonarjs/recommended",
+		"plugin:node/recommended",
+		"plugin:jsonc/base",
+		"plugin:pii/recommended",
+		"plugin:no-unsanitized/DOM",
+		"plugin:prettier/recommended"
+	],
+
+	"plugins": [
+		"sonarjs",
+		"no-secrets",
+		"jsonc",
+		"pii",
+		"no-unsanitized",
+		"prettier"
+	],
+	"parserOptions": {
+		"ecmaVersion": 2020
+	},
+	"rules": {
+		"semi": "error",
+		"no-console": "error",
+		"no-tabs": "off",
+		"indent": "off",
+		"node/handle-callback-err": "error",
+		"node/no-path-concat": "error",
+		"node/no-process-exit": "error",
+		"node/global-require": "error",
+		"node/no-sync": "error",
+		"no-secrets/no-secrets": "error",
+		"pii/no-email": "error",
+		"pii/no-dob": "warn",
+		"pii/no-ip": "error",
+		"pii/no-phone-number": "error",
+		"spaced-comment": "off",
+		"prefer-destructuring": ["error", { "object": true, "array": true }],
+		"no-unused-vars": ["error", { "argsIgnorePattern": "req|res|next" }],
+		"linebreak-style": "off",
+		"object-curly-spacing": "off",
+		"comma-dangle": "off",
+		"new-cap": "off",
+		"require-await": "error",
+		"require-jsdoc": "off",
+		"sonarjs/cognitive-complexity": "off",
+		"sonarjs/no-duplicate-string": "off",
+		"sonarjs/no-identical-functions": "off",
+		"prettier/prettier": [
+			"error",
+			{
+				"endOfLine": "auto",
+				"useTabs": true
+			}
+		]
+	}
+}
