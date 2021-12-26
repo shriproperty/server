@@ -60,7 +60,6 @@ export const postSignup = async (req, res) => {
 			data: user,
 		});
 	} catch (err) {
-		console.log(err);
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
