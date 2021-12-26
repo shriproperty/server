@@ -1,24 +1,21 @@
-import path from 'path';
 import express from 'express';
-import sequelize from './config/database.js';
+import mongoose from 'mongoose';
+import { config } from 'dotenv';
+
+config();
 
 import authRouter from './routes/auth.routes.js';
 
 const app = express();
 
-/* ------------------------- essential/basic config ------------------------- */
-app.set('view engine', 'ejs');
-app.set('views', path.resolve('views'));
-
 /* ------------------------------- middlewares ------------------------------ */
-app.use(express.static(path.resolve('public')));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 /* --------------------------------- routes --------------------------------- */
-app.use(authRouter);
+app.use('/api', authRouter);
 
 /* --------------------------------- server --------------------------------- */
-sequelize.sync().then(() => {
+mongoose.connect(`${process.env.DB_URI}`, () => {
 	app.listen(8000);
 });
 
