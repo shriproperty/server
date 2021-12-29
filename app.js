@@ -4,6 +4,7 @@ import { config } from 'dotenv';
 
 config();
 
+import apiAuth from './middlewares/apiAuth.middlewares.js';
 import authRouter from './routes/auth.routes.js';
 import userRouter from './routes/user.routes.js';
 
@@ -11,7 +12,7 @@ const app = express();
 
 /* ------------------------------- middlewares ------------------------------ */
 app.use(express.json());
-
+app.use('/api', apiAuth);
 /* --------------------------------- routes --------------------------------- */
 app.use('/api', authRouter);
 app.use('/api', userRouter);
