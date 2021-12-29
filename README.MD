@@ -123,3 +123,45 @@ _User created successfully `200`:_
 	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzQ1ZWVlYTA2OTQ2OGYxMmMwNzhhYSIsImlhdCI6MTY0MDI2MDg2MH0.-0N2tYca6cnU-_tY_-wDwYX2iVTmkf-3_dsgY3lLDb4"
 }
 ```
+
+## Users
+
+### Get all
+
+```http
+GET: /api/users/get-all
+```
+
+**Response:**
+
+| status code | message                      | reason                 |
+| :---------- | :--------------------------- | :--------------------- |
+| `200`       | Users retrieved successfully | request was successful |
+| `500 `      | Internal server error        | Internal server error  |
+
+_Users retrieved successfully `200`_
+
+```json
+{
+	"success": true,
+	"message": "Users retrieved successfully",
+	"data": [
+		{
+			"_id": "61c8767d57d7dc48b2d92b8b",
+			"name": "falgun",
+			"email": "falgunchughh@gmail.com",
+			"phone": 987654321,
+			"password": "$2b$10$5aKykshzToBm/heVVeW4ZerKcmzYCMYJINLMJvSfxCl9YSFmaAyUq",
+			"__v": 0
+		},
+		{
+			"_id": "61cc6543b370fa8fd782b5dd",
+			"name": "ayush",
+			"email": "ayushchugh2006@gmail.com",
+			"phone": 987654321,
+			"password": "$2b$10$H398BtiMH8tq3I27T2HgDOTo76ugwJODs.6uEovEBKLGBWTgGt9dq",
+			"__v": 0
+		}
+	]
+}
+```
