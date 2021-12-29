@@ -104,7 +104,7 @@ POST: /api/auth/login
 | `404 `      | User not found              | User has not signed up yet   |
 | `500 `      | Internal server error       | Internal server error        |
 
-_User created successfully `200`:_
+_User logged in successfully `200`:_
 
 ```json
 {
