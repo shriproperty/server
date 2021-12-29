@@ -1,5 +1,5 @@
 import User from '../models/user.model.js';
-import { genSalt, hash } from 'bcrypt';
+import { genSalt, hash, compare } from 'bcrypt';
 import generateJWT from '../helpers/generateJWT.helper.js';
 
 /* --------------------------------- signup --------------------------------- */
@@ -58,6 +58,60 @@ export const postSignup = async (req, res) => {
 			message: 'User created successfully',
 			token,
 			data: user,
+		});
+	} catch (err) {
+		res.status(500).json({
+			success: false,
+			message: 'Internal Server Error',
+			data: {},
+		});
+	}
+};
+
+/* ---------------------------------- login --------------------------------- */
+export const postLogin = async (req, res) => {
+	try {
+		const { email, password } = req.body;
+
+		// validate user input
+		if (!email || !password) {
+			return res.status(400).json({
+				success: false,
+				message: 'Please enter all fields',
+				data: {},
+			});
+		}
+
+		// check if user  exists
+		const user = await User.findOne({ email });
+
+		if (!user) {
+			return res.status(404).json({
+				success: false,
+				message: 'User not found',
+				data: {},
+			});
+		}
+
+		// check if password is correct
+		const isPasswordCorrect = await compare(password, user.password);
+
+		if (!isPasswordCorrect) {
+			return res.status(400).json({
+				success: false,
+				message: 'Password is incorrect',
+				data: {},
+			});
+		}
+
+		// generate JWT
+		const token = generateJWT(user);
+
+		return res.status(200).json({
+			success: true,
+			message: 'User logged in successfully',
+			data: user,
+			token,
 		});
 	} catch (err) {
 		res.status(500).json({
