@@ -1,5 +1,6 @@
 import User from '../models/user.model.js';
 import { genSalt, hash, compare } from 'bcrypt';
+import { validationResult } from 'express-validator';
 import generateJWT from '../helpers/generateJWT.helper.js';
 
 /* --------------------------------- signup --------------------------------- */
@@ -12,6 +13,16 @@ export const postSignup = async (req, res) => {
 			return res.status(400).json({
 				success: false,
 				message: 'Please enter all fields',
+				data: {},
+			});
+		}
+
+		const errors = validationResult(req);
+
+		if (!errors.isEmpty()) {
+			return res.status(400).json({
+				success: false,
+				message: errors.array()[0].msg,
 				data: {},
 			});
 		}
