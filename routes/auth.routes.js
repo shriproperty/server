@@ -19,8 +19,8 @@ authRouter.post(
 			.exists()
 			.isStrongPassword(),
 	],
-	authController.postSignup
+	authController.signup
 );
-authRouter.post('/auth/login', authController.postLogin);
+authRouter.post('/auth/login', authController.login);
 
 export default authRouter;

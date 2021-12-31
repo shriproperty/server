@@ -5,6 +5,13 @@ const userSchema = new mongoose.Schema({
 	email: { type: String, required: true },
 	phone: { type: Number, required: true },
 	password: { type: String, required: true },
+	callingStatus: {
+		type: String,
+		required: true,
+		default: 'Pending',
+		enum: ['Pending', 'Rejected', 'Call Again', 'Done'],
+	},
+	callAgainDate: { type: String, required: false, default: null },
 });
 
 const User = mongoose.model('User', userSchema);

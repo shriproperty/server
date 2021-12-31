@@ -4,7 +4,7 @@ import { validationResult } from 'express-validator';
 import generateJWT from '../helpers/generateJWT.helper.js';
 
 /* --------------------------------- signup --------------------------------- */
-export const postSignup = async (req, res) => {
+export const signup = async (req, res) => {
 	try {
 		const { name, email, phone, password, cpassword } = req.body;
 
@@ -80,7 +80,7 @@ export const postSignup = async (req, res) => {
 };
 
 /* ---------------------------------- login --------------------------------- */
-export const postLogin = async (req, res) => {
+export const login = async (req, res) => {
 	try {
 		const { email, password } = req.body;
 

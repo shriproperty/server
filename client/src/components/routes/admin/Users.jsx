@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { default as UserList } from '../../pages/admin/Users';
 
 const Users = () => {

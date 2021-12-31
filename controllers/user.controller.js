@@ -18,3 +18,69 @@ export const getAllUsers = async (req, res) => {
 		});
 	}
 };
+
+/* ------------------------------- update user calling status for admin ------------------------------ */
+export const updateUserCallingStatus = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const { callingStatus, callAgainDate } = req.body;
+
+		// validate user input
+		if (!callingStatus) {
+			return res.status(400).json({
+				success: false,
+				message: 'Please fill all fields',
+				data: {},
+			});
+		}
+
+		// check if 'callingStatus' is 'Call Again' but 'callAgainDate' is null
+		if (callingStatus === 'Call Again' && !callAgainDate) {
+			return res.status(400).json({
+				success: false,
+				message: 'Date is required for Call Again',
+				data: {},
+			});
+		}
+
+		// check if 'callingStatus' is not 'Call Again' but 'callAgainDate' is not null
+		if (callingStatus !== 'Call Again' && callAgainDate) {
+			return res.status(400).json({
+				success: false,
+				message:
+					'You can only assign date when calling status is "Call Again"',
+				data: {},
+			});
+		}
+
+		// get user from DB
+		const user = await User.findById(id);
+
+		// check if user exists
+		if (!user) {
+			return res.status(404).json({
+				success: false,
+				message: 'User not found',
+				data: {},
+			});
+		}
+
+		// update user calling status and date
+		const updatedUser = await User.findByIdAndUpdate(id, {
+			callingStatus,
+			callAgainDate,
+		});
+
+		res.status(200).json({
+			success: true,
+			message: 'User updated successfully',
+			data: updatedUser,
+		});
+	} catch (err) {
+		res.status(400).json({
+			success: false,
+			message: 'Invalid Id',
+			data: {},
+		});
+	}
+};

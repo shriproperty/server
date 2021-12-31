@@ -4,10 +4,23 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import DoneIcon from '@mui/icons-material/Done';
+import moment from 'moment';
+
+import { AError } from '../../util/Alert';
 import get from '../../../api/get';
+import patch from '../../../api/patch';
 
 const Users = () => {
 	const [response, setResponse] = useState([]);
+	const [callingStatus, setCallingStatus] = useState('');
+	const [callAgainDate, setCallAgainDate] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
+	const [openError, setOpenError] = useState(false);
 
 	useEffect(() => {
 		get('/users/get-all').then(data => {
@@ -15,27 +28,109 @@ const Users = () => {
 		});
 	}, []);
 
+	const submitHandler = id => {
+		return e => {
+			e.preventDefault();
+
+			patch(`/users/update-calling-status/${id}`, {
+				callingStatus,
+				callAgainDate: callAgainDate
+					? moment(callAgainDate).format('DD/MM/YYYY')
+					: null,
+			}).then(data => {
+				if (data.success === false) {
+					setErrorMessage(data.message);
+					setOpenError(true);
+				}
+
+				window.location.reload();
+			});
+		};
+	};
 	return (
-		<Table>
-			<TableHead>
-				<TableRow>
-					<TableCell align="left">Id</TableCell>
-					<TableCell align="right">Name</TableCell>
-					<TableCell align="right">Email</TableCell>
-					<TableCell align="right">Phone</TableCell>
-				</TableRow>
-			</TableHead>
-			<TableBody>
-				{response.map(user => (
-					<TableRow key={user._id}>
-						<TableCell>{user._id}</TableCell>
-						<TableCell align="right">{user.name}</TableCell>
-						<TableCell align="right">{user.email}</TableCell>
-						<TableCell align="right">{user.phone}</TableCell>
+		<>
+			<AError
+				title={errorMessage}
+				id="alert-error"
+				open={openError}
+				setOpen={setOpenError}
+			/>
+			<Table>
+				<TableHead>
+					<TableRow>
+						<TableCell align="left">Id</TableCell>
+						<TableCell align="right">Name</TableCell>
+						<TableCell align="right">Email</TableCell>
+						<TableCell align="right">Phone</TableCell>
+						<TableCell align="right">Calling Status</TableCell>
+						<TableCell align="right">Call Again Date</TableCell>
+						<TableCell align="right">Update Call Status</TableCell>
+						<TableCell align="right">
+							Update Call Again Date
+						</TableCell>
+						<TableCell align="right">Update</TableCell>
 					</TableRow>
-				))}
-			</TableBody>
-		</Table>
+				</TableHead>
+				<TableBody>
+					{response.map(user => (
+						<TableRow key={user._id}>
+							<TableCell>{user._id}</TableCell>
+							<TableCell align="right">{user.name}</TableCell>
+							<TableCell align="right">{user.email}</TableCell>
+							<TableCell align="right">{user.phone}</TableCell>
+							<TableCell align="right">
+								{user.callingStatus}
+							</TableCell>
+							<TableCell align="right">
+								{user.callAgainDate
+									? user.callAgainDate
+									: '----'}
+							</TableCell>
+							<TableCell align="right">
+								<FormControl sx={{ m: 1, minWidth: 80 }}>
+									<InputLabel>Update Call Status</InputLabel>
+									<Select
+										id="demo-simple-select"
+										value={callingStatus}
+										label="Update Call Status"
+										onChange={e =>
+											setCallingStatus(e.target.value)
+										}
+									>
+										<MenuItem value="Pending">
+											Pending
+										</MenuItem>
+										<MenuItem value="Done">Done</MenuItem>
+										<MenuItem value="Rejected">
+											Rejected
+										</MenuItem>
+										<MenuItem value="Call Again">
+											Call Again
+										</MenuItem>
+									</Select>
+								</FormControl>
+							</TableCell>
+
+							<TableCell>
+								<input
+									type="date"
+									onChange={e =>
+										setCallAgainDate(e.target.value)
+									}
+								/>
+							</TableCell>
+							<TableCell align="right">
+								<form onSubmit={submitHandler(user._id)}>
+									<button type="submit">
+										<DoneIcon />
+									</button>
+								</form>
+							</TableCell>
+						</TableRow>
+					))}
+				</TableBody>
+			</Table>
+		</>
 	);
 };
 
