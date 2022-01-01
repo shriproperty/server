@@ -14,6 +14,7 @@ import moment from 'moment';
 import { AError } from '../../util/Alert';
 import get from '../../../api/get';
 import patch from '../../../api/patch';
+import { TextField } from '@mui/material';
 
 const Users = () => {
 	const [response, setResponse] = useState([]);
@@ -79,7 +80,8 @@ const Users = () => {
 						<TableCell align="center">Update Call Status</TableCell>
 						<TableCell align="center">
 							Update Call Again Date
-						</TableCell>
+                        </TableCell>
+                        <TableCell align="center">Talk Progress</TableCell>
 						<TableCell align="center">Update</TableCell>
 					</TableRow>
 				</TableHead>
@@ -132,7 +134,8 @@ const Users = () => {
 										setCallAgainDate(e.target.value)
 									}
 								/>
-							</TableCell>
+                            </TableCell>
+                            <TableCell align="center"><TextField multiline label='Kya Baat Hai' value={user.talkProgress }/></TableCell>
 							<TableCell align="center">
 								<form onSubmit={submitHandler(user._id)}>
 									<button type="submit">
