@@ -23,7 +23,7 @@ export const getAllUsers = async (req, res) => {
 export const updateUserCallingStatus = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const { callingStatus, callAgainDate } = req.body;
+		const { callingStatus, callAgainDate, talkProgress } = req.body;
 
 		// validate user input
 		if (!callingStatus) {
@@ -34,21 +34,24 @@ export const updateUserCallingStatus = async (req, res) => {
 			});
 		}
 
-		// check if 'callingStatus' is 'Call Again' but 'callAgainDate' is null
-		if (callingStatus === 'Call Again' && !callAgainDate) {
+		// check if 'callingStatus' is 'Call Again' but 'callAgainDate' is null or talkProgress is null
+		if (
+			callingStatus === 'Call Again' &&
+			(!callAgainDate || !talkProgress)
+		) {
 			return res.status(400).json({
 				success: false,
-				message: 'Date is required for Call Again',
+				message: 'Date, Talk Progress is required for Call Again',
 				data: {},
 			});
 		}
 
-		// check if 'callingStatus' is not 'Call Again' but 'callAgainDate' is not null
-		if (callingStatus !== 'Call Again' && callAgainDate) {
+		// check if 'callingStatus' is not 'Call Again' but 'callAgainDate' is not null or 'talkProgress' is not null
+		if (callingStatus !== 'Call Again' && (callAgainDate || talkProgress)) {
 			return res.status(400).json({
 				success: false,
 				message:
-					'You can only assign date when calling status is "Call Again"',
+					'You can only assign date,Talk Progress when calling status is "Call Again"',
 				data: {},
 			});
 		}
@@ -69,6 +72,7 @@ export const updateUserCallingStatus = async (req, res) => {
 		const updatedUser = await User.findByIdAndUpdate(id, {
 			callingStatus,
 			callAgainDate,
+			talkProgress,
 		});
 
 		res.status(200).json({

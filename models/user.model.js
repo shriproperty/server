@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
 		enum: ['Pending', 'Rejected', 'Call Again', 'Done'],
 	},
 	callAgainDate: { type: String, required: false, default: null },
+	talkProgress: { type: String, required: false, default: null },
 });
 
 const User = mongoose.model('User', userSchema);
