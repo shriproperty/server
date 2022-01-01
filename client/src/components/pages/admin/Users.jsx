@@ -24,6 +24,20 @@ const Users = () => {
 
 	useEffect(() => {
 		get('/users/get-all').then(data => {
+			// sort data.data by date
+			data.data.sort((a, b) => {
+				return new Date(a.callAgainDate) - new Date(b.callAgainDate);
+			});
+
+			// sort data.data by status
+			data.data.sort((a, b) =>
+				a.callingStatus > b.callingStatus
+					? 1
+					: b.callingStatus > a.callingStatus
+					? -1
+					: 0
+			);
+
 			setResponse(data.data);
 		});
 	}, []);
@@ -34,9 +48,8 @@ const Users = () => {
 
 			patch(`/users/update-calling-status/${id}`, {
 				callingStatus,
-				callAgainDate: callAgainDate
-					? moment(callAgainDate).format('DD/MM/YYYY')
-					: null,
+				// set data to null if there is no date
+				callAgainDate: callAgainDate ? new Date(callAgainDate) : null,
 			}).then(data => {
 				if (data.success === false) {
 					setErrorMessage(data.message);
@@ -58,7 +71,6 @@ const Users = () => {
 			<Table>
 				<TableHead>
 					<TableRow>
-						<TableCell align="left">Id</TableCell>
 						<TableCell align="right">Name</TableCell>
 						<TableCell align="right">Email</TableCell>
 						<TableCell align="right">Phone</TableCell>
@@ -74,7 +86,6 @@ const Users = () => {
 				<TableBody>
 					{response.map(user => (
 						<TableRow key={user._id}>
-							<TableCell>{user._id}</TableCell>
 							<TableCell align="right">{user.name}</TableCell>
 							<TableCell align="right">{user.email}</TableCell>
 							<TableCell align="right">{user.phone}</TableCell>
@@ -82,8 +93,11 @@ const Users = () => {
 								{user.callingStatus}
 							</TableCell>
 							<TableCell align="right">
+								{/* format date */}
 								{user.callAgainDate
-									? user.callAgainDate
+									? moment(user.callAgainDate).format(
+											'DD/MM/YYYY'
+									  )
 									: '----'}
 							</TableCell>
 							<TableCell align="right">
