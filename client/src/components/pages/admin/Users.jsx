@@ -20,9 +20,11 @@ const Users = () => {
 	const [response, setResponse] = useState([]);
 	const [callingStatus, setCallingStatus] = useState('');
 	const [callAgainDate, setCallAgainDate] = useState('');
+	const [talkProgress, setTalkProgress] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
 	const [openError, setOpenError] = useState(false);
 
+    console.log(talkProgress);
 	useEffect(() => {
 		get('/users/get-all').then(data => {
 			// sort data.data by date
@@ -51,6 +53,7 @@ const Users = () => {
 				callingStatus,
 				// set data to null if there is no date
 				callAgainDate: callAgainDate ? new Date(callAgainDate) : null,
+				talkProgress,
 			}).then(data => {
 				if (data.success === false) {
 					setErrorMessage(data.message);
@@ -80,8 +83,8 @@ const Users = () => {
 						<TableCell align="center">Update Call Status</TableCell>
 						<TableCell align="center">
 							Update Call Again Date
-                        </TableCell>
-                        <TableCell align="center">Talk Progress</TableCell>
+						</TableCell>
+						<TableCell align="center">Talk Progress</TableCell>
 						<TableCell align="center">Update</TableCell>
 					</TableRow>
 				</TableHead>
@@ -134,8 +137,17 @@ const Users = () => {
 										setCallAgainDate(e.target.value)
 									}
 								/>
-                            </TableCell>
-                            <TableCell align="center"><TextField multiline label='Kya Baat Hai' value={user.talkProgress }/></TableCell>
+							</TableCell>
+							<TableCell align="center">
+								<TextField
+									multiline
+									label="Kya Baat Hai"
+									value={user.talkProgress}
+									onChange={e =>
+										setTalkProgress(e.target.value)
+									}
+								/>
+							</TableCell>
 							<TableCell align="center">
 								<form onSubmit={submitHandler(user._id)}>
 									<button type="submit">
