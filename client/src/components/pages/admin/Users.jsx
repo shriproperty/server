@@ -71,28 +71,28 @@ const Users = () => {
 			<Table>
 				<TableHead>
 					<TableRow>
-						<TableCell align="right">Name</TableCell>
-						<TableCell align="right">Email</TableCell>
-						<TableCell align="right">Phone</TableCell>
-						<TableCell align="right">Calling Status</TableCell>
-						<TableCell align="right">Call Again Date</TableCell>
-						<TableCell align="right">Update Call Status</TableCell>
-						<TableCell align="right">
+						<TableCell align="center">Name</TableCell>
+						<TableCell align="center">Email</TableCell>
+						<TableCell align="center">Phone</TableCell>
+						<TableCell align="center">Calling Status</TableCell>
+						<TableCell align="center">Call Again Date</TableCell>
+						<TableCell align="center">Update Call Status</TableCell>
+						<TableCell align="center">
 							Update Call Again Date
 						</TableCell>
-						<TableCell align="right">Update</TableCell>
+						<TableCell align="center">Update</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
 					{response.map(user => (
 						<TableRow key={user._id}>
-							<TableCell align="right">{user.name}</TableCell>
-							<TableCell align="right">{user.email}</TableCell>
-							<TableCell align="right">{user.phone}</TableCell>
-							<TableCell align="right">
+							<TableCell align="center">{user.name}</TableCell>
+							<TableCell align="center">{user.email}</TableCell>
+							<TableCell align="center">{user.phone}</TableCell>
+							<TableCell align="center">
 								{user.callingStatus}
 							</TableCell>
-							<TableCell align="right">
+							<TableCell align="center">
 								{/* format date */}
 								{user.callAgainDate
 									? moment(user.callAgainDate).format(
@@ -100,7 +100,7 @@ const Users = () => {
 									  )
 									: '----'}
 							</TableCell>
-							<TableCell align="right">
+							<TableCell align="center">
 								<FormControl sx={{ m: 1, minWidth: 80 }}>
 									<InputLabel>Update Call Status</InputLabel>
 									<Select
@@ -125,7 +125,7 @@ const Users = () => {
 								</FormControl>
 							</TableCell>
 
-							<TableCell>
+							<TableCell align="center">
 								<input
 									type="date"
 									onChange={e =>
@@ -133,7 +133,7 @@ const Users = () => {
 									}
 								/>
 							</TableCell>
-							<TableCell align="right">
+							<TableCell align="center">
 								<form onSubmit={submitHandler(user._id)}>
 									<button type="submit">
 										<DoneIcon />
