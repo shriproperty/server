@@ -24,7 +24,6 @@ const Users = () => {
 	const [errorMessage, setErrorMessage] = useState('');
 	const [openError, setOpenError] = useState(false);
 
-    console.log(talkProgress);
 	useEffect(() => {
 		get('/users/get-all').then(data => {
 			// sort data.data by date
@@ -51,13 +50,13 @@ const Users = () => {
 
 			patch(`/users/update-calling-status/${id}`, {
 				callingStatus,
+				talkProgress,
 				// set data to null if there is no date
 				callAgainDate: callAgainDate ? new Date(callAgainDate) : null,
-				talkProgress,
 			}).then(data => {
 				if (data.success === false) {
 					setErrorMessage(data.message);
-					setOpenError(true);
+					return setOpenError(true);
 				}
 
 				window.location.reload();
@@ -80,11 +79,14 @@ const Users = () => {
 						<TableCell align="center">Phone</TableCell>
 						<TableCell align="center">Calling Status</TableCell>
 						<TableCell align="center">Call Again Date</TableCell>
+						<TableCell align="center">Talk Progress</TableCell>
 						<TableCell align="center">Update Call Status</TableCell>
 						<TableCell align="center">
 							Update Call Again Date
 						</TableCell>
-						<TableCell align="center">Talk Progress</TableCell>
+						<TableCell align="center">
+							Update Talk Progress
+						</TableCell>
 						<TableCell align="center">Update</TableCell>
 					</TableRow>
 				</TableHead>
@@ -104,6 +106,9 @@ const Users = () => {
 											'DD/MM/YYYY'
 									  )
 									: '----'}
+							</TableCell>
+							<TableCell align="right" width="20%">
+								{user.talkProgress}
 							</TableCell>
 							<TableCell align="center">
 								<FormControl sx={{ m: 1, minWidth: 80 }}>
@@ -141,8 +146,8 @@ const Users = () => {
 							<TableCell align="center">
 								<TextField
 									multiline
-									label="Kya Baat Hai"
-									value={user.talkProgress}
+									label="Talk Progress"
+									value={talkProgress}
 									onChange={e =>
 										setTalkProgress(e.target.value)
 									}
