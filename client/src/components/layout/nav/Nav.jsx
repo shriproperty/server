@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SearchIcon from '@mui/icons-material/Search';
+import Search from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import './nav.scss';
@@ -26,9 +26,9 @@ const Nav = () => {
 						<Link to="/contact-us">Contact Us</Link>
 					</li>
 
-					<li>
+					<li className="nav__search">
 						<input type="text" placeholder="Search" />
-						<SearchIcon />
+						<Search />
 					</li>
 				</ul>
 				<ul className="nav__btns">
