@@ -1,0 +1,99 @@
+@import '../../../styles/variable.scss';
+@import '../../../styles/mixins.scss';
+
+.nav {
+	@include section-padding;
+
+	display: flex;
+	background-color: #fcfcfc;
+	box-shadow: 0 10px 10px 4px #eee;
+	align-items: center;
+	justify-content: space-between;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+
+	/* ---------------------------------- logo ---------------------------------- */
+	&__logo {
+		width: 8rem;
+		height: 8rem;
+
+		img {
+			height: 100%;
+			width: 100%;
+		}
+	}
+
+	/* ---------------------------------- list ---------------------------------- */
+
+	&__list {
+		display: flex;
+		list-style: none;
+		align-items: center;
+		justify-content: space-between;
+		width: 25%;
+
+		li {
+			font-size: 2rem;
+
+			a {
+				text-decoration: none;
+				color: $color-black;
+				transition: $transition;
+				position: relative;
+
+				&::after {
+					content: '';
+					transition: $transition;
+					position: absolute;
+					bottom: 0;
+					width: 0;
+					left: 0;
+					height: 2px;
+					background-color: $color-primary;
+				}
+
+				&:hover {
+					color: $color-primary;
+					font-weight: 600;
+
+					&::after {
+						width: 100%;
+					}
+				}
+			}
+
+			input {
+				display: none;
+			}
+
+			svg {
+				width: 2rem;
+				height: 2rem;
+				margin-top: 0.6rem;
+				transition: $transition;
+
+				&:hover {
+					fill: $color-primary;
+				}
+			}
+		}
+	}
+
+	/* --------------------------------- buttons -------------------------------- */
+	&__btns {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		svg {
+			width: 3rem;
+			height: 3rem;
+			margin-right: 2rem;
+			fill: $color-primary;
+
+			&:hover {
+				fill: $color-primary-dark;
+			}
+		}
+	}
+}
