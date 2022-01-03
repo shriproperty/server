@@ -27,9 +27,9 @@ const Users = () => {
 	const [openError, setOpenError] = useState(false);
 
 	useEffect(() => {
-		get('/users/get-all').then(data => {
+		get('/users/all').then(data => {
 			// sort data.data by date
-			data.data.sort((a, b) => {
+			data.data.sort((a, b) => {	
 				return new Date(a.callAgainDate) - new Date(b.callAgainDate);
 			});
 

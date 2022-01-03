@@ -25,4 +25,6 @@ contactRouter.post(
 	contactController.createNew
 );
 
+contactRouter.get('/contact/all', contactController.getAll);
+
 export default contactRouter;

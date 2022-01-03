@@ -62,3 +62,22 @@ export const createNew = async (req, res) => {
 		});
 	}
 };
+
+/* ---------------------------- get all contacts ---------------------------- */
+export const getAll = async (req, res) => {
+	try {
+		const contacts = await Contact.find({});
+
+		res.status(200).json({
+			success: true,
+			message: 'All contacts fetched successfully',
+			data: contacts,
+		});
+	} catch (err) {
+		res.status(500).json({
+			success: false,
+			message: 'Internal Server Error',
+			data: {},
+		});
+	}
+};
