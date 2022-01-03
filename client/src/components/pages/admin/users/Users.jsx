@@ -11,10 +11,12 @@ import FormControl from '@mui/material/FormControl';
 import DoneIcon from '@mui/icons-material/Done';
 import moment from 'moment';
 
-import { AError } from '../../util/Alert';
-import get from '../../../api/get';
-import patch from '../../../api/patch';
+import { AError } from '../../../util/Alert';
+import get from '../../../../api/get';
+import patch from '../../../../api/patch';
 import { TextField } from '@mui/material';
+
+import './users.scss';
 
 const Users = () => {
 	const [response, setResponse] = useState([]);
@@ -71,35 +73,72 @@ const Users = () => {
 				open={openError}
 				setOpen={setOpenError}
 			/>
-			<Table>
+			<Table className="user-table">
 				<TableHead>
 					<TableRow>
-						<TableCell align="center">Name</TableCell>
-						<TableCell align="center">Email</TableCell>
-						<TableCell align="center">Phone</TableCell>
-						<TableCell align="center">Calling Status</TableCell>
-						<TableCell align="center">Call Again Date</TableCell>
-						<TableCell align="center">Talk Progress</TableCell>
-						<TableCell align="center">Update Call Status</TableCell>
-						<TableCell align="center">
+						<TableCell className="user-table__cell" align="right">
+							Name
+						</TableCell>
+						<TableCell className="user-table__cell" align="right">
+							Email
+						</TableCell>
+						<TableCell className="user-table__cell" align="right">
+							Phone
+						</TableCell>
+						<TableCell className="user-table__cell" align="right">
+							Calling Status
+						</TableCell>
+						<TableCell className="user-table__cell" align="right">
+							Call Again Date
+						</TableCell>
+						<TableCell className="user-table__cell" align="right">
+							Talk Progress
+						</TableCell>
+						<TableCell className="user-table__cell" align="right">
+							Update Call Status
+						</TableCell>
+						<TableCell className="user-table__cell" align="right">
 							Update Call Again Date
 						</TableCell>
-						<TableCell align="center">
+						<TableCell className="user-table__cell" align="right">
 							Update Talk Progress
 						</TableCell>
-						<TableCell align="center">Update</TableCell>
+						<TableCell className="user-table__cell" align="right">
+							Update
+						</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
 					{response.map(user => (
 						<TableRow key={user._id}>
-							<TableCell align="center">{user.name}</TableCell>
-							<TableCell align="center">{user.email}</TableCell>
-							<TableCell align="center">{user.phone}</TableCell>
-							<TableCell align="center">
+							<TableCell
+								className="user-table__cell"
+								align="right"
+							>
+								{user.name}
+							</TableCell>
+							<TableCell
+								className="user-table__cell"
+								align="right"
+							>
+								{user.email}
+							</TableCell>
+							<TableCell
+								className="user-table__cell"
+								align="right"
+							>
+								{user.phone}
+							</TableCell>
+							<TableCell
+								className="user-table__cell"
+								align="right"
+							>
 								{user.callingStatus}
 							</TableCell>
-							<TableCell align="center">
+							<TableCell
+								className="user-table__cell"
+								align="right"
+							>
 								{/* format date */}
 								{user.callAgainDate
 									? moment(user.callAgainDate).format(
@@ -107,10 +146,17 @@ const Users = () => {
 									  )
 									: '----'}
 							</TableCell>
-							<TableCell align="right" width="20%">
+							<TableCell
+								className="user-table__cell"
+								align="right"
+								width="20%"
+							>
 								{user.talkProgress}
 							</TableCell>
-							<TableCell align="center">
+							<TableCell
+								className="user-table__cell"
+								align="right"
+							>
 								<FormControl sx={{ m: 1, minWidth: 80 }}>
 									<InputLabel>Update Call Status</InputLabel>
 									<Select
@@ -135,7 +181,10 @@ const Users = () => {
 								</FormControl>
 							</TableCell>
 
-							<TableCell align="center">
+							<TableCell
+								align="right"
+								className="user-table__cell"
+							>
 								<input
 									type="date"
 									onChange={e =>
@@ -143,7 +192,10 @@ const Users = () => {
 									}
 								/>
 							</TableCell>
-							<TableCell align="center">
+							<TableCell
+								className="user-table__cell"
+								align="right"
+							>
 								<TextField
 									multiline
 									label="Talk Progress"
@@ -153,7 +205,10 @@ const Users = () => {
 									}
 								/>
 							</TableCell>
-							<TableCell align="center">
+							<TableCell
+								className="user-table__cell"
+								align="right"
+							>
 								<form onSubmit={submitHandler(user._id)}>
 									<button type="submit">
 										<DoneIcon />

@@ -13,12 +13,23 @@ const App = () => {
 		<>
 			<CssBaseline />
 			<Router>
-				<Nav />
 				<Routes>
-					<Route path="/" element={<Home />} />
 					<Route path="/admin/users" element={<Users />} />
+					<Route path="*" element={<UserRoutes />} />
 				</Routes>
 			</Router>
+		</>
+	);
+};
+
+// created a diffreent router to hide navbar in admin routes
+const UserRoutes = () => {
+	return (
+		<>
+			<Nav />
+			<Routes>
+				<Route path="/" element={<Home />} />
+			</Routes>
 		</>
 	);
 };

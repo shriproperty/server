@@ -41,7 +41,8 @@ export const updateUserCallingStatus = async (req, res) => {
 		) {
 			return res.status(400).json({
 				success: false,
-				message: 'Date, Talk Progress is required for Call Again',
+				message:
+					'"callAgainDate", "talkProgress" are required for "Call Again"',
 				data: {},
 			});
 		}
@@ -51,7 +52,7 @@ export const updateUserCallingStatus = async (req, res) => {
 			return res.status(400).json({
 				success: false,
 				message:
-					'You can only assign date,Talk Progress when calling status is "Call Again"',
+					'You can only assign "callAgainDate", "talkProgress" when calling status is "Call Again"',
 				data: {},
 			});
 		}
@@ -69,11 +70,15 @@ export const updateUserCallingStatus = async (req, res) => {
 		}
 
 		// update user calling status and date
-		const updatedUser = await User.findByIdAndUpdate(id, {
-			callingStatus,
-			callAgainDate,
-			talkProgress,
-		});
+		const updatedUser = await User.findByIdAndUpdate(
+			id,
+			{
+				callingStatus,
+				callAgainDate,
+				talkProgress,
+			},
+			{ new: true }
+		);
 
 		res.status(200).json({
 			success: true,
@@ -81,9 +86,9 @@ export const updateUserCallingStatus = async (req, res) => {
 			data: updatedUser,
 		});
 	} catch (err) {
-		res.status(400).json({
+		res.status(404).json({
 			success: false,
-			message: 'Invalid Id',
+			message: 'User not found invalid id',
 			data: {},
 		});
 	}

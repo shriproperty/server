@@ -147,14 +147,6 @@ _Users retrieved successfully `200`_
 	"message": "Users retrieved successfully",
 	"data": [
 		{
-			"_id": "61c8767d57d7dc48b2d92b8b",
-			"name": "falgun",
-			"email": "falgunchughh@gmail.com",
-			"phone": 987654321,
-			"password": "$2b$10$5aKykshzToBm/heVVeW4ZerKcmzYCMYJINLMJvSfxCl9YSFmaAyUq",
-			"__v": 0
-		},
-		{
 			"_id": "61cc6543b370fa8fd782b5dd",
 			"name": "ayush",
 			"email": "ayushchugh2006@gmail.com",
@@ -163,5 +155,61 @@ _Users retrieved successfully `200`_
 			"__v": 0
 		}
 	]
+}
+```
+
+### Update calling status
+
+```http
+PATCH: /api/users/update-calling-status/:id
+```
+
+**Body**
+
+```json
+{
+	"callingStatus": "Call Again",
+	"callAgainDate": "2022-01-18T00:00:00.000Z",
+	"talkProgress": "some thing"
+}
+```
+
+NOTE:
+
+-   `callAgainDate` and `talkProgress` can only be set when `callingStatus` is `Call Again`
+-   if `callingStatus` is not `Call Again` then `callAgainDate` and `talkProgress` should be null
+-   `callingStatus` can only be one of the following
+    -   `Pending`
+    -   `Done`
+    -   `Rejected`
+    -   `Call Again`
+
+**Response:**
+
+| status code | message                                                                                 | reason                                                                                                   |
+| :---------- | :-------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------- |
+| `200`       | User updated successfully                                                               | request was successful                                                                                   |
+| `400`       | Please fill all fields                                                                  | some fields are missing                                                                                  |
+| `400`       | `callAgainDate`, `talkProgress` are required for `Call Again`                           | some thing from `callAginDate` or `talkProgress` are missing but `callStatus` is set to `Call Again`     |
+| `400`       | You can only assign `callAgainDate`, `talkProgress` when calling status is `Call Again` | some thing from `callAginDate` or `talkProgress` are present but `callStatus` is not set to `Call Again` |
+| `404`       | 'User not found                                                                         | User does not exist invalid id                                                                           |
+
+_User updated successfully `200`_
+
+```json
+{
+	"success": true,
+	"message": "User updated successfully",
+	"data": {
+		"_id": "61d2e43382f38e0a1205bf95",
+		"name": "Ayush Chugh",
+		"email": "ayushchugh2006@gmail.com",
+		"phone": 9501857002,
+		"password": "$2b$10$fj/0CcHvVnBfOxKN6v4ySOU1dFnMCWpxgW6O4bLk4QDvQiJFVDl6W",
+		"callingStatus": "Call Again",
+		"callAgainDate": "2022-01-18T00:00:00.000Z",
+		"talkProgress": "some thing",
+		"__v": 0
+	}
 }
 ```

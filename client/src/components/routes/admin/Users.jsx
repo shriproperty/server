@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { default as UserList } from '../../pages/admin/Users';
+import { default as UserList } from '../../pages/admin/users/Users';
 
 const Users = () => {
 	return (
