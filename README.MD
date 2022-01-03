@@ -4,6 +4,8 @@ In this page
 
 -   [Signup](#signup)
 -   [Login](#login)
+-   [Get all Users](#get-all-users)
+-   [Update calling status of users](#update-calling-status)
 
 ## HTTP status codes used in this API
 
@@ -126,7 +128,7 @@ _User logged in successfully `200`:_
 
 ## Users
 
-### Get all
+### Get all Users
 
 ```http
 GET: /api/users/get-all
