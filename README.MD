@@ -131,7 +131,7 @@ _User logged in successfully `200`:_
 ### Get all Users
 
 ```http
-GET: /api/users/get-all
+GET: /api/users/all
 ```
 
 **Response:**
@@ -215,3 +215,62 @@ _User updated successfully `200`_
 	}
 }
 ```
+
+## Contacts
+
+### Get all Contacts
+
+```http
+GET: /api/contacts/all
+```
+
+**Response:**
+
+| status code | message                         | reason                 |
+| :---------- | :------------------------------ | :--------------------- |
+| `200`       | Contacts retrieved successfully | request was successful |
+| `500 `      | Internal server error           | Internal server error  |
+
+_Contacts retrieved successfully `200`_
+
+```json
+{
+	"success": true,
+	"message": "All contacts fetched successfully",
+	"data": [
+		{
+			"_id": "61d2f60377966f887e901f53",
+			"subject": "This is testing",
+			"name": "Ayush Chugh",
+			"email": "ayushchugh2006@gmail.com",
+			"phone": 9501857002,
+			"message": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum",
+			"status": "Pending",
+			"__v": 0
+		}
+	]
+}
+```
+
+### Create new contact
+
+**Body**
+
+```json
+{
+	"subject": "This is testing",
+	"name": "Ayush Chugh",
+	"email": "ayushchugh2006@gmail.com",
+	"phone": 9501857002,
+	"message": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum"
+}
+```
+
+**Response**
+
+| status code | message                                                                       | reason                              |
+| :---------- | :---------------------------------------------------------------------------- | :---------------------------------- |
+| `201`       | Contact request submitted successfully                                        | request was successful              |
+| `400`       | Please fill in all fields                                                     | any filed in body is missing        |
+| `409 `      | You have already submitted a contact request wait until it is being processed | Contact already exists in Data Base |
+| `500 `      | Internal server error                                                         | Internal server error               |
