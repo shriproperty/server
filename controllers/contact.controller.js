@@ -81,3 +81,65 @@ export const getAll = async (req, res) => {
 		});
 	}
 };
+
+/* ------------------------------ update status ----------------------------- */
+export const updateStatus = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const { status } = req.body;
+
+		// validate user input
+		if (!status) {
+			return res.status(400).json({
+				success: false,
+				message: 'Please fill all fields',
+				data: {},
+			});
+		}
+
+		// check if status is valid
+		if (
+			status !== 'Pending' &&
+			status !== 'In Progress' &&
+			status !== 'Completed'
+		) {
+			return res.status(400).json({
+				success: false,
+				message: 'Invalid status',
+				data: {},
+			});
+		}
+
+		// check if contact exists
+		const existingContact = await Contact.findById(id);
+
+		if (!existingContact) {
+			return res.status(404).json({
+				success: false,
+				message: 'Contact not found',
+				data: {},
+			});
+		}
+
+		// update contact status
+		const updatedContact = await Contact.findByIdAndUpdate(
+			id,
+			{
+				status,
+			},
+			{ new: true }
+		);
+
+		res.status(200).json({
+			success: true,
+			message: 'Contact status updated successfully',
+			data: updatedContact,
+		});
+	} catch (err) {
+		res.status(404).json({
+			success: false,
+			message: 'Contact not found Invalid Id',
+			data: {},
+		});
+	}
+};

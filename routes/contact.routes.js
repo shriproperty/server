@@ -26,5 +26,9 @@ contactRouter.post(
 );
 
 contactRouter.get('/contact/all', contactController.getAll);
+contactRouter.patch(
+	'/contact/update-status/:id',
+	contactController.updateStatus
+);
 
 export default contactRouter;
