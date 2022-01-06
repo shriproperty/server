@@ -42,3 +42,12 @@ body {
 	padding: 0 !important;
 	font-family: 'Nunito', sans-serif !important;
 }
+
+
+/* ----------------------------- global variables ---------------------------- */
+.underline{
+    display: inline;
+    text-decoration: none;
+    color: white;
+    background-image: linear-gradient(to top, #eee 4%, transparent 4%);
+}

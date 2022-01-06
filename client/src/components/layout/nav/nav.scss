@@ -14,8 +14,8 @@
 
 	/* ---------------------------------- logo ---------------------------------- */
 	&__logo {
-		max-width: 6.5rem;
-		height: 6.5rem;
+		max-width: 5rem;
+		height: 5rem;
 
 		img {
 			height: 100%;
@@ -33,8 +33,8 @@
 		position: relative;
 
 		li {
-			font-size: 2rem;
-			margin: 0 2rem;
+			font-size: 1.5rem;
+			margin: 0 3rem;
 
 			a {
 				text-decoration: none;
@@ -84,7 +84,7 @@
 			border: none;
 			outline: none;
 			border-radius: 0.5rem;
-			font-size: 1.5rem;
+			font-size: .8rem;
 			transition: $transition;
 			color: $color-white;
 
@@ -120,9 +120,9 @@
 		justify-content: space-between;
 
 		svg {
-			width: 3.5rem;
-			height: 3.5rem;
-			margin-right: 2rem;
+			width: 3rem;
+			height: 3rem;
+			margin-right: 3rem;
 			fill: $color-primary;
 
 			&:hover {
@@ -131,3 +131,4 @@
 		}
 	}
 }
+

@@ -29,7 +29,7 @@ const Users = () => {
 	useEffect(() => {
 		get('/users/all').then(data => {
 			// sort data.data by date
-			data.data.sort((a, b) => {	
+			data.data.sort((a, b) => {
 				return new Date(a.callAgainDate) - new Date(b.callAgainDate);
 			});
 

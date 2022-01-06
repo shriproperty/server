@@ -1,0 +1,33 @@
+section {
+	background-image: url(../../../../../public/images/background/hero.jpeg);
+	height: 90vh;
+	width: 100%;
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.hero {
+    transform: translate(2%, 10%);
+	padding: 2rem;
+    color: white;
+
+    &__main {
+		font-size: 5rem;
+        margin-bottom: 1rem;
+	}
+	&__sec {
+		font-size: 2rem;
+		width: 55%;
+	}
+    &__explore-btn{
+        margin-top: 2.5rem;
+        margin-left: 1.5em;
+    }
+    &__btn-font{
+        padding: 1.3rem 3rem !important;
+        font-size: 1.2rem !important;
+    }
+}

@@ -13,7 +13,7 @@ const Nav = () => {
 				<div className="nav__logo">
 					<img src="/images/logo/logo.png" alt="Logo" />
 				</div>
-				<ul className="nav__list">
+                <ul className="nav__list">
 					<li>
 						<Link to="/">Home</Link>
 					</li>
