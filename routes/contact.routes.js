@@ -5,7 +5,7 @@ import * as contactController from '../controllers/contact.controller.js';
 const contactRouter = Router();
 
 contactRouter.post(
-	'/contact/add',
+	'/contacts/add',
 	// validate user input using express-validator
 	[
 		check('subject', 'Subject cannot exceed 100 chracters')
@@ -25,12 +25,13 @@ contactRouter.post(
 	contactController.createNew
 );
 
-contactRouter.get('/contact/all', contactController.getAll);
+contactRouter.get('/contacts/all', contactController.getAll);
 
 contactRouter.patch(
-	'/contact/update-status/:id',
+	'/contacts/update-status/:id',
 	contactController.updateStatus
 );
 
-contactRouter.delete('/contact/delete/:id', contactController.deleteContact);
+contactRouter.delete('/contacts/delete/:id', contactController.deleteContact);
+
 export default contactRouter;

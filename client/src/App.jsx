@@ -5,6 +5,7 @@ import { CssBaseline } from '@mui/material';
 import Nav from './components/layout/nav/Nav';
 import Home from './components/routes/Home';
 import Users from './components/routes/admin/Users';
+import Contacts from './components/routes/admin/Contacts';
 
 import './app.scss';
 
@@ -15,6 +16,7 @@ const App = () => {
 			<Router>
 				<Routes>
 					<Route path="/admin/users" element={<Users />} />
+					<Route path="/admin/contacts" element={<Contacts />} />
 					<Route path="*" element={<UserRoutes />} />
 				</Routes>
 			</Router>

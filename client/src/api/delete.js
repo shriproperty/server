@@ -1,10 +1,11 @@
 /**
- * make get request
+ * make delete request
  * @param {string} url url from requrest is to be made
  * @return {Promise<object>} response from the server
  */
-const getRequest = async url => {
+const deleteRequest = async url => {
 	const res = await fetch(url, {
+		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json',
 			Accept: 'application/json',
@@ -15,4 +16,4 @@ const getRequest = async url => {
 	return res.json();
 };
 
-export default getRequest;
+export default deleteRequest;

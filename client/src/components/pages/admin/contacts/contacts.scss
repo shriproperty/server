@@ -1,0 +1,9 @@
+.contact-table {
+	&__cell {
+		font-size: 1.4rem !important;
+
+		label {
+			font-size: inherit !important;
+		}
+	}
+}
