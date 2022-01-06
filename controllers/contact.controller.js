@@ -110,17 +110,6 @@ export const updateStatus = async (req, res) => {
 			});
 		}
 
-		// check if contact exists
-		const existingContact = await Contact.findById(id);
-
-		if (!existingContact) {
-			return res.status(404).json({
-				success: false,
-				message: 'Contact not found',
-				data: {},
-			});
-		}
-
 		// update contact status
 		const updatedContact = await Contact.findByIdAndUpdate(
 			id,
@@ -134,6 +123,27 @@ export const updateStatus = async (req, res) => {
 			success: true,
 			message: 'Contact status updated successfully',
 			data: updatedContact,
+		});
+	} catch (err) {
+		res.status(404).json({
+			success: false,
+			message: 'Contact not found Invalid Id',
+			data: {},
+		});
+	}
+};
+
+/* ----------------------------- delete contact ---------------------------- */
+export const deleteContact = async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const deletedContact = await Contact.findByIdAndDelete(id);
+
+		res.status(200).json({
+			success: true,
+			message: 'Contact deleted successfully',
+			data: deletedContact,
 		});
 	} catch (err) {
 		res.status(404).json({

@@ -57,18 +57,6 @@ export const updateUserCallingStatus = async (req, res) => {
 			});
 		}
 
-		// get user from DB
-		const user = await User.findById(id);
-
-		// check if user exists
-		if (!user) {
-			return res.status(404).json({
-				success: false,
-				message: 'User not found',
-				data: {},
-			});
-		}
-
 		// update user calling status and date
 		const updatedUser = await User.findByIdAndUpdate(
 			id,
