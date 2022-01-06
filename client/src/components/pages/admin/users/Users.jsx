@@ -12,8 +12,8 @@ import DoneIcon from '@mui/icons-material/Done';
 import moment from 'moment';
 
 import { AError } from '../../../util/Alert';
-import get from '../../../../api/get';
-import patch from '../../../../api/patch';
+import getRequest from '../../../../api/get';
+import patchRequest from '../../../../api/patch';
 import { TextField } from '@mui/material';
 
 import './users.scss';
@@ -27,7 +27,7 @@ const Users = () => {
 	const [openError, setOpenError] = useState(false);
 
 	useEffect(() => {
-		get('/users/all').then(data => {
+		getRequest('/users/all').then(data => {
 			// sort data.data by date
 			data.data.sort((a, b) => {	
 				return new Date(a.callAgainDate) - new Date(b.callAgainDate);
@@ -50,7 +50,7 @@ const Users = () => {
 		return e => {
 			e.preventDefault();
 
-			patch(`/users/update-calling-status/${id}`, {
+			patchRequest(`/users/update-calling-status/${id}`, {
 				callingStatus,
 				talkProgress,
 				// set data to null if there is no date

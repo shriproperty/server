@@ -4,7 +4,7 @@
  * @param {object} body body to send
  * @return {Promise<object>} response from the server
  */
-const patch = async (url, body) => {
+const patchRequest = async (url, body) => {
 	const res = await fetch(url, {
 		method: 'PATCH',
 		headers: {
@@ -18,4 +18,4 @@ const patch = async (url, body) => {
 	return res.json();
 };
 
-export default patch;
+export default patchRequest;
