@@ -93,6 +93,18 @@ section {
 			}
 		}
 	}
+    &__btn{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 4rem;
+        padding: 2rem;
+       
+        &-listing{
+            padding: 1.5rem 3rem !important;
+            font-size: 1.2rem !important;
+        }
+    }
 }
 
 .horizontal-line {

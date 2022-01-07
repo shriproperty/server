@@ -31,3 +31,11 @@
         font-size: 1.2rem !important;
 	}
 }
+
+
+.underline{
+    display: inline;
+    text-decoration: none;
+    color: white;
+    background-image: linear-gradient(to top, #eee 4%, transparent 4%);
+}

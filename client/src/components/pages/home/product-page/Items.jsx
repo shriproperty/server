@@ -226,12 +226,9 @@ const Items = () => {
 				</div>
 			</div>
 			{/* More Listing Button */}
-			<Link to="#">
-				<BPrimary
-					title="More Listings"
-					className="btn-primary btn"
-					type="submit"
-				/>
+
+			<Link to="#" className="Items__btn">
+				<BPrimary title="More Listings" className="Items__btn-listing"  type="submit" />
 			</Link>
 		</section>
 	);
