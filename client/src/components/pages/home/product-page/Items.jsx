@@ -1,5 +1,8 @@
 import React from 'react';
 import './Items.scss';
+import { Link } from 'react-router-dom';
+
+import {BPrimary} from '../../../util/button/Button'
 
 import HotelIcon from '@mui/icons-material/Hotel';
 import ShowerIcon from '@mui/icons-material/Shower';
@@ -222,6 +225,14 @@ const Items = () => {
 					</div>
 				</div>
 			</div>
+			{/* More Listing Button */}
+			<Link to="#">
+				<BPrimary
+					title="More Listings"
+					className="btn-primary btn"
+					type="submit"
+				/>
+			</Link>
 		</section>
 	);
 };

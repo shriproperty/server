@@ -3,30 +3,31 @@
 	height: 100vh;
 	width: 100%;
 	background-size: cover;
-    background-position: top;
+	background-position: top;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
 
 .hero {
-    transform: translate(0, 10%);
-    color: white;
+	transform: translate(0, 10%);
+	color: white;
 
-    &__main {
+	&__main {
 		font-size: 5rem;
-        margin-bottom: 1rem;
+		margin-bottom: 1rem;
 	}
 	&__sub {
 		font-size: 2rem;
 		width: 55%;
 	}
-    &__explore-btn{
-        margin-top: 2.5rem;
-        margin-left: 1.5em;
+    a{
+        color: white;
+        text-decoration: none;
     }
-    &__btn-font{
+	&__explore-btn {
+        margin-top: 2.5rem !important;
         padding: 1.3rem 3rem !important;
         font-size: 1.2rem !important;
-    }
+	}
 }

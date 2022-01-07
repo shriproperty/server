@@ -1,14 +1,14 @@
 import React from 'react';
 import './Hero.scss';
-
+import { Link } from 'react-router-dom';
 import {BPrimary} from '../../../util/button/Button';
 
 const Hero = () => {
 	return (
-		<section className='hero-img'>
+		<section className="hero-img">
 			<div className="hero">
 				<div className="hero__main">
-					Live in your <span className='underline'>Dreams</span>
+					Live in your <span className="underline">Dreams</span>
 				</div>
 				<div className="hero__sub">
 					<h3>
@@ -17,13 +17,13 @@ const Hero = () => {
 						process, and extraordinary services.
 					</h3>
 				</div>
-				<div className="hero__explore-btn">
+				<Link to="#">
 					<BPrimary
 						title="Explore"
-						className="btn-primary hero__btn-font"
+						className="hero__explore-btn"
 						type="submit"
 					/>
-				</div>
+				</Link>
 			</div>
 		</section>
 	);
