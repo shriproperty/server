@@ -1,0 +1,100 @@
+@import '../../../../styles/variable.scss';
+@import '../../../../styles/mixins.scss';
+
+section {
+	background-color: #f7f7f7;
+	@include section-padding;
+}
+
+.Items {
+	&__content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 5rem;
+		color: $color-secondary;
+		&-main {
+			font-size: 3rem;
+			font-weight: 700;
+		}
+		&-sub {
+			font-size: 1.5rem;
+			margin: 1rem;
+			width: 50%;
+			text-align: center;
+		}
+	}
+
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+	grid-gap: 2rem;
+
+	&__list {
+		color: $color-black;
+		background-color: $color-white;
+		border-radius: 5px;
+		&-image {
+			background-image: url(../../../../../public/images/background/interior.jpg);
+			background-size: cover;
+			background-position: center;
+			height: 200px;
+			width: 100%;
+			border-radius: 2.5px;
+		}
+		&-title {
+			font-size: 2.5rem !important;
+			font-weight: 700;
+			margin: 1rem;
+		}
+		&-price {
+			font-size: 1.5rem;
+			margin: 1rem;
+			color: $color-primary;
+		}
+		&-addr {
+			font-size: 1.5rem !important;
+			margin: 2rem 1rem 1rem 1rem;
+		}
+		&-iconbar {
+			margin: 1rem;
+			display: flex;
+			&-icon {
+				font-size: 1.5rem;
+				color: $color-secondary;
+				margin: 0.5rem;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				&:hover {
+					color: $color-primary;
+				}
+				h4 {
+					font-size: 1.5rem;
+					margin: 1rem;
+				}
+			}
+		}
+		&-about {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			margin: 1rem 2rem 2rem 1rem;
+			&-image {
+				background-image: url(../../../../../public/images/background/interior.jpg);
+				background-size: cover;
+				background-position: center;
+				width: 5rem;
+				height: 5rem;
+			}
+			&-title {
+				margin: 1rem;
+				font-size: 1.5rem;
+				font-weight: 700;
+			}
+		}
+	}
+}
+
+.horizontal-line {
+	border-bottom: 1px solid #eee;
+}

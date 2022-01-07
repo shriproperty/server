@@ -5,12 +5,12 @@ import {BPrimary} from '../../../util/button/Button';
 
 const Hero = () => {
 	return (
-		<section>
+		<section className='hero-img'>
 			<div className="hero">
 				<div className="hero__main">
 					Live in your <span className='underline'>Dreams</span>
 				</div>
-				<div className="hero__sec">
+				<div className="hero__sub">
 					<h3>
 						We are recognized for exceeding client expectations and
 						delivering great results through dedication, ease of

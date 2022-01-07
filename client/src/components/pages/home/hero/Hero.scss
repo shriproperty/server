@@ -1,24 +1,23 @@
-section {
+.hero-img {
 	background-image: url(../../../../../public/images/background/hero.jpeg);
-	height: 90vh;
+	height: 100vh;
 	width: 100%;
 	background-size: cover;
-	background-position: center;
+    background-position: top;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
 
 .hero {
-    transform: translate(2%, 10%);
-	padding: 2rem;
+    transform: translate(0, 10%);
     color: white;
 
     &__main {
 		font-size: 5rem;
         margin-bottom: 1rem;
 	}
-	&__sec {
+	&__sub {
 		font-size: 2rem;
 		width: 55%;
 	}
