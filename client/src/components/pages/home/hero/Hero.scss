@@ -3,14 +3,14 @@
 	height: 100vh;
 	width: 100%;
 	background-size: cover;
-	background-position: top;
+	background-position: center;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
 
 .hero {
-	transform: translate(0, 10%);
+	transform: translate(0, 13%);
 	color: white;
 
 	&__main {

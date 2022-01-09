@@ -16,63 +16,75 @@ const Category = () => {
 			</div>
 			<div className="category__items">
 				<Link to="/" className="list-1">
-					<div className="category__items-img">
-						<h2 className="category__items-head">Apartments</h2>
-						<BPrimary
-							title="2 Listings"
-							className="category__items-btn"
-							type="submit"
-						/>
+					<div className="category__items-img img-1">
+						<div className="cover">
+							<h2 className="category__items-head">Apartments</h2>
+							<BPrimary
+								title="2 Listings"
+								className="category__items-btn"
+								type="submit"
+							/>
+						</div>
 					</div>
 				</Link>
 				<Link to="/" className="list-2">
-					<div className="category__items-img">
-						<h2 className="category__items-head">Condos</h2>
-						<BPrimary
-							title="6 Listings"
-							className="category__items-btn"
-							type="submit"
-						/>
+					<div className="category__items-img img-2">
+						<div className="cover">
+							<h2 className="category__items-head">Condos</h2>
+							<BPrimary
+								title="6 Listings"
+								className="category__items-btn"
+								type="submit"
+							/>
+						</div>
 					</div>
 				</Link>
 				<Link to="/" className="list-3">
-					<div className="category__items-img">
-						<h2 className="category__items-head">Kothi</h2>
-						<BPrimary
-							title="10 Listings"
-							className="category__items-btn"
-							type="submit"
-						/>
+					<div className="category__items-img img-3">
+						<div className="cover">
+							<h2 className="category__items-head">Kothi</h2>
+							<BPrimary
+								title="10 Listings"
+								className="category__items-btn"
+								type="submit"
+							/>
+						</div>
 					</div>
 				</Link>
 				<Link to="/" className="list-4">
-					<div className="category__items-img">
-						<h2 className="category__items-head">Land</h2>
-						<BPrimary
-							title="6 Listings"
-							className="category__items-btn"
-							type="submit"
-						/>
+					<div className="category__items-img img-4">
+						<div className="cover">
+							<h2 className="category__items-head">Land</h2>
+							<BPrimary
+								title="6 Listings"
+								className="category__items-btn"
+								type="submit"
+							/>
+						</div>
 					</div>
 				</Link>
 				<Link to="/" className="list-5">
-					<div className="category__items-img">
-						<h2 className="category__items-head">Buildings</h2>
-						<BPrimary
-							title="3 Listings"
-							className="category__items-btn"
-							type="submit"
-						/>
+					<div className="category__items-img img-5">
+						<div className="cover">
+							<h2 className="category__items-head">Buildings</h2>
+							<BPrimary
+								title="3 Listings"
+								className="category__items-btn"
+								type="submit"
+							/>
+						</div>
 					</div>
 				</Link>
 				<Link to="/" className="list-6">
-					<div className="category__items-img">
-						<h2 className="category__items-head">Flats</h2>
-						<BPrimary
-							title="1 Listings"
-							className="category__items-btn"
-							type="submit"
-						/>
+					<div className="category__items-img img-6">
+						<div className="cover">
+							<h2 className="category__items-head">Flats</h2>
+							<BPrimary
+								title="1 Listings"
+								className="category__items-btn"
+								type="submit"
+							/>
+						</div>
 					</div>
 				</Link>
 			</div>

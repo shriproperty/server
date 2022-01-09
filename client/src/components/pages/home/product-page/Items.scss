@@ -14,11 +14,11 @@ section {
 		padding: 5rem;
 		color: $color-secondary;
 		&-main {
-			font-size: 3rem;
+			font-size: 4.8rem;
 			font-weight: 700;
 		}
 		&-sub {
-			font-size: 1.5rem;
+			font-size: 1.8rem;
 			margin: 1rem;
 			width: 50%;
 			text-align: center;
@@ -26,20 +26,20 @@ section {
 	}
 
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-	grid-gap: 2rem;
+	grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+	grid-gap: 3rem;
 
 	&__list {
 		color: $color-black;
 		background-color: $color-white;
-		border-radius: 5px;
+		border-radius: 7px;
 		&-image {
 			background-image: url(../../../../../public/images/background/interior.jpg);
 			background-size: cover;
 			background-position: center;
 			height: 200px;
 			width: 100%;
-			border-radius: 2.5px;
+			border-radius: 7px;
 		}
 		&-title {
 			font-size: 2.5rem !important;
@@ -59,6 +59,7 @@ section {
 			margin: 1rem;
 			display: flex;
 			&-icon {
+                
 				font-size: 1.5rem;
 				color: $color-secondary;
 				margin: 0.5rem;
@@ -72,6 +73,11 @@ section {
 					font-size: 1.5rem;
 					margin: 1rem;
 				}
+
+                svg {
+                    height: 1.8rem;
+                    width: 1.8rem;
+                }
 			}
 		}
 		&-about {
@@ -98,7 +104,8 @@ section {
         justify-content: center;
         align-items: center;
         margin-top: 2.5rem;
-        padding: 2rem;
+        margin-bottom: 2.5rem;
+        padding: 2rem 0 8rem 0;
        
         &-listing{
             padding: 1.5rem 3rem !important;
