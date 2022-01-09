@@ -15,51 +15,61 @@ const Category = () => {
 				</h3>
 			</div>
 			<div className="category__items">
-				<Link to="/">
+				<Link to="/" className="list-1">
 					<div className="category__items-img">
-						<h2 className="category__items-head">Condos</h2>
+						<h2 className="category__items-head">Apartments</h2>
 						<BPrimary
-							title="0 Listings"
+							title="2 Listings"
 							className="category__items-btn"
 							type="submit"
 						/>
 					</div>
 				</Link>
-				<Link to="/">
+				<Link to="/" className="list-2">
 					<div className="category__items-img">
 						<h2 className="category__items-head">Condos</h2>
 						<BPrimary
-							title="0 Listings"
+							title="6 Listings"
 							className="category__items-btn"
 							type="submit"
 						/>
 					</div>
 				</Link>
-				<Link to="/">
+				<Link to="/" className="list-3">
 					<div className="category__items-img">
-						<h2 className="category__items-head">Condos</h2>
+						<h2 className="category__items-head">Kothi</h2>
 						<BPrimary
-							title="0 Listings"
+							title="10 Listings"
 							className="category__items-btn"
 							type="submit"
 						/>
 					</div>
 				</Link>
-				<Link to="/">
+				<Link to="/" className="list-4">
 					<div className="category__items-img">
-						<h2 className="category__items-head">Condos</h2>
+						<h2 className="category__items-head">Land</h2>
 						<BPrimary
-							title="0 Listings"
+							title="6 Listings"
 							className="category__items-btn"
 							type="submit"
 						/>
 					</div>
 				</Link>
-				<Link to="/">
+				<Link to="/" className="list-5">
 					<div className="category__items-img">
-						<h2 className="category__items-head">Condos</h2>
+						<h2 className="category__items-head">Buildings</h2>
 						<BPrimary
-							title="0 Listings"
+							title="3 Listings"
+							className="category__items-btn"
+							type="submit"
+						/>
+					</div>
+				</Link>
+				<Link to="/" className="list-6">
+					<div className="category__items-img">
+						<h2 className="category__items-head">Flats</h2>
+						<BPrimary
+							title="1 Listings"
 							className="category__items-btn"
 							type="submit"
 						/>

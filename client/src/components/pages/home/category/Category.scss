@@ -7,7 +7,7 @@
 .category {
     background-color: white;
 	&__main {
-		font-size: 4rem;
+		font-size: 4.5rem;
 		font-weight: 700;
 		margin-top: 3rem;
         margin-bottom: 0rem;
@@ -22,7 +22,7 @@
 	}
 	&__items {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+		grid-template-columns: repeat(12, 1fr);
 		grid-gap: 2rem;
 		&-img {
 			background-image: url(../../../../../public/images/background/interior.jpg);
@@ -37,10 +37,33 @@
 		}
 		&-head {
 			font-size: 2.5rem;
-            color: white;
+            color: rgb(121, 121, 121);
+            
 		}
         &-btn{
-            opacity: 0.8;
+            opacity: 0.9;
         }
 	}
+}
+
+.list-1{
+    grid-column: 1 / 7;
+}
+.list-2{
+    grid-column:  7/10;
+}
+.list-3{
+    grid-column:  10/13;
+}
+.list-4{
+    grid-row: auto;
+    grid-column:  1 / 4;
+}
+.list-5{
+    grid-row: auto;
+    grid-column:  4 / 7;
+}
+.list-6{
+    grid-row: auto;
+    grid-column:  7 / 13;
 }
