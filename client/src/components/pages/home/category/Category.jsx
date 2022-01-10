@@ -6,7 +6,7 @@ import './Category.scss';
 const Category = () => {
 	return (
 		<section className="category">
-			<div className="container">
+			<div className="category-container">
 				<h1 className="category__main">The most attractive deals</h1>
 				<h3 className="category__sub">
 					Highlight the best of your properties by using the List

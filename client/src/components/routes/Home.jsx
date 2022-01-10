@@ -2,7 +2,7 @@ import React from 'react';
 import Hero from '../pages/home/hero/Hero';
 import Items from '../pages/home/product-page/Items';
 import Category from '../pages/home/category/Category';
-import Form from '../pages/home/sellerForm/Form';
+import AddListing from '../pages/home/Listing/List';
 
 const Home = () => {
 	return (
@@ -10,7 +10,7 @@ const Home = () => {
 			<Hero />
             <Items />
             <Category />
-            <Form />
+            <AddListing />
 		</main>
 	);
 };
