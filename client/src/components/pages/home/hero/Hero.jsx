@@ -19,7 +19,7 @@ const Hero = () => {
 				</div>
 				<Link to="#">
 					<BPrimary
-						title="Explore"
+						title="Explore more"
 						className="hero__explore-btn"
 						type="submit"
 					/>

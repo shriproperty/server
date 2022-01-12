@@ -1,0 +1,56 @@
+@import '../../../../styles/variable.scss';
+
+.form-container {
+	padding: 0rem 20rem;
+	margin: 5rem 0rem;
+	display: flex;
+	flex-direction: column;
+    text-align: center;
+}
+
+.main-head {
+    font-size: 3rem;
+    margin: 4rem 10rem;
+}
+
+.form {
+    display: flex;
+    border-radius: 10px;
+    box-shadow: 0px 10px 31px 15px #262a4c1a;
+    // padding: 5rem 10rem;
+    align-items: center;
+    justify-content: center;
+
+   
+    
+    &__elem{
+        padding: 0rem 5rem;
+        margin: 2rem 0rem;
+        input{
+            font-size: 1.5rem !important;
+        }
+        label{
+            font-size: 1.5rem !important;
+            background-color: white;
+            padding: 0rem .3rem;
+
+        }
+    }
+    
+}
+
+.btn{
+    margin: 4rem 0rem !important;
+    font-size: 1.5rem !important;
+    padding: 1.2rem 3rem !important;
+}
+
+.illustration {
+    margin: 4rem 0rem;
+    width: 30%;
+    height: 37vh;
+    background-image: url(../../../../../public/images/undraw_mailbox_re_dvds.svg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}

@@ -6,8 +6,9 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10rem;
+    padding: 4rem 10rem;
     background-color: $bg;
+    margin-top: 4rem;
 }
 
 
@@ -35,6 +36,10 @@
     &-btn{
        margin-top: 3rem;
     }
+}
+
+.btn{
+    font-size: 1.2rem !important;
 }
 
 .image{

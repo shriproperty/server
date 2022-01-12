@@ -29,7 +29,7 @@ const List = () => {
 				</div>
 				<div className="list-btn">
 					<Link to="#">
-						<BPrimary title="ListNow" type="submit" />
+						<BPrimary title="Submit your listing" className="btn" type="submit" />
 					</Link>
 				</div>
 			</div>
