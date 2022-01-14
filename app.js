@@ -9,7 +9,7 @@ import apiAuth from './middlewares/apiAuth.middleware.js';
 import authRouter from './routes/auth.routes.js';
 import userRouter from './routes/user.routes.js';
 import contactRouter from './routes/contact.routes.js';
-import productRouter from './routes/product.routes.js';
+import propertyRouter from './routes/property.routes.js';
 
 const app = express();
 
@@ -22,7 +22,7 @@ app.use('/api', fileUpload);
 app.use('/api', authRouter);
 app.use('/api', userRouter);
 app.use('/api', contactRouter);
-app.use('/api', productRouter);
+app.use('/api', propertyRouter);
 
 /* --------------------------------- server --------------------------------- */
 mongoose.connect(`${process.env.DB_URI}`, () => {
