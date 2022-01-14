@@ -1,7 +1,7 @@
 @import '../../../../styles/variable.scss';
 @import '../../../../styles/mixins.scss';
 
-section {
+.items {
 	background-color: #f7f7f7;
 	@include section-padding;
 }
@@ -21,7 +21,7 @@ section {
 			font-size: 1.5rem;
 			margin: 1rem;
 			width: 50%;
-            font-weight: 400;
+			font-weight: 400;
 			text-align: center;
 		}
 	}
@@ -60,7 +60,6 @@ section {
 			margin: 1rem;
 			display: flex;
 			&-icon {
-                
 				font-size: 1.5rem;
 				color: $color-secondary;
 				margin: 0.5rem;
@@ -75,10 +74,10 @@ section {
 					margin: 1rem;
 				}
 
-                svg {
-                    height: 1.8rem;
-                    width: 1.8rem;
-                }
+				svg {
+					height: 1.8rem;
+					width: 1.8rem;
+				}
 			}
 		}
 		&-about {
@@ -100,19 +99,19 @@ section {
 			}
 		}
 	}
-    &__btn{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 2.5rem;
-        margin-bottom: 2.5rem;
-        padding: 2rem 0 8rem 0;
-       
-        &-listing{
-            padding: 1.5rem 3rem !important;
-            font-size: 1.2rem !important;
-        }
-    }
+	&__btn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 2.5rem;
+		margin-bottom: 2.5rem;
+		padding: 2rem 0 8rem 0;
+
+		&-listing {
+			padding: 1.5rem 3rem !important;
+			font-size: 1.2rem !important;
+		}
+	}
 }
 
 .horizontal-line {

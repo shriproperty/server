@@ -6,6 +6,7 @@ import Nav from './components/layout/nav/Nav';
 import Home from './components/routes/Home';
 import Users from './components/routes/admin/Users';
 import Contacts from './components/routes/admin/Contacts';
+import Property from './components/routes/admin/Property';
 
 import './app.scss';
 
@@ -17,6 +18,7 @@ const App = () => {
 				<Routes>
 					<Route path="/admin/users" element={<Users />} />
 					<Route path="/admin/contacts" element={<Contacts />} />
+					<Route path="/admin/property" element={<Property />} />
 					<Route path="*" element={<UserRoutes />} />
 				</Routes>
 			</Router>

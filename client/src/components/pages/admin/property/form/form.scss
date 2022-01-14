@@ -1,0 +1,35 @@
+@import '../../../../../styles/mixins.scss';
+
+.admin-property-form {
+	@include section-padding;
+
+	&__input {
+		margin-top: 1.5rem !important;
+
+		input {
+			font-size: 1.5rem !important;
+		}
+
+		label {
+			font-size: 1.5rem !important;
+		}
+	}
+
+	&__select {
+		margin-top: 2rem !important;
+		font-size: 1.5rem !important;
+		width: 20% !important;
+
+		label {
+			font-size: 1.5rem !important;
+		}
+
+		select {
+			font-size: 1.5rem !important;
+		}
+
+		input {
+			font-size: 1.5rem !important;
+		}
+	}
+}

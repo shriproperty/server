@@ -11,7 +11,7 @@ import MapIcon from '@mui/icons-material/Map';
 
 const Items = () => {
 	return (
-		<section>
+		<section className='items'>
 			<div className="Items__content">
 				<h1 className="Items__content-main">
 					Afforadable Homes in Chandigarh

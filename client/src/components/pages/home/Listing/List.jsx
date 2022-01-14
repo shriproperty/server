@@ -7,7 +7,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const List = () => {
 	return (
-		<div className="list-container">
+		<section className="list-container">
 			{/* Text continer */}
 			<div className="list">
 				<h1 className="list__head">
@@ -35,7 +35,7 @@ const List = () => {
 			</div>
 			{/* Image */}
 			<div className="image"></div>
-		</div>
+		</section>
 	);
 };
 

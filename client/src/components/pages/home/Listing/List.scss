@@ -1,53 +1,53 @@
 @import '../../../../styles/variable.scss';
+@import '../../../../styles/mixins.scss';
 
+.list-container {
+	@include section-padding;
 
-.list-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 4rem 10rem;
-    background-color: $bg;
-    margin-top: 4rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	background-color: $bg;
+	margin-top: 4rem;
 }
 
+.list {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 2rem;
+	margin: 1rem;
+	&__head {
+		font-size: 4.5rem;
+		margin-bottom: 3rem;
+	}
+	&__points {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		font-size: 1.3rem;
+		margin-bottom: 1rem;
 
-.list{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 2rem;
-    margin: 1rem;
-    &__head{
-        font-size: 4.5rem;
-        margin-bottom: 3rem;
-    }
-    &__points{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
-
-        h3{
-            margin-left: .5rem;
-        }
-    }
-    &-btn{
-       margin-top: 3rem;
-    }
+		h3 {
+			margin-left: 0.5rem;
+		}
+	}
+	&-btn {
+		margin-top: 3rem;
+	}
 }
 
-.btn{
-    font-size: 1.2rem !important;
+.btn {
+	font-size: 1.2rem !important;
 }
 
-.image{
-    background-image: url(../../../../../public/images/background/selling.jpg);
-    background-size: cover;
-    background-position: center;
-    height: 350px;
-    width: 80%;
+.image {
+	background-image: url(../../../../../public/images/background/selling.jpg);
+	background-size: cover;
+	background-position: center;
+	height: 350px;
+	width: 80%;
 
-    border-radius: 10px;
+	border-radius: 10px;
 }

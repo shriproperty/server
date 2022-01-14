@@ -1,3 +1,5 @@
+@import '../../../../styles/mixins.scss';
+
 .hero-img {
 	background-image: url(../../../../../public/images/background/hero.jpeg);
 	height: 100vh;
@@ -10,6 +12,8 @@
 }
 
 .hero {
+	@include section-padding;
+
 	transform: translate(0, 15%);
 	color: white;
 
@@ -21,21 +25,20 @@
 		font-size: 2rem;
 		width: 55%;
 	}
-    a{
-        color: white;
-        text-decoration: none;
-    }
+	a {
+		color: white;
+		text-decoration: none;
+	}
 	&__explore-btn {
-        margin-top: 2.5rem !important;
-        padding: 1.3rem 3rem !important;
-        font-size: 1.2rem !important;
+		margin-top: 2.5rem !important;
+		padding: 1.3rem 3rem !important;
+		font-size: 1.2rem !important;
 	}
 }
 
-
-.underline{
-    display: inline;
-    text-decoration: none;
-    color: white;
-    background-image: linear-gradient(to top, #eee 4%, transparent 4%);
+.underline {
+	display: inline;
+	text-decoration: none;
+	color: white;
+	background-image: linear-gradient(to top, #eee 4%, transparent 4%);
 }

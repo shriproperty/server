@@ -39,10 +39,10 @@ export const createProduct = async (req, res) => {
 		}
 
 		// validate type
-		if (type !== 'Rental' && type !== 'Selle') {
+		if (type !== 'Rental' && type !== 'Sale') {
 			return res.status(400).json({
 				success: false,
-				message: 'Type must be either Rental or Sell',
+				message: 'Type must be either Rental or Sale',
 				data: {},
 			});
 		}
