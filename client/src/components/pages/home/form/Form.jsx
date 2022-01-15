@@ -13,8 +13,9 @@ const Form = () => {
 			</h1>
 
 			<form action="#" method="post" className="form">
+				<div className="illustration"></div>
 				<div className="form-elem-div">
-					<div className="form__name">
+					<div className="form__elem-name">
 						<div className="form__elem">
 							<TextField
 								required
@@ -44,7 +45,6 @@ const Form = () => {
 					</div>
 					<div className="form__elem">
 						<TextField
-							id="outlined-multiline-flexible"
 							label="Message"
 							fullWidth
 							multiline
@@ -60,7 +60,6 @@ const Form = () => {
 						/>
 					</Link>
 				</div>
-				<div className="illustration"></div>
 			</form>
 		</div>
 	);

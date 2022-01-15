@@ -1,7 +1,7 @@
 @import '../../../../styles/mixins.scss';
 
 .hero-img {
-	background-image: url(../../../../../public/images/background/hero.jpeg);
+	background-image: url(../../../../../public/images/background/hero.png);
 	height: 100vh;
 	width: 100%;
 	background-size: cover;
@@ -9,6 +9,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+    
 }
 
 .hero {
