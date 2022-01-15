@@ -5,6 +5,7 @@ const propertySchema = new mongoose.Schema({
 	title: { type: String, required: true },
 	description: { type: String, required: true },
 	price: { type: Number, required: true },
+	specialPrice: { type: Number, required: true },
 	type: { type: String, required: true, enum: ['Rental', 'Sale'] },
 	catagory: {
 		type: String,
@@ -26,6 +27,7 @@ const propertySchema = new mongoose.Schema({
 		enum: ['Unfurnished', 'Semifurnished', 'Furnished'],
 		default: null,
 	},
+	featured: { type: Boolean, required: true, default: false },
 
 	// other details
 	size: { type: Number, required: true },

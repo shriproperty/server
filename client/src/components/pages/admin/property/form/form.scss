@@ -12,24 +12,22 @@
 
 		label {
 			font-size: 1.5rem !important;
+			background-color: #fff;
 		}
 	}
 
 	&__select {
-		margin-top: 2rem !important;
+		margin: 2rem !important;
 		font-size: 1.5rem !important;
 		width: 20% !important;
 
 		label {
 			font-size: 1.5rem !important;
+			background-color: #fff;
 		}
+	}
 
-		select {
-			font-size: 1.5rem !important;
-		}
-
-		input {
-			font-size: 1.5rem !important;
-		}
+	&__upload-btn {
+		margin: 2rem !important;
 	}
 }

@@ -21,3 +21,23 @@ export const BPrimary = ({ title, className, type }) => {
 		</Button>
 	);
 };
+
+/**
+ * Button to upload files
+ * @param {string} title text to show on button
+ * @param {string} className additional classNames to add to button
+ * @param {function} onChange onChange envent handler
+ */
+export const BUpload = ({ title, className, onChange }) => {
+	return (
+		<Button
+			variant="contained"
+			component="label"
+			className={`${className} btn-primary`}
+			onChange={onChange}
+		>
+			{title}
+			<input type="file" multiple hidden />
+		</Button>
+	);
+};
