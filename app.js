@@ -35,6 +35,9 @@ if (process.env.NODE_ENV === 'production') {
 
 mongoose.connect(`${process.env.DB_URI}`, () => {
 	app.listen(8000);
+	console.log(
+		`connected to ${process.env.DB_URI} and listening on port 8000`
+	);
 });
 
 export default app;
