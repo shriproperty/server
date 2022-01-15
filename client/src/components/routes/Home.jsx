@@ -4,6 +4,7 @@ import Items from '../pages/home/product/Items';
 import Category from '../pages/home/category/Category';
 import AddListing from '../pages/home/Listing/List';
 import Form from '../pages/home/form/Form';
+import Footer from '../layout/footer/Footer';
 
 const Home = () => {
 	return (
@@ -12,6 +13,8 @@ const Home = () => {
 			<Items />
 			<Category />
 			<AddListing />
+            <Form />
+            <Footer />
 			<Form />
 		</main>
 	);
