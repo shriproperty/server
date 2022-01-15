@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import mongoose from 'mongoose';
 import { config } from 'dotenv';
@@ -25,6 +26,13 @@ app.use('/api', contactRouter);
 app.use('/api', propertyRouter);
 
 /* --------------------------------- server --------------------------------- */
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+	app.get('*', (req, res) => {
+		res.sendFile(path.resolve('client', 'build', 'index.html'));
+	});
+}
+
 mongoose.connect(`${process.env.DB_URI}`, () => {
 	app.listen(8000);
 });

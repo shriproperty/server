@@ -8,7 +8,9 @@
 		"url": "https://github.com/aayushchugh/shriproperty"
 	},
 	"scripts": {
-		"start": "node app.js",
+		"start": "NODE_ENV=production && node app.js",
+		"start-windows": "set NODE_ENV=production && node app.js",
+		"build": "cd client && (yarn && yarn build) && cd ..",
 		"dev": "nodemon app.js"
 	},
 	"dependencies": {
