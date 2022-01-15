@@ -27,8 +27,10 @@ export const BPrimary = ({ title, className, type }) => {
  * @param {string} title text to show on button
  * @param {string} className additional classNames to add to button
  * @param {function} onChange onChange envent handler
+ * @param {boolean} required if file upload is required or not
+ * @returns {JSX.Element} file upload button
  */
-export const BUpload = ({ title, className, onChange }) => {
+export const BUpload = ({ title, className, onChange, required, accept }) => {
 	return (
 		<Button
 			variant="contained"
@@ -37,7 +39,7 @@ export const BUpload = ({ title, className, onChange }) => {
 			onChange={onChange}
 		>
 			{title}
-			<input type="file" multiple hidden />
+			<input type="file" multiple hidden accept={accept} />
 		</Button>
 	);
 };

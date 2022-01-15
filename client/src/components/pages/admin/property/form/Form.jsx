@@ -4,9 +4,10 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { BUpload } from '../../../../util/button/Button';
+import { BPrimary, BUpload } from '../../../../util/button/Button';
 
 import './form.scss';
+import postFile from '../../../../../api/postFile';
 
 const Form = () => {
 	const [title, setTitle] = useState('');
@@ -23,188 +24,264 @@ const Form = () => {
 	const [kitchen, setKitchen] = useState(1);
 	const [address, setAddress] = useState('');
 	const [featured, setFeatured] = useState(false);
-	const [image, setImage] = useState('');
+	const [images, setImages] = useState([]);
 	const [video, setVideo] = useState('');
 	const [document, setDocument] = useState('');
 	const [otherFeatures, setOtherFeatures] = useState([]);
 
+	const body = new FormData();
+
+	// submit handler
+	const submitHandler = e => {
+		e.preventDefault();
+
+		// append data to body to send
+		body.append('title', title);
+		body.append('description', description);
+		body.append('price', price);
+		body.append('type', type);
+		body.append('catagory', catagory);
+		body.append('status', status);
+		body.append('size', size);
+		body.append('unit', unit);
+		body.append('bedroom', bedroom);
+		body.append('bathroom', bathroom);
+		body.append('parking', parking);
+		body.append('kitchen', kitchen);
+		body.append('address', address);
+		body.append('featured', featured);
+		body.append('video', video);
+		body.append('document', document);
+		body.append('otherFeatures', otherFeatures);
+
+		// append image to body in array
+		for (let img in images) {
+			body.append('images', images[img]);
+		}
+
+		// post to server
+		postFile('/propertys/add', body).then(data => {
+			console.log(data);
+		});
+	};
+
 	return (
-		<section className="admin-property-form">
-			<TextField
-				className="admin-property-form__input"
-				varient="outlined"
-				label="Title"
-				fullWidth
-				onChange={e => setTitle(e.target.value)}
-			/>
+		<section>
+			<form onSubmit={submitHandler} className="admin-property-form">
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Title"
+					fullWidth
+					// TODO: Add Required here
+					onChange={e => setTitle(e.target.value)}
+				/>
 
-			<TextField
-				className="admin-property-form__input"
-				varient="outlined"
-				label="Description"
-				fullWidth
-				multiline
-				onChange={e => setDescription(e.target.value)}
-			/>
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Description"
+					fullWidth
+					required
+					multiline
+					onChange={e => setDescription(e.target.value)}
+				/>
 
-			<TextField
-				className="admin-property-form__input"
-				varient="outlined"
-				label="Price"
-				fullWidth
-				onChange={e => setPrice(e.target.value)}
-			/>
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Price"
+					type="number"
+					fullWidth
+					required
+					onChange={e => setPrice(e.target.value)}
+				/>
 
-			<TextField
-				className="admin-property-form__input"
-				varient="outlined"
-				label="Size"
-				fullWidth
-				onChange={e => setSize(e.target.value)}
-			/>
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Size"
+					type="number"
+					fullWidth
+					required
+					onChange={e => setSize(e.target.value)}
+				/>
 
-			<TextField
-				className="admin-property-form__input"
-				varient="outlined"
-				label="Bedrooms"
-				fullWidth
-				onChange={e => setBedroom(e.target.value)}
-			/>
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Bedrooms"
+					type="number"
+					required
+					fullWidth
+					onChange={e => setBedroom(e.target.value)}
+				/>
 
-			<TextField
-				className="admin-property-form__input"
-				varient="outlined"
-				label="Bathroom"
-				fullWidth
-				onChange={e => setBathroom(e.target.value)}
-			/>
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Bathroom"
+					type="number"
+					fullWidth
+					onChange={e => setBathroom(e.target.value)}
+				/>
 
-			<TextField
-				className="admin-property-form__input"
-				varient="outlined"
-				label="Kitchen"
-				fullWidth
-				onChange={e => setKitchen(e.target.value)}
-			/>
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Kitchen"
+					type="number"
+					fullWidth
+					onChange={e => setKitchen(e.target.value)}
+				/>
 
-			<TextField
-				className="admin-property-form__input"
-				varient="outlined"
-				label="Parking"
-				fullWidth
-				onChange={e => setParking(e.target.value)}
-			/>
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Parking"
+					type="number"
+					fullWidth
+					onChange={e => setParking(e.target.value)}
+				/>
 
-			<TextField
-				className="admin-property-form__input"
-				varient="outlined"
-				label="Address"
-				fullWidth
-				onChange={e => setAddress(e.target.value)}
-			/>
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Address"
+					required
+					fullWidth
+					onChange={e => setAddress(e.target.value)}
+				/>
 
-			<TextField
-				className="admin-property-form__input"
-				varient="outlined"
-				label="Other Features"
-				fullWidth
-				multiline
-				onChange={e => setOtherFeatures(e.target.value.split('\n'))}
-			/>
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Other Features"
+					fullWidth
+					multiline
+					onChange={e => setOtherFeatures(e.target.value.split('\n'))}
+				/>
 
-			<FormControl className="admin-property-form__select">
-				<InputLabel>Type</InputLabel>
-				<Select
-					label="Type"
-					value={type}
-					onChange={e => setType(e.target.value)}
-				>
-					<MenuItem value="Rental">Rental</MenuItem>
-					<MenuItem value="Sale">Sale</MenuItem>
-				</Select>
-			</FormControl>
+				<FormControl className="admin-property-form__select">
+					<InputLabel>Type</InputLabel>
+					<Select
+						label="Type"
+						value={type}
+						onChange={e => setType(e.target.value)}
+						required
+					>
+						<MenuItem value="Rental">Rental</MenuItem>
+						<MenuItem value="Sale">Sale</MenuItem>
+					</Select>
+				</FormControl>
 
-			<FormControl className="admin-property-form__select">
-				<InputLabel>Catagory</InputLabel>
-				<Select
-					label="Catagory"
-					value={catagory}
-					onChange={e => setCatagory(e.target.value)}
-				>
-					<MenuItem value="Residential Apartment">
-						Residential Apartment
-					</MenuItem>
+				<FormControl className="admin-property-form__select">
+					<InputLabel>Catagory</InputLabel>
+					<Select
+						label="Catagory"
+						value={catagory}
+						onChange={e => setCatagory(e.target.value)}
+						required
+					>
+						<MenuItem value="Residential Apartment">
+							Residential Apartment
+						</MenuItem>
 
-					<MenuItem value="Independent House/Villa">
-						Independent House/Villa
-					</MenuItem>
+						<MenuItem value="Independent House/Villa">
+							Independent House/Villa
+						</MenuItem>
 
-					<MenuItem value="Plot">Plot</MenuItem>
+						<MenuItem value="Plot">Plot</MenuItem>
 
-					<MenuItem value="Commercial Office">
-						Commercial Office
-					</MenuItem>
+						<MenuItem value="Commercial Office">
+							Commercial Office
+						</MenuItem>
 
-					<MenuItem value="Serviced Apartments">
-						Serviced Apartments
-					</MenuItem>
+						<MenuItem value="Serviced Apartments">
+							Serviced Apartments
+						</MenuItem>
 
-					<MenuItem value="1 RK/ Studio Apartment">
-						1 RK/ Studio Apartment
-					</MenuItem>
+						<MenuItem value="1 RK/ Studio Apartment">
+							1 RK/ Studio Apartment
+						</MenuItem>
 
-					<MenuItem value="Independent/Builder Floor">
-						Independent/Builder Floor
-					</MenuItem>
+						<MenuItem value="Independent/Builder Floor">
+							Independent/Builder Floor
+						</MenuItem>
 
-					<MenuItem value="Other">Other</MenuItem>
-				</Select>
-			</FormControl>
+						<MenuItem value="Other">Other</MenuItem>
+					</Select>
+				</FormControl>
 
-			<FormControl className="admin-property-form__select">
-				<InputLabel>Status</InputLabel>
-				<Select
-					label="Status"
-					value={status}
-					onChange={e => setStatus(e.target.value)}
-				>
-					<MenuItem value="Unfurnished">Unfurnished</MenuItem>
-					<MenuItem value="Semifurnished">Semifurnished</MenuItem>
-					<MenuItem value="Furnished">Furnished</MenuItem>
-				</Select>
-			</FormControl>
+				<FormControl className="admin-property-form__select">
+					<InputLabel>Status</InputLabel>
+					<Select
+						label="Status"
+						value={status}
+						onChange={e => setStatus(e.target.value)}
+					>
+						<MenuItem value="Unfurnished">Unfurnished</MenuItem>
+						<MenuItem value="Semifurnished">Semifurnished</MenuItem>
+						<MenuItem value="Furnished">Furnished</MenuItem>
+					</Select>
+				</FormControl>
 
-			<FormControl className="admin-property-form__select">
-				<InputLabel>Featured</InputLabel>
-				<Select
-					label="Featured"
-					value={featured}
-					onChange={e => setFeatured(e.target.value)}
-				>
-					<MenuItem value={true}>True</MenuItem>
-					<MenuItem value={false}>False</MenuItem>
-				</Select>
-			</FormControl>
+				<FormControl className="admin-property-form__select">
+					<InputLabel>Unit</InputLabel>
+					<Select
+						label="Unit"
+						value={unit}
+						onChange={e => setUnit(e.target.value)}
+					>
+						{/* WARNING: Add more units here */}
+						<MenuItem value={'sq'}>sq</MenuItem>
+						<MenuItem value={'marla'}>marla</MenuItem>
+					</Select>
+				</FormControl>
 
-			<br />
+				<FormControl className="admin-property-form__select">
+					<InputLabel>Featured</InputLabel>
+					<Select
+						label="Featured"
+						value={featured}
+						onChange={e => setFeatured(e.target.value)}
+					>
+						<MenuItem value={true}>True</MenuItem>
+						<MenuItem value={false}>False</MenuItem>
+					</Select>
+				</FormControl>
 
-			<BUpload
-				title="Image"
-				className="admin-property-form__upload-btn"
-				onChange={e => setImage(e.target.files)}
-			/>
+				<br />
 
-			<BUpload
-				title="Video"
-				className="admin-property-form__upload-btn"
-				onChange={e => setVideo(e.target.files)}
-			/>
+				<BUpload
+					title="Image"
+					className="admin-property-form__upload-btn"
+					onChange={e => setImages(e.target.files)}
+					accept="image/*"
+				/>
 
-			<BUpload
-				title="Documents"
-				className="admin-property-form__upload-btn"
-				onChange={e => setDocument(e.target.files)}
-			/>
+				<BUpload
+					title="Video"
+					className="admin-property-form__upload-btn"
+					onChange={e => setVideo(e.target.files[0])}
+					accept="video/*"
+				/>
+
+				<BUpload
+					title="Documents"
+					className="admin-property-form__upload-btn"
+					onChange={e => setDocument(e.target.files[0])}
+					accept="application/pdf"
+				/>
+
+				<br />
+
+				<BPrimary
+					title="Submit"
+					className="admin-property-form__submit-btn"
+					type="submit"
+				/>
+			</form>
 		</section>
 	);
 };

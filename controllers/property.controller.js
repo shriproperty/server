@@ -82,8 +82,6 @@ export const createProduct = async (req, res) => {
 				data: {},
 			});
 		}
-
-		console.log(req.files);
 	} catch (err) {
 		//TODO: update these error messages
 

@@ -27,7 +27,15 @@
 		}
 	}
 
+	textarea {
+		font-size: 1.5rem !important;
+	}
+
 	&__upload-btn {
+		margin: 2rem !important;
+	}
+
+	&__submit-btn {
 		margin: 2rem !important;
 	}
 }
