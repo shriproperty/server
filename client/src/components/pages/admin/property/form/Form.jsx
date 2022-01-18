@@ -168,8 +168,10 @@ const Form = () => {
 					className="admin-property-form__input"
 					varient="outlined"
 					label="Other Features"
+					helperText="Separate with enter"
 					fullWidth
 					multiline
+					required
 					onChange={e => setOtherFeatures(e.target.value.split('\n'))}
 				/>
 

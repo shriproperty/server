@@ -83,11 +83,9 @@ export const createProduct = async (req, res) => {
 			});
 		}
 	} catch (err) {
-		//TODO: update these error messages
-
-		res.status(400).json({
+		res.status(500).json({
 			success: false,
-			message: err.message,
+			message: 'Internal Server Error',
 			data: {},
 		});
 	}
