@@ -47,13 +47,14 @@ export const createProduct = async (req, res) => {
 			!catagory ||
 			!size ||
 			!unit ||
-			!address
+			!address ||
+			!otherFeatures
 		) {
 			deleteMultipleFiles([...images, ...videos, ...documents]);
 			return res.status(400).json({
 				success: false,
 				message:
-					'Title, Description, Price, Type, Catagory, Size, Unit, Address are required',
+					'Title, Description, Price, Type, Catagory, Size, Unit, Address and other features are required',
 			});
 		}
 

@@ -52,7 +52,6 @@ const Form = () => {
 		body.append('kitchen', kitchen);
 		body.append('address', address);
 		body.append('featured', featured);
-		body.append('otherFeatures', otherFeatures);
 
 		// append image to body in array
 		for (let img in images) {
@@ -69,10 +68,13 @@ const Form = () => {
 			body.append('documents', documents[doc]);
 		}
 
+		// append other Features to body
+		for (let feature in otherFeatures) {
+			body.append('otherFeatures', otherFeatures[feature]);
+		}
+
 		// post to server
-		postFile('/propertys/add', body).then(data => {
-			console.log(data);
-		});
+		postFile('/propertys/add', body).then(data => {});
 	};
 
 	return (
