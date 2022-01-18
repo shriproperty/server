@@ -2,6 +2,7 @@
 	"name": "shriproperty",
 	"version": "1.0.0",
 	"main": "app.js",
+	"license": "MIT",
 	"type": "module",
 	"repository": {
 		"type": "git",
