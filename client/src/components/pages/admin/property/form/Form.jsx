@@ -13,6 +13,7 @@ const Form = () => {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [price, setPrice] = useState('');
+	const [specialPrice, setSpecialPrice] = useState('');
 	const [type, setType] = useState('');
 	const [catagory, setCatagory] = useState('');
 	const [status, setStatus] = useState('');
@@ -73,7 +74,7 @@ const Form = () => {
 					varient="outlined"
 					label="Title"
 					fullWidth
-					// TODO: Add Required here
+					required
 					onChange={e => setTitle(e.target.value)}
 				/>
 
@@ -100,6 +101,16 @@ const Form = () => {
 				<TextField
 					className="admin-property-form__input"
 					varient="outlined"
+					label="Special Price"
+					type="number"
+					fullWidth
+					required
+					onChange={e => setSpecialPrice(e.target.value)}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
 					label="Size"
 					type="number"
 					fullWidth
@@ -112,7 +123,6 @@ const Form = () => {
 					varient="outlined"
 					label="Bedrooms"
 					type="number"
-					required
 					fullWidth
 					onChange={e => setBedroom(e.target.value)}
 				/>
