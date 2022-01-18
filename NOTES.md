@@ -29,3 +29,27 @@ ngnix error log file
 ```bash
 sudo cat /var/log/nginx/error.log
 ```
+
+start mongodb
+
+```bash
+sudo systemctl start mongod
+```
+
+stop mongodb
+
+```bash
+sudo systemctl stop mongod
+```
+
+restart mongodb
+
+```bash
+sudo systemctl restart mongod
+```
+
+check status of mongod
+
+```bash
+sudo systemctl status mongod
+```
