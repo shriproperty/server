@@ -15,7 +15,6 @@ const Home = () => {
 			<AddListing />
             <Form />
             <Footer />
-			<Form />
 		</main>
 	);
 };

@@ -1,54 +1,75 @@
 import React from 'react';
 import './footer.scss';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 const Footer = () => {
 	return (
-		<div>
-			<div className="footer-container">
-				<div className="footer-content">
-					<div className="footer-content__left">
-						<h1 className="footer-content__left-head">About</h1>
-						<h2 className="footer-content__left-description">
-							Lorem ipsum dolor sit amet consectetur adipisicing
-							elit. Voluptas debitis nostrum, aliquid placeat ut
-							aut officia incidunt, fuga ad adipisci eum sed qui
-							corporis amet, tenetur voluptatem! Doloremque quia
-							quibusdam totam in illo nostrum enim nisi, tempora
-							debitis, cumque laboriosam? Voluptates distinctio
-							veritatis incidunt modi.
-						</h2>
-						<div className="footer-content__left-social">
-							<a href="https://www.facebook.com/">facebook</a>
-							<a href="https://www.facebook.com/">Youtube</a>
-							<a href="https://www.facebook.com/">Instagram</a>
+		<footer>
+			<div className="footer-content">
+				<div className="footer-content__left">
+					<h1>About</h1>
+					<p>
+						WpResidence is committed to delivering a high level of
+						expertise, customer service, and attention to detail to
+						the marketing and sales of luxury real estate, and
+						rental properties.
+					</p>
+					<p>
+						Since 2013, we have developed powerful and fast real
+						estate themes for businesses who need a reliable and
+						extremely versatile product.
+					</p>
+					<div className="footer-content__left-social">
+						<a href="https://www.facebook.com/">
+							<FacebookIcon />
+						</a>
+						<a href="https://www.facebook.com/">
+							<YouTubeIcon />
+						</a>
+						<a href="https://www.facebook.com/">
+							<InstagramIcon />
+						</a>
+					</div>
+				</div>
+				<div className="footer-content__centre">
+					<h1>Contact</h1>
+					<div className="addr">
+						<div className="addr__icon"></div>
+						<p>
+							Lorem ipsum dolor sit amet consectetur, adipisicing
+							elit. Laudantium dicta, quas molestias alias
+							reiciendis quasi.
+						</p>
+					</div>
+					<div className="phone">
+						<div className="phone__icon"></div>
+						<p className="phone__number">+91 9501478900</p>
+					</div>
+					<div className="email">
+						<div className="email__icon"></div>
+						<p>shriproperty9.com</p>
+					</div>
+				</div>
+				<div className="footer-content__right">
+					<h1>Latest Listing</h1>
+					<div className="latest-news">
+						<div className="latest-news__item">
+							<div className="latest-news__item-img"></div>
+							<div className="latest-news__item-content">
+								<h2>lorem</h2>
+								<p>
+									Lorem ipsum dolor sit amet consectetur
+									adipisicing
+								</p>
+								<h3>$5000</h3>
+							</div>
 						</div>
 					</div>
-					<div className="footer-content__centre">
-						<h1>Contact</h1>
-						<div className="addr">
-							<div className="addr__icon"></div>
-							<p>
-								Lorem ipsum dolor sit amet consectetur,
-								adipisicing elit. Laudantium dicta, quas
-								molestias alias reiciendis quasi.
-							</p>
-						</div>
-						<div className="phone">
-							<div className="phone__icon"></div>
-							<p className="phone__number">+91 9501478900</p>
-						</div>
-						<div className="email">
-							<div className="email__icon"></div>
-							<p>shriproperty9.com</p>
-						</div>
-					</div>
-                    <div className="footer-content__right">
-                        <h1>Latest</h1>
-                        <div className="latest-news"></div>
-                    </div>
 				</div>
 			</div>
-		</div>
+		</footer>
 	);
 };
 
