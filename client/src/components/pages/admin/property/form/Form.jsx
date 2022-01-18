@@ -40,6 +40,7 @@ const Form = () => {
 		body.append('title', title);
 		body.append('description', description);
 		body.append('price', price);
+		body.append('specialPrice', specialPrice);
 		body.append('type', type);
 		body.append('catagory', catagory);
 		body.append('status', status);
