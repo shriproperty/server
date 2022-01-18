@@ -4,8 +4,8 @@ const propertySchema = new mongoose.Schema({
 	// property
 	title: { type: String, required: true },
 	description: { type: String, required: true },
-	price: { type: Number, required: true },
-	specialPrice: { type: Number, required: true },
+	price: { type: String, required: true },
+	specialPrice: { type: String, required: true },
 	type: { type: String, required: true, enum: ['Rental', 'Sale'] },
 	catagory: {
 		type: String,
@@ -30,12 +30,12 @@ const propertySchema = new mongoose.Schema({
 	featured: { type: Boolean, required: true, default: false },
 
 	// other details
-	size: { type: Number, required: true },
+	size: { type: String, required: true },
 	unit: { type: String, required: true },
-	bedroom: { type: Number, required: true, default: null },
-	bathroom: { type: Number, required: true, default: null },
-	parking: { type: Number, required: true, default: null },
-	kitchen: { type: Number, required: true, default: null },
+	bedroom: { type: String, required: true, default: null },
+	bathroom: { type: String, required: true, default: null },
+	parking: { type: String, required: true, default: null },
+	kitchen: { type: String, required: true, default: null },
 	otherFeatures: { type: Array, required: true },
 
 	// images
