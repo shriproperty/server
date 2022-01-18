@@ -26,8 +26,8 @@ const Form = () => {
 	const [address, setAddress] = useState('');
 	const [featured, setFeatured] = useState(false);
 	const [images, setImages] = useState([]);
-	const [video, setVideo] = useState('');
-	const [document, setDocument] = useState('');
+	const [videos, setVideos] = useState('');
+	const [documents, setDocuments] = useState('');
 	const [otherFeatures, setOtherFeatures] = useState([]);
 
 	const body = new FormData();
@@ -52,13 +52,21 @@ const Form = () => {
 		body.append('kitchen', kitchen);
 		body.append('address', address);
 		body.append('featured', featured);
-		body.append('video', video);
-		body.append('document', document);
 		body.append('otherFeatures', otherFeatures);
 
 		// append image to body in array
 		for (let img in images) {
 			body.append('images', images[img]);
+		}
+
+		// append video to body
+		for (let video in videos) {
+			body.append('videos', videos[video]);
+		}
+
+		// append documents to body
+		for (let doc in documents) {
+			body.append('documents', documents[doc]);
 		}
 
 		// post to server
@@ -274,16 +282,16 @@ const Form = () => {
 				/>
 
 				<BUpload
-					title="Video"
+					title="Videos"
 					className="admin-property-form__upload-btn"
-					onChange={e => setVideo(e.target.files[0])}
+					onChange={e => setVideos(e.target.files)}
 					accept="video/*"
 				/>
 
 				<BUpload
 					title="Documents"
 					className="admin-property-form__upload-btn"
-					onChange={e => setDocument(e.target.files[0])}
+					onChange={e => setDocuments(e.target.files)}
 					accept="application/pdf"
 				/>
 

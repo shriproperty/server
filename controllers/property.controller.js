@@ -1,4 +1,5 @@
 import Property from '../models/property.model.js';
+import { deleteMultipleFiles } from '../helpers/deleteFiles.helper.js';
 
 /* ----------------------------- create product ----------------------------- */
 export const createProduct = async (req, res) => {
@@ -22,6 +23,21 @@ export const createProduct = async (req, res) => {
 			address,
 		} = req.body;
 
+		const images = [];
+		const documents = [];
+		const videos = [];
+
+		// get images, videos and documents from request and push them to respective arrays
+		req.files.forEach(file => {
+			if (file.fieldname === 'images') {
+				images.push(file);
+			} else if (file.fieldname === 'documents') {
+				documents.push(file);
+			} else if (file.fieldname === 'videos') {
+				videos.push(file);
+			}
+		});
+
 		// validate user input
 		if (
 			!title ||
@@ -33,6 +49,7 @@ export const createProduct = async (req, res) => {
 			!unit ||
 			!address
 		) {
+			deleteMultipleFiles([...images, ...videos, ...documents]);
 			return res.status(400).json({
 				success: false,
 				message:
@@ -42,6 +59,7 @@ export const createProduct = async (req, res) => {
 
 		// validate type
 		if (type !== 'Rental' && type !== 'Sale') {
+			deleteMultipleFiles([...images, ...videos, ...documents]);
 			return res.status(400).json({
 				success: false,
 				message: 'Type must be either Rental or Sale',
@@ -60,6 +78,7 @@ export const createProduct = async (req, res) => {
 			catagory !== 'Independent/Builder Floor' &&
 			catagory !== 'Other'
 		) {
+			deleteMultipleFiles([...images, ...videos, ...documents]);
 			return res.status(400).json({
 				success: false,
 				message:
@@ -75,6 +94,7 @@ export const createProduct = async (req, res) => {
 			status !== 'Furnished' &&
 			status !== null
 		) {
+			deleteMultipleFiles([...images, ...videos, ...documents]);
 			return res.status(400).json({
 				success: false,
 				message:
@@ -82,7 +102,50 @@ export const createProduct = async (req, res) => {
 				data: {},
 			});
 		}
+
+		//TODO: add more fields for unit enum
+		if (unit !== 'sq' && unit !== 'marla') {
+			deleteMultipleFiles([...images, ...videos, ...documents]);
+			return res.status(400).json({
+				success: false,
+				message: 'Unit can only be "sq" or "marla"',
+			});
+		}
+
+		// create new property
+		const property = await Property.create({
+			title,
+			description,
+			price,
+			specialPrice,
+			type,
+			catagory,
+			status,
+			size,
+			unit,
+			featured,
+			bedroom,
+			bathroom,
+			parking,
+			kitchen,
+			otherFeatures,
+			address,
+			images,
+			documents,
+			videos,
+		});
+
+		// send response
+		res.status(201).json({
+			success: true,
+			message: 'Property created successfully',
+			data: property,
+		});
 	} catch (err) {
+		// adding if condition so that if no images were uploaded due to an error than this callback will not be called
+		if (req.files)
+			deleteMultipleFiles([...images, ...videos, ...documents]);
+
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',

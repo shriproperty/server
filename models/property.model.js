@@ -31,6 +31,7 @@ const propertySchema = new mongoose.Schema({
 
 	// other details
 	size: { type: String, required: true },
+	//TODO: Add enum for unit
 	unit: { type: String, required: true },
 	bedroom: { type: String, required: true, default: null },
 	bathroom: { type: String, required: true, default: null },
@@ -40,7 +41,7 @@ const propertySchema = new mongoose.Schema({
 
 	// images
 	images: { type: Object, required: true },
-	video: { type: Object, required: false },
+	videos: { type: Object, required: false },
 	documents: { type: Object, required: false },
 
 	//location
