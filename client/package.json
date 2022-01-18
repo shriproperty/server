@@ -1,7 +1,7 @@
 {
 	"name": "client",
 	"version": "1.0.0",
-	"proxy": "http://localhost:8000/api",
+	"proxy": "http://localhost:8000",
 	"dependencies": {
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.6.0",

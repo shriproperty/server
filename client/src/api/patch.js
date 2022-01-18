@@ -5,7 +5,7 @@
  * @return {Promise<object>} response from the server
  */
 const patchRequest = async (url, body) => {
-	const res = await fetch(url, {
+	const res = await fetch(`/api${url}`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',

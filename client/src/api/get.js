@@ -4,7 +4,7 @@
  * @return {Promise<object>} response from the server
  */
 const getRequest = async url => {
-	const res = await fetch(url, {
+	const res = await fetch(`/api${url}`, {
 		headers: {
 			'Content-Type': 'application/json',
 			Accept: 'application/json',

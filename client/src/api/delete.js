@@ -4,7 +4,7 @@
  * @return {Promise<object>} response from the server
  */
 const deleteRequest = async url => {
-	const res = await fetch(url, {
+	const res = await fetch(`/api${url}`, {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json',

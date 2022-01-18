@@ -5,7 +5,7 @@
  * @return {Promise<object>} response from the server
  */
 const postFile = async (url, body) => {
-	const res = await fetch(url, {
+	const res = await fetch(`/api${url}`, {
 		method: 'POST',
 		headers: {
 			'x-api-key': process.env.REACT_APP_API_KEY,
