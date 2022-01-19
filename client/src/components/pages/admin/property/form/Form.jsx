@@ -74,7 +74,9 @@ const Form = () => {
 		}
 
 		// post to server
-		postFile('/propertys/add', body).then(data => {});
+		postFile('/propertys/add', body).then(data => {
+			console.log(data);
+		});
 	};
 
 	return (
