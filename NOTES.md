@@ -30,6 +30,23 @@ ngnix error log file
 sudo cat /var/log/nginx/error.log
 ```
 
+start nginx
+
+```bash
+sudo systemctl start nginx
+```
+
+stop nginx
+
+```bash
+sudo systemctl stop nginx
+```
+
+restart nginx
+```bash
+sudo systemctl restart nginx
+```
+
 start mongodb
 
 ```bash
