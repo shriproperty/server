@@ -40,9 +40,9 @@ const propertySchema = new mongoose.Schema({
 	otherFeatures: { type: Array, required: true },
 
 	// images
-	images: { type: Object, required: true },
-	videos: { type: Object, required: false },
-	documents: { type: Object, required: false },
+	images: { type: Array, required: true },
+	videos: { type: Array, required: false },
+	documents: { type: Array, required: false },
 
 	//location
 	address: { type: String, required: true },

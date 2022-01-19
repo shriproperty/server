@@ -15,6 +15,7 @@
 		"dev": "nodemon app.js"
 	},
 	"dependencies": {
+		"aws-sdk": "^2.1059.0",
 		"bcrypt": "^5.0.1",
 		"dotenv": "^10.0.0",
 		"express": "^4.17.2",

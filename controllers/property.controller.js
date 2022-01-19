@@ -1,5 +1,9 @@
 import Property from '../models/property.model.js';
-import { deleteMultipleFiles } from '../helpers/deleteFiles.helper.js';
+import {
+	deleteMultipleFiles,
+	deleteSingleFile,
+} from '../helpers/deleteFiles.helper.js';
+import { uploadFile } from '../helpers/s3.helper.js';
 
 /* ----------------------------- create product ----------------------------- */
 export const createProduct = async (req, res) => {
@@ -27,17 +31,6 @@ export const createProduct = async (req, res) => {
 		const documents = [];
 		const videos = [];
 
-		// get images, videos and documents from request and push them to respective arrays
-		req.files.forEach(file => {
-			if (file.fieldname === 'images') {
-				images.push(file);
-			} else if (file.fieldname === 'documents') {
-				documents.push(file);
-			} else if (file.fieldname === 'videos') {
-				videos.push(file);
-			}
-		});
-
 		// validate user input
 		if (
 			!title ||
@@ -50,7 +43,7 @@ export const createProduct = async (req, res) => {
 			!address ||
 			!otherFeatures
 		) {
-			deleteMultipleFiles([...images, ...videos, ...documents]);
+			deleteMultipleFiles(req.files);
 			return res.status(400).json({
 				success: false,
 				message:
@@ -60,7 +53,7 @@ export const createProduct = async (req, res) => {
 
 		// validate type
 		if (type !== 'Rental' && type !== 'Sale') {
-			deleteMultipleFiles([...images, ...videos, ...documents]);
+			deleteMultipleFiles(req.files);
 			return res.status(400).json({
 				success: false,
 				message: 'Type must be either Rental or Sale',
@@ -79,7 +72,7 @@ export const createProduct = async (req, res) => {
 			catagory !== 'Independent/Builder Floor' &&
 			catagory !== 'Other'
 		) {
-			deleteMultipleFiles([...images, ...videos, ...documents]);
+			deleteMultipleFiles(req.files);
 			return res.status(400).json({
 				success: false,
 				message:
@@ -95,7 +88,7 @@ export const createProduct = async (req, res) => {
 			status !== 'Furnished' &&
 			status !== null
 		) {
-			deleteMultipleFiles([...images, ...videos, ...documents]);
+			deleteMultipleFiles(req.files);
 			return res.status(400).json({
 				success: false,
 				message:
@@ -106,11 +99,28 @@ export const createProduct = async (req, res) => {
 
 		//TODO: add more fields for unit enum
 		if (unit !== 'sq' && unit !== 'marla') {
-			deleteMultipleFiles([...images, ...videos, ...documents]);
+			deleteMultipleFiles(req.files);
 			return res.status(400).json({
 				success: false,
 				message: 'Unit can only be "sq" or "marla"',
 			});
+		}
+
+		// upload files to aws s3
+		for (let file of req.files) {
+			const response = await uploadFile(file);
+
+			// push file paths to respoective arrays
+			if (file.fieldname === 'images') {
+				images.push(response.Location);
+			} else if (file.fieldname === 'videos') {
+				videos.push(response.Location);
+			} else if (file.fieldname === 'documents') {
+				documents.push(response.Location);
+			}
+
+			// delete files from uploads folder
+			deleteSingleFile(file.path);
 		}
 
 		// create new property
@@ -143,9 +153,7 @@ export const createProduct = async (req, res) => {
 			data: property,
 		});
 	} catch (err) {
-		// adding if condition so that if no images were uploaded due to an error than this callback will not be called
-		if (req.files)
-			deleteMultipleFiles([...images, ...videos, ...documents]);
+		console.log(err);
 
 		res.status(500).json({
 			success: false,
