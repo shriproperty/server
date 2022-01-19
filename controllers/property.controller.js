@@ -5,7 +5,7 @@ import {
 } from '../helpers/deleteFiles.helper.js';
 import { uploadFile } from '../helpers/s3.helper.js';
 
-/* ----------------------------- create product ----------------------------- */
+/* ----------------------------- create property ----------------------------- */
 export const createProduct = async (req, res) => {
 	try {
 		const {
@@ -155,6 +155,38 @@ export const createProduct = async (req, res) => {
 	} catch (err) {
 		console.log(err);
 
+		res.status(500).json({
+			success: false,
+			message: 'Internal Server Error',
+			data: {},
+		});
+	}
+};
+
+/* --------------------------- get all properties --------------------------- */
+
+export const getAll = async (req, res) => {
+	try {
+		const { featured } = req.query;
+
+		if (featured) {
+			const featuredProperties = await Property.find({ featured: true });
+
+			return res.status(200).json({
+				success: true,
+				message: 'All Featured Properties fetched successfully',
+				data: featuredProperties,
+			});
+		}
+
+		const properties = await Property.find();
+
+		res.status(200).json({
+			success: true,
+			message: 'All properties fetched successfully',
+			data: properties,
+		});
+	} catch (err) {
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',

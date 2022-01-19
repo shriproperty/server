@@ -73,9 +73,13 @@ const Form = () => {
 			body.append('otherFeatures', otherFeatures[feature]);
 		}
 
+		//TODO: Show loader
+
 		// post to server
 		postFile('/propertys/add', body).then(data => {
 			console.log(data);
+
+			//TODO: Hide loader and empety all text imputs
 		});
 	};
 
