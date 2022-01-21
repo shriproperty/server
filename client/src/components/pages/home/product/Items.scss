@@ -34,19 +34,23 @@
 		color: $color-black;
 		background-color: $color-white;
 		border-radius: 7px;
+
 		&-image {
-			background-image: url(../../../../../public/images/background/interior.jpg);
-			background-size: cover;
-			background-position: center;
-			height: 200px;
+			height: 25rem;
 			width: 100%;
-			border-radius: 7px;
+
+			img {
+				height: 100%;
+				width: 100%;
+			}
 		}
+
 		&-title {
 			font-size: 2.5rem !important;
 			font-weight: 700;
 			margin: 1rem;
 		}
+
 		&-price {
 			font-size: 1.5rem;
 			margin: 1rem;
@@ -56,9 +60,11 @@
 			font-size: 1.5rem !important;
 			margin: 2rem 1rem 1rem 1rem;
 		}
+
 		&-iconbar {
 			margin: 1rem;
 			display: flex;
+
 			&-icon {
 				font-size: 1.5rem;
 				color: $color-secondary;
@@ -66,9 +72,11 @@
 				display: flex;
 				flex-direction: row;
 				align-items: center;
+
 				&:hover {
 					color: $color-primary;
 				}
+
 				h4 {
 					font-size: 1.5rem;
 					margin: 1rem;
