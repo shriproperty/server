@@ -1,34 +1,36 @@
 @import '../../../styles/variable.scss';
+@import '../../../styles/mixins.scss';
 
 .footer-content {
 	display: flex;
-	padding: 10rem 25rem;
 	justify-content: space-evenly;
 	background-color: #f7f7f7;
-
+	@include section-size;
+	width: 100%;
+	margin: 0px auto;
+	padding: 2rem;
 	h1 {
 		font-size: 2.2rem;
 		line-height: 30px;
 		font-weight: 700;
-		margin-bottom: 1rem;
+		margin-bottom: 1.5rem;
 	}
 	p {
-		font-size: 1.2rem;
+		font-size: 1.4rem;
 		margin-bottom: 1.2rem;
 		margin-right: 5rem;
 	}
 	&__left {
 		width: 33.333%;
+
 		&-social {
-			padding-top: 1rem;
+			margin-top: 2rem;
 			a {
-				text-decoration: none;
 				color: $color-black;
-				background-color: #eee;
-				margin-right: 1rem;
 				padding: 0.5rem;
+				margin-right: 0.5rem;
 				&:hover {
-					color: $color-primary;
+					color: $color-secondary;
 				}
 				&:last-child {
 					margin-right: 0;
@@ -47,4 +49,8 @@
 			margin-bottom: 2rem;
 		}
 	}
+}
+
+.secondChild {
+	margin-top: 2rem;
 }
