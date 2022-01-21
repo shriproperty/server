@@ -2,29 +2,32 @@
 
 .footer-content {
 	display: flex;
-	padding: 10rem 35rem;
+	padding: 10rem 25rem;
 	justify-content: space-evenly;
+	background-color: #f7f7f7;
+
+	h1 {
+		font-size: 2.2rem;
+		line-height: 30px;
+		font-weight: 700;
+		margin-bottom: 1rem;
+	}
+	p {
+		font-size: 1.2rem;
+		margin-bottom: 1.2rem;
+		margin-right: 5rem;
+	}
 	&__left {
 		width: 33.333%;
-		h1 {
-			font-size: 2.2rem;
-			line-height: 26px;
-			font-weight: 700;
-			margin-bottom: 1rem;
-		}
-		p {
-			font-size: 1.2rem;
-			margin-bottom: 1.2rem;
-		}
 		&-social {
 			padding-top: 1rem;
 			a {
 				text-decoration: none;
 				color: $color-black;
-                background-color: #eee;
+				background-color: #eee;
 				margin-right: 1rem;
-                padding: 0.5rem;
-                &:hover {
+				padding: 0.5rem;
+				&:hover {
 					color: $color-primary;
 				}
 				&:last-child {
