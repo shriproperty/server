@@ -1,9 +1,10 @@
 import Property from '../models/property.model.js';
+
 import {
 	deleteMultipleFiles,
 	deleteSingleFile,
 } from '../helpers/deleteFiles.helper.js';
-import { uploadFile } from '../helpers/s3.helper.js';
+import { uploadFile, deleteMultiple } from '../helpers/s3.helper.js';
 
 /* ----------------------------- create property ----------------------------- */
 export const createProduct = async (req, res) => {
@@ -110,13 +111,15 @@ export const createProduct = async (req, res) => {
 		for (let file of req.files) {
 			const response = await uploadFile(file);
 
+			const fileObject = { url: response.Location, key: response.Key };
+
 			// push file paths to respoective arrays
 			if (file.fieldname === 'images') {
-				images.push(response.Location);
+				images.push(fileObject);
 			} else if (file.fieldname === 'videos') {
-				videos.push(response.Location);
+				videos.push(fileObject);
 			} else if (file.fieldname === 'documents') {
-				documents.push(response.Location);
+				documents.push(fileObject);
 			}
 
 			// delete files from uploads folder
@@ -162,7 +165,6 @@ export const createProduct = async (req, res) => {
 };
 
 /* --------------------------- get all properties --------------------------- */
-
 export const getAll = async (req, res) => {
 	try {
 		const { featured } = req.query;
@@ -188,6 +190,41 @@ export const getAll = async (req, res) => {
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
+			data: {},
+		});
+	}
+};
+
+/* ----------------------------- delete property ---------------------------- */
+export const deleteProperty = async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const property = await Property.findById(id);
+
+		const filesArray = [
+			...property.images,
+			...property.documents,
+			...property.videos,
+		];
+
+		// delete files from s3
+		await deleteMultiple(filesArray);
+
+		// delete property from DB
+		const deletedProperty = await Property.findByIdAndDelete(id);
+
+		res.status(200).json({
+			success: true,
+			message: 'Property deleted successfully',
+			data: deletedProperty,
+		});
+	} catch (err) {
+		console.log(err);
+
+		res.status(404).json({
+			success: false,
+			message: 'Invalid Id',
 			data: {},
 		});
 	}

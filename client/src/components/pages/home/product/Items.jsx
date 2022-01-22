@@ -37,7 +37,7 @@ const Items = () => {
 					<div className="Items__list" key={property._id}>
 						{/* Image */}
 						<div className="Items__list-image">
-							<img src={property.images[0]} alt="property" />
+							<img src={property.images[0].url} alt="property" />
 						</div>
 						{/* Mains */}
 						<div className="Items__list-title">

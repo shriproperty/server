@@ -16,7 +16,7 @@ const s3 = new AWS.S3();
 
 /**
  * @param {string} file file to be uploaded to s3
- * @return {object} response from s3
+ * @return {Promise<object>} response from s3
  */
 export const uploadFile = file => {
 	const fileStream = createReadStream(file.path);
@@ -28,4 +28,30 @@ export const uploadFile = file => {
 	};
 
 	return s3.upload(uploadParams).promise();
+};
+
+/**
+ * @param {string} key key to be deleted from s3
+ * @return {Promise<object>} response from s3
+ */
+export const deleteFile = key => {
+	const params = {
+		Bucket: process.env.AWS_BUCKET_NAME,
+		Key: key,
+	};
+
+	s3.deleteObject(params).promise();
+};
+
+/**
+ * @param {object[]} files array of files to be deleted from s3
+ * @example
+ * ```js
+ * deleteMultiple([...images, ...videos, ...documents]);
+ * ```
+ */
+export const deleteMultiple = async files => {
+	for (let file of files) {
+		await deleteFile(file.key);
+	}
 };

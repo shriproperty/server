@@ -5,5 +5,9 @@ const propertyRouter = Router();
 
 propertyRouter.post('/properties/add', propertyController.createProduct);
 propertyRouter.get('/properties/all', propertyController.getAll);
+propertyRouter.delete(
+	'/properties/delete/:id',
+	propertyController.deleteProperty
+);
 
 export default propertyRouter;
