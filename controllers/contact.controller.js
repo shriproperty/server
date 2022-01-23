@@ -1,3 +1,5 @@
+'use strict';
+
 import Contact from '../models/contact.model.js';
 import { validationResult } from 'express-validator';
 
