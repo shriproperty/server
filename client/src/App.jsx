@@ -7,7 +7,6 @@ import Home from './components/routes/Home';
 import Users from './components/routes/admin/Users';
 import Contacts from './components/routes/admin/Contacts';
 import Property from './components/routes/admin/Property';
-
 import './app.scss';
 
 const App = () => {
@@ -19,7 +18,7 @@ const App = () => {
 					<Route path="/admin/users" element={<Users />} />
 					<Route path="/admin/contacts" element={<Contacts />} />
 					<Route path="/admin/property" element={<Property />} />
-					<Route path="*" element={<UserRoutes />} />
+                    <Route path="*" element={<UserRoutes />} />
 				</Routes>
 			</Router>
 		</>

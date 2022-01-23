@@ -1,11 +1,15 @@
 import React from 'react';
-import Form from '../../pages/admin/property/form/Form';
+import Footer from '../../layout/footer/Footer';
+import Nav from '../../layout/nav/Nav';
+import Properties from '../../pages/Properties/Properties';
 
 const Property = () => {
 	return (
 		<main>
-			<Form />
-		</main>
+            <Nav />
+            <Properties/>
+            <Footer />
+        </main>
 	);
 };
 

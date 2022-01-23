@@ -43,11 +43,13 @@
 }
 
 .image {
-	background-image: url(../../../../../public/images/background/selling.jpg);
-	background-size: cover;
-	background-position: center;
-	height: 35rem;
-	width: 80%;
+	height: 36rem;
+	width: 90rem;
 
-	border-radius: 10px;
+	img {
+		height: 100%;
+		width: 100%;
+
+		border-radius: 10px;
+	}
 }
