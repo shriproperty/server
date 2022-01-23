@@ -1,3 +1,5 @@
+'use strict';
+
 import User from '../models/user.model.js';
 import { genSalt, hash, compare } from 'bcrypt';
 import { validationResult } from 'express-validator';

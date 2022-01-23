@@ -4,7 +4,7 @@ import { unlink } from 'fs';
  * delete file from folder
  * @param {string} path path of file to be deleted
  */
-export const deleteSingleFile = path => {
+export const deleteSingleFileFromDisk = path => {
 	unlink(path, err => {
 		if (err) throw new Error('Error deleting file');
 	});
@@ -19,8 +19,8 @@ export const deleteSingleFile = path => {
  * deleteMultipleFiles([...images, ...videos, ...documents]);
  * ```
  */
-export const deleteMultipleFiles = files => {
+export const deleteMultipleFilesFromDisk = files => {
 	files.forEach(file => {
-		deleteSingleFile(file.path);
+		if (file) deleteSingleFileFromDisk(file.path);
 	});
 };

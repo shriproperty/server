@@ -18,7 +18,7 @@ const s3 = new AWS.S3();
  * @param {string} file file to be uploaded to s3
  * @return {Promise<object>} response from s3
  */
-export const uploadFile = file => {
+export const uploadFileToS3 = file => {
 	const fileStream = createReadStream(file.path);
 
 	const uploadParams = {
@@ -34,7 +34,7 @@ export const uploadFile = file => {
  * @param {string} key key to be deleted from s3
  * @return {Promise<object>} response from s3
  */
-export const deleteFile = key => {
+export const deleteSingleFileFromS3 = key => {
 	const params = {
 		Bucket: process.env.AWS_BUCKET_NAME,
 		Key: key,
@@ -50,8 +50,8 @@ export const deleteFile = key => {
  * deleteMultiple([...images, ...videos, ...documents]);
  * ```
  */
-export const deleteMultiple = async files => {
+export const deleteMultipleFilesFromS3 = async files => {
 	for (let file of files) {
-		await deleteFile(file.key);
+		await deleteSingleFileFromS3(file.key);
 	}
 };
