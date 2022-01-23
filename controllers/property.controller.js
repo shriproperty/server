@@ -114,7 +114,7 @@ export const createProduct = async (req, res) => {
 		}
 
 		// validate featured
-		if (featured !== true && featured !== false) {
+		if (featured !== 'true' && featured !== 'false') {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
@@ -248,7 +248,11 @@ export const update = async (req, res) => {
 		}
 
 		// validate featured
-		if (featured !== true && featured !== false && featured !== undefined) {
+		if (
+			featured !== 'true' &&
+			featured !== 'false' &&
+			featured !== undefined
+		) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
