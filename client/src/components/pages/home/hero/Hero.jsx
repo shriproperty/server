@@ -18,11 +18,7 @@ const Hero = () => {
 			</p>
 
 			<Link to="/properties" className="hero-section__link">
-				<BPrimary
-					title="Explore more"
-					className="hero-section__explore-btn"
-					type="submit"
-				/>
+				<BPrimary title="Explore more" type="submit" />
 			</Link>
 		</section>
 	);

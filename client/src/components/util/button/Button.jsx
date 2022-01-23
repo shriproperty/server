@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import { Button } from '@mui/material';
 
 import './button.scss';
@@ -22,15 +23,20 @@ export const BPrimary = ({ title, className, type }) => {
 	);
 };
 
+BPrimary.prototype = {
+	title: propTypes.string.isRequired,
+	className: propTypes.string,
+	type: propTypes.string,
+};
+
 /**
  * Button to upload files
  * @param {string} title text to show on button
  * @param {string} className additional classNames to add to button
  * @param {function} onChange onChange envent handler
- * @param {boolean} required if file upload is required or not
  * @returns {JSX.Element} file upload button
  */
-export const BUpload = ({ title, className, onChange, required, accept }) => {
+export const BUpload = ({ title, className, onChange, accept }) => {
 	return (
 		<Button
 			variant="contained"
@@ -42,4 +48,11 @@ export const BUpload = ({ title, className, onChange, required, accept }) => {
 			<input type="file" multiple hidden accept={accept} />
 		</Button>
 	);
+};
+
+BUpload.prototype = {
+	title: propTypes.string.isRequired,
+	className: propTypes.string,
+	onChange: propTypes.func,
+	accept: propTypes.string,
 };

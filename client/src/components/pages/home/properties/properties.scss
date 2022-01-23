@@ -1,36 +1,38 @@
 @import '../../../../styles/variable.scss';
 @import '../../../../styles/mixins.scss';
 
-.items {
-	background-color: #f7f7f7;
+.properties-section {
+	background-color: $color-background;
 	@include section-padding;
-}
 
-.Items {
-	&__content {
+	&__headings {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		padding: 2rem;
-		color: $color-secondary;
-		&-main {
-			font-size: 4.8rem;
-			font-weight: 700;
-		}
-		&-sub {
-			font-size: 1.5rem;
-			margin: 1rem;
-			width: 50%;
-			font-weight: 400;
-			text-align: center;
+
+		p {
+			margin: 1rem 0 !important;
+			width: 50% !important;
 		}
 	}
 
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-	grid-gap: 3rem;
+	&__properties {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+		grid-gap: 3rem;
+	}
 
-	&__list {
+	&__btn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 2.5rem;
+		margin-bottom: 2.5rem;
+		padding: 2rem 0 8rem 0;
+	}
+
+	&__property {
 		color: $color-black;
 		background-color: $color-white;
 		border-radius: 7px;
@@ -46,19 +48,18 @@
 		}
 
 		&-title {
-			font-size: 2.5rem !important;
-			font-weight: 700;
-			margin: 1rem;
+			margin: 1rem !important;
 		}
 
 		&-price {
 			font-size: 1.5rem;
 			margin: 1rem;
 			color: $color-primary;
+			font-weight: 600;
 		}
-		&-addr {
-			font-size: 1.5rem !important;
-			margin: 2rem 1rem 1rem 1rem;
+
+		&-description {
+			margin: 1rem !important;
 		}
 
 		&-iconbar {
@@ -88,6 +89,7 @@
 				}
 			}
 		}
+
 		&-about {
 			display: flex;
 			flex-direction: row;
@@ -107,21 +109,4 @@
 			}
 		}
 	}
-	&__btn {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		margin-top: 2.5rem;
-		margin-bottom: 2.5rem;
-		padding: 2rem 0 8rem 0;
-
-		&-listing {
-			padding: 1.5rem 3rem !important;
-			font-size: 1.2rem !important;
-		}
-	}
-}
-
-.horizontal-line {
-	border-bottom: 1px solid #eee;
 }

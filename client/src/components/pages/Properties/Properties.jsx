@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import '../home/product/Items.scss';
+import '../home/properties/properties.scss';
 import get from '../../../api/get';
 
 import HotelIcon from '@mui/icons-material/Hotel';
@@ -18,9 +18,11 @@ const Properties = () => {
 	}, []);
 
 	return (
-		<section className="items" style={{paddingTop: 50 , paddingBottom: 50}}>
-			
-            <div className="Items" >
+		<section
+			className="items"
+			style={{ paddingTop: 50, paddingBottom: 50 }}
+		>
+			<div className="Items">
 				{response.map(property => (
 					<div className="Items__list" key={property._id}>
 						{/* Image */}
