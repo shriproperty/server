@@ -29,12 +29,18 @@ const List = () => {
 				</div>
 				<div className="list-btn">
 					<Link to="#">
-						<BPrimary title="Submit your listing" className="btn" type="submit" />
+						<BPrimary
+							title="Submit your listing"
+							className="btn"
+							type="submit"
+						/>
 					</Link>
 				</div>
 			</div>
 			{/* Image */}
-			<div className="image"></div>
+			<div className="image">
+				<img src="/images/background/selling.jpg" alt="selling" />
+			</div>
 		</section>
 	);
 };
