@@ -1,30 +1,29 @@
 import React from 'react';
-import './Hero.scss';
 import { Link } from 'react-router-dom';
-import {BPrimary} from '../../../util/button/Button';
+import { BPrimary } from '../../../util/button/Button';
+
+import './hero.scss';
 
 const Hero = () => {
 	return (
-		<section className="hero-img">
-			<div className="hero">
-				<div className="hero__main">
-					Live in your <span className="underline">Dreams</span>
-				</div>
-				<div className="hero__sub">
-					<h3>
-						We are recognized for exceeding client expectations and
-						delivering great results through dedication, ease of
-						process, and extraordinary services.
-					</h3>
-				</div>
-				<Link to="#">
-					<BPrimary
-						title="Explore more"
-						className="hero__explore-btn"
-						type="submit"
-					/>
-				</Link>
+		<section className="hero-section">
+			<div className="hero-section__heading">
+				Live in your <span>Dreams</span>
 			</div>
+
+			<p className="hero-section__para">
+				We are recognized for exceeding client expectations and
+				delivering great results through dedication, ease of process,
+				and extraordinary services.
+			</p>
+
+			<Link to="/properties" className="hero-section__link">
+				<BPrimary
+					title="Explore more"
+					className="hero-section__explore-btn"
+					type="submit"
+				/>
+			</Link>
 		</section>
 	);
 };
