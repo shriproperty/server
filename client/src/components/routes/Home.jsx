@@ -13,8 +13,7 @@ const Home = () => {
 			<Items />
 			<Category />
 			<AddListing />
-            <Form />
-            <Footer />
+			<Form />
 		</main>
 	);
 };

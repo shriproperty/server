@@ -3,10 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
 
 import Nav from './components/layout/nav/Nav';
+import Footer from './components/layout/footer/Footer';
 import Home from './components/routes/Home';
+import Property from './components/routes/Property';
 import Users from './components/routes/admin/Users';
 import Contacts from './components/routes/admin/Contacts';
-import Property from './components/routes/admin/Property';
+import { default as PropertyAdmin } from './components/routes/admin/Property';
 import './app.scss';
 
 const App = () => {
@@ -16,9 +18,9 @@ const App = () => {
 			<Router>
 				<Routes>
 					<Route path="/admin/users" element={<Users />} />
+					<Route path="/admin/property" element={<PropertyAdmin />} />
 					<Route path="/admin/contacts" element={<Contacts />} />
-					<Route path="/admin/property" element={<Property />} />
-                    <Route path="*" element={<UserRoutes />} />
+					<Route path="*" element={<UserRoutes />} />
 				</Routes>
 			</Router>
 		</>
@@ -32,7 +34,9 @@ const UserRoutes = () => {
 			<Nav />
 			<Routes>
 				<Route path="/" element={<Home />} />
+				<Route path="/properties" element={<Property />} />
 			</Routes>
+			<Footer />
 		</>
 	);
 };

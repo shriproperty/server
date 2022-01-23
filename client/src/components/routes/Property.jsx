@@ -1,10 +1,10 @@
 import React from 'react';
-import Form from '../../pages/admin/property/form/Form';
+import Properties from '../pages/Properties/Properties';
 
 const Property = () => {
 	return (
 		<main>
-			<Form />
+			<Properties />
 		</main>
 	);
 };
