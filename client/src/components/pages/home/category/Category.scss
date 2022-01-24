@@ -1,49 +1,96 @@
 @import '../../../../styles/mixins.scss';
+@import '../../../../styles/variable.scss';
 
-.category-container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.category {
+.category-section {
 	@include section-padding;
 
 	margin-bottom: 2rem;
 	background-color: white;
-	&__main {
-		font-size: 4.5rem;
-		font-weight: 700;
-		margin-top: 3rem;
-		margin-bottom: 0rem;
-	}
-	&__sub {
-		font-size: 1.5rem;
-		font-weight: 400;
-		width: 50%;
-		text-align: center;
-		margin-top: 1rem;
-		margin-bottom: 4rem;
-	}
-	&__items {
-		display: grid;
-		grid-template-columns: repeat(12, 1fr);
-		grid-gap: 2rem;
-		&-img {
-			background-image: url(../../../../../public/images/houses/interior888.jpg);
-			background-position: center;
-			background-size: cover;
-			height: 230px;
-			border-radius: 7px;
+
+	&__headings {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		p {
+			margin: 1rem 0 !important;
+			width: 50% !important;
 		}
-		&-head {
+	}
+}
+
+.category-grid {
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	grid-gap: 2rem;
+
+	&__child {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		background-position: center;
+		background-size: cover;
+		height: 230px;
+		border-radius: 7px;
+		position: relative;
+		transition: $transition;
+
+		&::before {
+			content: '';
+			display: block;
+			position: absolute;
+			background-color: #2d394f54;
+			width: 100%;
+			height: 100%;
+			transition: $transition;
+		}
+
+		&:hover {
+			&::before {
+				opacity: 0.5;
+			}
+		}
+
+		&-heading {
 			font-size: 2.5rem;
 			color: #fff;
 			margin-bottom: 0.6rem;
 		}
+
 		&-btn {
 			opacity: 0.9;
 			z-index: 10;
+		}
+
+		&--1 {
+			grid-column: 1 / 7;
+			background-image: url(../../../../../public/images/houses/book9.jpg);
+		}
+
+		&--2 {
+			grid-column: 7 / 10;
+			background-image: url(../../../../../public/images/houses/clean_july4.jpg);
+		}
+
+		&--3 {
+			grid-column: 10 / 13;
+			background-image: url(../../../../../public/images/houses/house9.jpg);
+		}
+
+		&--4 {
+			grid-column: 1 / 4;
+			background-image: url(../../../../../public/images/houses/interior61.jpg);
+		}
+
+		&--5 {
+			grid-column: 4 / 7;
+			background-image: url(../../../../../public/images/houses/interior888.jpg);
+		}
+
+		&--6 {
+			grid-column: 7 / 13;
+			background-image: url(../../../../../public/images/houses/interior_large.jpeg);
 		}
 	}
 }
@@ -61,48 +108,4 @@
 	&:hover {
 		background-color: #1d24312a;
 	}
-}
-
-.list-1 {
-	grid-column: 1 / 7;
-}
-.list-2 {
-	grid-column: 7/10;
-}
-.list-3 {
-	grid-column: 10/13;
-}
-.list-4 {
-	grid-row: auto;
-	grid-column: 1 / 4;
-	margin-bottom: 2rem;
-}
-.list-5 {
-	grid-row: auto;
-	grid-column: 4 / 7;
-	margin-bottom: 2rem;
-}
-.list-6 {
-	grid-row: auto;
-	grid-column: 7 / 13;
-	margin-bottom: 2rem;
-}
-
-.img-1 {
-	background-image: url(../../../../../public/images/houses/book9.jpg);
-}
-.img-2 {
-	background-image: url(../../../../../public/images/houses/clean_july4.jpg);
-}
-.img-3 {
-	background-image: url(../../../../../public/images/houses/house9.jpg);
-}
-.img-4 {
-	background-image: url(../../../../../public/images/houses/interior61.jpg);
-}
-.img-5 {
-	background-image: url(../../../../../public/images/houses/interior888.jpg);
-}
-.img-6 {
-	background-image: url(../../../../../public/images/houses/interior_large.jpeg);
 }

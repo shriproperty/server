@@ -35,10 +35,9 @@ const Properties = () => {
 					title="Showcase properties in homepage to be visible and
 					accessible. Select the most wanted categories or cities to
 					be displayed in the lists."
-					className="Items__content-sub"
 				/>
 			</div>
-			{/* ITEMS LIST */}
+			{/* Properties */}
 			<div className="properties-section__properties">
 				{response.map(property => (
 					<div

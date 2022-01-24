@@ -1,92 +1,83 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BPrimary } from '../../../util/button/Button';
-import './Category.scss';
+import { HPrimary, SPrimary } from '../../../util/typography/Typography';
+import './category.scss';
 
 const Category = () => {
 	return (
-		<section className="category">
-			<div className="category-container">
-				<h1 className="category__main">The most attractive deals</h1>
-				<h3 className="category__sub">
-					Highlight the best of your properties by using the List
+		<section className="category-section">
+			<div className="category-section__headings">
+				<HPrimary title="The most attractive deals" />
+
+				<SPrimary
+					title="Highlight the best of your properties by using the List
 					Category shortcode. You can list categories, types, cities,
-					areas and states.
-				</h3>
+					areas and states."
+				/>
 			</div>
-			<div className="category__items">
-				<Link to="/" className="list-1">
-					<div className="category__items-img img-1">
-						<div className="cover">
-							<h2 className="category__items-head">Apartments</h2>
-							<BPrimary
-								title="2 Listings"
-								className="category__items-btn"
-								type="submit"
-							/>
-						</div>
-					</div>
-				</Link>
-				<Link to="/" className="list-2">
-					<div className="category__items-img img-2">
-						<div className="cover">
-							<h2 className="category__items-head">Condos</h2>
-							<BPrimary
-								title="6 Listings"
-								className="category__items-btn"
-								type="submit"
-							/>
-						</div>
-					</div>
-				</Link>
-				<Link to="/" className="list-3">
-					<div className="category__items-img img-3">
-						<div className="cover">
-							<h2 className="category__items-head">Kothi</h2>
-							<BPrimary
-								title="10 Listings"
-								className="category__items-btn"
-								type="submit"
-							/>
-						</div>
-					</div>
-				</Link>
-				<Link to="/" className="list-4">
-					<div className="category__items-img img-4">
-						<div className="cover">
-							<h2 className="category__items-head">Land</h2>
-							<BPrimary
-								title="6 Listings"
-								className="category__items-btn"
-								type="submit"
-							/>
-						</div>
-					</div>
-				</Link>
-				<Link to="/" className="list-5">
-					<div className="category__items-img img-5">
-						<div className="cover">
-							<h2 className="category__items-head">Buildings</h2>
-							<BPrimary
-								title="3 Listings"
-								className="category__items-btn"
-								type="submit"
-							/>
-						</div>
-					</div>
-				</Link>
-				<Link to="/" className="list-6">
-					<div className="category__items-img img-6">
-						<div className="cover">
-							<h2 className="category__items-head">Flats</h2>
-							<BPrimary
-								title="1 Listings"
-								className="category__items-btn"
-								type="submit"
-							/>
-						</div>
-					</div>
-				</Link>
+			<div className="category-grid">
+				<div className="category-grid__child  category-grid__child--1">
+					<h2 className="category-grid__child-heading">Apartments</h2>
+					<Link to="/">
+						<BPrimary
+							title="2 Listings"
+							className="category-grid__child-btn"
+							type="submit"
+						/>
+					</Link>
+				</div>
+				<div className="category-grid__child  category-grid__child--2">
+					<h2 className="category-grid__child-heading">Apartments</h2>
+					<Link to="/">
+						<BPrimary
+							title="2 Listings"
+							className="category-grid__child-btn"
+							type="submit"
+						/>
+					</Link>
+				</div>
+				<div className="category-grid__child  category-grid__child--3">
+					<h2 className="category-grid__child-heading">Apartments</h2>
+					<Link to="/">
+						<BPrimary
+							title="2 Listings"
+							className="category-grid__child-btn"
+							type="submit"
+						/>
+					</Link>
+				</div>
+				<div className="category-grid__child  category-grid__child--4">
+					<h2 className="category-grid__child-heading">Apartments</h2>
+					<Link to="/">
+						<BPrimary
+							title="2 Listings"
+							className="category-grid__child-btn"
+							type="submit"
+						/>
+					</Link>
+				</div>
+				<div className="category-grid__child  category-grid__child--5">
+					<h2 className="category-grid__child-heading">Apartments</h2>
+					<Link to="/">
+						<BPrimary
+							title="2 Listings"
+							className="category-grid__child-btn"
+							type="submit"
+						/>
+					</Link>
+				</div>
+
+				<div className="category-grid__child  category-grid__child--6">
+					<h2 className="category-grid__child-heading">Apartments</h2>
+					<Link to="/">
+						<BPrimary
+							title="2 Listings"
+							className="category-grid__child-btn"
+							type="submit"
+						/>
+					</Link>
+				</div>
 			</div>
 		</section>
 	);
