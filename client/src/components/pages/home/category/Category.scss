@@ -4,9 +4,6 @@
 .category-section {
 	@include section-padding;
 
-	margin-bottom: 2rem;
-	background-color: white;
-
 	&__headings {
 		display: flex;
 		flex-direction: column;
@@ -31,7 +28,7 @@
 		flex-direction: column;
 		background-position: center;
 		background-size: cover;
-		height: 230px;
+		height: 23rem;
 		border-radius: 7px;
 		position: relative;
 		transition: $transition;
@@ -54,8 +51,7 @@
 
 		&-heading {
 			font-size: 2.5rem;
-			color: #fff;
-			margin-bottom: 0.6rem;
+			color: $color-white !important;
 		}
 
 		&-btn {
