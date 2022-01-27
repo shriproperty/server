@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom';
 import { BPrimary } from '../../../util/button/Button';
 import { HPrimary } from '../../../util/typography/Typography';
 import './form.scss';
@@ -21,25 +20,33 @@ const Form = () => {
 					/>
 				</div>
 				<div className="form-section__inputs">
-					<div className="form-section__form-name-inputs">
-						<TextField
-							required
-							className="form-section__input"
-							label="First Name"
-							variant="outlined"
-						/>
-						<TextField
-							label="Last Name"
-							variant="outlined"
-							required
-							className="form-section__input"
-						/>
-					</div>
+					<TextField
+						required
+						className="form-section__input"
+						label="Name"
+						fullWidth
+						variant="outlined"
+					/>
 
 					<TextField
 						required
 						className="form-section__input"
 						label="Email"
+						fullWidth
+					/>
+
+					<TextField
+						required
+						className="form-section__input"
+						label="Phone"
+						type="number"
+						fullWidth
+					/>
+
+					<TextField
+						required
+						className="form-section__input"
+						label="Subject"
 						fullWidth
 					/>
 

@@ -29,16 +29,6 @@
 		padding: 4rem 0rem;
 		align-items: center;
 		justify-content: space-around;
-
-		&-name-inputs {
-			display: flex;
-			align-items: center;
-		}
-
-		textarea {
-			font-size: 1.5rem !important;
-			line-height: 20px !important;
-		}
 	}
 
 	&__inputs {
@@ -46,7 +36,7 @@
 	}
 
 	&__input {
-		margin: 2rem 1rem !important;
+		margin: 1rem !important;
 
 		input {
 			font-size: 1.5rem !important;
