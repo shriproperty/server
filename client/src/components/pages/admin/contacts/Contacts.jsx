@@ -11,7 +11,7 @@ import FormControl from '@mui/material/FormControl';
 import DoneIcon from '@mui/icons-material/Done';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { AError } from '../../../util/Alert';
+import { AError } from '../../../util/alert/Alert';
 import getRequest from '../../../../api/get';
 import patchRequest from '../../../../api/patch';
 import deleteRequest from '../../../../api/delete';

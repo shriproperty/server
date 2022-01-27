@@ -2,9 +2,41 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { BPrimary } from '../../../util/button/Button';
 import { HPrimary } from '../../../util/typography/Typography';
+import { ASuccess, AError } from '../../../util/alert/Alert';
+import post from '../../../../api/post';
 import './form.scss';
 
 const Form = () => {
+	const [name, setName] = useState('');
+	const [email, setEmail] = useState('');
+	const [phone, setPhone] = useState('');
+	const [subject, setSubject] = useState('');
+	const [message, setMessage] = useState('');
+	const [successMessage, setSuccessMessage] = useState('');
+	const [openSuccess, setOpenSuccess] = useState(false);
+	const [errorMessage, setErrorMessage] = useState('');
+	const [openError, setOpenError] = useState(false);
+
+	const submitHandler = e => {
+		e.preventDefault();
+
+		post('/contacts/add', {
+			name,
+			email,
+			phone,
+			subject,
+			message,
+		}).then(res => {
+			if (res.success === true) {
+				setSuccessMessage(res.message);
+				setOpenSuccess(true);
+			} else {
+				setErrorMessage(res.message);
+				setOpenError(true);
+			}
+		});
+	};
+
 	return (
 		<section className="form-section">
 			<HPrimary
@@ -12,7 +44,7 @@ const Form = () => {
 				title="Contact us today if you'd like to know more about what our real estate services"
 			/>
 
-			<form action="#" method="post" className="form-section__form">
+			<form className="form-section__form" onSubmit={submitHandler}>
 				<div className="form-section__image">
 					<img
 						src="/images/illustrations/mailbox.svg"
@@ -20,44 +52,62 @@ const Form = () => {
 					/>
 				</div>
 				<div className="form-section__inputs">
+					<ASuccess
+						title={successMessage}
+						open={openSuccess}
+						setOpen={setOpenSuccess}
+					/>
+
+					<AError
+						title={errorMessage}
+						open={openError}
+						setOpen={setOpenError}
+					/>
+
 					<TextField
-						required
 						className="form-section__input"
 						label="Name"
-						fullWidth
 						variant="outlined"
+						onChange={e => setName(e.target.value)}
+						required
+						fullWidth
 					/>
 
 					<TextField
-						required
 						className="form-section__input"
 						label="Email"
+						onChange={e => setEmail(e.target.value)}
+						required
 						fullWidth
 					/>
 
 					<TextField
-						required
 						className="form-section__input"
 						label="Phone"
 						type="number"
+						onChange={e => setPhone(e.target.value)}
+						required
 						fullWidth
 					/>
 
 					<TextField
-						required
 						className="form-section__input"
 						label="Subject"
+						onChange={e => setSubject(e.target.value)}
+						required
 						fullWidth
 					/>
 
 					<TextField
 						label="Message"
 						className="form-section__input"
+						rows={10}
+						onChange={e => setMessage(e.target.value)}
 						required
 						fullWidth
 						multiline
-						rows={10}
 					/>
+
 					<BPrimary
 						title="Submit"
 						className="form-section__btn"

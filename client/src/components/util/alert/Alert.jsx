@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
+import propTypes from 'prop-types';
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 
+import './alert.scss';
+
 /**
  * alert success
  * @param {string} title title to show on alert
+ * @param {boolean} open if true alert will open else close
+ * @param {function} setOpen this will update state of open
  * @returns {JSX.Element} alert success
  */
-export const ASuccess = ({ title }) => {
-	const [open, setOpen] = useState(true);
-
+export const ASuccess = ({ title, open, setOpen }) => {
 	return (
 		<Collapse in={open}>
 			<Alert
 				severity="success"
+				className="alert"
 				action={
 					<IconButton
 						aria-label="close"
@@ -30,15 +34,23 @@ export const ASuccess = ({ title }) => {
 				}
 				sx={{ mb: 2 }}
 			>
-				{title}
+				<p>{title}</p>
 			</Alert>
 		</Collapse>
 	);
 };
 
+ASuccess.prototype = {
+	title: propTypes.string.isRequired,
+	open: propTypes.bool.isRequired,
+	setOpen: propTypes.func.isRequired,
+};
+
 /**
  * alert error
  * @param {string} title title to show on alert
+ * @param {boolean} open if true alert will open else close
+ * @param {function} setOpen this will update state of open
  * @returns {JSX.Element} alert error
  */
 export const AError = ({ title, open, setOpen }) => {
@@ -46,6 +58,7 @@ export const AError = ({ title, open, setOpen }) => {
 		<Collapse in={open}>
 			<Alert
 				severity="error"
+				className="alert"
 				action={
 					<IconButton
 						aria-label="close"
@@ -60,8 +73,14 @@ export const AError = ({ title, open, setOpen }) => {
 				}
 				sx={{ mb: 2 }}
 			>
-				{title}
+				<p>{title}</p>
 			</Alert>
 		</Collapse>
 	);
+};
+
+AError.prototype = {
+	title: propTypes.string.isRequired,
+	open: propTypes.bool.isRequired,
+	setOpen: propTypes.func.isRequired,
 };
