@@ -1,33 +1,33 @@
 import React from 'react';
-import './List.scss';
 
 import { Link } from 'react-router-dom';
 import { BPrimary } from '../../../util/button/Button';
+import { HPrimary } from '../../../util/typography/Typography';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-const List = () => {
+import './listing.scss';
+
+const Listing = () => {
 	return (
-		<section className="list-container">
+		<section className="listing-section">
 			{/* Text continer */}
-			<div className="list">
-				<h1 className="list__head">
-					Sell Your Property Quickly Through Us.
-				</h1>
-				<div className="list__elemContainer">
-					<div className="list__points">
+			<div className="listing-content">
+				<HPrimary className='listing-content__head' title="Sell Your Property Quickly Through Us." />
+				<div className="listing-content__points">
+					<div className="listing-content__point">
 						<CheckCircleIcon />
 						<h3>Submit Your Property</h3>
 					</div>
-					<div className="list__points">
+					<div className="listing-content__point">
 						<CheckCircleIcon />
 						<h3>Get Listing Published</h3>
 					</div>
-					<div className="list__points">
+					<div className="listing-content__point">
 						<CheckCircleIcon />
 						<h3>Start Receiving Offers</h3>
 					</div>
 				</div>
-				<div className="list-btn">
+				<div className="listing-content__btn">
 					<Link to="#">
 						<BPrimary
 							title="Submit your listing"
@@ -38,11 +38,11 @@ const List = () => {
 				</div>
 			</div>
 			{/* Image */}
-			<div className="image">
+			<div className="listing-section__image">
 				<img src="/images/background/selling.jpg" alt="selling" />
 			</div>
 		</section>
 	);
 };
 
-export default List;
+export default Listing;
