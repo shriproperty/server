@@ -1,67 +1,71 @@
 @import '../../../../styles/variable.scss';
 @import '../../../../styles/mixins.scss';
 
-.form-container {
-	padding: 0rem 20rem;
+.form-section {
+	@include section-padding;
+
 	margin: 5rem 0rem;
-	display: flex;
-	flex-direction: column;
 	text-align: center;
-}
 
-.main-head {
-	font-size: 3rem;
-	margin: 4rem 10rem;
-}
+	&__heading {
+		font-size: 3rem;
+		margin: 4rem 10rem !important;
+	}
 
-.form {
-	display: flex;
-	border-radius: 10px;
-	box-shadow: 0px 10px 31px 15px #262a4c1a;
-	padding: 4rem 0rem;
-	align-items: center;
-	justify-content: space-around;
-	&-elem-div {
+	&__image {
+		width: 35%;
+		height: 43vh;
+
+		img {
+			height: 100%;
+			width: 100%;
+		}
+	}
+
+	&__form {
+		display: flex;
+		border-radius: 10px;
+		box-shadow: 0px 10px 31px 15px #262a4c1a;
+		padding: 4rem 0rem;
+		align-items: center;
+		justify-content: space-around;
+
+		&-name-inputs {
+			display: flex;
+			align-items: center;
+		}
+
+		textarea {
+			font-size: 1.5rem !important;
+			line-height: 20px !important;
+		}
+	}
+
+	&__inputs {
 		width: 50%;
 	}
-	&__elem {
-		padding: 0rem 2rem;
-		margin: 2rem 0rem;
+
+	&__input {
+		margin: 2rem 1rem !important;
+
 		input {
 			font-size: 1.5rem !important;
 		}
+
+		textarea {
+			font-size: 1.5rem !important;
+		}
+
 		label {
 			font-size: 1.5rem !important;
 			background-color: white;
 			padding: 0rem 0.3rem;
 		}
-
-        &-name{
-            display: flex;
-        }
 	}
 
-    textarea{
-        font-size: 1.5rem !important;
-        line-height: 20px !important;
-    }
-}
-
-.btn {
-	margin: 2rem 0rem !important;
-	font-size: 1.5rem !important;
-	padding: 1.2rem 3rem !important;
-}
-
-.illustration {
-	width: 35%;
-	height: 43vh;
-	background-image: url(../../../../../public/images/undraw_mailbox_re_dvds.svg);
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-}
-
-.box{
-    font-size: 1.5rem;
+	&__btn {
+		margin: 2rem 0rem !important;
+		font-size: 1.5rem !important;
+		padding: 1.2rem 3rem !important;
+	}
 }

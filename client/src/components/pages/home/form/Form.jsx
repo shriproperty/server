@@ -2,66 +2,63 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom';
 import { BPrimary } from '../../../util/button/Button';
+import { HPrimary } from '../../../util/typography/Typography';
 import './form.scss';
 
 const Form = () => {
 	return (
-		<div className="form-container">
-			<h1 className="main-head">
-				Contact us today if you'd like to know more about what our real
-				estate services
-			</h1>
+		<section className="form-section">
+			<HPrimary
+				className="form-section__heading"
+				title="Contact us today if you'd like to know more about what our real estate services"
+			/>
 
-			<form action="#" method="post" className="form">
-				<div className="illustration"></div>
-				<div className="form-elem-div">
-					<div className="form__elem-name">
-						<div className="form__elem">
-							<TextField
-								required
-								id="outlined-required"
-								label="First Name"
-								margin="normal"
-								fullWidth
-								variant="outlined"
-							/>
-						</div>
-						<div className="form__elem">
-							<TextField
-								label="Last Name"
-								margin="normal"
-								fullWidth
-							/>
-						</div>
-					</div>
-					<div className="form__elem">
+			<form action="#" method="post" className="form-section__form">
+				<div className="form-section__image">
+					<img
+						src="/images/illustrations/mailbox.svg"
+						alt="illustration"
+					/>
+				</div>
+				<div className="form-section__inputs">
+					<div className="form-section__form-name-inputs">
 						<TextField
 							required
-							id="outlined-required"
-							label="Email"
-							margin="normal"
-							fullWidth
+							className="form-section__input"
+							label="First Name"
+							variant="outlined"
 						/>
-					</div>
-					<div className="form__elem">
 						<TextField
-							label="Message"
-							fullWidth
-							multiline
-							margin="normal"
-							rows={10}
+							label="Last Name"
+							variant="outlined"
+							required
+							className="form-section__input"
 						/>
 					</div>
-					<Link to="#" className="form__elem">
-						<BPrimary
-							title="Submit"
-							className="btn"
-							type="submit"
-						/>
-					</Link>
+
+					<TextField
+						required
+						className="form-section__input"
+						label="Email"
+						fullWidth
+					/>
+
+					<TextField
+						label="Message"
+						className="form-section__input"
+						required
+						fullWidth
+						multiline
+						rows={10}
+					/>
+					<BPrimary
+						title="Submit"
+						className="form-section__btn"
+						type="submit"
+					/>
 				</div>
 			</form>
-		</div>
+		</section>
 	);
 };
 
