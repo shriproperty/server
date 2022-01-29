@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
-import '../home/properties/properties.scss';
+import {
+	HPrimary,
+	HSecondary,
+	SPrimary,
+	SSecondary,
+} from '../../util/typography/Typography';
 import get from '../../../api/get';
 
 import HotelIcon from '@mui/icons-material/Hotel';
 import ShowerIcon from '@mui/icons-material/Shower';
 import CarRepairIcon from '@mui/icons-material/CarRepair';
 import MapIcon from '@mui/icons-material/Map';
+
+import '../home/properties/properties.scss';
 
 const Properties = () => {
 	const [response, setResponse] = useState([]);
@@ -18,42 +25,58 @@ const Properties = () => {
 	}, []);
 
 	return (
-		<section
-			className="items"
-			style={{ paddingTop: 50, paddingBottom: 50 }}
-		>
-			<div className="Items">
+		<section className="properties-section">
+			<div className="properties-section__headings">
+				<HPrimary title="Afforadable Homes in Chandigarh" />
+
+				<SPrimary
+					title="Showcase properties in homepage to be visible and
+					accessible. Select the most wanted categories or cities to
+					be displayed in the lists."
+				/>
+			</div>
+			{/* Properties */}
+			<div className="properties-section__properties">
 				{response.map(property => (
-					<div className="Items__list" key={property._id}>
+					<div
+						className="properties-section__property"
+						key={property._id}
+					>
 						{/* Image */}
-						<div className="Items__list-image">
+						<div className="properties-section__property-image">
 							<img src={property.images[0].url} alt="property" />
 						</div>
+
 						{/* Mains */}
-						<div className="Items__list-title">
-							{property.title}
-						</div>
-						<div className="Items__list-price">
+						<HSecondary
+							title={property.title}
+							className="properties-section__property-title"
+						/>
+
+						<h4 className="properties-section__property-price">
 							₹ {property.price}
-						</div>
-						<div className="Items__list-addr">
-							{property.description}
-						</div>
+						</h4>
+
+						<SSecondary
+							title={property.description}
+							className="properties-section__property-description"
+						/>
+
 						{/* IconsBar */}
-						<div className="Items__list-iconbar">
-							<div className="Items__list-iconbar-icon">
+						<div className="properties-section__property-iconbar">
+							<div className="properties-section__property-iconbar-icon">
 								<HotelIcon />
 								<h4>{property.bedroom}</h4>
 							</div>
-							<div className="Items__list-iconbar-icon">
+							<div className="properties-section__property-iconbar-icon">
 								<ShowerIcon />
 								<h4>{property.bathroom}</h4>
 							</div>
-							<div className="Items__list-iconbar-icon">
+							<div className="properties-section__property-iconbar-icon">
 								<CarRepairIcon />
 								<h4>{property.parking}</h4>
 							</div>
-							<div className="Items__list-iconbar-icon">
+							<div className="properties-section__property-iconbar-icon">
 								<MapIcon />
 								<h4>
 									{property.size} {property.unit}
@@ -63,6 +86,7 @@ const Properties = () => {
 					</div>
 				))}
 			</div>
+			
 		</section>
 	);
 };

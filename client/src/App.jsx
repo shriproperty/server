@@ -5,8 +5,9 @@ import { CssBaseline } from '@mui/material';
 import Nav from './components/layout/nav/Nav';
 import Footer from './components/layout/footer/Footer';
 import Home from './components/routes/Home';
-import Property from './components/routes/Property';
+import Properties from './components/routes/Properties';
 import Users from './components/routes/admin/Users';
+import Property from './components/routes/Property';
 import Contacts from './components/routes/admin/Contacts';
 import { default as PropertyAdmin } from './components/routes/admin/Property';
 import './app.scss';
@@ -34,7 +35,8 @@ const UserRoutes = () => {
 			<Nav />
 			<Routes>
 				<Route path="/" element={<Home />} />
-				<Route path="/properties" element={<Property />} />
+				<Route path="/properties" element={<Properties />} />
+				<Route path="/properties/:id" element={<Property />} />
 			</Routes>
 			<Footer />
 		</>

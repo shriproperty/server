@@ -1,0 +1,116 @@
+section {
+	margin-top: 4rem;
+	margin-bottom: 6rem;
+}
+
+.image-list {
+	display: flex;
+	margin: 2rem 1rem;
+}
+.image-1 {
+	height: 500px;
+	padding: 0.6rem;
+}
+.image-2 {
+	height: 250px;
+	padding: 0.6rem;
+}
+.image-3 {
+	height: 250px;
+	padding: 0.6rem;
+}
+.flex {
+	display: flex;
+	flex-direction: column;
+}
+
+h1 {
+	font-size: 2.5rem;
+}
+
+.heading-section {
+	display: flex;
+	align-items: center;
+
+	&_sub {
+		padding: 1rem 44rem 3rem 4rem;
+	}
+
+	&_addr {
+		font-size: 1.3rem;
+		font-weight: 600;
+	}
+
+	&_link {
+		font-size: 1rem;
+	}
+}
+.pricing-section {
+	display: flex;
+	padding: 0 4rem;
+    
+	&_heading {
+		padding: 2rem 4rem;
+	}
+
+	&_item {
+		display: flex;
+		align-items: end;
+		border-radius: 5px;
+		padding: 1.5rem 4rem;
+		background-color: #f5f5f5;
+
+		h3 {
+			color: #000;
+			font-size: 2rem;
+			padding: 0 4rem;
+		}
+		svg {
+			color: #000 !important;
+			font-size: 2rem !important;
+		}
+	}
+	.space {
+		margin-right: 8rem;
+	}
+}
+
+.facilities-section {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	padding: 2rem 4rem;
+	gap: 10px;
+	&_heading {
+		padding: 2rem 4rem;
+	}
+	&_item {
+		display: flex;
+		font-size: 1.4rem;
+		background-color: #f5f5f5;
+		border-radius: 5px;
+		padding: 2rem 4rem;
+		justify-content: center;
+		h3 {
+			padding: 0 1rem;
+		}
+	}
+}
+
+.description-section {
+	h1 {
+		padding: 2rem 4rem;
+	}
+	p {
+		width: 70%;
+		font-size: 1.5rem;
+		padding: 0 4rem;
+		line-height: 1.5;
+	}
+}
+
+.link {
+	font-size: 1.6rem;
+	color: #9e7160;
+	text-decoration: underline;
+	padding: 2rem 4rem;
+}

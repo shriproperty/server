@@ -1,10 +1,10 @@
 import React from 'react';
-import Properties from '../pages/properties/Properties';
+import { default as List } from '../pages/property/Property';
 
 const Property = () => {
 	return (
 		<main>
-			<Properties />
+			<List />
 		</main>
 	);
 };
