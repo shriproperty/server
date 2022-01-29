@@ -212,6 +212,27 @@ export const getAll = async (req, res) => {
 	}
 };
 
+/* --------------------------- get single property -------------------------- */
+export const getSingle = async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const property = await Property.findById(id);
+
+		res.status(200).json({
+			success: true,
+			message: 'Property fetched successfully',
+			data: property,
+		});
+	} catch (err) {
+		res.status(400).json({
+			success: false,
+			message: 'Invalid Id',
+			data: {},
+		});
+	}
+};
+
 /* ----------------------------- update property ---------------------------- */
 export const update = async (req, res) => {
 	try {
