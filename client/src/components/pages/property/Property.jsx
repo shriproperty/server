@@ -17,7 +17,7 @@ const Property = () => {
 		});
 	}, []);
 	return (
-		<section>
+		<section className='property-page'>
 			<div className="image-list">
 				<img
 					src="/images/background/hero.png"

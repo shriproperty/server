@@ -1,6 +1,5 @@
-@include '../../../styles/variable.scss';
 
-section {
+.property-page {
 	margin-top: 4rem;
 	margin-bottom: 6rem;
 }
@@ -85,7 +84,7 @@ h1 {
 		}
         .price{
             text-decoration: line-through;
-            text-decoration-color: $color-primary;
+            text-decoration-color: #9e7160;
 
         }
         .special-price{
