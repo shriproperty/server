@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BPrimary } from '../../../components/util/button/Button';
+import { BPrimary, BSecondary } from '../../../components/util/button/Button';
 import get from '../../../api/get';
 import './property.scss';
+import { HPrimary } from '../../util/typography/Typography';
 
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import StraightenIcon from '@mui/icons-material/Straighten';
@@ -16,38 +17,43 @@ const Property = () => {
 			console.log(data.data);
 		});
 	}, []);
+
 	return (
-		<section>
-			<div className="image-list">
+		<section className="property-section">
+			<div className="image-grid">
+				<div className="image-grid__btns">
+					<BSecondary title="Apartment" />
+					<BSecondary title="Furnished" />
+				</div>
+
 				<img
 					src="/images/background/hero.png"
 					alt="property"
-					className="image-1"
+					className="image-grid__image image-grid__image--1"
 				/>
 
-				<h2 className="pos">Resale</h2>
-				<h2 className="pos left">Full Furnished</h2>
-				<div className="flex">
-					<img
-						src="/images/background/hero.png"
-						alt="property"
-						className="image-2"
-					/>
-					<img
-						src="/images/background/hero.png"
-						alt="property"
-						className="image-3"
-					/>
-				</div>
+				<img
+					src="/images/background/hero.png"
+					alt="property"
+					className="image-grid__image image-grid__image--2"
+				/>
+
+				<img
+					src="/images/background/hero.png"
+					alt="property"
+					className="image-grid__image image-grid__image--3"
+				/>
 			</div>
+
 			<div>
 				<div className="heading-section">
 					<div className="heading-section_sub">
-						<h1>PropertiesName</h1>
+						<HPrimary title="Property Title" />
 						<h2 className="heading-section_addr">
 							sector 70, near community centre road
 						</h2>
 					</div>
+
 					<Link to="/properties" className="heading-section_link">
 						<BPrimary title="Request a Call" type="submit" />
 					</Link>
@@ -58,8 +64,8 @@ const Property = () => {
 						<div className="sell-icon">
 							<LocalOfferIcon />
 						</div>
-                        <h3 className='price'>80,000</h3>
-                        <h3 className='special-price'>50,000</h3>
+						<h3 className="price">80,000</h3>
+						<h3 className="special-price">50,000</h3>
 					</div>
 					<div className="pricing-section_item">
 						<div className="sell-icon">

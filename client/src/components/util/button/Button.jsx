@@ -30,6 +30,31 @@ BPrimary.prototype = {
 };
 
 /**
+ * button secondary component
+ * @param {string} title text to show on button
+ * @param {string} className additional classNames to add to button
+ * @param {string} type type of button eg-submit
+ * @returns {JSX.Element} button primary component
+ */
+export const BSecondary = ({ title, className, type }) => {
+	return (
+		<Button
+			className={`${className} btn-secondary`}
+			type={type}
+			variant="contained"
+		>
+			{title}
+		</Button>
+	);
+};
+
+BSecondary.prototype = {
+	title: propTypes.string.isRequired,
+	className: propTypes.string,
+	type: propTypes.string,
+};
+
+/**
  * Button to upload files
  * @param {string} title text to show on button
  * @param {string} className additional classNames to add to button
