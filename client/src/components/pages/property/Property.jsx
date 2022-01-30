@@ -24,6 +24,9 @@ const Property = () => {
 					alt="property"
 					className="image-1"
 				/>
+
+				<h2 className="pos">Resale</h2>
+				<h2 className="pos left">Full Furnished</h2>
 				<div className="flex">
 					<img
 						src="/images/background/hero.png"
@@ -55,7 +58,8 @@ const Property = () => {
 						<div className="sell-icon">
 							<LocalOfferIcon />
 						</div>
-						<h3>80,000</h3>
+                        <h3 className='price'>80,000</h3>
+                        <h3 className='special-price'>50,000</h3>
 					</div>
 					<div className="pricing-section_item">
 						<div className="sell-icon">

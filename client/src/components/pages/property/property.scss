@@ -1,3 +1,5 @@
+@include '../../../styles/variable.scss';
+
 section {
 	margin-top: 4rem;
 	margin-bottom: 6rem;
@@ -8,15 +10,27 @@ section {
 	margin: 2rem 1rem;
 }
 .image-1 {
-	height: 500px;
+	height: 400px;
 	padding: 0.6rem;
+    position: relative;
 }
+.pos{
+    position: absolute;
+    margin: 2rem;
+    background: #f5f5f5;
+    border-radius: 5px;
+    padding: 1.3rem 2rem;
+}
+.left{
+    left: 11rem;
+}
+
 .image-2 {
-	height: 250px;
+	height: 200px;
 	padding: 0.6rem;
 }
 .image-3 {
-	height: 250px;
+	height: 200px;
 	padding: 0.6rem;
 }
 .flex {
@@ -63,12 +77,21 @@ h1 {
 		h3 {
 			color: #000;
 			font-size: 2rem;
-			padding: 0 4rem;
+			padding: 0 2rem;
 		}
 		svg {
-			color: #000 !important;
+            color: #000 !important;
 			font-size: 2rem !important;
 		}
+        .price{
+            text-decoration: line-through;
+            text-decoration-color: $color-primary;
+
+        }
+        .special-price{
+            font-size: 2rem;
+            padding-left: 0;
+        }
 	}
 	.space {
 		margin-right: 8rem;
