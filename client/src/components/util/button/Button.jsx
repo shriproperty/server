@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { Button } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 
 import './button.scss';
 
@@ -9,16 +10,17 @@ import './button.scss';
  * @param {string} title text to show on button
  * @param {string} className additional classNames to add to button
  * @param {string} type type of button eg-submit
+ * @param {string} loading if true button will show loading indicator
  * @returns {JSX.Element} button primary component
  */
-export const BPrimary = ({ title, className, type }) => {
+export const BPrimary = ({ title, className, type, loading }) => {
 	return (
 		<Button
 			className={`${className} btn-primary`}
 			type={type}
 			variant="contained"
 		>
-			{title}
+			{loading ? <CircularProgress /> : title}
 		</Button>
 	);
 };
@@ -27,6 +29,7 @@ BPrimary.propTypes = {
 	title: propTypes.string.isRequired,
 	className: propTypes.string,
 	type: propTypes.string,
+	loading: propTypes.bool,
 };
 
 /**

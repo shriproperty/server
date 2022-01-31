@@ -5,6 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { BPrimary, BUpload } from '../../../../util/button/Button';
+import { ASuccess, AError } from '../../../../util/alert/Alert';
 
 import './form.scss';
 import postFile from '../../../../../api/postFile';
@@ -29,12 +30,18 @@ const Form = () => {
 	const [videos, setVideos] = useState('');
 	const [documents, setDocuments] = useState('');
 	const [otherFeatures, setOtherFeatures] = useState([]);
+	const [loading, setLoading] = useState(false);
+	const [openSuccess, setOpenSuccess] = useState(false);
+	const [openError, setOpenError] = useState(false);
+	const [successMessage, setSuccessMessage] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
 
 	const body = new FormData();
 
 	// submit handler
 	const submitHandler = e => {
 		e.preventDefault();
+		setLoading(true);
 
 		// append data to body to send
 		body.append('title', title);
@@ -73,19 +80,35 @@ const Form = () => {
 			body.append('otherFeatures', otherFeatures[feature]);
 		}
 
-		//TODO: Show loader
-
 		// post to server
 		postFile('/properties/add', body).then(data => {
-			console.log(data);
+			setLoading(false);
 
-			//TODO: Hide loader and empety all text imputs
+			if (data.success) {
+				setOpenSuccess(true);
+				setSuccessMessage(data.message);
+			} else {
+				setOpenError(true);
+				setErrorMessage(data.message);
+			}
 		});
 	};
 
 	return (
 		<section>
 			<form onSubmit={submitHandler} className="admin-property-form">
+				<ASuccess
+					title={successMessage}
+					open={openSuccess}
+					setOpen={setOpenSuccess}
+				/>
+
+				<AError
+					title={errorMessage}
+					open={openError}
+					setOpen={setOpenError}
+				/>
+
 				<TextField
 					className="admin-property-form__input"
 					varient="outlined"
@@ -309,6 +332,7 @@ const Form = () => {
 					title="Submit"
 					className="admin-property-form__submit-btn"
 					type="submit"
+					loading={loading}
 				/>
 			</form>
 		</section>

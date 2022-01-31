@@ -16,9 +16,11 @@ const Form = () => {
 	const [openSuccess, setOpenSuccess] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
 	const [openError, setOpenError] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const submitHandler = e => {
 		e.preventDefault();
+		setLoading(true);
 
 		post('/contacts/add', {
 			name,
@@ -27,6 +29,8 @@ const Form = () => {
 			subject,
 			message,
 		}).then(res => {
+			setLoading(false);
+
 			if (res.success === true) {
 				setSuccessMessage(res.message);
 				setOpenSuccess(true);
@@ -112,6 +116,7 @@ const Form = () => {
 						title="Submit"
 						className="form-section__btn"
 						type="submit"
+						loading={loading}
 					/>
 				</div>
 			</form>
