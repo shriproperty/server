@@ -30,13 +30,15 @@ const Property = () => {
 				<>
 					<div className="image-grid">
 						<div className="image-grid__btns">
-							<BSecondary title="Apartment" />
-							<BSecondary title="Furnished" />
+							<BSecondary title={response.catagory} />
+							<BSecondary title={response.status} />
 						</div>
 
 						<video
 							controls
 							autoPlay
+							muted
+							loop
 							className="image-grid__image image-grid__image--1"
 						>
 							<source
