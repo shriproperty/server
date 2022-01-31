@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
 	HPrimary,
@@ -38,55 +39,59 @@ const Properties = () => {
 			{/* Properties */}
 			<div className="properties-section__properties">
 				{response.map(property => (
-					<div
-						className="properties-section__property"
-						key={property._id}
-					>
-						{/* Image */}
-						<div className="properties-section__property-image">
-							<img src={property.images[0].url} alt="property" />
+					<Link to={`/properties/${property._id}`}>
+						<div
+							className="properties-section__property"
+							key={property._id}
+						>
+							{/* Image */}
+							<div className="properties-section__property-image">
+								<img
+									src={property.images[0].url}
+									alt="property"
+								/>
+							</div>
+
+							{/* Mains */}
+							<HSecondary
+								title={property.title}
+								className="properties-section__property-title"
+							/>
+
+							<h4 className="properties-section__property-price">
+								₹ {property.price}
+							</h4>
+
+							<SSecondary
+								title={property.description}
+								className="properties-section__property-description"
+							/>
+
+							{/* IconsBar */}
+							<div className="properties-section__property-iconbar">
+								<div className="properties-section__property-iconbar-icon">
+									<HotelIcon />
+									<h4>{property.bedroom}</h4>
+								</div>
+								<div className="properties-section__property-iconbar-icon">
+									<ShowerIcon />
+									<h4>{property.bathroom}</h4>
+								</div>
+								<div className="properties-section__property-iconbar-icon">
+									<CarRepairIcon />
+									<h4>{property.parking}</h4>
+								</div>
+								<div className="properties-section__property-iconbar-icon">
+									<MapIcon />
+									<h4>
+										{property.size} {property.unit}
+									</h4>
+								</div>
+							</div>
 						</div>
-
-						{/* Mains */}
-						<HSecondary
-							title={property.title}
-							className="properties-section__property-title"
-						/>
-
-						<h4 className="properties-section__property-price">
-							₹ {property.price}
-						</h4>
-
-						<SSecondary
-							title={property.description}
-							className="properties-section__property-description"
-						/>
-
-						{/* IconsBar */}
-						<div className="properties-section__property-iconbar">
-							<div className="properties-section__property-iconbar-icon">
-								<HotelIcon />
-								<h4>{property.bedroom}</h4>
-							</div>
-							<div className="properties-section__property-iconbar-icon">
-								<ShowerIcon />
-								<h4>{property.bathroom}</h4>
-							</div>
-							<div className="properties-section__property-iconbar-icon">
-								<CarRepairIcon />
-								<h4>{property.parking}</h4>
-							</div>
-							<div className="properties-section__property-iconbar-icon">
-								<MapIcon />
-								<h4>
-									{property.size} {property.unit}
-								</h4>
-							</div>
-						</div>
-					</div>
+					</Link>
 				))}
 			</div>
-			
 		</section>
 	);
 };
