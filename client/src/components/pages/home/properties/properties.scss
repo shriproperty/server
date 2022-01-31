@@ -2,8 +2,11 @@
 @import '../../../../styles/mixins.scss';
 
 .properties-section {
-	background-color: $color-background;
 	@include section-padding;
+
+	background-color: $color-background;
+	padding-top: 2rem !important;
+	padding-bottom: 2rem !important;
 
 	&__headings {
 		display: flex;
@@ -42,6 +45,7 @@
 			width: 100%;
 
 			img {
+				border-radius: 7px;
 				height: 100%;
 				width: 100%;
 			}

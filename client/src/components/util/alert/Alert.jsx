@@ -40,7 +40,7 @@ export const ASuccess = ({ title, open, setOpen }) => {
 	);
 };
 
-ASuccess.prototype = {
+ASuccess.propTypes = {
 	title: propTypes.string.isRequired,
 	open: propTypes.bool.isRequired,
 	setOpen: propTypes.func.isRequired,
@@ -79,7 +79,7 @@ export const AError = ({ title, open, setOpen }) => {
 	);
 };
 
-AError.prototype = {
+AError.propTypes = {
 	title: propTypes.string.isRequired,
 	open: propTypes.bool.isRequired,
 	setOpen: propTypes.func.isRequired,

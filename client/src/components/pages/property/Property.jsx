@@ -4,6 +4,7 @@ import { BPrimary, BSecondary } from '../../../components/util/button/Button';
 import get from '../../../api/get';
 import './property.scss';
 import { HPrimary } from '../../util/typography/Typography';
+import Loader from '../../util/loader/Loader';
 
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import StraightenIcon from '@mui/icons-material/Straighten';
@@ -23,9 +24,8 @@ const Property = () => {
 
 	return (
 		<section className="property-section">
-			{/* TODO: Create Loader */}
 			{loading ? (
-				<h1>Loader</h1>
+				<Loader fullScreen fullWidth />
 			) : (
 				<>
 					<div className="image-grid">

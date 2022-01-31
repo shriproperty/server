@@ -23,7 +23,7 @@ export const BPrimary = ({ title, className, type }) => {
 	);
 };
 
-BPrimary.prototype = {
+BPrimary.propTypes = {
 	title: propTypes.string.isRequired,
 	className: propTypes.string,
 	type: propTypes.string,
@@ -48,7 +48,7 @@ export const BSecondary = ({ title, className, type }) => {
 	);
 };
 
-BSecondary.prototype = {
+BSecondary.propTypes = {
 	title: propTypes.string.isRequired,
 	className: propTypes.string,
 	type: propTypes.string,
@@ -75,7 +75,7 @@ export const BUpload = ({ title, className, onChange, accept }) => {
 	);
 };
 
-BUpload.prototype = {
+BUpload.propTypes = {
 	title: propTypes.string.isRequired,
 	className: propTypes.string,
 	onChange: propTypes.func,

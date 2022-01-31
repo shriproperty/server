@@ -3,6 +3,7 @@
 
 .category-section {
 	@include section-padding;
+	margin-top: 2rem;
 
 	&__headings {
 		display: flex;
