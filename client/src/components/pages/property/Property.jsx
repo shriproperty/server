@@ -42,19 +42,20 @@ const Property = () => {
 							className="image-grid__image image-grid__image--1"
 						>
 							<source
-								src={response.videos[0].url}
+								src={response.videos[0]?.url}
 								type="video/mp4"
 							/>
+							there is no video :(
 						</video>
 
 						<img
-							src={response.images[0].url}
+							src={response.images[0]?.url}
 							alt="property"
 							className="image-grid__image image-grid__image--2"
 						/>
 
 						<img
-							src={response.images[1].url}
+							src={response.images[1]?.url}
 							alt="property"
 							className="image-grid__image image-grid__image--3"
 						/>
@@ -124,16 +125,11 @@ const Property = () => {
 							<p>{response.description}</p>
 						</div>
 
-						{response.documents.length > 0 &&
-							response.documents.map((doc, i) => (
-								<a
-									href={doc.url}
-									className="link"
-									key={doc.key}
-								>
-									Download pdf {i + 1}
-								</a>
-							))}
+						{response?.documents.map((doc, i) => (
+							<a href={doc.url} className="link" key={doc.key}>
+								Download pdf {i + 1}
+							</a>
+						))}
 					</div>
 				</>
 			)}

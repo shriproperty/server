@@ -38,7 +38,7 @@ const Properties = () => {
 								{/* Image */}
 								<div className="properties-section__property-image">
 									<img
-										src={property.images[0].url}
+										src={property.images[0]?.url}
 										alt="property"
 									/>
 								</div>
