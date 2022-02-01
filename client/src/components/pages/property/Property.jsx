@@ -117,7 +117,22 @@ const Property = () => {
 								<h3>Kitchen</h3> <h3>{response.kitchen}</h3>
 							</div>
 							<div className="facilities-section_item">
-								<h3>Parking</h3> <h3>{response.parking}</h3>
+								<h3>Open Parking</h3> <h3>{response.parking}</h3>
+							</div>
+							<div className="facilities-section_item">
+								<h3>Closed Parking</h3> <h3>{response.parking}</h3>
+							</div>
+							<div className="facilities-section_item">
+								<h3>Pooja Room</h3> <h3>{response.parking}</h3>
+							</div>
+							<div className="facilities-section_item">
+								<h3>Balconies</h3> <h3>{response.parking}</h3>
+							</div>
+							<div className="facilities-section_item">
+								<h3>Binning Room</h3> <h3>{response.parking}</h3>
+							</div>
+							<div className="facilities-section_item">
+								<h3>Living Room</h3> <h3>{response.parking}</h3>
 							</div>
 						</div>
 						<div className="description-section">

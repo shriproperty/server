@@ -102,6 +102,7 @@
 .facilities-section {
 	display: grid;
 	grid-template-columns: repeat(6, 1fr);
+	grid-template-rows: repeat(2, 1fr);
 	padding: 2rem 4rem;
 	gap: 10px;
 	&_heading {
