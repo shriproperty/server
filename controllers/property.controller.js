@@ -28,7 +28,15 @@ export const createProduct = async (req, res) => {
 			featured,
 			bedroom,
 			bathroom,
-			parking,
+			openParking,
+			closeParking,
+			livingRoom,
+			dinningRoom,
+			store,
+			poojaRoom,
+			balcony,
+			floor,
+			direction,
 			kitchen,
 			otherFeatures,
 			address,
@@ -48,13 +56,14 @@ export const createProduct = async (req, res) => {
 			!size ||
 			!unit ||
 			!address ||
-			!otherFeatures
+			!otherFeatures ||
+			!direction
 		) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
 				message:
-					'Title, Description, Price, Type, Catagory, Size, Unit, Address and other features are required',
+					'Title, Description, Price, Type, Catagory, Size, Unit, Address, Direction and other features are required',
 			});
 		}
 
@@ -122,6 +131,26 @@ export const createProduct = async (req, res) => {
 			});
 		}
 
+		// validate direction
+		if (
+			direction !== 'North' &&
+			direction !== 'South' &&
+			direction !== 'East' &&
+			direction !== 'West' &&
+			direction !== 'North-East' &&
+			direction !== 'North-West' &&
+			direction !== 'South-East' &&
+			direction !== 'South-West'
+		) {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
+				message:
+					'Direction can only be one of the following: North, South, East, West, North-East, North-West, South-East, South-West',
+				data: {},
+			});
+		}
+
 		// upload files to aws s3
 		for (let file of req.files) {
 			const response = await uploadFileToS3(file);
@@ -155,7 +184,14 @@ export const createProduct = async (req, res) => {
 			featured,
 			bedroom,
 			bathroom,
-			parking,
+			openParking,
+			closeParking,
+			livingRoom,
+			dinningRoom,
+			store,
+			poojaRoom,
+			balcony,
+			floor,
 			kitchen,
 			otherFeatures,
 			address,

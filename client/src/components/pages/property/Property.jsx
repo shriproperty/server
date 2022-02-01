@@ -129,7 +129,7 @@ const Property = () => {
 								<h3>Balconies</h3> <h3>{response.parking}</h3>
 							</div>
 							<div className="facilities-section_item">
-								<h3>Binning Room</h3> <h3>{response.parking}</h3>
+								<h3>Dinning Room</h3> <h3>{response.parking}</h3>
 							</div>
 							<div className="facilities-section_item">
 								<h3>Living Room</h3> <h3>{response.parking}</h3>
