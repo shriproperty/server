@@ -177,15 +177,17 @@ const Property = () => {
 							</div>
 						</section>
 
-						<section className="other-facilities-section">
-							<h1>Other Features</h1>
+						{response?.otherFeatures.lenght > 0 && (
+							<section className="other-facilities-section">
+								<h1>Other Features</h1>
 
-							<ul>
-								{response?.otherFeatures.map(feature => (
-									<li>{feature}</li>
-								))}
-							</ul>
-						</section>
+								<ul>
+									{response.otherFeatures.map(feature => (
+										<li>{feature}</li>
+									))}
+								</ul>
+							</section>
+						)}
 
 						<section className="description-section">
 							<h1>About</h1>
