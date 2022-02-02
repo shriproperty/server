@@ -9,7 +9,6 @@ import {
 import {
 	uploadFileToS3,
 	deleteMultipleFilesFromS3,
-	deleteSingleFileFromS3,
 } from '../helpers/s3.helper.js';
 
 /* ----------------------------- create property ----------------------------- */

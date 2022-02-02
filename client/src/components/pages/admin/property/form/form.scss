@@ -4,7 +4,7 @@
 	@include section-padding;
 
 	&__input {
-		margin-top: 1.5rem !important;
+		margin: 1.5rem !important;
 
 		input {
 			font-size: 1.5rem !important;
@@ -43,4 +43,8 @@
 	&__submit-btn {
 		margin: 2rem !important;
 	}
+}
+
+.MuiMenuItem-root {
+	font-size: 1.3rem !important;
 }

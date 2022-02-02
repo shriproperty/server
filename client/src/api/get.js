@@ -12,6 +12,8 @@ const getRequest = async url => {
 		},
 	});
 
+	if (res.ok === false) throw new Error(res.statusText);
+
 	return res.json();
 };
 

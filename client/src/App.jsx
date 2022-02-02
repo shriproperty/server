@@ -1,5 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	Navigate,
+} from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
 
 import Nav from './components/layout/nav/Nav';
@@ -9,7 +14,8 @@ import Properties from './components/routes/Properties';
 import Users from './components/routes/admin/Users';
 import Property from './components/routes/Property';
 import Contacts from './components/routes/admin/Contacts';
-import { default as PropertyAdmin } from './components/routes/admin/Property';
+import PropertyAdmin from './components/routes/admin/Property';
+import NotFound from './components/routes/NotFound';
 import './app.scss';
 
 const App = () => {
@@ -37,6 +43,8 @@ const UserRoutes = () => {
 				<Route path="/" element={<Home />} />
 				<Route path="/properties" element={<Properties />} />
 				<Route path="/properties/:id" element={<Property />} />
+				<Route path="/404" element={<NotFound />} />
+				<Route path="*" element={<Navigate replace to="/404" />} />
 			</Routes>
 			<Footer />
 		</>
