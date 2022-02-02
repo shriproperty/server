@@ -30,12 +30,12 @@ const Property = () => {
 	}, [id]);
 
 	return (
-		<section className="property-section">
+		<main className="property-section">
 			{loading ? (
 				<Loader fullScreen fullWidth />
 			) : (
 				<>
-					<div className="image-grid">
+					<section className="image-grid">
 						<div className="image-grid__btns">
 							<BSecondary title={response.catagory} />
 							<BSecondary title={response.status} />
@@ -74,10 +74,10 @@ const Property = () => {
 							alt="property"
 							className="image-grid__image image-grid__image--3"
 						/>
-					</div>
+					</section>
 
 					<div>
-						<div className="heading-section">
+						<section className="heading-section">
 							<div className="heading-section_sub">
 								<HPrimary title={response.title} />
 
@@ -95,89 +95,104 @@ const Property = () => {
 									type="submit"
 								/>
 							</Link>
-						</div>
-						<h1 className="pricing-section_heading">
-							Pricing and Size
-						</h1>
-						<div className="pricing-section">
-							<div className="pricing-section_item space">
-								<div className="sell-icon">
-									<LocalOfferIcon />
+						</section>
+
+						<section className="pricing-section">
+							<h1 className="pricing-section_heading">
+								Pricing and Size
+							</h1>
+
+							<div className="pricing-section__prices">
+								<div className="pricing-section_item space">
+									<div className="sell-icon">
+										<LocalOfferIcon />
+									</div>
+									<h3 className="price">{response.price}</h3>
+									<h3 className="special-price">
+										{response.specialPrice}
+									</h3>
 								</div>
-								<h3 className="price">{response.price}</h3>
-								<h3 className="special-price">
-									{response.specialPrice}
-								</h3>
-							</div>
-							<div className="pricing-section_item">
-								<div className="sell-icon">
-									<StraightenIcon />
+								<div className="pricing-section_item">
+									<div className="sell-icon">
+										<StraightenIcon />
+									</div>
+									<h3>
+										{response.size} {response.unit}
+									</h3>
 								</div>
-								<h3>
-									{response.size} {response.unit}
-								</h3>
 							</div>
-						</div>
-						<h1 className="facilities-section_heading">
-							Facilities
-						</h1>
-						<div className="facilities-section">
-							<div className="facilities-section_item">
-								<h3>Bedroom</h3> <h3>{response.bedroom}</h3>
-							</div>
+						</section>
 
-							<div className="facilities-section_item">
-								<h3>Bathroom</h3> <h3>{response.bathroom}</h3>
-							</div>
+						<section className="facilities-section">
+							<h1 className="facilities-section_heading">
+								Facilities
+							</h1>
+							<div className="facilities-section__facilities">
+								<div className="facilities-section_item">
+									<h3>Bedroom</h3> <h3>{response.bedroom}</h3>
+								</div>
 
-							<div className="facilities-section_item">
-								<h3>Kitchen</h3> <h3>{response.kitchen}</h3>
-							</div>
+								<div className="facilities-section_item">
+									<h3>Bathroom</h3>{' '}
+									<h3>{response.bathroom}</h3>
+								</div>
 
-							<div className="facilities-section_item">
-								<h3>Open Parking</h3>
-								<h3>{response.openParking}</h3>
-							</div>
+								<div className="facilities-section_item">
+									<h3>Kitchen</h3> <h3>{response.kitchen}</h3>
+								</div>
 
-							<div className="facilities-section_item">
-								<h3>Closed Parking</h3>
-								<h3>{response.closeParking}</h3>
-							</div>
+								<div className="facilities-section_item">
+									<h3>Open Parking</h3>
+									<h3>{response.openParking}</h3>
+								</div>
 
-							<div className="facilities-section_item">
-								<h3>Pooja Room</h3>
-								<h3>{response.poojaRoom}</h3>
-							</div>
+								<div className="facilities-section_item">
+									<h3>Closed Parking</h3>
+									<h3>{response.closeParking}</h3>
+								</div>
 
-							<div className="facilities-section_item">
-								<h3>Balconies</h3> <h3>{response.balcony}</h3>
-							</div>
+								<div className="facilities-section_item">
+									<h3>Pooja Room</h3>
+									<h3>{response.poojaRoom}</h3>
+								</div>
 
-							<div className="facilities-section_item">
-								<h3>Dinning Room</h3>
-								<h3>{response.dinningRoom}</h3>
-							</div>
+								<div className="facilities-section_item">
+									<h3>Balconies</h3>{' '}
+									<h3>{response.balcony}</h3>
+								</div>
 
-							<div className="facilities-section_item">
-								<h3>Living Room</h3>
-								<h3>{response.livingRoom}</h3>
-							</div>
-							<div className="facilities-section_item">
-								<h3>Store Room</h3> <h3>{response.parking}</h3>
-							</div>
-						</div>
+								<div className="facilities-section_item">
+									<h3>Dinning Room</h3>
+									<h3>{response.dinningRoom}</h3>
+								</div>
 
-						<div className="description-section">
+								<div className="facilities-section_item">
+									<h3>Living Room</h3>
+									<h3>{response.livingRoom}</h3>
+								</div>
+								<div className="facilities-section_item">
+									<h3>Store Room</h3>{' '}
+									<h3>{response.store}</h3>
+								</div>
+							</div>
+						</section>
+
+						<section className="other-facilities-section">
+							<h1>Other Features</h1>
+
+							<ul>
+								{response?.otherFeatures.map(feature => (
+									<li>{feature}</li>
+								))}
+							</ul>
+						</section>
+
+						<section className="description-section">
 							<h1>About</h1>
 							<p>{response.description}</p>
-						</div>
+						</section>
 
-						<h1 className="facilities-section_heading">
-							Other Facilities
-						</h1>
-						<div className="facilities-section_item">
-							<h3>Store Room</h3> <h3>{response.parking}</h3>
-						</div>
+						{/* TODO: show pdf insted of download */}
 						{response?.documents.map((doc, i) => (
 							<a href={doc.url} className="link" key={doc.key}>
 								Download pdf {i + 1}
@@ -186,7 +201,7 @@ const Property = () => {
 					</div>
 				</>
 			)}
-		</section>
+		</main>
 	);
 };
 
