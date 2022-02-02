@@ -123,7 +123,7 @@ const Property = () => {
 						</h1>
 						<div className="facilities-section">
 							<div className="facilities-section_item">
-								<h3>BedRooms</h3> <h3>{response.bedroom}</h3>
+								<h3>Bedroom</h3> <h3>{response.bedroom}</h3>
 							</div>
 
 							<div className="facilities-section_item">
@@ -162,12 +162,22 @@ const Property = () => {
 								<h3>Living Room</h3>
 								<h3>{response.livingRoom}</h3>
 							</div>
+							<div className="facilities-section_item">
+								<h3>Store Room</h3> <h3>{response.parking}</h3>
+							</div>
 						</div>
+
 						<div className="description-section">
 							<h1>About</h1>
 							<p>{response.description}</p>
 						</div>
 
+						<h1 className="facilities-section_heading">
+							Other Facilities
+						</h1>
+						<div className="facilities-section_item">
+							<h3>Store Room</h3> <h3>{response.parking}</h3>
+						</div>
 						{response?.documents.map((doc, i) => (
 							<a href={doc.url} className="link" key={doc.key}>
 								Download pdf {i + 1}
