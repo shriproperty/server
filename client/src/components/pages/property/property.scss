@@ -61,12 +61,17 @@
 		font-size: 1rem;
 	}
 }
+
 .pricing-section {
-	display: flex;
 	padding: 0 4rem;
 
+	&__prices {
+		display: flex;
+		align-items: center;
+	}
+
 	&_heading {
-		padding: 2rem 4rem;
+		margin: 2rem 0;
 		font-size: 2rem;
 	}
 
@@ -95,20 +100,26 @@
 			padding-left: 0;
 		}
 	}
+
 	.space {
 		margin-right: 8rem;
 	}
 }
 
 .facilities-section {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
 	padding: 0 4rem;
-	gap: 10px;
+
+	&__facilities {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+		gap: 10px;
+	}
+
 	&_heading {
-		margin: 2rem 4rem;
+		margin: 2rem 0;
 		font-size: 2rem;
 	}
+
 	&_item {
 		display: flex;
 		align-items: center;
@@ -117,21 +128,41 @@
 		border-radius: 5px;
 		padding: 2rem 4rem;
 		justify-content: center;
+
 		h3 {
 			padding: 0 1rem;
 		}
 	}
 }
 
-.description-section {
+.other-facilities-section {
+	padding: 0 4rem;
+
 	h1 {
-		margin: 2rem 4rem;
+		margin: 2rem 0;
 		font-size: 2rem;
 	}
+
+	ul {
+		list-style: none;
+
+		li {
+			font-size: 1.5rem;
+		}
+	}
+}
+
+.description-section {
+	padding: 0 4rem;
+
+	h1 {
+		margin: 2rem 0;
+		font-size: 2rem;
+	}
+
 	p {
 		width: 70%;
 		font-size: 1.5rem;
-		padding: 0 4rem;
 		line-height: 1.5;
 	}
 }
