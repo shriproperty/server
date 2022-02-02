@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { BPrimary, BSecondary } from '../../../components/util/button/Button';
 import get from '../../../api/get';
 import './property.scss';
@@ -11,6 +11,7 @@ import StraightenIcon from '@mui/icons-material/Straighten';
 
 const Property = () => {
 	const { id } = useParams();
+	const navigate = useNavigate();
 
 	const [response, setResponse] = useState({});
 	const [loading, setLoading] = useState(true);
@@ -22,7 +23,7 @@ const Property = () => {
 				setLoading(false);
 			})
 			.catch(() => {
-				// TODO: redirect to 404 page because id is invalid
+				navigate('/404');
 			});
 	}, [id]);
 
