@@ -16,6 +16,7 @@ import Property from './components/routes/Property';
 import Contacts from './components/routes/admin/Contacts';
 import PropertyAdmin from './components/routes/admin/Property';
 import NotFound from './components/routes/NotFound';
+import Admin from './components/routes/admin/Admin';
 import './app.scss';
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
 			<CssBaseline />
 			<Router>
 				<Routes>
+					<Route path="/admin/" element={<Admin />} />
 					<Route path="/admin/users" element={<Users />} />
 					<Route path="/admin/property" element={<PropertyAdmin />} />
 					<Route path="/admin/contacts" element={<Contacts />} />
