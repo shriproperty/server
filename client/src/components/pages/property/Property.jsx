@@ -177,7 +177,7 @@ const Property = () => {
 							</div>
 						</section>
 
-						{response?.otherFeatures.lenght > 0 && (
+						{response?.otherFeatures.length > 0 && (
 							<section className="other-facilities-section">
 								<h1>Other Features</h1>
 
