@@ -16,10 +16,14 @@ const Property = () => {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		get(`/properties/single/${id}`).then(data => {
-			setResponse(data.data);
-			setLoading(false);
-		});
+		get(`/properties/single/${id}`)
+			.then(data => {
+				setResponse(data.data);
+				setLoading(false);
+			})
+			.catch(() => {
+				// TODO: redirect to 404 page because id is invalid
+			});
 	}, [id]);
 
 	return (
