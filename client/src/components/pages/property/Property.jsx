@@ -108,7 +108,7 @@ const Property = () => {
 						</h1>
 						<div className="facilities-section">
 							<div className="facilities-section_item">
-								<h3>BedRooms</h3> <h3>{response.bedroom}</h3>
+								<h3>Bedroom</h3> <h3>{response.bedroom}</h3>
 							</div>
 							<div className="facilities-section_item">
 								<h3>Bathroom</h3> <h3>{response.bathroom}</h3>
@@ -117,29 +117,42 @@ const Property = () => {
 								<h3>Kitchen</h3> <h3>{response.kitchen}</h3>
 							</div>
 							<div className="facilities-section_item">
-								<h3>Open Parking</h3> <h3>{response.parking}</h3>
+								<h3>Open Parking</h3>{' '}
+								<h3>{response.parking}</h3>
 							</div>
 							<div className="facilities-section_item">
-								<h3>Closed Parking</h3> <h3>{response.parking}</h3>
+								<h3>Coverd Parking</h3>{' '}
+								<h3>{response.parking}</h3>
 							</div>
 							<div className="facilities-section_item">
 								<h3>Pooja Room</h3> <h3>{response.parking}</h3>
 							</div>
 							<div className="facilities-section_item">
-								<h3>Balconies</h3> <h3>{response.parking}</h3>
+								<h3>Balcony</h3> <h3>{response.parking}</h3>
 							</div>
 							<div className="facilities-section_item">
-								<h3>Dinning Room</h3> <h3>{response.parking}</h3>
+								<h3>Dinning Room</h3>{' '}
+								<h3>{response.parking}</h3>
 							</div>
 							<div className="facilities-section_item">
 								<h3>Living Room</h3> <h3>{response.parking}</h3>
 							</div>
+							<div className="facilities-section_item">
+								<h3>Store Room</h3> <h3>{response.parking}</h3>
+							</div>
 						</div>
+
 						<div className="description-section">
 							<h1>About</h1>
 							<p>{response.description}</p>
 						</div>
 
+						<h1 className="facilities-section_heading">
+							Other Facilities
+						</h1>
+						<div className="facilities-section_item">
+							<h3>Store Room</h3> <h3>{response.parking}</h3>
+						</div>
 						{response?.documents.map((doc, i) => (
 							<a href={doc.url} className="link" key={doc.key}>
 								Download pdf {i + 1}
