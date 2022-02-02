@@ -42,7 +42,7 @@ const Form = () => {
 	};
 
 	return (
-		<section className="form-section">
+		<section className="form-section" id="form-section">
 			<HPrimary
 				className="form-section__heading"
 				title="Contact us today if you'd like to know more about what our real estate services"

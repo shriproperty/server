@@ -24,7 +24,7 @@ const Nav = () => {
 					</li>
 
 					<li>
-						<Link to="/contact-us">Contact Us</Link>
+						<a href="/#form-section">Contact Us</a>
 					</li>
 
 					<li className="nav__search">
