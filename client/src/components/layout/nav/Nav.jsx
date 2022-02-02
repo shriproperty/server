@@ -34,7 +34,6 @@ const Nav = () => {
 					</li>
 				</ul>
 				<ul className="nav__btns">
-					<AccountCircleIcon />
 					<BPrimary title="Add Listings" />
 				</ul>
 			</nav>
