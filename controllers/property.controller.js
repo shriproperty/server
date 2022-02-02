@@ -9,7 +9,6 @@ import {
 import {
 	uploadFileToS3,
 	deleteMultipleFilesFromS3,
-	deleteSingleFileFromS3,
 } from '../helpers/s3.helper.js';
 
 /* ----------------------------- create property ----------------------------- */
@@ -192,6 +191,7 @@ export const createProduct = async (req, res) => {
 			poojaRoom,
 			balcony,
 			floor,
+			direction,
 			kitchen,
 			otherFeatures,
 			address,

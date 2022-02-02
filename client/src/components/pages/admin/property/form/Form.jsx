@@ -20,10 +20,18 @@ const Form = () => {
 	const [status, setStatus] = useState('');
 	const [size, setSize] = useState('');
 	const [unit, setUnit] = useState('');
-	const [bedroom, setBedroom] = useState(1);
-	const [bathroom, setBathroom] = useState(1);
-	const [parking, setParking] = useState(1);
-	const [kitchen, setKitchen] = useState(1);
+	const [bedroom, setBedroom] = useState(0);
+	const [bathroom, setBathroom] = useState(0);
+	const [openParking, setOpenParking] = useState(0);
+	const [closeParking, setCloseParking] = useState(0);
+	const [livingRoom, setLivingRoom] = useState(0);
+	const [dinningRoom, setDinningRoom] = useState(0);
+	const [store, setStore] = useState(0);
+	const [poojaRoom, setPoojaRoom] = useState(0);
+	const [balcony, setBalcony] = useState(0);
+	const [floor, setFloor] = useState('');
+	const [direction, setDirection] = useState('');
+	const [kitchen, setKitchen] = useState(0);
 	const [address, setAddress] = useState('');
 	const [featured, setFeatured] = useState(false);
 	const [images, setImages] = useState([]);
@@ -55,7 +63,15 @@ const Form = () => {
 		body.append('unit', unit);
 		body.append('bedroom', bedroom);
 		body.append('bathroom', bathroom);
-		body.append('parking', parking);
+		body.append('openParking', openParking);
+		body.append('closeParking', closeParking);
+		body.append('livingRoom', livingRoom);
+		body.append('dinningRoom', dinningRoom);
+		body.append('store', store);
+		body.append('poojaRoom', poojaRoom);
+		body.append('balcony', balcony);
+		body.append('floor', floor);
+		body.append('direction', direction);
 		body.append('kitchen', kitchen);
 		body.append('address', address);
 		body.append('featured', featured);
@@ -131,72 +147,6 @@ const Form = () => {
 				<TextField
 					className="admin-property-form__input"
 					varient="outlined"
-					label="Price"
-					type="number"
-					fullWidth
-					required
-					onChange={e => setPrice(e.target.value)}
-				/>
-
-				<TextField
-					className="admin-property-form__input"
-					varient="outlined"
-					label="Special Price"
-					type="number"
-					fullWidth
-					required
-					onChange={e => setSpecialPrice(e.target.value)}
-				/>
-
-				<TextField
-					className="admin-property-form__input"
-					varient="outlined"
-					label="Size"
-					type="number"
-					fullWidth
-					required
-					onChange={e => setSize(e.target.value)}
-				/>
-
-				<TextField
-					className="admin-property-form__input"
-					varient="outlined"
-					label="Bedrooms"
-					type="number"
-					fullWidth
-					onChange={e => setBedroom(e.target.value)}
-				/>
-
-				<TextField
-					className="admin-property-form__input"
-					varient="outlined"
-					label="Bathroom"
-					type="number"
-					fullWidth
-					onChange={e => setBathroom(e.target.value)}
-				/>
-
-				<TextField
-					className="admin-property-form__input"
-					varient="outlined"
-					label="Kitchen"
-					type="number"
-					fullWidth
-					onChange={e => setKitchen(e.target.value)}
-				/>
-
-				<TextField
-					className="admin-property-form__input"
-					varient="outlined"
-					label="Parking"
-					type="number"
-					fullWidth
-					onChange={e => setParking(e.target.value)}
-				/>
-
-				<TextField
-					className="admin-property-form__input"
-					varient="outlined"
 					label="Address"
 					required
 					fullWidth
@@ -213,6 +163,122 @@ const Form = () => {
 					required
 					onChange={e => setOtherFeatures(e.target.value.split('\n'))}
 				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Price"
+					type="number"
+					required
+					onChange={e => setPrice(e.target.value)}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Special Price"
+					type="number"
+					required
+					onChange={e => setSpecialPrice(e.target.value)}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Size"
+					type="number"
+					required
+					onChange={e => setSize(e.target.value)}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Bedrooms"
+					type="number"
+					onChange={e => setBedroom(e.target.value)}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Bathroom"
+					type="number"
+					onChange={e => setBathroom(e.target.value)}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Kitchen"
+					type="number"
+					onChange={e => setKitchen(e.target.value)}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Open Parking"
+					type="number"
+					onChange={e => setOpenParking(e.target.value)}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Close Parking"
+					type="number"
+					onChange={e => setCloseParking(e.target.value)}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Living Room"
+					type="number"
+					onChange={e => setLivingRoom(e.target.value)}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Dinning Room"
+					type="number"
+					onChange={e => setDinningRoom(e.target.value)}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Store Room"
+					type="number"
+					onChange={e => setStore(e.target.value)}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Pooja Room"
+					type="number"
+					onChange={e => setPoojaRoom(e.target.value)}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Balcony"
+					type="number"
+					onChange={e => setBalcony(e.target.value)}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Floor"
+					onChange={e => setFloor(e.target.value)}
+				/>
+
+				<br />
 
 				<FormControl className="admin-property-form__select">
 					<InputLabel>Type</InputLabel>
@@ -300,6 +366,24 @@ const Form = () => {
 					>
 						<MenuItem value={true}>True</MenuItem>
 						<MenuItem value={false}>False</MenuItem>
+					</Select>
+				</FormControl>
+
+				<FormControl className="admin-property-form__select">
+					<InputLabel>Direction</InputLabel>
+					<Select
+						label="Direction"
+						value={direction}
+						onChange={e => setDirection(e.target.value)}
+					>
+						<MenuItem value="North">North</MenuItem>
+						<MenuItem value="South">South</MenuItem>
+						<MenuItem value="East">East</MenuItem>
+						<MenuItem value="West">West</MenuItem>
+						<MenuItem value="North-East">North-East</MenuItem>
+						<MenuItem value="North-West">North-West</MenuItem>
+						<MenuItem value="South-East">South-East</MenuItem>
+						<MenuItem value="South-West">South-West</MenuItem>
 					</Select>
 				</FormControl>
 
