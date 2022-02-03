@@ -18,7 +18,7 @@ import {
 
 import './admin.scss';
 
-const AdminPage = () => {
+const AdminPage = ({ submit, setSubmit }) => {
 	const [response, setResponse] = useState([]);
 	const [openModal, setOpenModal] = useState(false);
 	const [deleteLoading, setDeleteLoading] = useState(false);
@@ -32,8 +32,10 @@ const AdminPage = () => {
 		getRequest('/properties/all').then(data => {
 			setResponse(data.data);
 			setPropertyLoading(false);
+			setSubmit(false);
 		});
-	}, []);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [submit]);
 
 	const deleteHandler = id => {
 		return e => {
@@ -51,6 +53,8 @@ const AdminPage = () => {
 					setErrorMessage(data.message);
 					setOpenError(true);
 				}
+
+				setSubmit(true);
 			});
 		};
 	};

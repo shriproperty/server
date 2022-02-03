@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AdminPage from '../../pages/admin/Admin';
 
 const Admin = () => {
+	const [submit, setSubmit] = useState(false);
+
 	return (
 		<main>
-			<AdminPage />
+			<AdminPage submit={submit} setSubmit={setSubmit} />
 		</main>
 	);
 };
