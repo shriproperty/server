@@ -1,8 +1,9 @@
 .alert {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
+	margin: 2rem !important;
 
-    p {
-        font-size: 1.5rem;
-    }
+	p {
+		font-size: 1.5rem;
+	}
 }
