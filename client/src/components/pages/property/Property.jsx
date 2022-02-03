@@ -183,7 +183,7 @@ const Property = () => {
 
 								<ul>
 									{response.otherFeatures.map(feature => (
-										<li>{feature}</li>
+										<li key={feature}>{feature}</li>
 									))}
 								</ul>
 							</section>
