@@ -194,7 +194,6 @@ const Property = () => {
 							<p>{response.description}</p>
 						</section>
 
-						{/* TODO: show pdf insted of download */}
 						{response?.documents.map((doc, i) => (
 							<a href={doc.url} className="link" key={doc.key}>
 								Download pdf {i + 1}
