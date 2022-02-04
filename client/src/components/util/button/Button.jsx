@@ -12,15 +12,24 @@ import './button.scss';
  * @param {string} type type of button eg-submit
  * @param {string} loading if true button will show loading indicator
  * @param {object} style type of style eg-padding: '0'
+ * @param {function} onClick function to call on click
  * @returns {JSX.Element} button primary component
  */
-export const BPrimary = ({ title, className, type, loading, style }) => {
+export const BPrimary = ({
+	title,
+	className,
+	type,
+	loading,
+	style,
+	onClick,
+}) => {
 	return (
 		<Button
 			style={style}
 			className={`${className} btn-primary`}
 			type={type}
 			variant="contained"
+			onClick={onClick}
 		>
 			{loading ? <CircularProgress /> : title}
 		</Button>
@@ -28,11 +37,12 @@ export const BPrimary = ({ title, className, type, loading, style }) => {
 };
 
 BPrimary.propTypes = {
-	title: propTypes.string.isRequired,
+	title: propTypes.node.isRequired,
 	className: propTypes.string,
 	type: propTypes.string,
 	loading: propTypes.bool,
 	style: propTypes.object,
+	onclick: propTypes.func,
 };
 
 /**

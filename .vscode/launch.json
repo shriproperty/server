@@ -1,0 +1,17 @@
+{
+	"configurations": [
+		{
+			"name": "Attach to Edge",
+			"port": 3000,
+			"request": "attach",
+			"type": "pwa-msedge",
+			"webRoot": "${workspaceFolder}"
+		},
+		{
+			"type": "pwa-msedge",
+			"name": "Launch edge",
+			"request": "launch",
+			"url": "http://localhost:3000/"
+		}
+	]
+}

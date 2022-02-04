@@ -11,15 +11,16 @@ import './alert.scss';
  * alert success
  * @param {string} title title to show on alert
  * @param {boolean} open if true alert will open else close
+ * @param {string} className additional class names
  * @param {function} setOpen this will update state of open
  * @returns {JSX.Element} alert success
  */
-export const ASuccess = ({ title, open, setOpen }) => {
+export const ASuccess = ({ title, open, setOpen, className }) => {
 	return (
 		<Collapse in={open}>
 			<Alert
 				severity="success"
-				className="alert"
+				className={`alert ${className}`}
 				action={
 					<IconButton
 						aria-label="close"
@@ -44,21 +45,23 @@ ASuccess.propTypes = {
 	title: propTypes.string.isRequired,
 	open: propTypes.bool.isRequired,
 	setOpen: propTypes.func.isRequired,
+	className: propTypes.string,
 };
 
 /**
  * alert error
  * @param {string} title title to show on alert
  * @param {boolean} open if true alert will open else close
+ * @param {string} className additional class names
  * @param {function} setOpen this will update state of open
  * @returns {JSX.Element} alert error
  */
-export const AError = ({ title, open, setOpen }) => {
+export const AError = ({ title, open, setOpen, className }) => {
 	return (
 		<Collapse in={open}>
 			<Alert
 				severity="error"
-				className="alert"
+				className={`alert ${className}`}
 				action={
 					<IconButton
 						aria-label="close"
@@ -83,4 +86,5 @@ AError.propTypes = {
 	title: propTypes.string.isRequired,
 	open: propTypes.bool.isRequired,
 	setOpen: propTypes.func.isRequired,
+	className: propTypes.string,
 };
