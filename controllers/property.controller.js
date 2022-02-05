@@ -277,8 +277,25 @@ export const update = async (req, res) => {
 		const {
 			title,
 			description,
+			address,
 			price,
 			specialPrice,
+			size,
+			type,
+			catagory,
+			unit,
+			bedroom,
+			bathroom,
+			openParking,
+			closeParking,
+			kitchen,
+			livingRoom,
+			store,
+			balcony,
+			dinningRoom,
+			floor,
+			poojaRoom,
+			direction,
 			status,
 			featured,
 			otherFeatures,
@@ -288,32 +305,88 @@ export const update = async (req, res) => {
 		const videos = [];
 		const documents = [];
 
-		// validate input
+		const filesToDelete = [];
+
+		// validate type
+		if (type !== 'Rental' && type !== 'Sale') {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
+				message: 'Type must be either Rental or Sale',
+				data: {},
+			});
+		}
+
+		// validate catagory
 		if (
-			status !== 'Unfurnished' &&
-			status !== 'Semifurnished' &&
-			status !== 'Furnished' &&
-			status !== undefined
+			catagory !== 'Residential Apartment' &&
+			catagory !== 'Independent House/Villa' &&
+			catagory !== 'Plot' &&
+			catagory !== 'Commercial Office' &&
+			catagory !== 'Serviced Apartments' &&
+			catagory !== '1 RK/ Studio Apartment' &&
+			catagory !== 'Independent/Builder Floor' &&
+			catagory !== 'Other'
 		) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
 				message:
-					'Status can only be one of the following: Unfurnished, Semifurnished, Furnished',
+					'Catagory can only be one of the following: Residential Apartment, Independent House/Villa, Plot, Commercial Office, Serviced Apartments, 1 RK/ Studio Apartment, Independent/Builder Floor, Other',
 				data: {},
 			});
 		}
 
-		// validate featured
+		// validate status
 		if (
-			featured !== 'true' &&
-			featured !== 'false' &&
-			featured !== undefined
+			status !== 'Unfurnished' &&
+			status !== 'Semifurnished' &&
+			status !== 'Furnished' &&
+			status !== null
 		) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
+				message:
+					'Status can only be one of the following: Unfurnished, Semifurnished, Furnished, null',
+				data: {},
+			});
+		}
+
+		//TODO: add more fields for unit enum
+		if (unit !== 'sq' && unit !== 'marla') {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
+				message: 'Unit can only be "sq" or "marla"',
+			});
+		}
+
+		// validate featured
+		if (featured !== 'true' && featured !== 'false') {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
 				message: 'Featured can only be true or false',
+			});
+		}
+
+		// validate direction
+		if (
+			direction !== 'North' &&
+			direction !== 'South' &&
+			direction !== 'East' &&
+			direction !== 'West' &&
+			direction !== 'North-East' &&
+			direction !== 'North-West' &&
+			direction !== 'South-East' &&
+			direction !== 'South-West'
+		) {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
+				message:
+					'Direction can only be one of the following: North, South, East, West, North-East, North-West, South-East, South-West',
 				data: {},
 			});
 		}
@@ -344,11 +417,18 @@ export const update = async (req, res) => {
 			}
 
 			// delete files from aws s3
-			const filesToDelete = [
-				...propertyFromDB.images,
-				...propertyFromDB.videos,
-				...propertyFromDB.documents,
-			];
+
+			/**
+			 * delete only those files which we are getting from the request
+			 * eg if we are updating property and we are not getting any new images
+			 * but we are getting new videos and documents
+			 * then we will delete only videos and documents not images
+			 */
+			if (images.length > 0) filesToDelete.push(...propertyFromDB.images);
+			if (videos.length > 0) filesToDelete.push(...propertyFromDB.videos);
+			if (documents.length > 0)
+				filesToDelete.push(...propertyFromDB.documents);
+
 			deleteMultipleFilesFromS3(filesToDelete);
 		}
 
@@ -358,8 +438,25 @@ export const update = async (req, res) => {
 			{
 				title,
 				description,
+				address,
 				price,
 				specialPrice,
+				size,
+				type,
+				catagory,
+				unit,
+				bedroom,
+				bathroom,
+				openParking,
+				closeParking,
+				kitchen,
+				livingRoom,
+				store,
+				balcony,
+				dinningRoom,
+				floor,
+				poojaRoom,
+				direction,
 				status,
 				featured,
 				otherFeatures,
