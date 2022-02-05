@@ -1,4 +1,3 @@
-import React from 'react';
 import Form from '../../pages/admin/property/form/Form';
 
 const Property = () => {

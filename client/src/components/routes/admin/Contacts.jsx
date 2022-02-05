@@ -1,4 +1,3 @@
-import React from 'react';
 import { default as ContactList } from '../../pages/admin/contacts/Contacts';
 
 const Contacts = () => {

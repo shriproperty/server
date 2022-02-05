@@ -1,4 +1,3 @@
-import React from 'react';
 import './footer.scss';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
@@ -16,7 +15,7 @@ const Footer = () => {
 						the marketing and sales of luxury real estate, and
 						rental properties.
 					</p>
-					<p className='secondChild'>
+					<p className="secondChild">
 						Since 2013, we have developed powerful and fast real
 						estate themes for businesses who need a reliable and
 						extremely versatile product.

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import getRequest from '../../../api/get';
 import deleteRequest from '../../../api/delete';
@@ -8,6 +8,7 @@ import { AError, ASuccess } from '../../util/alert/Alert';
 import Modal from '../../util/modal/Modal';
 import Loader from '../../util/loader/Loader';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import {
 	Table,
 	TableRow,
@@ -34,7 +35,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 			setPropertyLoading(false);
 			setSubmit(false);
 		});
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [submit]);
 
 	const deleteHandler = id => {
@@ -67,7 +68,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 				<BPrimary title="Contacts" className="admin-page__button" />
 			</Link>
 
-			<Link to="/admin/property">
+			<Link to="/admin/property/add">
 				<BPrimary title="Add Property" className="admin-page__button" />
 			</Link>
 
@@ -110,6 +111,10 @@ const AdminPage = ({ submit, setSubmit }) => {
 							<TableCell className="contact-table__cell">
 								Delete
 							</TableCell>
+
+							<TableCell className="contact-table__cell">
+								Update
+							</TableCell>
 						</TableRow>
 					</TableHead>
 
@@ -143,10 +148,20 @@ const AdminPage = ({ submit, setSubmit }) => {
 
 								<TableCell className="contact-table__cell">
 									<BPrimary
-										type="submit"
 										title={<DeleteIcon />}
 										onClick={() => setOpenModal(true)}
 									/>
+								</TableCell>
+
+								<TableCell className="contact-table__cell">
+									<Link
+										to={`/admin/property/update/${item._id}`}
+									>
+										<BPrimary
+											title={<EditIcon />}
+											onClick={() => setOpenModal(true)}
+										/>
+									</Link>
 								</TableCell>
 							</TableRow>
 						))}

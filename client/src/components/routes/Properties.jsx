@@ -1,4 +1,3 @@
-import React from 'react';
 import { default as PropertiesList } from '../pages/properties/Properties';
 
 const Properties = () => {

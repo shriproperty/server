@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import AdminPage from '../../pages/admin/Admin';
 
 const Admin = () => {

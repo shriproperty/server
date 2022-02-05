@@ -1,4 +1,3 @@
-import React from 'react';
 import Hero from '../pages/home/hero/Hero';
 import Properties from '../pages/home/properties/Properties';
 import Category from '../pages/home/category/Category';

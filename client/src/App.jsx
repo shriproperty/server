@@ -1,4 +1,3 @@
-import React from 'react';
 import {
 	BrowserRouter as Router,
 	Routes,
@@ -14,7 +13,8 @@ import Properties from './components/routes/Properties';
 import Users from './components/routes/admin/Users';
 import Property from './components/routes/Property';
 import Contacts from './components/routes/admin/Contacts';
-import PropertyAdmin from './components/routes/admin/Property';
+import AddProperty from './components/routes/admin/AddProperty';
+import UpdateProperty from './components/routes/admin/UpdateProperty';
 import NotFound from './components/routes/NotFound';
 import Admin from './components/routes/admin/Admin';
 import './app.scss';
@@ -26,9 +26,21 @@ const App = () => {
 			<Router>
 				<Routes>
 					<Route path="/admin/" element={<Admin />} />
+
 					<Route path="/admin/users" element={<Users />} />
-					<Route path="/admin/property" element={<PropertyAdmin />} />
+
+					<Route
+						path="/admin/property/add"
+						element={<AddProperty />}
+					/>
+
+					<Route
+						path="/admin/property/update/:id"
+						element={<UpdateProperty />}
+					/>
+
 					<Route path="/admin/contacts" element={<Contacts />} />
+
 					<Route path="*" element={<UserRoutes />} />
 				</Routes>
 			</Router>
