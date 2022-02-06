@@ -3,7 +3,8 @@ import TextField from '@mui/material/TextField';
 import { BPrimary } from '../../../util/button/Button';
 import { HPrimary } from '../../../util/typography/Typography';
 import { ASuccess, AError } from '../../../util/alert/Alert';
-import post from '../../../../api/post';
+import { post } from '../../../../api/post';
+
 import './form.scss';
 
 const Form = () => {

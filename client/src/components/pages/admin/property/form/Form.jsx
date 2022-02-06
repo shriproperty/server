@@ -8,7 +8,7 @@ import { BPrimary, BUpload } from '../../../../util/button/Button';
 import { ASuccess, AError } from '../../../../util/alert/Alert';
 
 import './form.scss';
-import postFile from '../../../../../api/postFile';
+import { postFile } from '../../../../../api/post';
 
 const Form = () => {
 	const [title, setTitle] = useState('');

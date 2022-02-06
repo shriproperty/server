@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { AError } from '../../../util/alert/Alert';
 import getRequest from '../../../../api/get';
-import patchRequest from '../../../../api/patch';
+import { patchRequest } from '../../../../api/patch';
 import deleteRequest from '../../../../api/delete';
 
 import './contacts.scss';

@@ -4,7 +4,7 @@
  * @param {object} body body to send
  * @return {Promise<object>} response from the server
  */
-const patchRequest = async (url, body) => {
+export const patchRequest = async (url, body) => {
 	const res = await fetch(`/api${url}`, {
 		method: 'PATCH',
 		headers: {
@@ -18,4 +18,20 @@ const patchRequest = async (url, body) => {
 	return res.json();
 };
 
-export default patchRequest;
+/**
+ * patch files and data
+ * @param {string} url Url to post
+ * @param {object} body Body to post
+ * @return {Promise<object>} response from the server
+ */
+export const patchFile = async (url, body) => {
+	const res = await fetch(`/api${url}`, {
+		method: 'PATCH',
+		headers: {
+			'x-api-key': process.env.REACT_APP_API_KEY,
+		},
+		body: body,
+	});
+
+	return res.json();
+};
