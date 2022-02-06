@@ -11,33 +11,36 @@ import './form.scss';
 import { postFile } from '../../../../../api/post';
 
 const Form = () => {
-	const [title, setTitle] = useState('');
-	const [description, setDescription] = useState('');
-	const [price, setPrice] = useState('');
-	const [specialPrice, setSpecialPrice] = useState('');
-	const [type, setType] = useState('');
-	const [catagory, setCatagory] = useState('');
-	const [status, setStatus] = useState('');
-	const [size, setSize] = useState('');
-	const [unit, setUnit] = useState('');
-	const [bedroom, setBedroom] = useState(0);
-	const [bathroom, setBathroom] = useState(0);
-	const [openParking, setOpenParking] = useState(0);
-	const [closeParking, setCloseParking] = useState(0);
-	const [livingRoom, setLivingRoom] = useState(0);
-	const [dinningRoom, setDinningRoom] = useState(0);
-	const [store, setStore] = useState(0);
-	const [poojaRoom, setPoojaRoom] = useState(0);
-	const [balcony, setBalcony] = useState(0);
-	const [floor, setFloor] = useState('');
-	const [direction, setDirection] = useState('');
-	const [kitchen, setKitchen] = useState(0);
-	const [address, setAddress] = useState('');
-	const [featured, setFeatured] = useState(false);
-	const [images, setImages] = useState([]);
-	const [videos, setVideos] = useState('');
-	const [documents, setDocuments] = useState('');
+	const [property, setProperty] = useState({
+		title: '',
+		description: '',
+		price: '',
+		specialPrice: '',
+		type: '',
+		catagory: '',
+		status: '',
+		size: '',
+		unit: '',
+		bedroom: 0,
+		bathroom: 0,
+		openParking: 0,
+		closeParking: 0,
+		livingRoom: 0,
+		dinningRoom: 0,
+		store: 0,
+		poojaRoom: 0,
+		balcony: 0,
+		floor: '',
+		direction: '',
+		kitchen: 0,
+		address: '',
+		featured: false,
+	});
 	const [otherFeatures, setOtherFeatures] = useState([]);
+	const [images, setImages] = useState([]);
+	const [videos, setVideos] = useState([]);
+	const [documents, setDocuments] = useState([]);
+
 	const [loading, setLoading] = useState(false);
 	const [openSuccess, setOpenSuccess] = useState(false);
 	const [openError, setOpenError] = useState(false);
@@ -52,29 +55,9 @@ const Form = () => {
 		setLoading(true);
 
 		// append data to body to send
-		body.append('title', title);
-		body.append('description', description);
-		body.append('price', price);
-		body.append('specialPrice', specialPrice);
-		body.append('type', type);
-		body.append('catagory', catagory);
-		body.append('status', status);
-		body.append('size', size);
-		body.append('unit', unit);
-		body.append('bedroom', bedroom);
-		body.append('bathroom', bathroom);
-		body.append('openParking', openParking);
-		body.append('closeParking', closeParking);
-		body.append('livingRoom', livingRoom);
-		body.append('dinningRoom', dinningRoom);
-		body.append('store', store);
-		body.append('poojaRoom', poojaRoom);
-		body.append('balcony', balcony);
-		body.append('floor', floor);
-		body.append('direction', direction);
-		body.append('kitchen', kitchen);
-		body.append('address', address);
-		body.append('featured', featured);
+		for (const key in property) {
+			body.append(key, property[key]);
+		}
 
 		// append image to body in array
 		for (let img in images) {
@@ -131,7 +114,9 @@ const Form = () => {
 					label="Title"
 					fullWidth
 					required
-					onChange={e => setTitle(e.target.value)}
+					onChange={e =>
+						setProperty({ ...property, title: e.target.value })
+					}
 				/>
 
 				<TextField
@@ -141,7 +126,12 @@ const Form = () => {
 					fullWidth
 					required
 					multiline
-					onChange={e => setDescription(e.target.value)}
+					onChange={e =>
+						setProperty({
+							...property,
+							description: e.target.value,
+						})
+					}
 				/>
 
 				<TextField
@@ -150,7 +140,9 @@ const Form = () => {
 					label="Address"
 					required
 					fullWidth
-					onChange={e => setAddress(e.target.value)}
+					onChange={e =>
+						setProperty({ ...property, address: e.target.value })
+					}
 				/>
 
 				<TextField
@@ -170,7 +162,9 @@ const Form = () => {
 					label="Price"
 					type="number"
 					required
-					onChange={e => setPrice(e.target.value)}
+					onChange={e =>
+						setProperty({ ...property, price: e.target.value })
+					}
 				/>
 
 				<TextField
@@ -179,7 +173,12 @@ const Form = () => {
 					label="Special Price"
 					type="number"
 					required
-					onChange={e => setSpecialPrice(e.target.value)}
+					onChange={e =>
+						setProperty({
+							...property,
+							specialPrice: e.target.value,
+						})
+					}
 				/>
 
 				<TextField
@@ -188,7 +187,9 @@ const Form = () => {
 					label="Size"
 					type="number"
 					required
-					onChange={e => setSize(e.target.value)}
+					onChange={e =>
+						setProperty({ ...property, size: e.target.value })
+					}
 				/>
 
 				<TextField
@@ -196,7 +197,9 @@ const Form = () => {
 					varient="outlined"
 					label="Bedrooms"
 					type="number"
-					onChange={e => setBedroom(e.target.value)}
+					onChange={e =>
+						setProperty({ ...property, bedroom: e.target.value })
+					}
 				/>
 
 				<TextField
@@ -204,7 +207,9 @@ const Form = () => {
 					varient="outlined"
 					label="Bathroom"
 					type="number"
-					onChange={e => setBathroom(e.target.value)}
+					onChange={e =>
+						setProperty({ ...property, bathroom: e.target.value })
+					}
 				/>
 
 				<TextField
@@ -212,7 +217,9 @@ const Form = () => {
 					varient="outlined"
 					label="Kitchen"
 					type="number"
-					onChange={e => setKitchen(e.target.value)}
+					onChange={e =>
+						setProperty({ ...property, kitchen: e.target.value })
+					}
 				/>
 
 				<TextField
@@ -220,7 +227,12 @@ const Form = () => {
 					varient="outlined"
 					label="Open Parking"
 					type="number"
-					onChange={e => setOpenParking(e.target.value)}
+					onChange={e =>
+						setProperty({
+							...property,
+							openParking: e.target.value,
+						})
+					}
 				/>
 
 				<TextField
@@ -228,7 +240,12 @@ const Form = () => {
 					varient="outlined"
 					label="Close Parking"
 					type="number"
-					onChange={e => setCloseParking(e.target.value)}
+					onChange={e =>
+						setProperty({
+							...property,
+							closeParking: e.target.value,
+						})
+					}
 				/>
 
 				<TextField
@@ -236,7 +253,9 @@ const Form = () => {
 					varient="outlined"
 					label="Living Room"
 					type="number"
-					onChange={e => setLivingRoom(e.target.value)}
+					onChange={e =>
+						setProperty({ ...property, livingRoom: e.target.value })
+					}
 				/>
 
 				<TextField
@@ -244,7 +263,12 @@ const Form = () => {
 					varient="outlined"
 					label="Dinning Room"
 					type="number"
-					onChange={e => setDinningRoom(e.target.value)}
+					onChange={e =>
+						setProperty({
+							...property,
+							dinningRoom: e.target.value,
+						})
+					}
 				/>
 
 				<TextField
@@ -252,7 +276,9 @@ const Form = () => {
 					varient="outlined"
 					label="Store Room"
 					type="number"
-					onChange={e => setStore(e.target.value)}
+					onChange={e =>
+						setProperty({ ...property, store: e.target.value })
+					}
 				/>
 
 				<TextField
@@ -260,7 +286,9 @@ const Form = () => {
 					varient="outlined"
 					label="Pooja Room"
 					type="number"
-					onChange={e => setPoojaRoom(e.target.value)}
+					onChange={e =>
+						setProperty({ ...property, poojaRoom: e.target.value })
+					}
 				/>
 
 				<TextField
@@ -268,14 +296,18 @@ const Form = () => {
 					varient="outlined"
 					label="Balcony"
 					type="number"
-					onChange={e => setBalcony(e.target.value)}
+					onChange={e =>
+						setProperty({ ...property, balcony: e.target.value })
+					}
 				/>
 
 				<TextField
 					className="admin-property-form__input"
 					varient="outlined"
 					label="Floor"
-					onChange={e => setFloor(e.target.value)}
+					onChange={e =>
+						setProperty({ ...property, floor: e.target.value })
+					}
 				/>
 
 				<br />
@@ -284,8 +316,10 @@ const Form = () => {
 					<InputLabel>Type</InputLabel>
 					<Select
 						label="Type"
-						value={type}
-						onChange={e => setType(e.target.value)}
+						value={property.type}
+						onChange={e =>
+							setProperty({ ...property, type: e.target.value })
+						}
 						required
 					>
 						<MenuItem value="Rental">Rental</MenuItem>
@@ -297,8 +331,13 @@ const Form = () => {
 					<InputLabel>Catagory</InputLabel>
 					<Select
 						label="Catagory"
-						value={catagory}
-						onChange={e => setCatagory(e.target.value)}
+						value={property.catagory}
+						onChange={e =>
+							setProperty({
+								...property,
+								catagory: e.target.value,
+							})
+						}
 						required
 					>
 						<MenuItem value="Residential Apartment">
@@ -335,8 +374,10 @@ const Form = () => {
 					<InputLabel>Status</InputLabel>
 					<Select
 						label="Status"
-						value={status}
-						onChange={e => setStatus(e.target.value)}
+						value={property.status}
+						onChange={e =>
+							setProperty({ ...property, status: e.target.value })
+						}
 					>
 						<MenuItem value="Unfurnished">Unfurnished</MenuItem>
 						<MenuItem value="Semifurnished">Semifurnished</MenuItem>
@@ -348,8 +389,10 @@ const Form = () => {
 					<InputLabel>Unit</InputLabel>
 					<Select
 						label="Unit"
-						value={unit}
-						onChange={e => setUnit(e.target.value)}
+						value={property.unit}
+						onChange={e =>
+							setProperty({ ...property, unit: e.target.value })
+						}
 					>
 						{/* WARNING: Add more units here */}
 						<MenuItem value={'sq'}>sq</MenuItem>
@@ -361,8 +404,13 @@ const Form = () => {
 					<InputLabel>Featured</InputLabel>
 					<Select
 						label="Featured"
-						value={featured}
-						onChange={e => setFeatured(e.target.value)}
+						value={property.featured}
+						onChange={e =>
+							setProperty({
+								...property,
+								featured: e.target.value,
+							})
+						}
 					>
 						<MenuItem value={true}>True</MenuItem>
 						<MenuItem value={false}>False</MenuItem>
@@ -373,8 +421,13 @@ const Form = () => {
 					<InputLabel>Direction</InputLabel>
 					<Select
 						label="Direction"
-						value={direction}
-						onChange={e => setDirection(e.target.value)}
+						value={property.direction}
+						onChange={e =>
+							setProperty({
+								...property,
+								direction: e.target.value,
+							})
+						}
 					>
 						<MenuItem value="North">North</MenuItem>
 						<MenuItem value="South">South</MenuItem>
