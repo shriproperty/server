@@ -68,8 +68,6 @@ const Update = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id]);
 
-	console.log(otherFeatures);
-
 	const body = new FormData();
 
 	// submit handler
