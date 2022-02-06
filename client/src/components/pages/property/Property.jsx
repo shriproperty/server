@@ -21,6 +21,7 @@ const Property = () => {
 	useEffect(() => {
 		get(`/properties/single/${id}`)
 			.then(data => {
+				console.log(data.data.otherFeatures);
 				setResponse(data.data);
 				setLoading(false);
 			})

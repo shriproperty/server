@@ -18,29 +18,32 @@ const Update = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
 
-	const [title, setTitle] = useState('');
-	const [description, setDescription] = useState('');
-	const [price, setPrice] = useState('');
-	const [specialPrice, setSpecialPrice] = useState('');
-	const [type, setType] = useState('');
-	const [catagory, setCatagory] = useState('');
-	const [status, setStatus] = useState('');
-	const [size, setSize] = useState('');
-	const [unit, setUnit] = useState('');
-	const [bedroom, setBedroom] = useState(0);
-	const [bathroom, setBathroom] = useState(0);
-	const [openParking, setOpenParking] = useState(0);
-	const [closeParking, setCloseParking] = useState(0);
-	const [livingRoom, setLivingRoom] = useState(0);
-	const [dinningRoom, setDinningRoom] = useState(0);
-	const [store, setStore] = useState(0);
-	const [poojaRoom, setPoojaRoom] = useState(0);
-	const [balcony, setBalcony] = useState(0);
-	const [floor, setFloor] = useState('');
-	const [direction, setDirection] = useState('');
-	const [kitchen, setKitchen] = useState(0);
-	const [address, setAddress] = useState('');
-	const [featured, setFeatured] = useState(false);
+	const [property, setProperty] = useState({
+		title: '',
+		description: '',
+		price: '',
+		specialPrice: '',
+		type: '',
+		catagory: '',
+		status: '',
+		size: '',
+		unit: '',
+		bedroom: 0,
+		bathroom: 0,
+		openParking: 0,
+		closeParking: 0,
+		livingRoom: 0,
+		dinningRoom: 0,
+		store: 0,
+		poojaRoom: 0,
+		balcony: 0,
+		floor: '',
+		direction: '',
+		kitchen: 0,
+		address: '',
+		featured: false,
+	});
+
 	const [images, setImages] = useState([]);
 	const [videos, setVideos] = useState('');
 	const [documents, setDocuments] = useState('');
@@ -55,32 +58,8 @@ const Update = () => {
 	useEffect(() => {
 		get(`/properties/single/${id}`)
 			.then(res => {
-				const data = res.data;
-
-				setTitle(data.title);
-				setDescription(data.description);
-				setPrice(data.price);
-				setSpecialPrice(data.specialPrice);
-				setType(data.type);
-				setCatagory(data.catagory);
-				setStatus(data.status);
-				setSize(data.size);
-				setUnit(data.unit);
-				setBedroom(data.bedroom);
-				setBathroom(data.bathroom);
-				setOpenParking(data.openParking);
-				setCloseParking(data.closeParking);
-				setLivingRoom(data.livingRoom);
-				setDinningRoom(data.dinningRoom);
-				setStore(data.store);
-				setPoojaRoom(data.poojaRoom);
-				setBalcony(data.balcony);
-				setFloor(data.floor);
-				setDirection(data.direction);
-				setKitchen(data.kitchen);
-				setAddress(data.address);
-				setFeatured(data.featured);
-				setOtherFeatures(data.otherFeatures);
+				setProperty(res.data);
+				setOtherFeatures(res.data.otherFeatures);
 				setloadingPage(false);
 			})
 			.catch(err => {
@@ -88,6 +67,8 @@ const Update = () => {
 			});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id]);
+
+	console.log(otherFeatures);
 
 	const body = new FormData();
 
@@ -97,29 +78,11 @@ const Update = () => {
 		setLoading(true);
 
 		// append data to body to send
-		body.append('title', title);
-		body.append('description', description);
-		body.append('price', price);
-		body.append('specialPrice', specialPrice);
-		body.append('type', type);
-		body.append('catagory', catagory);
-		body.append('status', status);
-		body.append('size', size);
-		body.append('unit', unit);
-		body.append('bedroom', bedroom);
-		body.append('bathroom', bathroom);
-		body.append('openParking', openParking);
-		body.append('closeParking', closeParking);
-		body.append('livingRoom', livingRoom);
-		body.append('dinningRoom', dinningRoom);
-		body.append('store', store);
-		body.append('poojaRoom', poojaRoom);
-		body.append('balcony', balcony);
-		body.append('floor', floor);
-		body.append('direction', direction);
-		body.append('kitchen', kitchen);
-		body.append('address', address);
-		body.append('featured', featured);
+		for (const key in property) {
+			if (key !== 'otherFeatures') {
+				body.append(key, property[key]);
+			}
+		}
 
 		// append image to body in array
 		for (let img in images) {
@@ -177,31 +140,43 @@ const Update = () => {
 						className="admin-property-form__input"
 						varient="outlined"
 						label="Title"
-						value={title}
+						value={property.title}
 						fullWidth
 						required
-						onChange={e => setTitle(e.target.value)}
+						onChange={e =>
+							setProperty({ ...property, title: e.target.value })
+						}
 					/>
 
 					<TextField
 						className="admin-property-form__input"
 						varient="outlined"
 						label="Description"
-						value={description}
+						value={property.description}
 						fullWidth
 						required
 						multiline
-						onChange={e => setDescription(e.target.value)}
+						onChange={e =>
+							setProperty({
+								...property,
+								description: e.target.value,
+							})
+						}
 					/>
 
 					<TextField
 						className="admin-property-form__input"
 						varient="outlined"
 						label="Address"
-						value={address}
+						value={property.address}
 						required
 						fullWidth
-						onChange={e => setAddress(e.target.value)}
+						onChange={e =>
+							setProperty({
+								...property,
+								address: e.target.value,
+							})
+						}
 					/>
 
 					<TextField
@@ -212,7 +187,6 @@ const Update = () => {
 						value={otherFeatures.join('\n')}
 						fullWidth
 						multiline
-						required
 						onChange={e =>
 							setOtherFeatures(e.target.value.split('\n'))
 						}
@@ -223,9 +197,11 @@ const Update = () => {
 						varient="outlined"
 						label="Price"
 						type="number"
-						value={price}
+						value={property.price}
 						required
-						onChange={e => setPrice(e.target.value)}
+						onChange={e =>
+							setProperty({ ...property, price: e.target.value })
+						}
 					/>
 
 					<TextField
@@ -233,9 +209,14 @@ const Update = () => {
 						varient="outlined"
 						label="Special Price"
 						type="number"
-						value={specialPrice}
+						value={property.specialPrice}
 						required
-						onChange={e => setSpecialPrice(e.target.value)}
+						onChange={e =>
+							setProperty({
+								...property,
+								specialPrice: e.target.value,
+							})
+						}
 					/>
 
 					<TextField
@@ -243,9 +224,11 @@ const Update = () => {
 						varient="outlined"
 						label="Size"
 						type="number"
-						value={size}
+						value={property.size}
 						required
-						onChange={e => setSize(e.target.value)}
+						onChange={e =>
+							setProperty({ ...property, size: e.target.value })
+						}
 					/>
 
 					<TextField
@@ -253,8 +236,13 @@ const Update = () => {
 						varient="outlined"
 						label="Bedrooms"
 						type="number"
-						value={bedroom}
-						onChange={e => setBedroom(e.target.value)}
+						value={property.bedroom}
+						onChange={e =>
+							setProperty({
+								...property,
+								bedroom: e.target.value,
+							})
+						}
 					/>
 
 					<TextField
@@ -262,8 +250,13 @@ const Update = () => {
 						varient="outlined"
 						label="Bathroom"
 						type="number"
-						value={bathroom}
-						onChange={e => setBathroom(e.target.value)}
+						value={property.bathroom}
+						onChange={e =>
+							setProperty({
+								...property,
+								bathroom: e.target.value,
+							})
+						}
 					/>
 
 					<TextField
@@ -271,8 +264,13 @@ const Update = () => {
 						varient="outlined"
 						label="Kitchen"
 						type="number"
-						value={kitchen}
-						onChange={e => setKitchen(e.target.value)}
+						value={property.kitchen}
+						onChange={e =>
+							setProperty({
+								...property,
+								kitchen: e.target.value,
+							})
+						}
 					/>
 
 					<TextField
@@ -280,8 +278,13 @@ const Update = () => {
 						varient="outlined"
 						label="Open Parking"
 						type="number"
-						value={openParking}
-						onChange={e => setOpenParking(e.target.value)}
+						value={property.openParking}
+						onChange={e =>
+							setProperty({
+								...property,
+								openParking: e.target.value,
+							})
+						}
 					/>
 
 					<TextField
@@ -289,8 +292,13 @@ const Update = () => {
 						varient="outlined"
 						label="Close Parking"
 						type="number"
-						value={closeParking}
-						onChange={e => setCloseParking(e.target.value)}
+						value={property.closeParking}
+						onChange={e =>
+							setProperty({
+								...property,
+								closeParking: e.target.value,
+							})
+						}
 					/>
 
 					<TextField
@@ -298,8 +306,13 @@ const Update = () => {
 						varient="outlined"
 						label="Living Room"
 						type="number"
-						value={livingRoom}
-						onChange={e => setLivingRoom(e.target.value)}
+						value={property.livingRoom}
+						onChange={e =>
+							setProperty({
+								...property,
+								livingRoom: e.target.value,
+							})
+						}
 					/>
 
 					<TextField
@@ -307,8 +320,13 @@ const Update = () => {
 						varient="outlined"
 						label="Dinning Room"
 						type="number"
-						value={dinningRoom}
-						onChange={e => setDinningRoom(e.target.value)}
+						value={property.dinningRoom}
+						onChange={e =>
+							setProperty({
+								...property,
+								dinningRoom: e.target.value,
+							})
+						}
 					/>
 
 					<TextField
@@ -316,8 +334,10 @@ const Update = () => {
 						varient="outlined"
 						label="Store Room"
 						type="number"
-						value={store}
-						onChange={e => setStore(e.target.value)}
+						value={property.store}
+						onChange={e =>
+							setProperty({ ...property, store: e.target.value })
+						}
 					/>
 
 					<TextField
@@ -325,8 +345,13 @@ const Update = () => {
 						varient="outlined"
 						label="Pooja Room"
 						type="number"
-						value={poojaRoom}
-						onChange={e => setPoojaRoom(e.target.value)}
+						value={property.poojaRoom}
+						onChange={e =>
+							setProperty({
+								...property,
+								poojaRoom: e.target.value,
+							})
+						}
 					/>
 
 					<TextField
@@ -334,16 +359,23 @@ const Update = () => {
 						varient="outlined"
 						label="Balcony"
 						type="number"
-						value={balcony}
-						onChange={e => setBalcony(e.target.value)}
+						value={property.balcony}
+						onChange={e =>
+							setProperty({
+								...property,
+								balcony: e.target.value,
+							})
+						}
 					/>
 
 					<TextField
 						className="admin-property-form__input"
 						varient="outlined"
 						label="Floor"
-						value={floor}
-						onChange={e => setFloor(e.target.value)}
+						value={property.floor}
+						onChange={e =>
+							setProperty({ ...property, floor: e.target.value })
+						}
 					/>
 
 					<br />
@@ -352,8 +384,13 @@ const Update = () => {
 						<InputLabel>Type</InputLabel>
 						<Select
 							label="Type"
-							value={type}
-							onChange={e => setType(e.target.value)}
+							value={property.type}
+							onChange={e =>
+								setProperty({
+									...property,
+									type: e.target.value,
+								})
+							}
 							required
 						>
 							<MenuItem value="Rental">Rental</MenuItem>
@@ -365,8 +402,13 @@ const Update = () => {
 						<InputLabel>Catagory</InputLabel>
 						<Select
 							label="Catagory"
-							value={catagory}
-							onChange={e => setCatagory(e.target.value)}
+							value={property.catagory}
+							onChange={e =>
+								setProperty({
+									...property,
+									catagory: e.target.value,
+								})
+							}
 							required
 						>
 							<MenuItem value="Residential Apartment">
@@ -403,8 +445,13 @@ const Update = () => {
 						<InputLabel>Status</InputLabel>
 						<Select
 							label="Status"
-							value={status}
-							onChange={e => setStatus(e.target.value)}
+							value={property.status}
+							onChange={e =>
+								setProperty({
+									...property,
+									status: e.target.value,
+								})
+							}
 						>
 							<MenuItem value="Unfurnished">Unfurnished</MenuItem>
 							<MenuItem value="Semifurnished">
@@ -418,8 +465,13 @@ const Update = () => {
 						<InputLabel>Unit</InputLabel>
 						<Select
 							label="Unit"
-							value={unit}
-							onChange={e => setUnit(e.target.value)}
+							value={property.unit}
+							onChange={e =>
+								setProperty({
+									...property,
+									unit: e.target.value,
+								})
+							}
 						>
 							{/* WARNING: Add more units here */}
 							<MenuItem value={'sq'}>sq</MenuItem>
@@ -431,8 +483,13 @@ const Update = () => {
 						<InputLabel>Featured</InputLabel>
 						<Select
 							label="Featured"
-							value={featured}
-							onChange={e => setFeatured(e.target.value)}
+							value={property.featured}
+							onChange={e =>
+								setProperty({
+									...property,
+									featured: e.target.value,
+								})
+							}
 						>
 							<MenuItem value={true}>True</MenuItem>
 							<MenuItem value={false}>False</MenuItem>
@@ -443,8 +500,13 @@ const Update = () => {
 						<InputLabel>Direction</InputLabel>
 						<Select
 							label="Direction"
-							value={direction}
-							onChange={e => setDirection(e.target.value)}
+							value={property.direction}
+							onChange={e =>
+								setProperty({
+									...property,
+									direction: e.target.value,
+								})
+							}
 						>
 							<MenuItem value="North">North</MenuItem>
 							<MenuItem value="South">South</MenuItem>

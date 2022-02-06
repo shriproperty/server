@@ -152,7 +152,6 @@ const Form = () => {
 					helperText="Separate with enter"
 					fullWidth
 					multiline
-					required
 					onChange={e => setOtherFeatures(e.target.value.split('\n'))}
 				/>
 
