@@ -19,7 +19,7 @@
 
 .category-grid {
 	display: grid;
-	grid-template-columns: repeat(12, 1fr);
+	grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
 	grid-gap: 2rem;
 
 	&__child {
@@ -61,32 +61,34 @@
 		}
 
 		&--1 {
-			grid-column: 1 / 7;
 			background-image: url(../../../../../public/images/houses/book9.jpg);
 		}
 
 		&--2 {
-			grid-column: 7 / 10;
 			background-image: url(../../../../../public/images/houses/clean_july4.jpg);
 		}
 
 		&--3 {
-			grid-column: 10 / 13;
 			background-image: url(../../../../../public/images/houses/house9.jpg);
 		}
 
 		&--4 {
-			grid-column: 1 / 4;
 			background-image: url(../../../../../public/images/houses/interior61.jpg);
 		}
 
 		&--5 {
-			grid-column: 4 / 7;
 			background-image: url(../../../../../public/images/houses/interior888.jpg);
 		}
 
 		&--6 {
-			grid-column: 7 / 13;
+			background-image: url(../../../../../public/images/houses/interior_large.jpeg);
+		}
+
+		&--7 {
+			background-image: url(../../../../../public/images/houses/interior_large.jpeg);
+		}
+
+		&--8 {
 			background-image: url(../../../../../public/images/houses/interior_large.jpeg);
 		}
 	}

@@ -26,6 +26,7 @@ const Category = () => {
 						/>
 					</Link>
 				</div>
+
 				<div className="category-grid__child  category-grid__child--2">
 					<h2 className="category-grid__child-heading">Apartments</h2>
 					<Link to="/">
@@ -36,6 +37,7 @@ const Category = () => {
 						/>
 					</Link>
 				</div>
+
 				<div className="category-grid__child  category-grid__child--3">
 					<h2 className="category-grid__child-heading">Apartments</h2>
 					<Link to="/">
@@ -46,6 +48,7 @@ const Category = () => {
 						/>
 					</Link>
 				</div>
+
 				<div className="category-grid__child  category-grid__child--4">
 					<h2 className="category-grid__child-heading">Apartments</h2>
 					<Link to="/">
@@ -56,6 +59,7 @@ const Category = () => {
 						/>
 					</Link>
 				</div>
+
 				<div className="category-grid__child  category-grid__child--5">
 					<h2 className="category-grid__child-heading">Apartments</h2>
 					<Link to="/">
@@ -68,6 +72,28 @@ const Category = () => {
 				</div>
 
 				<div className="category-grid__child  category-grid__child--6">
+					<h2 className="category-grid__child-heading">Apartments</h2>
+					<Link to="/">
+						<BPrimary
+							title="2 Listings"
+							className="category-grid__child-btn"
+							type="submit"
+						/>
+					</Link>
+				</div>
+
+				<div className="category-grid__child  category-grid__child--7">
+					<h2 className="category-grid__child-heading">Apartments</h2>
+					<Link to="/">
+						<BPrimary
+							title="2 Listings"
+							className="category-grid__child-btn"
+							type="submit"
+						/>
+					</Link>
+				</div>
+
+				<div className="category-grid__child  category-grid__child--8">
 					<h2 className="category-grid__child-heading">Apartments</h2>
 					<Link to="/">
 						<BPrimary
