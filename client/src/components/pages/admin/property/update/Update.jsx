@@ -109,6 +109,7 @@ const Update = () => {
 			if (data.success) {
 				setOpenSuccess(true);
 				setSuccessMessage(data.message);
+				navigate('/admin');
 			} else {
 				setOpenError(true);
 				setErrorMessage(data.message);
