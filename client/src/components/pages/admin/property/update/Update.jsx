@@ -21,8 +21,8 @@ const Update = () => {
 	const [property, setProperty] = useState({
 		title: '',
 		description: '',
-		price: '',
-		specialPrice: '',
+		price: 0,
+		specialPrice: 0,
 		type: '',
 		catagory: '',
 		status: '',
