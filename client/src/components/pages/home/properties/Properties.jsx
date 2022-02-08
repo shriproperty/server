@@ -102,9 +102,11 @@ const Properties = () => {
 			)}
 			{/* More Listing Button */}
 
-			<Link to="/properties" className="properties-section__btn">
-				<BPrimary title="More Listings" type="submit" />
-			</Link>
+			<div className="properties-section__btn">
+				<Link to="/properties">
+					<BPrimary title="More Listings" />
+				</Link>
+			</div>
 		</section>
 	);
 };
