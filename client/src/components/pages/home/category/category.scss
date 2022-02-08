@@ -21,6 +21,11 @@
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
 	grid-gap: 2rem;
+	margin-top: 2rem;
+
+	@media screen and (min-width: 1600px) {
+		grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+	}
 
 	&__child {
 		display: flex;
@@ -34,7 +39,7 @@
 		position: relative;
 		transition: $transition;
 
-		&::before {
+		&::after {
 			content: '';
 			display: block;
 			position: absolute;
@@ -45,13 +50,14 @@
 		}
 
 		&:hover {
-			&::before {
+			&::after {
 				opacity: 0.5;
 			}
 		}
 
 		&-heading {
 			font-size: 2.5rem;
+			z-index: 5;
 			color: $color-white !important;
 		}
 
