@@ -26,7 +26,6 @@ const Properties = () => {
 		setLoading(true);
 		get('/properties/all').then(data => {
 			// search functionality
-			// TODO: ask papa if to add more search options
 			if (searchQuery) {
 				const fileteredData = data.data.filter(
 					property =>

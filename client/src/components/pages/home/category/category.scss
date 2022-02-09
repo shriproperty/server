@@ -43,7 +43,7 @@
 			content: '';
 			display: block;
 			position: absolute;
-			background-color: #2d394f54;
+			background-color: rgba($color: $category-bg, $alpha: 0.5);
 			width: 100%;
 			height: 100%;
 			transition: $transition;
@@ -56,9 +56,10 @@
 		}
 
 		&-heading {
-			font-size: 2.5rem;
+			font-size: 2rem;
 			z-index: 5;
 			color: $color-white !important;
+			text-align: center;
 		}
 
 		&-btn {
