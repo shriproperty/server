@@ -91,6 +91,11 @@
 			&::placeholder {
 				color: $color-white;
 			}
+
+			&::selection {
+				background-color: $color-white !important;
+				color: $color-primary !important;
+			}
 		}
 
 		svg {

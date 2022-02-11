@@ -1,6 +1,6 @@
 import './notFound.scss';
 
-const notFound = () => {
+const NotFound = () => {
 	return (
 		<section className="notFound-section">
 			<img
@@ -11,4 +11,4 @@ const notFound = () => {
 	);
 };
 
-export default notFound;
+export default NotFound;

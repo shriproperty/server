@@ -1,10 +1,15 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Search from '@mui/icons-material/Search';
 
 import './nav.scss';
 import { BPrimary } from '../../util/button/Button';
 
 const Nav = () => {
+	const navigate = useNavigate();
+
+	const [search, setSearch] = useState('');
+
 	return (
 		<header>
 			<nav className="nav">
@@ -27,8 +32,18 @@ const Nav = () => {
 					</li>
 
 					<li className="nav__search">
-						<input type="text" placeholder="Search" />
-						<Search />
+						<input
+							type="text"
+							placeholder="Search"
+							onChange={e => setSearch(e.target.value)}
+							onKeyPress={e =>
+								e.key === 'Enter' &&
+								navigate(`/properties?s=${search}`)
+							}
+						/>
+						<Link to={`/properties?s=${search}`}>
+							<Search />
+						</Link>
 					</li>
 				</ul>
 				<ul className="nav__btns">
