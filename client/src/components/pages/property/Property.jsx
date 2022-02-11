@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-
+import TextField from '@mui/material/TextField';
 import { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { BPrimary, BSecondary } from '../../../components/util/button/Button';
@@ -7,14 +7,14 @@ import get from '../../../api/get';
 import './property.scss';
 import { HPrimary } from '../../util/typography/Typography';
 import Loader from '../../util/loader/Loader';
-
+import Modal from '../../util/modal/Modal';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import StraightenIcon from '@mui/icons-material/Straighten';
 
 const Property = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
-
+	const [modal, setModal] = useState(true);
 	const [response, setResponse] = useState({});
 	const [loading, setLoading] = useState(true);
 
@@ -31,6 +31,37 @@ const Property = () => {
 
 	return (
 		<main className="property-section">
+			<Modal
+				open={modal}
+				
+				className="model"
+			>
+				<div className="model-container">
+					<h2 >Login</h2>
+					<TextField
+						id="standard-basic"
+						label="Name"
+						variant="outlined"
+						className="model-input"
+					/>
+					<TextField
+						id="standard-basic"
+						label="email"
+						type={'email'}
+						variant="outlined"
+						className="model-input"
+					/>
+					<TextField
+						id="standard-basic"
+						label="phone Number"
+						type={'number'}
+						variant="outlined"
+						className="model-input"
+					/>
+					<BPrimary title="Submit" className='btn'/>
+				</div>
+			</Modal>
+
 			{loading ? (
 				<Loader fullScreen fullWidth />
 			) : (
