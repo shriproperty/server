@@ -8,10 +8,10 @@ import './modal.scss';
  * @param {string} children children
  * @returns {JSX.Element}
  */
-const Modal = ({ children, open, onClose }) => {
+const Modal = ({ children, open, onClose, className }) => {
 	return (
 		<ModalFromMui className="modal" open={open} onClose={onClose}>
-			<div className="modal__content">{children}</div>
+			<div className={`modal__content ${className}`}>{children}</div>
 		</ModalFromMui>
 	);
 };
@@ -19,7 +19,8 @@ const Modal = ({ children, open, onClose }) => {
 Modal.propTypes = {
 	children: propTypes.node.isRequired,
 	open: propTypes.bool.isRequired,
-	onClose: propTypes.func.isRequired,
+	onClose: propTypes.func,
+	className: propTypes.string,
 };
 
 export default Modal;

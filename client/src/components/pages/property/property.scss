@@ -173,3 +173,25 @@
 	text-decoration: underline;
 	padding: 2rem 4rem;
 }
+.model {
+	height: 50% !important;
+	width: 35% !important;
+	&-container {
+		display: flex;
+		flex-direction: column !important;
+		align-items: center;
+	}
+	h2 {
+		font-size: 2rem;
+	}
+	&-input {
+		margin: 1rem !important;
+		width: 20rem;
+	}
+	.btn {
+		margin-top: 1.5rem;
+	}
+	label {
+		font-size: 1.3rem;
+	}
+}
