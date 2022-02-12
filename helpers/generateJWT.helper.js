@@ -1,3 +1,5 @@
+'use strict';
+
 import { default as jwt } from 'jsonwebtoken';
 
 const generateJWT = user => {

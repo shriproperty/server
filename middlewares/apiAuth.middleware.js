@@ -1,3 +1,5 @@
+'use strict';
+
 const apiAuth = (req, res, next) => {
 	const apiKeyFromHeaders = req.headers['x-api-key'];
 

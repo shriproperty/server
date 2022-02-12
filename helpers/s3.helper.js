@@ -1,3 +1,5 @@
+'use strict';
+
 /* eslint-disable sonarjs/no-unused-collection */
 
 import AWS from 'aws-sdk';

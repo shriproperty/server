@@ -9,14 +9,6 @@ export const createNew = async (req, res) => {
 		// get input from user
 		const { subject, name, email, phone, message } = req.body;
 
-		// validate user input
-		if (!subject || !name || !email || !phone || !message) {
-			return res.status(400).json({
-				success: false,
-				message: 'Please fill all fields',
-				data: {},
-			});
-		}
 		// check errors from express-validator
 		const errors = validationResult(req);
 

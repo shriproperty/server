@@ -1,3 +1,5 @@
+'use strict';
+
 import { Router } from 'express';
 import * as propertyController from '../controllers/property.controller.js';
 

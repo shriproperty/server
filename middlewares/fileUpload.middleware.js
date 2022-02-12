@@ -1,3 +1,5 @@
+'use strict';
+
 /* eslint-disable valid-jsdoc */
 /* eslint-disable pii/no-phone-number */
 

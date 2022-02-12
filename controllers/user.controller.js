@@ -2,6 +2,39 @@
 
 import User from '../models/user.model.js';
 
+import { validationResult } from 'express-validator';
+
+/* --------------------------------- create --------------------------------- */
+export const createNew = async (req, res) => {
+	try {
+		const { name, email, phone } = req.body;
+
+		const errors = validationResult(req);
+
+		if (!errors.isEmpty()) {
+			return res.status(400).json({
+				success: false,
+				message: errors.array()[0].msg,
+				data: {},
+			});
+		}
+
+		const user = await User.create({ name, email, phone });
+
+		res.status(201).json({
+			success: true,
+			message: 'User created successfully',
+			data: user,
+		});
+	} catch (err) {
+		res.status(500).json({
+			success: false,
+			message: 'Internal Server Error',
+			data: {},
+		});
+	}
+};
+
 /* ------------------------------ get all users ----------------------------- */
 export const getAllUsers = async (req, res) => {
 	try {
