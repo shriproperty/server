@@ -3,6 +3,7 @@
 import User from '../models/user.model.js';
 
 import { validationResult } from 'express-validator';
+import generateJWT from '../helpers/generateJWT.helper.js';
 
 /* --------------------------------- create --------------------------------- */
 export const createNew = async (req, res) => {
@@ -21,10 +22,13 @@ export const createNew = async (req, res) => {
 
 		const user = await User.create({ name, email, phone });
 
+		const token = generateJWT(user._id);
+
 		res.status(201).json({
 			success: true,
 			message: 'User created successfully',
 			data: user,
+			token,
 		});
 	} catch (err) {
 		res.status(500).json({
