@@ -4,8 +4,10 @@ import { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { BPrimary, BSecondary } from '../../../components/util/button/Button';
 import get from '../../../api/get';
+import { post } from '../../../api/post';
 import './property.scss';
 import { HPrimary } from '../../util/typography/Typography';
+import { AError } from '../../../components/util/alert/Alert';
 import Loader from '../../util/loader/Loader';
 import Modal from '../../util/modal/Modal';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
@@ -14,11 +16,23 @@ import StraightenIcon from '@mui/icons-material/Straighten';
 const Property = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
-	const [modal, setModal] = useState(true);
+	const [modal, setModal] = useState(false);
+	const [verifyOtpModel, setVerifyOtpModel] = useState(false);
 	const [response, setResponse] = useState({});
 	const [loading, setLoading] = useState(true);
+	const [phone, setPhone] = useState('');
+	const [name, setName] = useState('');
+	const [email, setEmail] = useState('');
+	const [otp, setOtp] = useState('');
+	const [errorModalOpen, setErrorModalOpen] = useState(false);
+	const [errorModalMessage, setErrorModalMessage] = useState('');
+	const [errorVerifyModalOpen, setErrorVerifyModalOpen] = useState(false);
+	const [errorVerifyModalMessage, setErrorVerifyModalMessage] = useState('');
 
 	useEffect(() => {
+		const token = localStorage.getItem('token');
+		if (!token) setModal(true);
+
 		get(`/properties/single/${id}`)
 			.then(data => {
 				setResponse(data.data);
@@ -29,49 +43,138 @@ const Property = () => {
 			});
 	}, [id]);
 
+	const sendOtpHandler = async e => {
+		e.preventDefault();
+
+		const sendOtpResponse = await post('/otp/send', {
+			phone: `+91${phone}`,
+		});
+
+		if (sendOtpResponse.success) {
+			setModal(false);
+			setVerifyOtpModel(true);
+		} else {
+			setErrorModalMessage(sendOtpResponse.message);
+			setErrorModalOpen(true);
+		}
+	};
+
+	const verifyOtpHandler = async e => {
+		e.preventDefault();
+
+		const verifyOtpResponse = await post('/otp/verify', {
+			phone: `+91${phone}`,
+			otp,
+		});
+
+		// if otp is valid than create new user
+		if (verifyOtpResponse.success) {
+			const newUserResponse = await post('/users/add', {
+				name,
+				email,
+				phone: `+91${phone}`,
+			});
+
+			// if user is created successfully than save token and hide modal
+			if (newUserResponse.success) {
+				localStorage.setItem('token', newUserResponse.token);
+				setVerifyOtpModel(false);
+			} else {
+				// if something went wrong while creating user than show error and open modal
+				setErrorModalMessage(newUserResponse.message);
+				setModal(true);
+				setErrorModalOpen(true);
+			}
+		} else {
+			// if otp is invalid than show error and open modal
+			setErrorVerifyModalMessage(verifyOtpResponse.message);
+			setErrorVerifyModalOpen(true);
+		}
+	};
+
 	return (
 		<main className="property-section">
-			<Modal
-				open={modal}
-				
-				className="model"
-			>
-				<div className="model-container">
-					<h2 >Login</h2>
+			<Modal open={modal} className="model">
+				<form className="model-container" onSubmit={sendOtpHandler}>
+					<h2>Login</h2>
+
+					<AError
+						title={errorModalMessage}
+						open={errorModalOpen}
+						setOpen={setErrorModalOpen}
+					/>
+
 					<TextField
-						id="standard-basic"
 						label="Name"
 						variant="outlined"
-						className="model-input"
+						className="model-container__input"
+						onChange={e => setName(e.target.value)}
+						fullWidth
 					/>
+
 					<TextField
-						id="standard-basic"
 						label="email"
-						type={'email'}
+						type="email"
 						variant="outlined"
-						className="model-input"
+						className="model-container__input"
+						onChange={e => setEmail(e.target.value)}
+						fullWidth
 					/>
+
 					<TextField
-						id="standard-basic"
 						label="phone Number"
-						type={'number'}
+						type="number"
 						variant="outlined"
-						className="model-input"
+						className="model-container__input"
+						onChange={e => setPhone(e.target.value)}
+						fullWidth
 					/>
-					<BPrimary title="Submit" className='btn'/>
-				</div>
+
+					<BPrimary title="Submit" type="submit" />
+				</form>
+			</Modal>
+
+			<Modal open={verifyOtpModel} className="model">
+				<form className="model-container" onSubmit={verifyOtpHandler}>
+					<h2>Verify Otp</h2>
+
+					<AError
+						title={errorVerifyModalMessage}
+						open={errorVerifyModalOpen}
+						setOpen={setErrorVerifyModalOpen}
+					/>
+
+					<TextField
+						label="OTP"
+						type="number"
+						variant="outlined"
+						className="model-container__input"
+						onChange={e => setOtp(e.target.value)}
+						fullWidth
+					/>
+
+					<BPrimary title="Verify" type="submit" />
+				</form>
 			</Modal>
 
 			{loading ? (
 				<Loader fullScreen fullWidth />
 			) : (
-				<>
+				<section
+					// hide other content if any model is opened
+					style={{
+						visibility: `${
+							modal || verifyOtpModel ? 'hidden' : 'visible'
+						}`,
+					}}
+				>
 					<section className="image-grid">
 						<div className="image-grid__btns">
 							<BSecondary title={response.catagory} />
 							<BSecondary title={response.status} />
 						</div>
 
+						{/* if there is no video than image will be shown */}
 						{response.videos.length > 0 ? (
 							<video
 								controls
@@ -231,7 +334,7 @@ const Property = () => {
 							</a>
 						))}
 					</div>
-				</>
+				</section>
 			)}
 		</main>
 	);

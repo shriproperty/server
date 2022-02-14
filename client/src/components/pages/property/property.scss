@@ -174,24 +174,29 @@
 	padding: 2rem 4rem;
 }
 .model {
-	height: 50% !important;
+	height: 60% !important;
 	width: 35% !important;
+
 	&-container {
 		display: flex;
 		flex-direction: column !important;
 		align-items: center;
 	}
+
 	h2 {
 		font-size: 2rem;
 	}
-	&-input {
-		margin: 1rem !important;
-		width: 20rem;
-	}
-	.btn {
-		margin-top: 1.5rem;
-	}
-	label {
-		font-size: 1.3rem;
+
+	.model-container__input {
+		margin: 1.5rem 0;
+
+		input {
+			font-size: 1.5rem !important;
+		}
+
+		label {
+			font-size: 1.5rem !important;
+			background-color: $color-background !important;
+		}
 	}
 }

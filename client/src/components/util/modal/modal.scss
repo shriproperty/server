@@ -6,8 +6,8 @@
 	justify-content: center;
 
 	&__content {
-		height: 30%;
-		width: 30%;
+		min-height: 30%;
+		min-width: 30%;
 		display: flex;
 		align-items: center;
 		justify-content: center;

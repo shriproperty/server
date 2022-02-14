@@ -22,7 +22,7 @@ export const createNew = async (req, res) => {
 
 		const user = await User.create({ name, email, phone });
 
-		const token = generateJWT(user._id);
+		const token = generateJWT({ id: user._id });
 
 		res.status(201).json({
 			success: true,

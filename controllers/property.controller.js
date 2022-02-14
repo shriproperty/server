@@ -208,7 +208,6 @@ export const createProduct = async (req, res) => {
 		});
 	} catch (err) {
 		deleteMultipleFilesFromDisk(req.files);
-		console.log(err);
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
@@ -475,7 +474,6 @@ export const update = async (req, res) => {
 			data: updatedProperty,
 		});
 	} catch (err) {
-		console.log(err);
 		deleteMultipleFilesFromDisk(req.files);
 
 		res.status(400).json({

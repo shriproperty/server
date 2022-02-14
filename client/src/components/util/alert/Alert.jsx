@@ -22,7 +22,6 @@ export const ASuccess = ({ title, open, setOpen, className }) => {
 				className={`alert ${className}`}
 				action={
 					<IconButton
-						aria-label="close"
 						color="inherit"
 						size="small"
 						onClick={() => {
