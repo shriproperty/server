@@ -198,7 +198,7 @@ const Property = () => {
 							<img
 								src={response.images[2]?.url}
 								alt="property"
-								className="image-grid__image image-grid__image--2"
+								className="image-grid__image image-grid__image--1"
 							/>
 						)}
 
