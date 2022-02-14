@@ -72,6 +72,10 @@ const AdminPage = ({ submit, setSubmit }) => {
 				<BPrimary title="Add Property" className="admin-page__button" />
 			</Link>
 
+			<Link to="/admin/users">
+				<BPrimary title="Users" className="admin-page__button" />
+			</Link>
+
 			<HPrimary title="All Properties" className="admin-page__heading" />
 
 			{/* Alert */}
