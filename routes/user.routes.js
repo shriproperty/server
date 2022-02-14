@@ -17,6 +17,7 @@ const validationRules = [
 ];
 
 userRouter.post('/users/add', validationRules, userController.createNew);
+userRouter.post('/users/verify', userController.verifyUser);
 userRouter.get('/users/all', userController.getAllUsers);
 userRouter.patch(
 	'/users/update-calling-status/:id',

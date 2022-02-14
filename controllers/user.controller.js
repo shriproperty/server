@@ -3,7 +3,7 @@
 import User from '../models/user.model.js';
 
 import { validationResult } from 'express-validator';
-import generateJWT from '../helpers/generateJWT.helper.js';
+import { generateJWT, verifyJWT } from '../helpers/jwt.helper.js';
 
 /* --------------------------------- create --------------------------------- */
 export const createNew = async (req, res) => {
@@ -22,7 +22,7 @@ export const createNew = async (req, res) => {
 
 		const user = await User.create({ name, email, phone });
 
-		const token = generateJWT({ id: user._id });
+		const token = generateJWT({ id: user._id }, '24h');
 
 		res.status(201).json({
 			success: true,
@@ -116,6 +116,35 @@ export const updateUserCallingStatus = async (req, res) => {
 		res.status(404).json({
 			success: false,
 			message: 'User not found invalid id',
+			data: {},
+		});
+	}
+};
+
+/* ------------------------------- verify user ------------------------------ */
+export const verifyUser = (req, res) => {
+	try {
+		const { token } = req.body;
+
+		const verifiedUser = verifyJWT(token);
+
+		if (!verifiedUser) {
+			return res.status(401).json({
+				success: false,
+				message: 'Invalid token',
+				data: {},
+			});
+		}
+
+		res.status(200).json({
+			success: true,
+			message: 'User verified successfully',
+			data: {},
+		});
+	} catch (err) {
+		res.status(401).json({
+			success: false,
+			message: 'Invalid token',
 			data: {},
 		});
 	}

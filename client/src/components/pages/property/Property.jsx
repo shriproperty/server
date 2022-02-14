@@ -30,8 +30,13 @@ const Property = () => {
 	const [errorVerifyModalMessage, setErrorVerifyModalMessage] = useState('');
 
 	useEffect(() => {
-		const token = localStorage.getItem('token');
-		if (!token) setModal(true);
+		// Verify token
+		post('/users/verify', {
+			token: localStorage.getItem('token'),
+		}).then(res => {
+			console.log(res);
+			if (!res.success) setModal(true);
+		});
 
 		get(`/properties/single/${id}`)
 			.then(data => {
