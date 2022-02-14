@@ -27,11 +27,12 @@ const Listing = () => {
 					</div>
 				</div>
 				<div className="listing-content__btn">
-					<Link to="#">
+					<Link to="/listing">
 						<BPrimary
 							title="Submit your listing"
 							className="btn"
 							type="submit"
+							
 						/>
 					</Link>
 				</div>

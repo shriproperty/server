@@ -46,9 +46,9 @@ const Nav = () => {
 						</Link>
 					</li>
 				</ul>
-				<ul className="nav__btns">
+				<Link to={'/listing'} className="nav__btns">
 					<BPrimary title="Add Listings" />
-				</ul>
+				</Link>
 			</nav>
 		</header>
 	);

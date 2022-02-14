@@ -90,6 +90,7 @@ const Properties = () => {
 										<SSecondary
 											title={property.description}
 											className="properties-section__property-description"
+											maxLength={10}
 										/>
 
 										{/* IconsBar */}
