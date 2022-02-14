@@ -35,6 +35,8 @@ const Form = () => {
 		kitchen: 0,
 		address: '',
 		featured: false,
+		owner: '',
+		ownerContact: '',
 	});
 	const [otherFeatures, setOtherFeatures] = useState([]);
 	const [images, setImages] = useState([]);
@@ -142,6 +144,31 @@ const Form = () => {
 					fullWidth
 					onChange={e =>
 						setProperty({ ...property, address: e.target.value })
+					}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Owner"
+					required
+					fullWidth
+					onChange={e =>
+						setProperty({ ...property, owner: e.target.value })
+					}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					varient="outlined"
+					label="Owner Contact"
+					required
+					fullWidth
+					onChange={e =>
+						setProperty({
+							...property,
+							ownerContact: e.target.value,
+						})
 					}
 				/>
 

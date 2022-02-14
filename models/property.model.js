@@ -69,6 +69,10 @@ const propertySchema = new mongoose.Schema({
 
 	//location
 	address: { type: String, required: true },
+
+	// owner/builder
+	owner: { type: String, required: true },
+	ownerContact: { type: String, required: true },
 });
 
 const Property = mongoose.model('Property', propertySchema);

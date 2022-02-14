@@ -113,6 +113,18 @@ const AdminPage = ({ submit, setSubmit }) => {
 							</TableCell>
 
 							<TableCell className="contact-table__cell">
+								Special Price
+							</TableCell>
+
+							<TableCell className="contact-table__cell">
+								Owner
+							</TableCell>
+
+							<TableCell className="contact-table__cell">
+								Owner Contact
+							</TableCell>
+
+							<TableCell className="contact-table__cell">
 								Delete
 							</TableCell>
 
@@ -148,6 +160,18 @@ const AdminPage = ({ submit, setSubmit }) => {
 
 								<TableCell className="contact-table__cell">
 									{item.price}
+								</TableCell>
+
+								<TableCell className="contact-table__cell">
+									{item.specialPrice}
+								</TableCell>
+
+								<TableCell className="contact-table__cell">
+									{item.owner}
+								</TableCell>
+
+								<TableCell className="contact-table__cell">
+									{item.ownerContact}
 								</TableCell>
 
 								<TableCell className="contact-table__cell">

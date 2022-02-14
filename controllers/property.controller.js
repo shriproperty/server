@@ -39,6 +39,8 @@ export const createProduct = async (req, res) => {
 			kitchen,
 			otherFeatures,
 			address,
+			owner,
+			ownerContact,
 		} = req.body;
 
 		const images = [];
@@ -56,13 +58,15 @@ export const createProduct = async (req, res) => {
 			!unit ||
 			!address ||
 			!otherFeatures ||
-			!direction
+			!direction ||
+			!owner ||
+			!ownerContact
 		) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
 				message:
-					'Title, Description, Price, Type, Catagory, Size, Unit, Address, Direction and other features are required',
+					'Title, Description, Price, Type, Catagory, Size, Unit, Address, Direction, Owner, Owner Contact and other features are required',
 			});
 		}
 
@@ -198,6 +202,8 @@ export const createProduct = async (req, res) => {
 			images,
 			documents,
 			videos,
+			owner,
+			ownerContact,
 		});
 
 		// send response
