@@ -13,6 +13,7 @@ import userRouter from './routes/user.routes.js';
 import contactRouter from './routes/contact.routes.js';
 import propertyRouter from './routes/property.routes.js';
 import otpRouter from './routes/otp.routes.js';
+import addListingRouter from './routes/addListing.routes.js';
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use('/api', userRouter);
 app.use('/api', contactRouter);
 app.use('/api', propertyRouter);
 app.use('/api', otpRouter);
+app.use('/api', addListingRouter);
 
 /* --------------------------------- server --------------------------------- */
 if (process.env.NODE_ENV === 'production') {

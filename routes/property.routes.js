@@ -5,7 +5,7 @@ import * as propertyController from '../controllers/property.controller.js';
 
 const propertyRouter = Router();
 
-propertyRouter.post('/properties/add', propertyController.createProduct);
+propertyRouter.post('/properties/add', propertyController.createProperty);
 propertyRouter.get('/properties/all', propertyController.getAll);
 propertyRouter.get('/properties/single/:id', propertyController.getSingle);
 propertyRouter.patch('/properties/update/:id', propertyController.update);

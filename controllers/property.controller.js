@@ -12,7 +12,7 @@ import {
 } from '../helpers/s3.helper.js';
 
 /* ----------------------------- create property ----------------------------- */
-export const createProduct = async (req, res) => {
+export const createProperty = async (req, res) => {
 	try {
 		const {
 			title,
