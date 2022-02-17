@@ -6,5 +6,6 @@ const addListingRouter = Router();
 addListingRouter.post('/add-listing/add', addListingController.addNewListing);
 addListingRouter.get('/add-listing/all', addListingController.getAll);
 addListingRouter.get('/add-listing/single/:id', addListingController.getSingle);
+addListingRouter.patch('/add-listing/update/:id', addListingController.update);
 
 export default addListingRouter;
