@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
 
+import hamNav from './components/layout/hamNav/HamNav';
 import Nav from './components/layout/nav/Nav';
 import Footer from './components/layout/footer/Footer';
 import Home from './components/routes/Home';
@@ -52,6 +53,7 @@ const App = () => {
 const UserRoutes = () => {
 	return (
 		<>
+			<hamNav/>
 			<Nav />
 			<Routes>
 				<Route path="/" element={<Home />} />
