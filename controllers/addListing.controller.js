@@ -419,8 +419,10 @@ export const update = async (req, res) => {
 			 * but we are getting new videos and documents
 			 * then we will delete only videos and documents not images
 			 */
-			if (images.length > 0) filesToDelete.push(...addListingFromDB.images);
-			if (videos.length > 0) filesToDelete.push(...addListingFromDB.videos);
+			if (images.length > 0)
+				filesToDelete.push(...addListingFromDB.images);
+			if (videos.length > 0)
+				filesToDelete.push(...addListingFromDB.videos);
 			if (documents.length > 0)
 				filesToDelete.push(...addListingFromDB.documents);
 
@@ -457,7 +459,9 @@ export const update = async (req, res) => {
 				otherFeatures,
 				images: images.length > 0 ? images : addListingFromDB.images,
 				documents:
-					documents.length > 0 ? documents : addListingFromDB.documents,
+					documents.length > 0
+						? documents
+						: addListingFromDB.documents,
 				videos: videos.length > 0 ? videos : addListingFromDB.videos,
 			},
 			{ new: true }
@@ -473,6 +477,39 @@ export const update = async (req, res) => {
 		deleteMultipleFilesFromDisk(req.files);
 
 		res.status(400).json({
+			success: false,
+			message: 'Invalid Id',
+			data: {},
+		});
+	}
+};
+
+/* ----------------------------- delete property ---------------------------- */
+export const deleteListing = async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const listing = await AddListing.findById(id);
+
+		const filesArray = [
+			...listing.images,
+			...listing.documents,
+			...listing.videos,
+		];
+
+		// delete files from s3
+		await deleteMultipleFilesFromS3(filesArray);
+
+		// delete property from DB
+		const deletedListing = await AddListing.findByIdAndDelete(id);
+
+		res.status(200).json({
+			success: true,
+			message: 'Property deleted successfully',
+			data: deletedListing,
+		});
+	} catch (err) {
+		res.status(404).json({
 			success: false,
 			message: 'Invalid Id',
 			data: {},
