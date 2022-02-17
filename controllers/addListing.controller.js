@@ -12,6 +12,7 @@ import {
 	deleteMultipleFilesFromS3,
 } from '../helpers/s3.helper.js';
 
+/* ----------------------------- add new listing ---------------------------- */
 export const addNewListing = async (req, res) => {
 	try {
 		const {
@@ -218,6 +219,46 @@ export const addNewListing = async (req, res) => {
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
+			data: {},
+		});
+	}
+};
+
+/* --------------------------- get all properties --------------------------- */
+export const getAll = async (req, res) => {
+	try {
+		const properties = await AddListing.find();
+
+		res.status(200).json({
+			success: true,
+			message: 'All properties fetched successfully',
+			data: properties,
+		});
+	} catch (err) {
+		res.status(500).json({
+			success: false,
+			message: 'Internal Server Error',
+			data: {},
+		});
+	}
+};
+
+/* --------------------------- get single property -------------------------- */
+export const getSingle = async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const property = await AddListing.findById(id);
+
+		res.status(200).json({
+			success: true,
+			message: 'Property fetched successfully',
+			data: property,
+		});
+	} catch (err) {
+		res.status(400).json({
+			success: false,
+			message: 'Invalid Id',
 			data: {},
 		});
 	}
