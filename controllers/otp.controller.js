@@ -2,11 +2,22 @@
 
 import Otp from '../models/otp.model.js';
 import { sendEmail } from '../helpers/email.helper.js';
+import { validationResult } from 'express-validator';
 
 /* ------------------------------- send otp ------------------------------- */
 export const sendOtp = async (req, res) => {
 	try {
 		const { email } = req.body;
+
+		const errors = validationResult(req).array();
+
+		if (errors.length > 0) {
+			return res.status(400).json({
+				success: false,
+				message: errors[0].msg,
+				data: {},
+			});
+		}
 
 		// generate otp
 		const otp = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
@@ -38,6 +49,16 @@ export const sendOtp = async (req, res) => {
 export const verifyOtp = async (req, res) => {
 	try {
 		const { otp, email } = req.body;
+
+		const errors = validationResult(req).array();
+
+		if (errors.length > 0) {
+			return res.status(400).json({
+				success: false,
+				message: errors[0].msg,
+				data: {},
+			});
+		}
 
 		const otpFromDB = await Otp.findOne({ email });
 
