@@ -6,7 +6,7 @@ import { BPrimary, BSecondary } from '../../../components/util/button/Button';
 import get from '../../../api/get';
 import { post } from '../../../api/post';
 import './property.scss';
-import { HPrimary } from '../../util/typography/Typography';
+import { HPrimary, SPrimary } from '../../util/typography/Typography';
 import { AError } from '../../../components/util/alert/Alert';
 import Loader from '../../util/loader/Loader';
 import Modal from '../../util/modal/Modal';
@@ -34,7 +34,6 @@ const Property = () => {
 		post('/users/verify', {
 			token: localStorage.getItem('token'),
 		}).then(res => {
-			console.log(res);
 			if (!res.success) setModal(true);
 		});
 
@@ -52,7 +51,7 @@ const Property = () => {
 		e.preventDefault();
 
 		const sendOtpResponse = await post('/otp/send', {
-			phone: `+91${phone}`,
+			email,
 		});
 
 		if (sendOtpResponse.success) {
@@ -68,7 +67,7 @@ const Property = () => {
 		e.preventDefault();
 
 		const verifyOtpResponse = await post('/otp/verify', {
-			phone: `+91${phone}`,
+			email,
 			otp,
 		});
 
@@ -135,6 +134,7 @@ const Property = () => {
 						fullWidth
 					/>
 
+					{/* TODO: show loading indicator on button */}
 					<BPrimary title="Submit" type="submit" />
 				</form>
 			</Modal>
@@ -142,6 +142,7 @@ const Property = () => {
 			<Modal open={verifyOtpModel} className="model">
 				<form className="model-container" onSubmit={verifyOtpHandler}>
 					<h2>Verify Otp</h2>
+					<SPrimary title="Please check your email" />
 
 					<AError
 						title={errorVerifyModalMessage}

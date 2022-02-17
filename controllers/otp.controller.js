@@ -1,20 +1,22 @@
 'use strict';
 
 import Otp from '../models/otp.model.js';
-import { sendSms } from '../helpers/sns.helper.js';
+import { sendEmail } from '../helpers/email.helper.js';
 
 /* ------------------------------- send otp ------------------------------- */
 export const sendOtp = async (req, res) => {
 	try {
-		const { phone } = req.body;
+		const { email } = req.body;
 
 		// generate otp
 		const otp = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
 
-		await sendSms(`Your OTP is ${otp}`, phone);
+		// send to email
+		await sendEmail(email, 'OTP for Shri Property', `Your OTP is: ${otp}`);
 
+		// save to db
 		const saveOtpToDB = await Otp.create({
-			phone,
+			email,
 			otp,
 		});
 
@@ -26,7 +28,7 @@ export const sendOtp = async (req, res) => {
 	} catch (err) {
 		res.status(500).json({
 			success: false,
-			message: 'Please try again with valid phone number',
+			message: 'Please enter valid Email',
 			data: {},
 		});
 	}
@@ -35,11 +37,11 @@ export const sendOtp = async (req, res) => {
 /* ------------------------------- verify otp ------------------------------- */
 export const verifyOtp = async (req, res) => {
 	try {
-		const { otp, phone } = req.body;
+		const { otp, email } = req.body;
 
-		const phoneFromDb = await Otp.findOne({ phone: phone });
+		const otpFromDB = await Otp.findOne({ email });
 
-		if (phoneFromDb.otp !== otp) {
+		if (otpFromDB.otp !== otp) {
 			return res.status(400).json({
 				success: false,
 				message: 'Please enter valid otp',
