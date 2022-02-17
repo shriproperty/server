@@ -15,7 +15,7 @@ import Property from './components/routes/Property';
 import Contacts from './components/routes/admin/Contacts';
 import AddProperty from './components/routes/admin/AddProperty';
 import UpdateProperty from './components/routes/admin/UpdateProperty';
-import Listing from './components/pages/listing/Listing';
+import Listing from './components/routes/Listing';
 import NotFound from './components/routes/NotFound';
 import Admin from './components/routes/admin/Admin';
 import './app.scss';
@@ -41,7 +41,6 @@ const App = () => {
 					/>
 
 					<Route path="/admin/contacts" element={<Contacts />} />
-					<Route path = "/listing" element = {<Listing />} />
 					<Route path="*" element={<UserRoutes />} />
 				</Routes>
 			</Router>
@@ -59,6 +58,7 @@ const UserRoutes = () => {
 				<Route path="/properties" element={<Properties />} />
 				<Route path="/properties/:id" element={<Property />} />
 				<Route path="/404" element={<NotFound />} />
+				<Route path="/listing" element={<Listing />} />
 				<Route path="*" element={<Navigate replace to="/404" />} />
 			</Routes>
 			<Footer />
