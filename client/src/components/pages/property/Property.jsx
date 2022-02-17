@@ -20,6 +20,7 @@ const Property = () => {
 	const [verifyOtpModel, setVerifyOtpModel] = useState(false);
 	const [response, setResponse] = useState({});
 	const [loading, setLoading] = useState(true);
+	const [btnLoading, setBtnLoading] = useState(false);
 	const [phone, setPhone] = useState('');
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
@@ -49,10 +50,13 @@ const Property = () => {
 
 	const sendOtpHandler = async e => {
 		e.preventDefault();
+		setBtnLoading(true);
 
 		const sendOtpResponse = await post('/otp/send', {
 			email,
 		});
+
+		setBtnLoading(false);
 
 		if (sendOtpResponse.success) {
 			setModal(false);
@@ -65,11 +69,14 @@ const Property = () => {
 
 	const verifyOtpHandler = async e => {
 		e.preventDefault();
+		setBtnLoading(true);
 
 		const verifyOtpResponse = await post('/otp/verify', {
 			email,
 			otp,
 		});
+
+		setBtnLoading(false);
 
 		// if otp is valid than create new user
 		if (verifyOtpResponse.success) {
@@ -134,8 +141,11 @@ const Property = () => {
 						fullWidth
 					/>
 
-					{/* TODO: show loading indicator on button */}
-					<BPrimary title="Submit" type="submit" />
+					<BPrimary
+						title="Submit"
+						type="submit"
+						loading={btnLoading}
+					/>
 				</form>
 			</Modal>
 
@@ -159,7 +169,11 @@ const Property = () => {
 						fullWidth
 					/>
 
-					<BPrimary title="Verify" type="submit" />
+					<BPrimary
+						title="Verify"
+						type="submit"
+						loading={btnLoading}
+					/>
 				</form>
 			</Modal>
 
