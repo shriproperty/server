@@ -17,7 +17,7 @@ const Listing = () => {
 		price: '',
 		specialPrice: '',
 		type: '',
-		catagory: '',
+		category: '',
 		status: '',
 		size: '',
 		unit: '',
@@ -327,14 +327,14 @@ const Listing = () => {
 				</FormControl>
 
 				<FormControl className="admin-property-form__select">
-					<InputLabel>Catagory</InputLabel>
+					<InputLabel>category</InputLabel>
 					<Select
-						label="Catagory"
-						value={property.catagory}
+						label="category"
+						value={property.category}
 						onChange={e =>
 							setProperty({
 								...property,
-								catagory: e.target.value,
+								category: e.target.value,
 							})
 						}
 						required
@@ -475,7 +475,4 @@ const Listing = () => {
 	);
 };
 
-
-
-
-export default Listing
+export default Listing;

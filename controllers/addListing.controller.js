@@ -22,7 +22,7 @@ export const addNewListing = async (req, res) => {
 			price,
 			specialPrice,
 			type,
-			catagory,
+			category,
 			status,
 			size,
 			unit,
@@ -55,7 +55,7 @@ export const addNewListing = async (req, res) => {
 			!description ||
 			!price ||
 			!type ||
-			!catagory ||
+			!category ||
 			!size ||
 			!unit ||
 			!address ||
@@ -68,7 +68,7 @@ export const addNewListing = async (req, res) => {
 			return res.status(400).json({
 				success: false,
 				message:
-					'Title, Description, Price, Type, Catagory, Size, Unit, Address, Direction, Owner, Owner Contact and other features are required',
+					'Title, Description, Price, Type, category, Size, Unit, Address, Direction, Owner, Owner Contact and other features are required',
 			});
 		}
 
@@ -82,22 +82,22 @@ export const addNewListing = async (req, res) => {
 			});
 		}
 
-		// validate catagory
+		// validate category
 		if (
-			catagory !== 'Residential Apartment' &&
-			catagory !== 'Independent House/Villa' &&
-			catagory !== 'Plot' &&
-			catagory !== 'Commercial Office' &&
-			catagory !== 'Serviced Apartments' &&
-			catagory !== '1 RK/ Studio Apartment' &&
-			catagory !== 'Independent/Builder Floor' &&
-			catagory !== 'Other'
+			category !== 'Residential Apartment' &&
+			category !== 'Independent House/Villa' &&
+			category !== 'Plot' &&
+			category !== 'Commercial Office' &&
+			category !== 'Serviced Apartments' &&
+			category !== '1 RK/ Studio Apartment' &&
+			category !== 'Independent/Builder Floor' &&
+			category !== 'Other'
 		) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
 				message:
-					'Catagory can only be one of the following: Residential Apartment, Independent House/Villa, Plot, Commercial Office, Serviced Apartments, 1 RK/ Studio Apartment, Independent/Builder Floor, Other',
+					'category can only be one of the following: Residential Apartment, Independent House/Villa, Plot, Commercial Office, Serviced Apartments, 1 RK/ Studio Apartment, Independent/Builder Floor, Other',
 				data: {},
 			});
 		}
@@ -182,7 +182,7 @@ export const addNewListing = async (req, res) => {
 			price,
 			specialPrice,
 			type,
-			catagory,
+			category,
 			status,
 			size,
 			unit,
@@ -278,7 +278,7 @@ export const update = async (req, res) => {
 			specialPrice,
 			size,
 			type,
-			catagory,
+			category,
 			unit,
 			bedroom,
 			bathroom,
@@ -313,22 +313,22 @@ export const update = async (req, res) => {
 			});
 		}
 
-		// validate catagory
+		// validate category
 		if (
-			catagory !== 'Residential Apartment' &&
-			catagory !== 'Independent House/Villa' &&
-			catagory !== 'Plot' &&
-			catagory !== 'Commercial Office' &&
-			catagory !== 'Serviced Apartments' &&
-			catagory !== '1 RK/ Studio Apartment' &&
-			catagory !== 'Independent/Builder Floor' &&
-			catagory !== 'Other'
+			category !== 'Residential Apartment' &&
+			category !== 'Independent House/Villa' &&
+			category !== 'Plot' &&
+			category !== 'Commercial Office' &&
+			category !== 'Serviced Apartments' &&
+			category !== '1 RK/ Studio Apartment' &&
+			category !== 'Independent/Builder Floor' &&
+			category !== 'Other'
 		) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
 				message:
-					'Catagory can only be one of the following: Residential Apartment, Independent House/Villa, Plot, Commercial Office, Serviced Apartments, 1 RK/ Studio Apartment, Independent/Builder Floor, Other',
+					'category can only be one of the following: Residential Apartment, Independent House/Villa, Plot, Commercial Office, Serviced Apartments, 1 RK/ Studio Apartment, Independent/Builder Floor, Other',
 				data: {},
 			});
 		}
@@ -441,7 +441,7 @@ export const update = async (req, res) => {
 				specialPrice,
 				size,
 				type,
-				catagory,
+				category,
 				unit,
 				bedroom,
 				bathroom,

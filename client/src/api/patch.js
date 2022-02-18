@@ -1,6 +1,6 @@
 /**
  * make patch request
- * @param {string} url url from requrest is to be made
+ * @param {string} url url from request is to be made
  * @param {object} body body to send
  * @return {Promise<object>} response from the server
  */

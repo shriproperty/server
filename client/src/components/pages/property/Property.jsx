@@ -190,7 +190,7 @@ const Property = () => {
 				>
 					<section className="image-grid">
 						<div className="image-grid__btns">
-							<BSecondary title={response.catagory} />
+							<BSecondary title={response.category} />
 							<BSecondary title={response.status} />
 						</div>
 

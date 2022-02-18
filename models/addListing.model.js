@@ -14,7 +14,7 @@ const addListingSchema = new mongoose.Schema({
 		enum: ['Rental', 'Sale'],
 		default: 'Rental',
 	},
-	catagory: {
+	category: {
 		type: String,
 		required: true,
 		enum: [

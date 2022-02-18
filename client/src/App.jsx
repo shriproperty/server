@@ -19,6 +19,7 @@ import Listing from './components/routes/Listing';
 import NotFound from './components/routes/NotFound';
 import Admin from './components/routes/admin/Admin';
 import Listings from './components/routes/admin/Listings';
+import AdminListing from './components/routes/admin/Listing';
 
 import './app.scss';
 
@@ -44,6 +45,10 @@ const App = () => {
 
 					<Route path="/admin/contacts" element={<Contacts />} />
 					<Route path="/admin/listings" element={<Listings />} />
+					<Route
+						path="/admin/listings/:id"
+						element={<AdminListing />}
+					/>
 					<Route path="*" element={<UserRoutes />} />
 				</Routes>
 			</Router>
@@ -51,7 +56,7 @@ const App = () => {
 	);
 };
 
-// created a diffreent router to hide navbar in admin routes
+// created a different router to hide navbar in admin routes
 const UserRoutes = () => {
 	return (
 		<>

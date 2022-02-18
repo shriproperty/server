@@ -43,6 +43,17 @@
 	&__submit-btn {
 		margin: 2rem !important;
 	}
+
+	// this is for image in /admin/listings/:id page
+	&__image {
+		height: 35rem;
+		width: 35rem;
+		margin: 1rem;
+	}
+
+	&__link {
+		font-size: 1.5rem;
+	}
 }
 
 .MuiMenuItem-root {

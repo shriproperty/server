@@ -5,16 +5,18 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { BPrimary, BUpload } from '../../../../util/button/Button';
-import { ASuccess, AError } from '../../../../util/alert/Alert';
-import Loader from '../../../../util/loader/Loader';
+import { BPrimary, BUpload } from '../../../util/button/Button';
+import { ASuccess, AError } from '../../../util/alert/Alert';
+import Loader from '../../../util/loader/Loader';
 
-import { patchFile } from '../../../../../api/patch';
-import get from '../../../../../api/get';
+import { patchFile } from '../../../../api/patch';
+import putRequest from '../../../../api/put';
+import get from '../../../../api/get';
+import deleteRequest from '../../../../api/delete';
 
 //WARNING: Sass is coming from form.scss file in ../form folder
 
-const Update = () => {
+const Listing = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
 
@@ -58,7 +60,7 @@ const Update = () => {
 	const [errorMessage, setErrorMessage] = useState('');
 
 	useEffect(() => {
-		get(`/properties/single/${id}`)
+		get(`/add-listing/single/${id}`)
 			.then(res => {
 				setProperty(res.data);
 				setOtherFeatures(res.data.otherFeatures);
@@ -73,7 +75,7 @@ const Update = () => {
 	const body = new FormData();
 
 	// submit handler
-	const submitHandler = e => {
+	const updateHandler = e => {
 		e.preventDefault();
 		setLoading(true);
 
@@ -105,13 +107,13 @@ const Update = () => {
 		}
 
 		// post to server
-		patchFile(`/properties/update/${id}`, body).then(data => {
+		patchFile(`/add-listing/update/${id}`, body).then(data => {
 			setLoading(false);
 
 			if (data.success) {
 				setOpenSuccess(true);
 				setSuccessMessage(data.message);
-				navigate('/admin');
+				navigate('/admin/listings');
 			} else {
 				setOpenError(true);
 				setErrorMessage(data.message);
@@ -119,12 +121,46 @@ const Update = () => {
 		});
 	};
 
+	const approveHandler = id => {
+		return e => {
+			e.preventDefault();
+
+			putRequest(`/add-listing/approve/${id}`).then(data => {
+				if (data.success) {
+					setSuccessMessage(data.message);
+					setOpenSuccess(true);
+					navigate('/admin/listings');
+				} else {
+					setErrorMessage(data.message);
+					setOpenError(true);
+				}
+			});
+		};
+	};
+
+	const deleteHandler = id => {
+		return e => {
+			e.preventDefault();
+
+			deleteRequest(`/add-listing/delete/${id}`).then(data => {
+				if (data.success) {
+					setSuccessMessage(data.message);
+					setOpenSuccess(true);
+					navigate('/admin/listings');
+				} else {
+					setErrorMessage(data.message);
+					setOpenError(true);
+				}
+			});
+		};
+	};
+
 	return (
 		<section>
 			{loadingPage ? (
 				<Loader fullScreen />
 			) : (
-				<form onSubmit={submitHandler} className="admin-property-form">
+				<form onSubmit={updateHandler} className="admin-property-form">
 					<ASuccess
 						title={successMessage}
 						open={openSuccess}
@@ -552,6 +588,56 @@ const Update = () => {
 
 					<br />
 
+					{property.images.length > 0 ? (
+						property.images.map(img => (
+							<img
+								src={img.url}
+								alt="property"
+								className="admin-property-form__image"
+								key={img.key}
+							/>
+						))
+					) : (
+						<h2>there are no images</h2>
+					)}
+
+					<br />
+
+					{property.videos.length > 0 ? (
+						property.videos.map(vid => (
+							<video
+								muted
+								loop
+								autoPlay
+								controls
+								className="admin-property-form__image"
+								key={vid.key}
+							>
+								<source src={vid.url} type="video/mp4" />
+							</video>
+						))
+					) : (
+						<h1>There is no video</h1>
+					)}
+
+					<br />
+
+					{property.documents.length > 0 ? (
+						property.documents.map((doc, i) => (
+							<a
+								href={doc.url}
+								className="admin-property-form__link"
+								key={doc.key}
+							>
+								Download Document {i + 1}
+							</a>
+						))
+					) : (
+						<h1>There are no documents</h1>
+					)}
+
+					<br />
+
 					<BUpload
 						title="Image"
 						className="admin-property-form__upload-btn"
@@ -576,10 +662,24 @@ const Update = () => {
 					<br />
 
 					<BPrimary
-						title="Submit"
+						title="Update"
 						className="admin-property-form__submit-btn"
 						type="submit"
 						loading={loading}
+					/>
+
+					<BPrimary
+						title="Approve"
+						className="admin-property-form__submit-btn"
+						loading={loading}
+						onClick={approveHandler(property._id)}
+					/>
+
+					<BPrimary
+						title="Delete"
+						className="admin-property-form__submit-btn"
+						loading={loading}
+						onClick={deleteHandler(property._id)}
 					/>
 				</form>
 			)}
@@ -587,4 +687,4 @@ const Update = () => {
 	);
 };
 
-export default Update;
+export default Listing;

@@ -36,7 +36,7 @@ const Properties = () => {
 							.includes(searchQuery) ||
 						property.address.toLowerCase().includes(searchQuery) ||
 						property.type.toLowerCase().includes(searchQuery) ||
-						property.catagory.toLowerCase().includes(searchQuery) ||
+						property.category.toLowerCase().includes(searchQuery) ||
 						property.status.toLowerCase().includes(searchQuery) ||
 						property.price.includes(searchQuery) ||
 						property.specialPrice.includes(searchQuery) ||
