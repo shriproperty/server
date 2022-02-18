@@ -1,6 +1,7 @@
 'use strict';
 
 import AddListing from '../models/addListing.model.js';
+import Property from '../models/property.model.js';
 
 import {
 	deleteMultipleFilesFromDisk,
@@ -476,7 +477,7 @@ export const update = async (req, res) => {
 	} catch (err) {
 		deleteMultipleFilesFromDisk(req.files);
 
-		res.status(400).json({
+		res.status(404).json({
 			success: false,
 			message: 'Invalid Id',
 			data: {},
@@ -507,6 +508,47 @@ export const deleteListing = async (req, res) => {
 			success: true,
 			message: 'Property deleted successfully',
 			data: deletedListing,
+		});
+	} catch (err) {
+		res.status(404).json({
+			success: false,
+			message: 'Invalid Id',
+			data: {},
+		});
+	}
+};
+
+/* ----------------------------- approve listing ---------------------------- */
+export const approveListing = async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		// get listing from db
+		const listing = await AddListing.findById(id);
+
+		const newPropertyObject = {};
+
+		/**
+		 * create property object with loop so that we don't have to write all
+		 *  properties while creating property in Property.create() function
+		 */
+		for (let key in listing) {
+			if (key !== '_id' && key !== '__v') {
+				newPropertyObject[key] = listing[key];
+			}
+		}
+
+		// create new property from listing
+		const newProperty = await Property.create(newPropertyObject);
+
+		// delete listing from db
+		await AddListing.findByIdAndDelete(id);
+
+		// send response
+		res.status(201).json({
+			success: true,
+			message: 'Property approved successfully',
+			data: newProperty,
 		});
 	} catch (err) {
 		res.status(404).json({

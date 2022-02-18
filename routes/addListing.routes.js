@@ -11,5 +11,9 @@ addListingRouter.delete(
 	'/add-listing/delete/:id',
 	addListingController.deleteListing
 );
+addListingRouter.put(
+	'/add-listing/approve/:id',
+	addListingController.approveListing
+);
 
 export default addListingRouter;
