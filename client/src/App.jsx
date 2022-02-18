@@ -18,6 +18,8 @@ import UpdateProperty from './components/routes/admin/UpdateProperty';
 import Listing from './components/routes/Listing';
 import NotFound from './components/routes/NotFound';
 import Admin from './components/routes/admin/Admin';
+import Listings from './components/routes/admin/Listings';
+
 import './app.scss';
 
 const App = () => {
@@ -41,6 +43,7 @@ const App = () => {
 					/>
 
 					<Route path="/admin/contacts" element={<Contacts />} />
+					<Route path="/admin/listings" element={<Listings />} />
 					<Route path="*" element={<UserRoutes />} />
 				</Routes>
 			</Router>

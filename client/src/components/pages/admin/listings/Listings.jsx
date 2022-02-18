@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import getRequest from '../../../api/get';
-import deleteRequest from '../../../api/delete';
-import { BPrimary } from '../../util/button/Button';
-import { HPrimary } from '../../util/typography/Typography';
-import { AError, ASuccess } from '../../util/alert/Alert';
-import Modal from '../../util/modal/Modal';
-import Loader from '../../util/loader/Loader';
+import getRequest from '../../../../api/get';
+import deleteRequest from '../../../../api/delete';
+import { BPrimary } from '../../../util/button/Button';
+import { AError, ASuccess } from '../../../util/alert/Alert';
+import Modal from '../../../util/modal/Modal';
+import Loader from '../../../util/loader/Loader';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+
 import {
 	Table,
 	TableRow,
@@ -17,9 +17,7 @@ import {
 	TableHead,
 } from '@mui/material';
 
-import './admin.scss';
-
-const AdminPage = ({ submit, setSubmit }) => {
+const Listings = ({ submit, setSubmit }) => {
 	const [response, setResponse] = useState([]);
 	const [openModal, setOpenModal] = useState(false);
 	const [deleteLoading, setDeleteLoading] = useState(false);
@@ -30,7 +28,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 	const [openSuccess, setOpenSuccess] = useState(false);
 
 	useEffect(() => {
-		getRequest('/properties/all').then(data => {
+		getRequest('/add-listing/all').then(data => {
 			setResponse(data.data);
 			setPropertyLoading(false);
 			setSubmit(false);
@@ -61,27 +59,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 	};
 
 	return (
-		<section className="admin-page">
-			<HPrimary title="Admin Page" className="admin-page__heading" />
-
-			<Link to="/admin/contacts">
-				<BPrimary title="Contacts" className="admin-page__button" />
-			</Link>
-
-			<Link to="/admin/property/add">
-				<BPrimary title="Add Property" className="admin-page__button" />
-			</Link>
-
-			<Link to="/admin/users">
-				<BPrimary title="Users" className="admin-page__button" />
-			</Link>
-
-			<Link to="/admin/listings">
-				<BPrimary title="Listings" className="admin-page__button" />
-			</Link>
-
-			<HPrimary title="All Properties" className="admin-page__heading" />
-
+		<section>
 			{/* Alert */}
 
 			<ASuccess
@@ -99,7 +77,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 			/>
 
 			{propertyLoading ? (
-				<Loader fullWidth />
+				<Loader fullScreen />
 			) : (
 				<Table className="admin-page__table">
 					<TableHead>
@@ -126,14 +104,6 @@ const AdminPage = ({ submit, setSubmit }) => {
 
 							<TableCell className="contact-table__cell">
 								Owner Contact
-							</TableCell>
-
-							<TableCell className="contact-table__cell">
-								Delete
-							</TableCell>
-
-							<TableCell className="contact-table__cell">
-								Update
 							</TableCell>
 						</TableRow>
 					</TableHead>
@@ -177,24 +147,6 @@ const AdminPage = ({ submit, setSubmit }) => {
 								<TableCell className="contact-table__cell">
 									{item.ownerContact}
 								</TableCell>
-
-								<TableCell className="contact-table__cell">
-									<BPrimary
-										title={<DeleteIcon />}
-										onClick={() => setOpenModal(true)}
-									/>
-								</TableCell>
-
-								<TableCell className="contact-table__cell">
-									<Link
-										to={`/admin/property/update/${item._id}`}
-									>
-										<BPrimary
-											title={<EditIcon />}
-											onClick={() => setOpenModal(true)}
-										/>
-									</Link>
-								</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
@@ -204,4 +156,4 @@ const AdminPage = ({ submit, setSubmit }) => {
 	);
 };
 
-export default AdminPage;
+export default Listings;
