@@ -6,7 +6,9 @@
 
 	margin: 5rem 0rem;
 	text-align: center;
-
+	@media screen and (max-width: 750px) {
+		margin: 0;
+	}
 	&__heading {
 		font-size: 3rem;
 		margin: 4rem 10rem !important;
@@ -19,12 +21,9 @@
 		img {
 			height: 100%;
 			width: 100%;
-			@media screen and (max-width: 600px) {
-				height: 100%;
-				width: 100%;
-			}
-				
-			
+		}
+		@media screen and (max-width: 600px) {
+			display: none;
 		}
 	}
 
@@ -39,6 +38,9 @@
 
 	&__inputs {
 		width: 50%;
+		@media screen and (max-width: 600px) {
+			width: 80%;
+		}
 	}
 
 	&__input {

@@ -11,7 +11,7 @@ const Listing = () => {
 		<section className="listing-section">
 			{/* Text continer */}
 			<div className="listing-content">
-				<HPrimary className='listing-content__head' title="Sell Your Property Quickly Through Us." />
+				<HPrimary className='listing-content__head' title="Sell Your Property, Quickly Through Us." />
 				<div className="listing-content__points">
 					<div className="listing-content__point">
 						<CheckCircleIcon />
