@@ -5,6 +5,9 @@
 	font-weight: 600 !important;
 	color: $color-primary;
 	font-family: 'Nunito', sans-serif !important;
+	@media screen and (max-width: 800px) {
+		font-size: 3rem !important;
+	}
 }
 
 .heading-secondary {
