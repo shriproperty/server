@@ -12,6 +12,10 @@
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 
+	@media screen and (max-width: 600px) {
+		display: none;
+		
+	}
 	/* ---------------------------------- logo ---------------------------------- */
 	&__logo {
 		max-width: 5rem;

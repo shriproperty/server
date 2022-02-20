@@ -4,7 +4,12 @@
 	background-color: $color-primary !important;
 	font-size: 1.2rem !important;
 	padding: 1.3rem 3rem !important;
-
+	@media screen and (max-width: 600px) {
+		padding: 2rem 4rem !important;
+		font-size: 1.8rem !important;
+	}
+		
+	
 	svg {
 		color: $color-background !important;
 	}
@@ -14,5 +19,9 @@
 	background-color: $color-background !important;
 	padding: 1.2rem 2rem !important;
 	font-size: 1rem !important;
-	color: $color-black !important;
+	color: $color-black !important; 
+
+	@media screen and (max-width:420px) {
+		font-size: 2rem !important;
+	}
 }
