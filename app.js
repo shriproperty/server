@@ -3,6 +3,7 @@
 import path from 'path';
 import express from 'express';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
 import { config } from 'dotenv';
 import fileUpload from './middlewares/fileUpload.middleware.js';
 
@@ -14,11 +15,13 @@ import contactRouter from './routes/contact.routes.js';
 import propertyRouter from './routes/property.routes.js';
 import otpRouter from './routes/otp.routes.js';
 import addListingRouter from './routes/addListing.routes.js';
+import authRouter from './routes/auth.routes.js';
 
 const app = express();
 
 /* ------------------------------- middlewares ------------------------------ */
 app.use(express.json());
+app.use(cookieParser());
 app.use('/api', apiAuth);
 app.use('/api', fileUpload);
 
@@ -28,6 +31,7 @@ app.use('/api', contactRouter);
 app.use('/api', propertyRouter);
 app.use('/api', otpRouter);
 app.use('/api', addListingRouter);
+app.use('/api', authRouter);
 
 /* --------------------------------- server --------------------------------- */
 if (process.env.NODE_ENV === 'production') {
