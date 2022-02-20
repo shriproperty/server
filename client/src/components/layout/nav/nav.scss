@@ -11,6 +11,7 @@
 	justify-content: space-between;
 	padding-top: 1rem;
 	padding-bottom: 1rem;
+	width: 100%;
 
 	/* ---------------------------------- logo ---------------------------------- */
 	&__logo {
@@ -35,6 +36,12 @@
 		li {
 			font-size: 1.5rem;
 			margin: 0 3rem;
+
+			&:not(.nav__search) {
+				@media screen and (max-width: 600px) {
+					display: none;
+				}
+			}
 
 			a {
 				text-decoration: none;
@@ -88,6 +95,12 @@
 			transition: $transition;
 			color: $color-white;
 
+			@media screen and (max-width: 600px) {
+				visibility: visible;
+				width: 100%;
+				opacity: 1;
+			}
+
 			&::placeholder {
 				color: $color-white;
 			}
@@ -103,6 +116,10 @@
 			height: 2rem;
 			transition: $transition;
 			z-index: 3;
+
+			@media screen and (max-width: 600px) {
+				fill: $color-white;
+			}
 		}
 
 		&:hover {
@@ -124,6 +141,10 @@
 		align-items: center;
 		justify-content: space-between;
 
+		@media screen and (max-width: 600px) {
+			display: none;
+		}
+
 		svg {
 			width: 3rem;
 			height: 3rem;
@@ -132,6 +153,34 @@
 
 			&:hover {
 				fill: $color-primary-dark;
+			}
+		}
+	}
+
+	&__hamburger-icon {
+		display: none !important;
+		width: 3rem !important;
+		height: 3rem !important;
+		fill: $color-primary !important;
+
+		@media screen and (max-width: 600px) {
+			display: block !important;
+		}
+	}
+}
+
+/* -------------------------------- hamburger ------------------------------- */
+.hamburger {
+	ul {
+		padding: 5rem;
+		list-style: none;
+
+		li {
+			margin: 3rem 0;
+
+			a {
+				font-size: 4rem;
+				color: $color-primary !important;
 			}
 		}
 	}
