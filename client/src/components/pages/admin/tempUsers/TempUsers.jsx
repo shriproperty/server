@@ -16,9 +16,9 @@ import getRequest from '../../../../api/get';
 import { patchRequest } from '../../../../api/patch';
 import { TextField } from '@mui/material';
 
-import './users.scss';
+import './tempUsers.scss';
 
-const Users = () => {
+const TempUsers = () => {
 	const [response, setResponse] = useState([]);
 	const [callingStatus, setCallingStatus] = useState('');
 	const [callAgainDate, setCallAgainDate] = useState('');
@@ -27,7 +27,7 @@ const Users = () => {
 	const [openError, setOpenError] = useState(false);
 
 	useEffect(() => {
-		getRequest('/users/all').then(data => {
+		getRequest('/temp-users/all').then(data => {
 			// sort data.data by date
 			data.data.sort((a, b) => {
 				return new Date(a.callAgainDate) - new Date(b.callAgainDate);
@@ -50,7 +50,7 @@ const Users = () => {
 		return e => {
 			e.preventDefault();
 
-			patchRequest(`/users/update-calling-status/${id}`, {
+			patchRequest(`/temp-users/update-calling-status/${id}`, {
 				callingStatus,
 				talkProgress,
 				// set data to null if there is no date
@@ -223,4 +223,4 @@ const Users = () => {
 	);
 };
 
-export default Users;
+export default TempUsers;

@@ -1,4 +1,4 @@
-import { default as UserList } from '../../pages/admin/users/Users';
+import { default as UserList } from '../../pages/admin/tempUsers/TempUsers';
 
 const Users = () => {
 	return (

@@ -1,6 +1,6 @@
 'use strict';
 
-import User from '../models/user.model.js';
+import TempUser from '../models/tempUser.model.js';
 
 import { validationResult } from 'express-validator';
 import { generateJWT, verifyJWT } from '../helpers/jwt.helper.js';
@@ -20,7 +20,7 @@ export const createNew = async (req, res) => {
 			});
 		}
 
-		const user = await User.create({ name, email, phone });
+		const user = await TempUser.create({ name, email, phone });
 
 		const token = generateJWT({ id: user._id }, '24h');
 
@@ -42,7 +42,7 @@ export const createNew = async (req, res) => {
 /* ------------------------------ get all users ----------------------------- */
 export const getAllUsers = async (req, res) => {
 	try {
-		const users = await User.find();
+		const users = await TempUser.find();
 
 		return res.status(200).json({
 			success: true,
@@ -97,7 +97,7 @@ export const updateUserCallingStatus = async (req, res) => {
 		}
 
 		// update user calling status and date
-		const updatedUser = await User.findByIdAndUpdate(
+		const updatedUser = await TempUser.findByIdAndUpdate(
 			id,
 			{
 				callingStatus,

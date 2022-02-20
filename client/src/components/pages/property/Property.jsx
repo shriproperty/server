@@ -32,7 +32,7 @@ const Property = () => {
 
 	useEffect(() => {
 		// Verify token
-		post('/users/verify', {
+		post('/temp-users/verify', {
 			token: localStorage.getItem('token'),
 		}).then(res => {
 			if (!res.success) setModal(true);
@@ -80,7 +80,7 @@ const Property = () => {
 
 		// if otp is valid than create new user
 		if (verifyOtpResponse.success) {
-			const newUserResponse = await post('/users/add', {
+			const newUserResponse = await post('/temp-users/add', {
 				name,
 				email,
 				phone: `+91${phone}`,

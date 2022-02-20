@@ -10,7 +10,7 @@ import Nav from './components/layout/nav/Nav';
 import Footer from './components/layout/footer/Footer';
 import Home from './components/routes/Home';
 import Properties from './components/routes/Properties';
-import Users from './components/routes/admin/Users';
+import TempUsers from './components/routes/admin/TempUsers';
 import Property from './components/routes/Property';
 import Contacts from './components/routes/admin/Contacts';
 import AddProperty from './components/routes/admin/AddProperty';
@@ -31,7 +31,7 @@ const App = () => {
 				<Routes>
 					<Route path="/admin/" element={<Admin />} />
 
-					<Route path="/admin/users" element={<Users />} />
+					<Route path="/admin/temp-users" element={<TempUsers />} />
 
 					<Route
 						path="/admin/property/add"

@@ -9,7 +9,7 @@ import fileUpload from './middlewares/fileUpload.middleware.js';
 config();
 
 import apiAuth from './middlewares/apiAuth.middleware.js';
-import userRouter from './routes/user.routes.js';
+import tempUserRouter from './routes/tempUser.routes.js';
 import contactRouter from './routes/contact.routes.js';
 import propertyRouter from './routes/property.routes.js';
 import otpRouter from './routes/otp.routes.js';
@@ -23,7 +23,7 @@ app.use('/api', apiAuth);
 app.use('/api', fileUpload);
 
 /* --------------------------------- routes --------------------------------- */
-app.use('/api', userRouter);
+app.use('/api', tempUserRouter);
 app.use('/api', contactRouter);
 app.use('/api', propertyRouter);
 app.use('/api', otpRouter);

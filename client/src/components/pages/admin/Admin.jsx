@@ -72,8 +72,8 @@ const AdminPage = ({ submit, setSubmit }) => {
 				<BPrimary title="Add Property" className="admin-page__button" />
 			</Link>
 
-			<Link to="/admin/users">
-				<BPrimary title="Users" className="admin-page__button" />
+			<Link to="/admin/temp-users">
+				<BPrimary title="Temporary" className="admin-page__button" />
 			</Link>
 
 			<Link to="/admin/listings">

@@ -16,5 +16,5 @@ const userSchema = new mongoose.Schema({
 	talkProgress: { type: String, required: false, default: null },
 });
 
-const User = mongoose.model('User', userSchema);
-export default User;
+const TempUser = mongoose.model('TempUser', userSchema);
+export default TempUser;
