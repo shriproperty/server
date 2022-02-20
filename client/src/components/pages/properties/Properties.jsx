@@ -28,7 +28,7 @@ const Properties = () => {
 		get('/properties/all').then(data => {
 			// search functionality
 			if (searchQuery) {
-				const fileteredData = data.data.filter(
+				const filteredData = data.data.filter(
 					property =>
 						property.title.toLowerCase().includes(searchQuery) ||
 						property.description
@@ -43,8 +43,8 @@ const Properties = () => {
 						property.size.includes(searchQuery)
 				);
 				// redirect to 404 page if no data found
-				if (fileteredData.length === 0) setNotFound(true);
-				else setResponse(fileteredData);
+				if (filteredData.length === 0) setNotFound(true);
+				else setResponse(filteredData);
 			} else {
 				setResponse(data.data);
 			}
