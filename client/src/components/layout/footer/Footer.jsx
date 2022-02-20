@@ -51,22 +51,6 @@ const Footer = () => {
 						<p>shriproperty9.com</p>
 					</div>
 				</div>
-				<div className="footer-content__right">
-					<h1>Latest Listing</h1>
-					<div className="latest-news">
-						<div className="latest-news__item">
-							<div className="latest-news__item-img"></div>
-							<div className="latest-news__item-content">
-								<h2>lorem</h2>
-								<p>
-									Lorem ipsum dolor sit amet consectetur
-									adipisicing
-								</p>
-								<h3>$5000</h3>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</footer>
 	);
