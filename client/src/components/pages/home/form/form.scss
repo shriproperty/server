@@ -12,6 +12,9 @@
 	&__heading {
 		font-size: 3rem;
 		margin: 4rem 10rem !important;
+		@media screen and (max-width: 800px) {
+			margin: 4rem 0 !important;
+		}
 	}
 
 	&__image {

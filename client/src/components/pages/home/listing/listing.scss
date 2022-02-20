@@ -55,6 +55,9 @@
 		align-items: center;
 		font-size: 1.3rem;
 		margin-bottom: 1rem;
+		@media screen and (max-width: 770px) {
+			font-size: 2rem !important;
+		}
 
 		h3 {
 			margin-left: 0.5rem;
