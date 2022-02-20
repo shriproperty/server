@@ -13,10 +13,6 @@
 	padding-bottom: 1rem;
 	width: 100%;
 
-	@media screen and (max-width: 600px) {
-		display: none;
-		
-	}
 	/* ---------------------------------- logo ---------------------------------- */
 	&__logo {
 		max-width: 5rem;
@@ -83,6 +79,12 @@
 		align-items: center;
 		width: min-content;
 
+		@media screen and (max-width: 600px) {
+			width: 25rem;
+			margin: 0 !important;
+			position: relative;
+		}
+
 		input {
 			visibility: hidden;
 			opacity: 0;
@@ -107,11 +109,19 @@
 
 			&::placeholder {
 				color: $color-white;
+				font-size: 2rem;
 			}
 
 			&::selection {
 				background-color: $color-white !important;
 				color: $color-primary !important;
+			}
+		}
+
+		a {
+			@media screen and (max-width: 600px) {
+				position: absolute !important;
+				right: 2rem;
 			}
 		}
 
