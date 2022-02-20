@@ -9,23 +9,23 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		text-align: center;
 
 		p {
 			margin: 1rem 0 !important;
 			width: 50% !important;
+			@media screen and (max-width: 600px) {
+				width: 100% !important;
+			}
 		}
 	}
 }
 
 .category-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
 	grid-gap: 2rem;
 	margin-top: 2rem;
-
-	@media screen and (min-width: 1600px) {
-		grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-	}
 
 	&__child {
 		display: flex;
