@@ -10,7 +10,7 @@ import nodemailer from 'nodemailer';
 export const sendEmail = (to, subject, text) => {
 	const transporter = nodemailer.createTransport({
 		service: 'gmail',
-		rejectUnauthorized: false,
+		rejectUnauthorized: true,
 		auth: {
 			user: process.env.EMAIL_ID,
 			pass: process.env.EMAIL_PASSWORD,
