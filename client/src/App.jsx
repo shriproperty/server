@@ -20,6 +20,7 @@ import NotFound from './components/routes/NotFound';
 import Admin from './components/routes/admin/Admin';
 import Listings from './components/routes/admin/Listings';
 import AdminListing from './components/routes/admin/Listing';
+import Signup from './components/pages/signup/Signup';
 
 import './app.scss';
 
@@ -65,8 +66,9 @@ const UserRoutes = () => {
 				<Route path="/" element={<Home />} />
 				<Route path="/properties" element={<Properties />} />
 				<Route path="/properties/:id" element={<Property />} />
-				<Route path="/404" element={<NotFound />} />
 				<Route path="/listing" element={<Listing />} />
+				<Route path="/signup" element={<Signup />} />
+				<Route path="/404" element={<NotFound />} />
 				<Route path="*" element={<Navigate replace to="/404" />} />
 			</Routes>
 			<Footer />

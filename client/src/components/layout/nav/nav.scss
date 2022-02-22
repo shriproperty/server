@@ -6,8 +6,8 @@
 
 	display: flex;
 	background-color: #fcfcfc;
-	box-shadow: $shadow;
 	align-items: center;
+	border: 0.5px solid $color-primary;
 	justify-content: space-between;
 	padding-top: 1rem;
 	padding-bottom: 1rem;
