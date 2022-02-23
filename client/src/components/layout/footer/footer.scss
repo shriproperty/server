@@ -9,36 +9,44 @@
 	width: 100%;
 	margin: 0px auto;
 	padding-top: 2rem;
-	padding-bottom: 2rem; 
+	padding-bottom: 2rem;
+
 	@media screen and (max-width: 800px) {
 		flex-direction: column;
 	}
+
 	h1 {
 		color: $color-primary;
 		font-size: 2.2rem;
 		line-height: 30px;
 		font-weight: 700;
 		margin-bottom: 1.5rem;
+
 		@media screen and (max-width: 800px) {
 			font-size: 2.5rem !important;
 			text-align: center;
 		}
 	}
+
 	p {
 		font-size: 1.4rem;
-		margin-bottom: 1.2rem;
-		margin-right: 5rem;
+		margin-left: 0.5rem;
+
 		@media screen and (max-width: 800px) {
 			font-size: 2rem !important;
 		}
 	}
+
 	&__left {
 		width: 33.333%;
+
 		@media screen and (max-width: 800px) {
 			width: 100%;
 		}
+
 		&-social {
 			margin-top: 2rem;
+
 			a {
 				color: $color-black;
 				padding: 0.5rem;
@@ -52,7 +60,7 @@
 				svg {
 					font-size: 2rem !important;
 					@media screen and (max-width: 800px) {
-						font-size: 3rem !important;	
+						font-size: 3rem !important;
 					}
 
 					&:hover {
@@ -62,6 +70,20 @@
 			}
 		}
 	}
+
+	&__contact {
+		display: flex;
+		align-items: center;
+
+		&:not(:last-child) {
+			margin-bottom: 1rem;
+		}
+
+		svg:hover {
+			fill: $color-primary;
+		}
+	}
+
 	&__centre {
 		width: 33%;
 		@media screen and (max-width: 800px) {
