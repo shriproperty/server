@@ -37,20 +37,18 @@ const Images = () => {
 							there is no video :(
 						</video>
 					) : (
-						<img
-							src={response.images[0]?.url}
-							alt="property"
-							className="image"
-						/>
+						console.log('hi')
 					)}
 
 					{response.images.map(img => (
-						<img
-							key={img.key}
-							src={img.url}
-							className="image"
-							alt="property"
-						/>
+						<div className="image-container">
+							<img
+								key={img.key}
+								src={img.url}
+								className="image"
+								alt="property"
+							/>
+						</div>
 					))}
 				</div>
 			)}
