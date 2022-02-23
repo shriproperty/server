@@ -33,6 +33,7 @@ const Form = () => {
 		floor: '',
 		direction: '',
 		kitchen: 0,
+		lobby: 0,
 		address: '',
 		featured: false,
 		owner: '',
@@ -112,7 +113,7 @@ const Form = () => {
 
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
+					variant="outlined"
 					label="Title"
 					fullWidth
 					required
@@ -123,7 +124,7 @@ const Form = () => {
 
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
+					variant="outlined"
 					label="Description"
 					fullWidth
 					required
@@ -138,7 +139,7 @@ const Form = () => {
 
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
+					variant="outlined"
 					label="Address"
 					required
 					fullWidth
@@ -149,7 +150,7 @@ const Form = () => {
 
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
+					variant="outlined"
 					label="Owner"
 					required
 					fullWidth
@@ -160,7 +161,7 @@ const Form = () => {
 
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
+					variant="outlined"
 					label="Owner Contact"
 					required
 					fullWidth
@@ -174,7 +175,7 @@ const Form = () => {
 
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
+					variant="outlined"
 					label="Other Features"
 					helperText="Separate with enter"
 					fullWidth
@@ -184,7 +185,7 @@ const Form = () => {
 
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
+					variant="outlined"
 					label="Price"
 					type="number"
 					required
@@ -195,7 +196,7 @@ const Form = () => {
 
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
+					variant="outlined"
 					label="Special Price"
 					type="number"
 					onChange={e =>
@@ -208,7 +209,7 @@ const Form = () => {
 
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
+					variant="outlined"
 					label="Size"
 					type="number"
 					required
@@ -217,9 +218,45 @@ const Form = () => {
 					}
 				/>
 
+				<FormControl className="admin-property-form__select">
+					<InputLabel>Unit</InputLabel>
+					<Select
+						label="Unit"
+						value={property.unit}
+						onChange={e =>
+							setProperty({ ...property, unit: e.target.value })
+						}
+					>
+						<MenuItem value={'Sq. Ft'}>Sq. Ft</MenuItem>
+						<MenuItem value={'Acre'}>Acre</MenuItem>
+						<MenuItem value={'Gaj'}>Gaj</MenuItem>
+						<MenuItem value={'Marla'}>Marla</MenuItem>
+						<MenuItem value={'Bigha'}>Bigha</MenuItem>
+						<MenuItem value={'Bigha-Pucca'}>Bigha-Pucca</MenuItem>
+						<MenuItem value={'Bigha-Kachha'}>Bigha-Kachha</MenuItem>
+						<MenuItem value={'Bigha-Kachha'}>Bigha-Kachha</MenuItem>
+						<MenuItem value={'Biswa'}>Biswa</MenuItem>
+						<MenuItem value={'Biswa'}>Biswa</MenuItem>
+						<MenuItem value={'Biswa–Pucca'}>Biswa–Pucca</MenuItem>
+						<MenuItem value={'Kanal'}>Kanal</MenuItem>
+						<MenuItem value={'Killa'}>Killa</MenuItem>
+						<MenuItem value={'Kattha'}>Kattha</MenuItem>
+						<MenuItem value={'Ghumaon'}>Ghumaon</MenuItem>
+					</Select>
+				</FormControl>
+
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
+					variant="outlined"
+					label="Floor"
+					onChange={e =>
+						setProperty({ ...property, floor: e.target.value })
+					}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					variant="outlined"
 					label="Bedrooms"
 					type="number"
 					onChange={e =>
@@ -229,7 +266,7 @@ const Form = () => {
 
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
+					variant="outlined"
 					label="Bathroom"
 					type="number"
 					onChange={e =>
@@ -239,43 +276,7 @@ const Form = () => {
 
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
-					label="Kitchen"
-					type="number"
-					onChange={e =>
-						setProperty({ ...property, kitchen: e.target.value })
-					}
-				/>
-
-				<TextField
-					className="admin-property-form__input"
-					varient="outlined"
-					label="Open Parking"
-					type="number"
-					onChange={e =>
-						setProperty({
-							...property,
-							openParking: e.target.value,
-						})
-					}
-				/>
-
-				<TextField
-					className="admin-property-form__input"
-					varient="outlined"
-					label="Covered Parking"
-					type="number"
-					onChange={e =>
-						setProperty({
-							...property,
-							closeParking: e.target.value,
-						})
-					}
-				/>
-
-				<TextField
-					className="admin-property-form__input"
-					varient="outlined"
+					variant="outlined"
 					label="Living Room"
 					type="number"
 					onChange={e =>
@@ -285,7 +286,27 @@ const Form = () => {
 
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
+					variant="outlined"
+					label="Lobby"
+					type="number"
+					onChange={e =>
+						setProperty({ ...property, lobby: e.target.value })
+					}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					variant="outlined"
+					label="Kitchen"
+					type="number"
+					onChange={e =>
+						setProperty({ ...property, kitchen: e.target.value })
+					}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					variant="outlined"
 					label="Dinning Room"
 					type="number"
 					onChange={e =>
@@ -298,7 +319,7 @@ const Form = () => {
 
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
+					variant="outlined"
 					label="Store Room"
 					type="number"
 					onChange={e =>
@@ -308,7 +329,7 @@ const Form = () => {
 
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
+					variant="outlined"
 					label="Pooja Room"
 					type="number"
 					onChange={e =>
@@ -318,20 +339,37 @@ const Form = () => {
 
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
-					label="Balcony"
+					variant="outlined"
+					label="Open Parking"
 					type="number"
 					onChange={e =>
-						setProperty({ ...property, balcony: e.target.value })
+						setProperty({
+							...property,
+							openParking: e.target.value,
+						})
 					}
 				/>
 
 				<TextField
 					className="admin-property-form__input"
-					varient="outlined"
-					label="Floor"
+					variant="outlined"
+					label="Covered Parking"
+					type="number"
 					onChange={e =>
-						setProperty({ ...property, floor: e.target.value })
+						setProperty({
+							...property,
+							closeParking: e.target.value,
+						})
+					}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					variant="outlined"
+					label="Balcony"
+					type="number"
+					onChange={e =>
+						setProperty({ ...property, balcony: e.target.value })
 					}
 				/>
 
@@ -379,6 +417,10 @@ const Form = () => {
 							Commercial Office
 						</MenuItem>
 
+						<MenuItem value="Commercial Office">
+							Commercial Plot
+						</MenuItem>
+
 						<MenuItem value="Serviced Apartments">
 							Serviced Apartments
 						</MenuItem>
@@ -407,33 +449,6 @@ const Form = () => {
 						<MenuItem value="Unfurnished">Unfurnished</MenuItem>
 						<MenuItem value="Semifurnished">Semifurnished</MenuItem>
 						<MenuItem value="Furnished">Furnished</MenuItem>
-					</Select>
-				</FormControl>
-
-				<FormControl className="admin-property-form__select">
-					<InputLabel>Unit</InputLabel>
-					<Select
-						label="Unit"
-						value={property.unit}
-						onChange={e =>
-							setProperty({ ...property, unit: e.target.value })
-						}
-					>
-						<MenuItem value={'Sq. Ft'}>Sq. Ft</MenuItem>
-						<MenuItem value={'Acre'}>Acre</MenuItem>
-						<MenuItem value={'Gaj'}>Gaj</MenuItem>
-						<MenuItem value={'Marla'}>Marla</MenuItem>
-						<MenuItem value={'Bigha'}>Bigha</MenuItem>
-						<MenuItem value={'Bigha-Pucca'}>Bigha-Pucca</MenuItem>
-						<MenuItem value={'Bigha-Kachha'}>Bigha-Kachha</MenuItem>
-						<MenuItem value={'Bigha-Kachha'}>Bigha-Kachha</MenuItem>
-						<MenuItem value={'Biswa'}>Biswa</MenuItem>
-						<MenuItem value={'Biswa'}>Biswa</MenuItem>
-						<MenuItem value={'Biswa–Pucca'}>Biswa–Pucca</MenuItem>
-						<MenuItem value={'Kanal'}>Kanal</MenuItem>
-						<MenuItem value={'Killa'}>Killa</MenuItem>
-						<MenuItem value={'Kattha'}>Kattha</MenuItem>
-						<MenuItem value={'Ghumaon'}>Ghumaon</MenuItem>
 					</Select>
 				</FormControl>
 
