@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import get from '../../../api/get';
-import post from '../../../api/post';
+import Loader from '../../util/loader/Loader';
+import './images.scss';
 
 const Images = () => {
 	const { id } = useParams();
@@ -20,14 +21,40 @@ const Images = () => {
 				navigate('/404');
 			});
 	}, [id]);
+	console.log(response);
 	return (
-		<div>hello
-			<img
-				src={response.images[0]}
-				alt="property"
-			/>
-            hello
-		</div>
+		<section>
+			{loading ? (
+				<Loader fullScreen />
+			) : (
+				<div className="container">
+					{response.videos.length > 0 ? (
+						<video controls autoPlay muted loop>
+							<source
+								src={response.videos[0]?.url}
+								type="video/mp4"
+							/>
+							there is no video :(
+						</video>
+					) : (
+						<img
+							src={response.images[0]?.url}
+							alt="property"
+							className="image"
+						/>
+					)}
+
+					{response.images.map(img => (
+						<img
+							key={img.key}
+							src={img.url}
+							className="image"
+							alt="property"
+						/>
+					))}
+				</div>
+			)}
+		</section>
 	);
 };
 

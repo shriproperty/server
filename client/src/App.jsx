@@ -69,7 +69,7 @@ const UserRoutes = () => {
 				<Route path="/properties/:id" element={<Property />} />
 				<Route path="/listing" element={<Listing />} />
 				<Route path="/signup" element={<Signup />} />
-				<Route path="/allimages" element={<AllImages />} />
+				<Route path="/allimages/:id" element={<AllImages />} />
 				<Route path="/404" element={<NotFound />} />
 				<Route path="*" element={<Navigate replace to="/404" />} />
 			</Routes>

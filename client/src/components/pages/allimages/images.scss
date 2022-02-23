@@ -1,0 +1,13 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 10rem;
+    margin-bottom: 5rem;
+    video{
+        height: 90vh;
+    }
+    .image{
+        height:95vh;
+        margin-top: 3rem;
+    }
+}
