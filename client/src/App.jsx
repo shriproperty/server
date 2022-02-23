@@ -21,6 +21,7 @@ import Admin from './components/routes/admin/Admin';
 import Listings from './components/routes/admin/Listings';
 import AdminListing from './components/routes/admin/Listing';
 import Signup from './components/pages/signup/Signup';
+import AllImages from './components/pages/allimages/Images';
 
 import './app.scss';
 
@@ -68,6 +69,7 @@ const UserRoutes = () => {
 				<Route path="/properties/:id" element={<Property />} />
 				<Route path="/listing" element={<Listing />} />
 				<Route path="/signup" element={<Signup />} />
+				<Route path="/allimages" element={<AllImages />} />
 				<Route path="/404" element={<NotFound />} />
 				<Route path="*" element={<Navigate replace to="/404" />} />
 			</Routes>

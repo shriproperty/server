@@ -77,7 +77,7 @@ const Property = () => {
 		});
 
 		setBtnLoading(false);
-
+		
 		// if otp is valid than create new user
 		if (verifyOtpResponse.success) {
 			const newUserResponse = await post('/temp-users/add', {
@@ -228,6 +228,10 @@ const Property = () => {
 							alt="property"
 							className="image-grid__image image-grid__image--3"
 						/>
+
+						<Link to="/allimages" className="allimages">
+							<BSecondary title="All Images" />
+						</Link>
 					</section>
 
 					<div>
