@@ -1,19 +1,40 @@
-.container {
+@import '../../../styles/variable.scss';
+
+.allImages-section {
 	display: flex;
 	flex-direction: column;
 	padding: 2rem 10rem;
 	margin-bottom: 5rem;
-	video {
-		height: 90vh;
-	}
-	.image-container {
+
+	&__main {
 		height: 95vh;
 		margin-top: 3rem;
 		display: flex;
-		background-color: #000;
+		background-color: $color-background;
 		justify-content: center;
+
 		img {
 			height: 100%;
+		}
+
+		video {
+			height: 90vh;
+		}
+	}
+
+	&__others {
+		display: flex;
+		margin-top: 2rem;
+
+		img,
+		video {
+			height: 10rem;
+			width: auto;
+			cursor: pointer;
+
+			&:not(:last-child) {
+				margin-right: 2rem;
+			}
 		}
 	}
 }

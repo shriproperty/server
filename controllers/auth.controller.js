@@ -156,9 +156,9 @@ export const isLoggedIn = (req, res) => {
 			data: {},
 		});
 	} catch (err) {
-		res.status(500).json({
+		res.status(401).json({
 			success: false,
-			message: 'Internal Server Error',
+			message: 'User is not logged in',
 			data: {},
 		});
 	}
