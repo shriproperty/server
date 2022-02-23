@@ -53,12 +53,13 @@ const Properties = () => {
 						>
 							<div className="properties-section__property">
 								{/* Image */}
-								
+								<div className="image-container">
 									<div className="properties-section__property-image">
 										<img
 											src={property.images[0]?.url}
 											alt="property"
 										/>
+									</div>
 									</div>
 								
 								{/* Mains */}
