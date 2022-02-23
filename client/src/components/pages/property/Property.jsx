@@ -222,23 +222,27 @@ const Property = () => {
 							</>
 						) : (
 							<>
-								<img
-									src={response.images[0]?.url}
-									alt="property"
-									className="image-grid__image image-grid__image--1"
-								/>
-
-								<img
-									src={response.images[1]?.url}
-									alt="property"
-									className="image-grid__image image-grid__image--2"
-								/>
-
-								<img
-									src={response.images[2]?.url}
-									alt="property"
-									className="image-grid__image image-grid__image--3"
-								/>
+								<div className="img image-grid__image--1">
+									<img
+										src={response.images[0]?.url}
+										alt="property"
+										className="image-grid__image"
+									/>
+								</div>
+								<div className="img image-grid__image--2">
+									<img
+										src={response.images[1]?.url}
+										alt="property"
+										className="image-grid__image"
+									/>
+								</div>
+								<div className="img image-grid__image--3">
+									<img
+										src={response.images[2]?.url}
+										alt="property"
+										className="image-grid__image "
+									/>
+								</div>
 							</>
 						)}
 
