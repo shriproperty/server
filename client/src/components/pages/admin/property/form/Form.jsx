@@ -540,6 +540,37 @@ const Form = () => {
 					accept="video/*"
 				/>
 
+				{videos.map(vid => {
+					if (vid instanceof File) {
+						const objectURL = URL.createObjectURL(vid);
+						return (
+							<div className="admin-property-form__preview-container">
+								<video
+									controls
+									autoPlay
+									muted
+									loop
+									className="admin-property-form__preview"
+								>
+									<source src={objectURL} type="video/mp4" />
+								</video>
+
+								<BPrimary
+									title={<DeleteIcon />}
+									onClick={() =>
+										setVideos(
+											videos.filter(
+												(_, i) =>
+													i !== videos.length - 1
+											)
+										)
+									}
+								/>
+							</div>
+						);
+					}
+				})}
+
 				<br />
 
 				<BUpload
