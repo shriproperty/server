@@ -32,8 +32,10 @@
 
 	&__properties {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(25rem, 40rem));
 		grid-gap: 3rem;
+		    justify-content: space-evenly;
+
 	}
 
 	&__btn {
