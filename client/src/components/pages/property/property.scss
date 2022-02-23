@@ -31,15 +31,11 @@
 			margin: 0 0.5rem;
 		}
 	}
-	.img{
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-color: $color-white;
-	}
+
 	&__image {
 		height: 100%;
-		width: fit-content;
+		width: 100%;
+		object-fit: contain;
 
 		&--1 {
 			grid-column: 1 / 8;
@@ -84,7 +80,7 @@
 	.allimages {
 		grid-row: 11/12;
 		grid-column: 12/13;
-		@media screen and (max-width: 900px){
+		@media screen and (max-width: 900px) {
 			grid-row: 12/13;
 		}
 	}
