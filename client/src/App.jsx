@@ -21,6 +21,7 @@ import Admin from './components/routes/admin/Admin';
 import Listings from './components/routes/admin/Listings';
 import AdminListing from './components/routes/admin/Listing';
 import Signup from './components/pages/signup/Signup';
+import Login from './components/routes/Login';
 
 import './app.scss';
 
@@ -30,9 +31,15 @@ const App = () => {
 			<CssBaseline />
 			<Router>
 				<Routes>
-					<Route path="/thisissomethingrandomwhichnoonecanthinkabout/" element={<Admin />} />
+					<Route
+						path="/thisissomethingrandomwhichnoonecanthinkabout/"
+						element={<Admin />}
+					/>
 
-					<Route path="/thisissomethingrandomwhichnoonecanthinkabout/temp-users" element={<TempUsers />} />
+					<Route
+						path="/thisissomethingrandomwhichnoonecanthinkabout/temp-users"
+						element={<TempUsers />}
+					/>
 
 					<Route
 						path="/thisissomethingrandomwhichnoonecanthinkabout/property/add"
@@ -44,8 +51,14 @@ const App = () => {
 						element={<UpdateProperty />}
 					/>
 
-					<Route path="/thisissomethingrandomwhichnoonecanthinkabout/contacts" element={<Contacts />} />
-					<Route path="/thisissomethingrandomwhichnoonecanthinkabout/listings" element={<Listings />} />
+					<Route
+						path="/thisissomethingrandomwhichnoonecanthinkabout/contacts"
+						element={<Contacts />}
+					/>
+					<Route
+						path="/thisissomethingrandomwhichnoonecanthinkabout/listings"
+						element={<Listings />}
+					/>
 					<Route
 						path="/thisissomethingrandomwhichnoonecanthinkabout/listings/:id"
 						element={<AdminListing />}
@@ -68,6 +81,7 @@ const UserRoutes = () => {
 				<Route path="/properties/:id" element={<Property />} />
 				<Route path="/listing" element={<Listing />} />
 				<Route path="/signup" element={<Signup />} />
+				<Route path="/login" element={<Login />} />
 				<Route path="/404" element={<NotFound />} />
 				<Route path="*" element={<Navigate replace to="/404" />} />
 			</Routes>

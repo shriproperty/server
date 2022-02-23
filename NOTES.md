@@ -1,5 +1,7 @@
 # Notes
 
+[Admin Link](https://shriproperty.com/thisissomethingrandomwhichnoonecanthinkabout)
+
 command to generate csv file of collection from terminal
 
 ```bash
@@ -43,6 +45,7 @@ sudo systemctl stop nginx
 ```
 
 restart nginx
+
 ```bash
 sudo systemctl restart nginx
 ```
