@@ -111,7 +111,7 @@ const Update = () => {
 			if (data.success) {
 				setOpenSuccess(true);
 				setSuccessMessage(data.message);
-				navigate('/admin');
+				navigate('/thisissomethingrandomwhichnoonecanthinkabout');
 			} else {
 				setOpenError(true);
 				setErrorMessage(data.message);

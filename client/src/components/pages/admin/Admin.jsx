@@ -64,19 +64,19 @@ const AdminPage = ({ submit, setSubmit }) => {
 		<section className="admin-page">
 			<HPrimary title="Admin Page" className="admin-page__heading" />
 
-			<Link to="/admin/contacts">
+			<Link to="/thisissomethingrandomwhichnoonecanthinkabout/contacts">
 				<BPrimary title="Contacts" className="admin-page__button" />
 			</Link>
 
-			<Link to="/admin/property/add">
+			<Link to="/thisissomethingrandomwhichnoonecanthinkabout/property/add">
 				<BPrimary title="Add Property" className="admin-page__button" />
 			</Link>
 
-			<Link to="/admin/temp-users">
+			<Link to="/thisissomethingrandomwhichnoonecanthinkabout/temp-users">
 				<BPrimary title="Temporary" className="admin-page__button" />
 			</Link>
 
-			<Link to="/admin/listings">
+			<Link to="/thisissomethingrandomwhichnoonecanthinkabout/listings">
 				<BPrimary title="Listings" className="admin-page__button" />
 			</Link>
 
@@ -187,7 +187,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 
 								<TableCell className="contact-table__cell">
 									<Link
-										to={`/admin/property/update/${item._id}`}
+										to={`/thisissomethingrandomwhichnoonecanthinkabout/property/update/${item._id}`}
 									>
 										<BPrimary
 											title={<EditIcon />}

@@ -113,7 +113,9 @@ const Listing = () => {
 			if (data.success) {
 				setOpenSuccess(true);
 				setSuccessMessage(data.message);
-				navigate('/admin/listings');
+				navigate(
+					'/thisissomethingrandomwhichnoonecanthinkabout/listings'
+				);
 			} else {
 				setOpenError(true);
 				setErrorMessage(data.message);
@@ -129,7 +131,9 @@ const Listing = () => {
 				if (data.success) {
 					setSuccessMessage(data.message);
 					setOpenSuccess(true);
-					navigate('/admin/listings');
+					navigate(
+						'/thisissomethingrandomwhichnoonecanthinkabout/listings'
+					);
 				} else {
 					setErrorMessage(data.message);
 					setOpenError(true);
@@ -146,7 +150,9 @@ const Listing = () => {
 				if (data.success) {
 					setSuccessMessage(data.message);
 					setOpenSuccess(true);
-					navigate('/admin/listings');
+					navigate(
+						'/thisissomethingrandomwhichnoonecanthinkabout/listings'
+					);
 				} else {
 					setErrorMessage(data.message);
 					setOpenError(true);

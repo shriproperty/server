@@ -64,7 +64,9 @@ const Listings = ({ submit, setSubmit }) => {
 						{response.map(item => (
 							<TableRow key={item._id}>
 								<TableCell className="contact-table__cell">
-									<Link to={`/admin/listings/${item._id}`}>
+									<Link
+										to={`/thisissomethingrandomwhichnoonecanthinkabout/listings/${item._id}`}
+									>
 										{item.title}
 									</Link>
 								</TableCell>

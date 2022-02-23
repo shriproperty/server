@@ -30,24 +30,24 @@ const App = () => {
 			<CssBaseline />
 			<Router>
 				<Routes>
-					<Route path="/admin/" element={<Admin />} />
+					<Route path="/thisissomethingrandomwhichnoonecanthinkabout/" element={<Admin />} />
 
-					<Route path="/admin/temp-users" element={<TempUsers />} />
+					<Route path="/thisissomethingrandomwhichnoonecanthinkabout/temp-users" element={<TempUsers />} />
 
 					<Route
-						path="/admin/property/add"
+						path="/thisissomethingrandomwhichnoonecanthinkabout/property/add"
 						element={<AddProperty />}
 					/>
 
 					<Route
-						path="/admin/property/update/:id"
+						path="/thisissomethingrandomwhichnoonecanthinkabout/property/update/:id"
 						element={<UpdateProperty />}
 					/>
 
-					<Route path="/admin/contacts" element={<Contacts />} />
-					<Route path="/admin/listings" element={<Listings />} />
+					<Route path="/thisissomethingrandomwhichnoonecanthinkabout/contacts" element={<Contacts />} />
+					<Route path="/thisissomethingrandomwhichnoonecanthinkabout/listings" element={<Listings />} />
 					<Route
-						path="/admin/listings/:id"
+						path="/thisissomethingrandomwhichnoonecanthinkabout/listings/:id"
 						element={<AdminListing />}
 					/>
 					<Route path="*" element={<UserRoutes />} />
