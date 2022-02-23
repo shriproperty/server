@@ -582,6 +582,34 @@ const Form = () => {
 					accept="application/pdf"
 				/>
 
+				{documents.map(doc => {
+					if (doc instanceof File) {
+						const objectURL = URL.createObjectURL(doc);
+						return (
+							<div className="admin-property-form__preview-container">
+								<iframe
+									src={objectURL}
+									title={objectURL}
+									height="200"
+									width="300"
+								></iframe>
+
+								<BPrimary
+									title={<DeleteIcon />}
+									onClick={() =>
+										setDocuments(
+											documents.filter(
+												(_, i) =>
+													i !== documents.length - 1
+											)
+										)
+									}
+								/>
+							</div>
+						);
+					}
+				})}
+
 				<br />
 
 				<BPrimary
