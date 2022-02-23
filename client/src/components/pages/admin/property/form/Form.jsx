@@ -162,6 +162,16 @@ const Form = () => {
 						setProperty({ ...property, owner: e.target.value })
 					}
 				/>
+				<TextField
+					className="admin-property-form__input"
+					variant="outlined"
+					label="Commission"
+					required
+					fullWidth
+					onChange={e =>
+						setProperty({ ...property, owner: e.target.value })
+					}
+				/>
 
 				<TextField
 					className="admin-property-form__input"
@@ -376,6 +386,25 @@ const Form = () => {
 						setProperty({ ...property, balcony: e.target.value })
 					}
 				/>
+				{/* backend still required */}
+				<TextField
+					className="admin-property-form__input"
+					variant="outlined"
+					label="Property Age"
+					type="number"
+					onChange={e =>
+						setProperty({ ...property, balcony: e.target.value })
+					}
+				/>
+				<TextField
+					className="admin-property-form__input"
+					variant="outlined"
+					label="Possesion"
+					type="number"
+					onChange={e =>
+						setProperty({ ...property, balcony: e.target.value })
+					}
+				/>
 
 				<br />
 
@@ -495,7 +524,7 @@ const Form = () => {
 						<MenuItem value="South-West">South-West</MenuItem>
 					</Select>
 				</FormControl>
-
+						{/* Amanaties */}
 				<br />
 
 				<BUpload
