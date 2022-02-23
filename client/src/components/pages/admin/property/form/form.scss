@@ -54,6 +54,24 @@
 	&__link {
 		font-size: 1.5rem;
 	}
+
+	&__preview-container {
+		display: inline-block;
+		position: relative;
+
+		button {
+			position: absolute;
+			left: 0;
+			padding: 1rem !important;
+		}
+	}
+
+	&__preview {
+		display: inline-block;
+		height: auto;
+		width: 20rem;
+		margin-right: 1rem;
+	}
 }
 
 .MuiMenuItem-root {
