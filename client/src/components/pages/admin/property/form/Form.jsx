@@ -391,7 +391,6 @@ const Form = () => {
 					className="admin-property-form__input"
 					variant="outlined"
 					label="Property Age"
-					type="number"
 					onChange={e =>
 						setProperty({ ...property, balcony: e.target.value })
 					}
@@ -400,7 +399,6 @@ const Form = () => {
 					className="admin-property-form__input"
 					variant="outlined"
 					label="Possesion"
-					type="number"
 					onChange={e =>
 						setProperty({ ...property, balcony: e.target.value })
 					}
@@ -524,7 +522,40 @@ const Form = () => {
 						<MenuItem value="South-West">South-West</MenuItem>
 					</Select>
 				</FormControl>
-						{/* Amanaties */}
+				<FormControl className="admin-property-form__select">
+					<InputLabel>Purchase Type</InputLabel>
+					<Select
+						label="Purchase Type"
+						value={property.direction}
+						onChange={e =>
+							setProperty({
+								...property,
+								direction: e.target.value,
+							})
+						}
+					>
+						<MenuItem value="New Booking">New Booking</MenuItem>
+						<MenuItem value="Resale">Resale</MenuItem>
+					</Select>
+				</FormControl>
+				<FormControl className="admin-property-form__select">
+					<InputLabel>Construction Status</InputLabel>
+					<Select
+						label="Construction Status"
+						value={property.direction}
+						onChange={e =>
+							setProperty({
+								...property,
+								direction: e.target.value,
+							})
+						}
+					>
+						<MenuItem value="Under Construction">Under Construction</MenuItem>
+						<MenuItem value="Resale">Resale</MenuItem>
+					</Select>
+				</FormControl>
+				
+				{/* Amanaties */}
 				<br />
 
 				<BUpload
