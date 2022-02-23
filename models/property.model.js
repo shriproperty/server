@@ -33,8 +33,26 @@ const propertySchema = new mongoose.Schema({
 
 	// other details
 	size: { type: String, required: true },
-	//TODO: Add enum for unit
-	unit: { type: String, required: true },
+	unit: {
+		type: String,
+		required: true,
+		enum: [
+			'Sq. Ft.',
+			'Acre',
+			'Gaj',
+			'Marla',
+			'Bigha',
+			'Bigha-Pucca',
+			'Bigha-Kachha',
+			'Biswa',
+			'Biswa–Pucca',
+			'Kanal',
+			'Killa',
+			'Kattha',
+			'Ghumaon',
+		],
+	},
+
 	bedroom: { type: String, required: true, default: null },
 	bathroom: { type: String, required: true, default: null },
 	openParking: { type: String, required: true, default: null },
