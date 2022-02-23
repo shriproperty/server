@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Search from '@mui/icons-material/Search';
 import { Drawer } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import get from '../../../api/get';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import './nav.scss';
 import { BPrimary } from '../../util/button/Button';
@@ -12,6 +14,13 @@ const Nav = () => {
 
 	const [search, setSearch] = useState('');
 	const [open, setOpen] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+	useEffect(() => {
+		get('/auth/is-logged-in').then(res => {
+			setIsLoggedIn(res.success);
+		});
+	}, []);
 
 	return (
 		<header>
@@ -51,9 +60,15 @@ const Nav = () => {
 					</li>
 				</ul>
 
-				<Link to={'/listing'} className="nav__btns">
-					<BPrimary title="Add Listings" />
-				</Link>
+				<div className="nav__btns">
+					<Link to={isLoggedIn ? '/account' : '/login'}>
+						<AccountCircleIcon />
+					</Link>
+
+					<Link to={'/listing'}>
+						<BPrimary title="Add Listings" />
+					</Link>
+				</div>
 
 				<MenuIcon
 					onClick={() => setOpen(true)}
@@ -79,6 +94,12 @@ const Nav = () => {
 
 						<li>
 							<a href="/#form-section">Contact Us</a>
+						</li>
+
+						<li>
+							<Link to={isLoggedIn ? '/account' : '/login'}>
+								My Account
+							</Link>
 						</li>
 
 						<li>

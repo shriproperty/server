@@ -26,5 +26,6 @@ const loginValidationChecks = [
 
 authRouter.post('/auth/signup', signupValidationChecks, authController.signup);
 authRouter.post('/auth/login', loginValidationChecks, authController.login);
+authRouter.get('/auth/is-logged-in', authController.isLoggedIn);
 
 export default authRouter;

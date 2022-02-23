@@ -3,7 +3,7 @@
 import User from '../models/user.model.js';
 import { genSalt, hash, compare } from 'bcrypt';
 import { validationResult } from 'express-validator';
-import { generateJWT } from '../helpers/jwt.helper.js';
+import { generateJWT, verifyJWT } from '../helpers/jwt.helper.js';
 import { httpOnlyCookie } from '../helpers/cookie.helper.js';
 
 export const signup = async (req, res) => {
@@ -130,6 +130,35 @@ export const login = async (req, res) => {
 		res.status(500).json({
 			success: false,
 			message: 'Please check your email or password',
+			data: {},
+		});
+	}
+};
+
+/* ------------------------------ is logged in ------------------------------ */
+export const isLoggedIn = (req, res) => {
+	try {
+		const { token } = req.cookies;
+
+		const isLoggedIn = verifyJWT(token);
+
+		if (!isLoggedIn) {
+			return res.status(401).json({
+				success: false,
+				message: 'User is not logged in',
+				data: {},
+			});
+		}
+
+		res.status(200).json({
+			success: true,
+			message: 'User is logged in',
+			data: {},
+		});
+	} catch (err) {
+		res.status(500).json({
+			success: false,
+			message: 'Internal Server Error',
 			data: {},
 		});
 	}
