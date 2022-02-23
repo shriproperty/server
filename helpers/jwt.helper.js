@@ -11,7 +11,7 @@ import { default as jwt } from 'jsonwebtoken';
 export const generateJWT = (body, expire) => {
 	if (expire) {
 		return jwt.sign(body, process.env.JWT_SECRET, {
-			expireIn: expire ? expire : {},
+			expiresIn: expire,
 		});
 	} else {
 		return jwt.sign(body, process.env.JWT_SECRET);
