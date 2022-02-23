@@ -229,7 +229,7 @@ const Property = () => {
 							className="image-grid__image image-grid__image--3"
 						/>
 
-						<Link to="/allimages" className="allimages">
+						<Link to={`/allimages/${response._id}`} className="allimages">
 							<BSecondary title="All Images" />
 						</Link>
 					</section>
