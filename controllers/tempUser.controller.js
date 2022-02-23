@@ -31,8 +31,6 @@ export const createNew = async (req, res) => {
 			token,
 		});
 	} catch (err) {
-		console.log(err);
-
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
