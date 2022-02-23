@@ -41,6 +41,7 @@ export const createProperty = async (req, res) => {
 			address,
 			owner,
 			ownerContact,
+			lobby,
 		} = req.body;
 
 		const images = [];
@@ -85,6 +86,7 @@ export const createProperty = async (req, res) => {
 			category !== 'Independent House/Villa' &&
 			category !== 'Plot' &&
 			category !== 'Commercial Office' &&
+			category !== 'Commercial Plot' &&
 			category !== 'Serviced Apartments' &&
 			category !== '1 RK/ Studio Apartment' &&
 			category !== 'Independent/Builder Floor' &&
@@ -216,6 +218,7 @@ export const createProperty = async (req, res) => {
 			videos,
 			owner,
 			ownerContact,
+			lobby,
 		});
 
 		// send response
@@ -316,6 +319,7 @@ export const update = async (req, res) => {
 			status,
 			featured,
 			otherFeatures,
+			lobby,
 		} = req.body;
 
 		const images = [];
@@ -340,6 +344,7 @@ export const update = async (req, res) => {
 			category !== 'Independent House/Villa' &&
 			category !== 'Plot' &&
 			category !== 'Commercial Office' &&
+			category !== 'Commercial Plot' &&
 			category !== 'Serviced Apartments' &&
 			category !== '1 RK/ Studio Apartment' &&
 			category !== 'Independent/Builder Floor' &&
@@ -490,6 +495,7 @@ export const update = async (req, res) => {
 				status,
 				featured,
 				otherFeatures,
+				lobby,
 				images: images.length > 0 ? images : propertyFromDB.images,
 				documents:
 					documents.length > 0 ? documents : propertyFromDB.documents,

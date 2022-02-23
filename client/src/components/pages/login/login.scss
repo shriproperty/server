@@ -1,6 +1,6 @@
 @import '../../../styles/variable.scss';
 
-.signup-section {
+.login-section {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -12,7 +12,7 @@
 		justify-content: space-between;
 		width: 70%;
 		border-radius: 2rem;
-		padding: 0 4rem;
+		padding: 1.5rem 4rem;
 		box-shadow: $shadow-secondary;
 	}
 

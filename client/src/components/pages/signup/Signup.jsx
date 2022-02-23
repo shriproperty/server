@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import { BPrimary } from '../../util/button/Button';
 import { post } from '../../../api/post';
@@ -174,8 +174,12 @@ const Signup = () => {
 						required
 					/>
 
+					<p className="login-section__link">
+						Already have account <Link to="/login">Login</Link>
+					</p>
+
 					<BPrimary
-						title="submit"
+						title="Sign up"
 						className="signup-section__btn"
 						type="submit"
 						loading={btnLoading}
