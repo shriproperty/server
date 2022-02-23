@@ -7,8 +7,13 @@ const propertySchema = new mongoose.Schema({
 	title: { type: String, required: true },
 	description: { type: String, required: true },
 	price: { type: String, required: true },
-	specialPrice: { type: String, required: true },
-	type: { type: String, required: true, enum: ['Rental', 'Sale'] },
+	specialPrice: { type: String, required: false },
+	type: {
+		type: String,
+		required: true,
+		enum: ['Rental', 'Sale'],
+		default: 'Sale',
+	},
 	category: {
 		type: String,
 		required: true,
@@ -22,12 +27,14 @@ const propertySchema = new mongoose.Schema({
 			'Independent/Builder Floor',
 			'Other',
 		],
+		default: 'Other',
 	},
+
 	status: {
 		type: String,
 		required: true,
 		enum: ['Unfurnished', 'Semifurnished', 'Furnished'],
-		default: null,
+		default: 'Unfurnished',
 	},
 	featured: { type: Boolean, required: true, default: false },
 
@@ -64,7 +71,7 @@ const propertySchema = new mongoose.Schema({
 	dinningRoom: { type: String, required: true, default: 0 },
 	floor: { type: String, required: true, default: 'Ground' },
 	poojaRoom: { type: String, required: true, default: 0 },
-	otherFeatures: { type: Array, required: true },
+	otherFeatures: { type: Array, required: true, default: [] },
 	lobby: { type: String, required: true, default: 0 },
 	direction: {
 		type: String,
@@ -82,7 +89,7 @@ const propertySchema = new mongoose.Schema({
 		],
 	},
 	// images
-	images: { type: Array, required: true },
+	images: { type: Array, required: false },
 	videos: { type: Array, required: false },
 	documents: { type: Array, required: false },
 
