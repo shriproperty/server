@@ -31,6 +31,7 @@ const Properties = () => {
 
 	return (
 		<section className="properties-section">
+			
 			<div className="properties-section__headings">
 				<HPrimary title="Afforadable Homes in Chandigarh" />
 
@@ -52,13 +53,14 @@ const Properties = () => {
 						>
 							<div className="properties-section__property">
 								{/* Image */}
-								<div className="properties-section__property-image">
-									<img
-										src={property.images[0]?.url}
-										alt="property"
-									/>
-								</div>
-
+								
+									<div className="properties-section__property-image">
+										<img
+											src={property.images[0]?.url}
+											alt="property"
+										/>
+									</div>
+								
 								{/* Mains */}
 								<HSecondary
 									title={property.title}

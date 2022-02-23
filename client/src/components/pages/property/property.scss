@@ -31,10 +31,15 @@
 			margin: 0 0.5rem;
 		}
 	}
-
+	.img{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: $color-white;
+	}
 	&__image {
 		height: 100%;
-		width: 100%;
+		width: fit-content;
 
 		&--1 {
 			grid-column: 1 / 8;
@@ -128,12 +133,12 @@
 		background-color: #f5f5f5;
 
 		h3 {
-			color: #000;
+			color: $color-black;
 			font-size: 2rem;
 			padding: 0 2rem;
 		}
 		svg {
-			color: #000 !important;
+			color: $color-black !important;
 			font-size: 2rem !important;
 		}
 		.price {
