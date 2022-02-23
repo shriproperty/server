@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
@@ -6,6 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { BPrimary, BUpload } from '../../../../util/button/Button';
 import { ASuccess, AError } from '../../../../util/alert/Alert';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import './form.scss';
 import { postFile } from '../../../../../api/post';
@@ -95,6 +97,8 @@ const Form = () => {
 			}
 		});
 	};
+
+	console.log(images);
 
 	return (
 		<section>
@@ -497,21 +501,53 @@ const Form = () => {
 				<BUpload
 					title="Image"
 					className="admin-property-form__upload-btn"
-					onChange={e => setImages(e.target.files)}
+					onChange={e => setImages([...images, ...e.target.files])}
 					accept="image/*"
 				/>
+
+				{images.map(img => {
+					if (img instanceof File) {
+						const objectURL = URL.createObjectURL(img);
+						return (
+							<div className="admin-property-form__preview-container">
+								<img
+									className="admin-property-form__preview"
+									src={objectURL}
+									alt="can't preview"
+								/>
+								<BPrimary
+									title={<DeleteIcon />}
+									onClick={() =>
+										setImages(
+											images.filter(
+												(_, i) =>
+													i !== images.length - 1
+											)
+										)
+									}
+								/>
+							</div>
+						);
+					}
+				})}
+
+				<br />
 
 				<BUpload
 					title="Videos"
 					className="admin-property-form__upload-btn"
-					onChange={e => setVideos(e.target.files)}
+					onChange={e => setVideos([...videos, ...e.target.files])}
 					accept="video/*"
 				/>
+
+				<br />
 
 				<BUpload
 					title="Documents"
 					className="admin-property-form__upload-btn"
-					onChange={e => setDocuments(e.target.files)}
+					onChange={e =>
+						setDocuments([...documents, ...e.target.files])
+					}
 					accept="application/pdf"
 				/>
 
