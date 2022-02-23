@@ -8,11 +8,32 @@ import { AError } from '../../../components/util/alert/Alert';
 import './login.scss';
 
 const Login = () => {
+	const navigate = useNavigate();
+
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [errorOpen, setErrorOpen] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
 	const [btnLoading, setBtnLoading] = useState(false);
+
+	const submitHandler = async e => {
+		e.preventDefault();
+
+		setBtnLoading(true);
+
+		const res = await post('/auth/login', {
+			email,
+			password,
+		});
+
+		setBtnLoading(false);
+
+		if (res.success) navigate('/');
+		else {
+			setErrorMessage(res.message);
+			setErrorOpen(true);
+		}
+	};
 
 	return (
 		<section className="login-section">
@@ -23,12 +44,13 @@ const Login = () => {
 					className="login-section__image"
 				/>
 
-				<form className="login-section__form">
+				<form className="login-section__form" onSubmit={submitHandler}>
 					<AError
 						title={errorMessage}
 						open={errorOpen}
 						setOpen={setErrorOpen}
 					/>
+
 					<TextField
 						className="login-section__input"
 						label="Email"
@@ -38,6 +60,7 @@ const Login = () => {
 						fullWidth
 						required
 					/>
+
 					<TextField
 						className="login-section__input"
 						label="Password"
@@ -47,7 +70,7 @@ const Login = () => {
 						fullWidth
 						required
 					/>
-                    
+
 					<p className="login-section__link">
 						Don't have account <Link to="/signup">Signup</Link>
 					</p>
