@@ -135,7 +135,7 @@ export const createProperty = async (req, res) => {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
-				message: 'Unit can only be one of the following: sq, marla',
+				message: 'Invalid Unit',
 			});
 		}
 

@@ -227,7 +227,7 @@ const Form = () => {
 							setProperty({ ...property, unit: e.target.value })
 						}
 					>
-						<MenuItem value={'Sq. Ft'}>Sq. Ft</MenuItem>
+						<MenuItem value={'Sq. Ft.'}>Sq. Ft</MenuItem>
 						<MenuItem value={'Acre'}>Acre</MenuItem>
 						<MenuItem value={'Gaj'}>Gaj</MenuItem>
 						<MenuItem value={'Marla'}>Marla</MenuItem>
