@@ -1,7 +1,9 @@
 import './footer.scss';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PhoneIcon from '@mui/icons-material/Phone';
+import EmailIcon from '@mui/icons-material/Email';
 
 const Footer = () => {
 	return (
@@ -10,45 +12,41 @@ const Footer = () => {
 				<div className="footer-content__left">
 					<h1>About</h1>
 					<p>
-						WpResidence is committed to delivering a high level of
+						Shri Property is committed to delivering a high level of
 						expertise, customer service, and attention to detail to
-						the marketing and sales of luxury real estate, and
-						rental properties.
-					</p>
-					<p className="secondChild">
-						Since 2013, we have developed powerful and fast real
-						estate themes for businesses who need a reliable and
-						extremely versatile product.
+						the marketing and sales of real estate, and rental
+						properties.
 					</p>
 					<div className="footer-content__left-social">
-						<a href="https://www.facebook.com/">
+						<a
+							href="https://www.facebook.com/ShriiProperty"
+							target="_blank"
+							rel="noreferrer"
+						>
 							<FacebookIcon />
-						</a>
-						<a href="https://www.facebook.com/">
-							<YouTubeIcon />
-						</a>
-						<a href="https://www.facebook.com/">
-							<InstagramIcon />
 						</a>
 					</div>
 				</div>
+
 				<div className="footer-content__centre">
 					<h1>Contact</h1>
-					<div className="addr">
-						<div className="addr__icon"></div>
-						<p>
-							Lorem ipsum dolor sit amet consectetur, adipisicing
-							elit. Laudantium dicta, quas molestias alias
-							reiciendis quasi.
-						</p>
+					<div className="footer-content__contact addr">
+						<div className="addr__icon">
+							<LocationOnIcon />
+						</div>
+						<p>Sector 70, Mohali, Punjab</p>
 					</div>
-					<div className="phone">
-						<div className="phone__icon"></div>
-						<p className="phone__number">+91 9501478900</p>
+					<div className="footer-content__contact phone">
+						<div className="phone__icon">
+							<PhoneIcon />
+						</div>
+						<p className="phone__number">+91 9465663009</p>
 					</div>
-					<div className="email">
-						<div className="email__icon"></div>
-						<p>shriproperty9.com</p>
+					<div className="footer-content__contact email">
+						<div className="email__icon">
+							<EmailIcon />
+						</div>
+						<p>shriproperty9@gmail.com</p>
 					</div>
 				</div>
 			</div>
