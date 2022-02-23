@@ -57,7 +57,6 @@ export const createProperty = async (req, res) => {
 			!size ||
 			!unit ||
 			!address ||
-			!otherFeatures ||
 			!direction ||
 			!owner ||
 			!ownerContact
@@ -66,7 +65,7 @@ export const createProperty = async (req, res) => {
 			return res.status(400).json({
 				success: false,
 				message:
-					'Title, Description, Price, Type, category, Size, Unit, Address, Direction, Owner, Owner Contact and other features are required',
+					'Title, Description, Price, Type, category, Size, Unit, Address, Direction, Owner, Owner Contact and are required',
 			});
 		}
 
@@ -116,12 +115,25 @@ export const createProperty = async (req, res) => {
 			});
 		}
 
-		//TODO: add more fields for unit enum
-		if (unit !== 'sq' && unit !== 'marla') {
+		if (
+			unit !== 'Sq. Ft.' &&
+			unit !== 'Acre' &&
+			unit !== 'Gaj' &&
+			unit !== 'Marla' &&
+			unit !== 'Bigha' &&
+			unit !== 'Bigha-Pucca' &&
+			unit !== 'Bigha-Kachha' &&
+			unit !== 'Biswa' &&
+			unit !== 'Biswa-Pucca' &&
+			unit !== 'Kanal' &&
+			unit !== 'Killa' &&
+			unit !== 'Kattha' &&
+			unit !== 'Ghumaon'
+		) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
-				message: 'Unit can only be "sq" or "marla"',
+				message: 'Unit can only be one of the following: sq, marla',
 			});
 		}
 
@@ -358,8 +370,21 @@ export const update = async (req, res) => {
 			});
 		}
 
-		//TODO: add more fields for unit enum
-		if (unit !== 'sq' && unit !== 'marla') {
+		if (
+			unit !== 'Sq. Ft.' &&
+			unit !== 'Acre' &&
+			unit !== 'Gaj' &&
+			unit !== 'Marla' &&
+			unit !== 'Bigha' &&
+			unit !== 'Bigha-Pucca' &&
+			unit !== 'Bigha-Kachha' &&
+			unit !== 'Biswa' &&
+			unit !== 'Biswa-Pucca' &&
+			unit !== 'Kanal' &&
+			unit !== 'Killa' &&
+			unit !== 'Kattha' &&
+			unit !== 'Ghumaon'
+		) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,

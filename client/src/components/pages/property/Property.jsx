@@ -301,7 +301,7 @@ const Property = () => {
 								</div>
 
 								<div className="facilities-section_item">
-									<h3>Closed Parking</h3>
+									<h3>Covered Parking</h3>
 									<h3>{response.closeParking}</h3>
 								</div>
 

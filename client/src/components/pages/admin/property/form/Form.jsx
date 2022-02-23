@@ -198,7 +198,6 @@ const Form = () => {
 					varient="outlined"
 					label="Special Price"
 					type="number"
-					required
 					onChange={e =>
 						setProperty({
 							...property,
@@ -264,7 +263,7 @@ const Form = () => {
 				<TextField
 					className="admin-property-form__input"
 					varient="outlined"
-					label="Close Parking"
+					label="Covered Parking"
 					type="number"
 					onChange={e =>
 						setProperty({
@@ -420,9 +419,21 @@ const Form = () => {
 							setProperty({ ...property, unit: e.target.value })
 						}
 					>
-						{/* WARNING: Add more units here */}
-						<MenuItem value={'sq'}>sq</MenuItem>
-						<MenuItem value={'marla'}>marla</MenuItem>
+						<MenuItem value={'Sq. Ft'}>Sq. Ft</MenuItem>
+						<MenuItem value={'Acre'}>Acre</MenuItem>
+						<MenuItem value={'Gaj'}>Gaj</MenuItem>
+						<MenuItem value={'Marla'}>Marla</MenuItem>
+						<MenuItem value={'Bigha'}>Bigha</MenuItem>
+						<MenuItem value={'Bigha-Pucca'}>Bigha-Pucca</MenuItem>
+						<MenuItem value={'Bigha-Kachha'}>Bigha-Kachha</MenuItem>
+						<MenuItem value={'Bigha-Kachha'}>Bigha-Kachha</MenuItem>
+						<MenuItem value={'Biswa'}>Biswa</MenuItem>
+						<MenuItem value={'Biswa'}>Biswa</MenuItem>
+						<MenuItem value={'Biswa–Pucca'}>Biswa–Pucca</MenuItem>
+						<MenuItem value={'Kanal'}>Kanal</MenuItem>
+						<MenuItem value={'Killa'}>Killa</MenuItem>
+						<MenuItem value={'Kattha'}>Kattha</MenuItem>
+						<MenuItem value={'Ghumaon'}>Ghumaon</MenuItem>
 					</Select>
 				</FormControl>
 

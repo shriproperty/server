@@ -504,9 +504,29 @@ const Update = () => {
 								})
 							}
 						>
-							{/* WARNING: Add more units here */}
-							<MenuItem value={'sq'}>sq</MenuItem>
-							<MenuItem value={'marla'}>marla</MenuItem>
+							<MenuItem value={'Sq. Ft'}>Sq. Ft</MenuItem>
+							<MenuItem value={'Acre'}>Acre</MenuItem>
+							<MenuItem value={'Gaj'}>Gaj</MenuItem>
+							<MenuItem value={'Marla'}>Marla</MenuItem>
+							<MenuItem value={'Bigha'}>Bigha</MenuItem>
+							<MenuItem value={'Bigha-Pucca'}>
+								Bigha-Pucca
+							</MenuItem>
+							<MenuItem value={'Bigha-Kachha'}>
+								Bigha-Kachha
+							</MenuItem>
+							<MenuItem value={'Bigha-Kachha'}>
+								Bigha-Kachha
+							</MenuItem>
+							<MenuItem value={'Biswa'}>Biswa</MenuItem>
+							<MenuItem value={'Biswa'}>Biswa</MenuItem>
+							<MenuItem value={'Biswa–Pucca'}>
+								Biswa–Pucca
+							</MenuItem>
+							<MenuItem value={'Kanal'}>Kanal</MenuItem>
+							<MenuItem value={'Killa'}>Killa</MenuItem>
+							<MenuItem value={'Kattha'}>Kattha</MenuItem>
+							<MenuItem value={'Ghumaon'}>Ghumaon</MenuItem>{' '}
 						</Select>
 					</FormControl>
 
