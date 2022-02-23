@@ -20,8 +20,9 @@ const Images = () => {
 			.catch(() => {
 				navigate('/404');
 			});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id]);
-	console.log(response);
+
 	return (
 		<section>
 			{loading ? (
