@@ -240,7 +240,7 @@ const Property = () => {
 								</h2>
 							</div>
 
-							<Link
+							{/* <Link
 								to="/properties"
 								className="heading-section_link"
 							>
@@ -248,7 +248,7 @@ const Property = () => {
 									title="Request a Call"
 									type="submit"
 								/>
-							</Link>
+							</Link> */}
 						</section>
 
 						<section className="pricing-section">
