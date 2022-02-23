@@ -32,10 +32,8 @@ const Property = () => {
 
 	useEffect(() => {
 		// Verify token
-		post('/temp-users/verify', {
-			token: localStorage.getItem('token'),
-		}).then(res => {
-			if (!res.success) setModal(true);
+		get('/temp-users/verify').catch(res => {
+			setModal(true);
 		});
 
 		get(`/properties/single/${id}`)
@@ -77,7 +75,7 @@ const Property = () => {
 		});
 
 		setBtnLoading(false);
-		
+
 		// if otp is valid than create new user
 		if (verifyOtpResponse.success) {
 			const newUserResponse = await post('/temp-users/add', {
@@ -88,7 +86,6 @@ const Property = () => {
 
 			// if user is created successfully than save token and hide modal
 			if (newUserResponse.success) {
-				localStorage.setItem('token', newUserResponse.token);
 				setVerifyOtpModel(false);
 			} else {
 				// if something went wrong while creating user than show error and open modal
@@ -229,7 +226,10 @@ const Property = () => {
 							className="image-grid__image image-grid__image--3"
 						/>
 
-						<Link to={`/allimages/${response._id}`} className="allimages">
+						<Link
+							to={`/allimages/${response._id}`}
+							className="allimages"
+						>
 							<BSecondary title="All Images" />
 						</Link>
 					</section>

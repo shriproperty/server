@@ -4,6 +4,7 @@ import TempUser from '../models/tempUser.model.js';
 
 import { validationResult } from 'express-validator';
 import { generateJWT, verifyJWT } from '../helpers/jwt.helper.js';
+import { httpOnlyCookie } from '../helpers/cookie.helper.js';
 
 /* --------------------------------- create --------------------------------- */
 export const createNew = async (req, res) => {
@@ -24,12 +25,13 @@ export const createNew = async (req, res) => {
 
 		const token = generateJWT({ id: user._id }, '24h');
 
-		res.status(201).json({
-			success: true,
-			message: 'User created successfully',
-			data: user,
-			token,
-		});
+		res.status(201)
+			.cookie(httpOnlyCookie('tempUserToken', token, res))
+			.json({
+				success: true,
+				message: 'User created successfully',
+				data: user,
+			});
 	} catch (err) {
 		res.status(500).json({
 			success: false,
@@ -124,9 +126,22 @@ export const updateUserCallingStatus = async (req, res) => {
 /* ------------------------------- verify user ------------------------------ */
 export const verifyUser = (req, res) => {
 	try {
-		const { token } = req.body;
+		const { tempUserToken, token } = req.cookies;
 
-		const verifiedUser = verifyJWT(token);
+		// use this to verify if user is logged in
+		if (token) {
+			const verifiedToken = verifyJWT(token);
+
+			if (verifiedToken) {
+				return res.status(200).json({
+					success: true,
+					message: 'User verified successfully',
+					data: {},
+				});
+			}
+		}
+
+		const verifiedUser = verifyJWT(tempUserToken);
 
 		if (!verifiedUser) {
 			return res.status(401).json({

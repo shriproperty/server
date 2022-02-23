@@ -21,7 +21,7 @@ tempUserRouter.post(
 	validationRules,
 	tempUserController.createNew
 );
-tempUserRouter.post('/temp-users/verify', tempUserController.verifyUser);
+tempUserRouter.get('/temp-users/verify', tempUserController.verifyUser);
 tempUserRouter.get('/temp-users/all', tempUserController.getAllUsers);
 tempUserRouter.patch(
 	'/temp-users/update-calling-status/:id',
