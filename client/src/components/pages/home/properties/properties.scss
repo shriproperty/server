@@ -48,11 +48,11 @@
 		color: $color-black;
 		background-color: $color-white;
 		border-radius: 7px;
-		.image-container{
+		.image-container {
 			display: flex;
 			justify-content: center;
 			align-items: center;
-		
+
 			background-color: $color-white;
 			img {
 				width: 100%;
@@ -63,7 +63,7 @@
 		&-image {
 			height: 25rem;
 			width: fit-content;
-			
+
 			@media screen and (max-width: 600px) {
 				height: 35rem;
 			}
@@ -90,6 +90,9 @@
 
 		&-description {
 			margin: 1rem !important;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
 			@media screen and (max-width: 410px) {
 				font-size: 2rem !important;
 			}
