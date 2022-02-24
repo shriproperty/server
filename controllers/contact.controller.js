@@ -1,6 +1,7 @@
 'use strict';
 
 import Contact from '../models/contact.model.js';
+import logger from '../helpers/logger.helper.js';
 import { validationResult } from 'express-validator';
 
 /* ---------------------------------- create new ---------------------------------- */
@@ -49,6 +50,8 @@ export const createNew = async (req, res) => {
 			data: newContact,
 		});
 	} catch (err) {
+		logger.log(err);
+
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
@@ -68,6 +71,8 @@ export const getAll = async (req, res) => {
 			data: contacts,
 		});
 	} catch (err) {
+		logger.log(err);
+
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
@@ -119,6 +124,8 @@ export const updateStatus = async (req, res) => {
 			data: updatedContact,
 		});
 	} catch (err) {
+		logger.log(err);
+
 		res.status(404).json({
 			success: false,
 			message: 'Contact not found Invalid Id',
@@ -140,6 +147,8 @@ export const deleteContact = async (req, res) => {
 			data: deletedContact,
 		});
 	} catch (err) {
+		logger.log(err);
+
 		res.status(404).json({
 			success: false,
 			message: 'Contact not found Invalid Id',

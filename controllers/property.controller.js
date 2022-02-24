@@ -1,6 +1,7 @@
 'use strict';
 
 import Property from '../models/property.model.js';
+import logger from '../helpers/logger.helper.js';
 
 import {
 	deleteMultipleFilesFromDisk,
@@ -266,6 +267,7 @@ export const createProperty = async (req, res) => {
 			data: property,
 		});
 	} catch (err) {
+		logger.error(err);
 		deleteMultipleFilesFromDisk(req.files);
 		console.log(err);
 		res.status(500).json({
@@ -299,6 +301,7 @@ export const getAll = async (req, res) => {
 			data: properties,
 		});
 	} catch (err) {
+		logger.log(err);
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
@@ -320,6 +323,7 @@ export const getSingle = async (req, res) => {
 			data: property,
 		});
 	} catch (err) {
+		logger.log(err);
 		res.status(400).json({
 			success: false,
 			message: 'Invalid Id',
@@ -587,6 +591,7 @@ export const update = async (req, res) => {
 			data: updatedProperty,
 		});
 	} catch (err) {
+		logger.log(err);
 		deleteMultipleFilesFromDisk(req.files);
 
 		res.status(400).json({
@@ -622,6 +627,7 @@ export const deleteProperty = async (req, res) => {
 			data: deletedProperty,
 		});
 	} catch (err) {
+		logger.log(err);
 		res.status(404).json({
 			success: false,
 			message: 'Invalid Id',
@@ -673,6 +679,7 @@ export const deleteFile = async (req, res) => {
 			data: {},
 		});
 	} catch (err) {
+		logger.log(err);
 		res.status(400).json({
 			success: false,
 			message: 'Invalid key',

@@ -3,6 +3,7 @@
 import Otp from '../models/otp.model.js';
 import { sendEmail } from '../helpers/email.helper.js';
 import { validationResult } from 'express-validator';
+import logger from '../helpers/logger.helper.js';
 
 /* ------------------------------- send otp ------------------------------- */
 export const sendOtp = async (req, res) => {
@@ -37,6 +38,8 @@ export const sendOtp = async (req, res) => {
 			data: saveOtpToDB,
 		});
 	} catch (err) {
+		logger.error(err);
+
 		res.status(500).json({
 			success: false,
 			message: 'Please enter valid Email',
@@ -76,6 +79,8 @@ export const verifyOtp = async (req, res) => {
 			data: {},
 		});
 	} catch (err) {
+		logger.error(err);
+
 		res.status(400).json({
 			success: false,
 			message: 'Your OTP is expired',

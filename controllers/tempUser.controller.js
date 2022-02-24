@@ -5,6 +5,7 @@ import TempUser from '../models/tempUser.model.js';
 import { validationResult } from 'express-validator';
 import { generateJWT, verifyJWT } from '../helpers/jwt.helper.js';
 import { httpOnlyCookie } from '../helpers/cookie.helper.js';
+import logger from '../helpers/logger.helper.js';
 
 /* --------------------------------- create --------------------------------- */
 export const createNew = async (req, res) => {
@@ -33,6 +34,7 @@ export const createNew = async (req, res) => {
 				data: user,
 			});
 	} catch (err) {
+		logger.log(err);
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
@@ -52,6 +54,7 @@ export const getAllUsers = async (req, res) => {
 			data: users,
 		});
 	} catch (err) {
+		logger.log(err);
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
@@ -115,6 +118,7 @@ export const updateUserCallingStatus = async (req, res) => {
 			data: updatedUser,
 		});
 	} catch (err) {
+		logger.log(err);
 		res.status(404).json({
 			success: false,
 			message: 'User not found invalid id',
@@ -157,6 +161,7 @@ export const verifyUser = (req, res) => {
 			data: {},
 		});
 	} catch (err) {
+		logger.log(err);
 		res.status(401).json({
 			success: false,
 			message: 'Invalid token',

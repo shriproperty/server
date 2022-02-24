@@ -5,6 +5,7 @@ import { genSalt, hash, compare } from 'bcrypt';
 import { validationResult } from 'express-validator';
 import { generateJWT, verifyJWT } from '../helpers/jwt.helper.js';
 import { httpOnlyCookie } from '../helpers/cookie.helper.js';
+import logger from '../helpers/logger.helper.js';
 
 export const signup = async (req, res) => {
 	try {
@@ -69,6 +70,8 @@ export const signup = async (req, res) => {
 				},
 			});
 	} catch (err) {
+		logger.error(err);
+
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
@@ -127,6 +130,8 @@ export const login = async (req, res) => {
 				data: user,
 			});
 	} catch (err) {
+		logger.error(err);
+
 		res.status(500).json({
 			success: false,
 			message: 'Please check your email or password',
@@ -156,6 +161,8 @@ export const isLoggedIn = (req, res) => {
 			data: {},
 		});
 	} catch (err) {
+		logger.error(err);
+
 		res.status(401).json({
 			success: false,
 			message: 'User is not logged in',

@@ -2,6 +2,7 @@
 
 import AddListing from '../models/addListing.model.js';
 import Property from '../models/property.model.js';
+import logger from '../helpers/logger.helper.js';
 
 import {
 	deleteMultipleFilesFromDisk,
