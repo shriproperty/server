@@ -1,5 +1,5 @@
 @import '../../../styles/variable.scss';
-
+@import '../../../styles/utils.scss';
 .property-section {
 	margin-top: 4rem;
 	margin-bottom: 6rem;
@@ -136,10 +136,6 @@
 		svg {
 			color: $color-black !important;
 			font-size: 2rem !important;
-		}
-		.price {
-			text-decoration: line-through;
-			text-decoration-color: $color-primary;
 		}
 		.special-price {
 			font-size: 2rem;

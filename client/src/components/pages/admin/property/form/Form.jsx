@@ -37,6 +37,7 @@ const Form = () => {
 		kitchen: 0,
 		lobby: 0,
 		address: '',
+		location: '',
 		featured: false,
 		owner: '',
 		ownerContact: '',
@@ -152,6 +153,18 @@ const Form = () => {
 					fullWidth
 					onChange={e =>
 						setProperty({ ...property, address: e.target.value })
+					}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					variant="outlined"
+					label="Location"
+					helperText="Paste google maps url here"
+					required
+					fullWidth
+					onChange={e =>
+						setProperty({ ...property, location: e.target.value })
 					}
 				/>
 

@@ -113,6 +113,7 @@ const propertySchema = new mongoose.Schema({
 	commission: { type: String, required: true },
 	age: { type: String, required: false },
 	possession: { type: String, required: false },
+	location: { type: String, required: false, default: '' },
 });
 
 const Property = mongoose.model('Property', propertySchema);
