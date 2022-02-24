@@ -33,6 +33,8 @@ app.use('/api', otpRouter);
 app.use('/api', addListingRouter);
 app.use('/api', authRouter);
 
+console.log('test');
+
 /* --------------------------------- server --------------------------------- */
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'));
