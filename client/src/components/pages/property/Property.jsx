@@ -281,7 +281,15 @@ const Property = () => {
 									<div className="sell-icon">
 										<LocalOfferIcon />
 									</div>
-									<h3 className="price">{response.price}</h3>
+									<h3
+										className={
+											response.specialPrice !== '' &&
+											'line-through'
+										}
+									>
+										{response.price}
+									</h3>
+
 									<h3 className="special-price">
 										{response.specialPrice}
 									</h3>
