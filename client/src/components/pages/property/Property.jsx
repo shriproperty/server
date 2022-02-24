@@ -359,6 +359,248 @@ const Property = () => {
 							</div>
 						</section>
 
+						<h1 className="amenities-section__heading">
+							Amenities
+						</h1>
+						<section className="amenities-section">
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-air-conditioner-96.png"
+										alt="air cndition"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Air Conditioner
+								</h3>
+								<div className="amenities-section__number">
+									2
+								</div>
+							</div>
+
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-electric-stovetop-96.png"
+										alt="Stove"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Stove
+								</h3>
+								<div className="amenities-section__number">
+									2
+								</div>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-fan-64.png"
+										alt="fan"
+									/>
+								</div>
+								<h3 className="amenities-section__name">Fan</h3>
+								<div className="amenities-section__number">
+									5
+								</div>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-fridge-96.png"
+										alt="Fridge"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Fridge
+								</h3>
+								<div className="amenities-section__number">
+									2
+								</div>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-parking-lot-96.png"
+										alt="open Parking"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Visitor Parking
+								</h3>
+								<div className="amenities-section__number">
+									2
+								</div>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-light-96.png"
+										alt="light"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Light
+								</h3>
+								<div className="amenities-section__number">
+									2
+								</div>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-bed-96.png"
+										alt="bed"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Bed
+								</h3>
+								<div className="amenities-section__number">
+									2
+								</div>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-microwave-96.png"
+										alt="microwave"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Microwave
+								</h3>
+								<div className="amenities-section__number">
+									2
+								</div>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-restaurant-table-96.png"
+										alt="Dining table"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Dinning Table
+								</h3>
+								<div className="amenities-section__number">
+									1
+								</div>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-tv-96.png"
+										alt="tv"
+									/>
+								</div>
+								<h3 className="amenities-section__name">TV</h3>
+								<div className="amenities-section__number">
+									2
+								</div>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-wardrobe-96.png"
+										alt="Wardrobe"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Wardrobe
+								</h3>
+								<div className="amenities-section__number">
+									2
+								</div>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-washing-machine-96.png"
+										alt="Washing Machine"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Washing Machine
+								</h3>
+								<div className="amenities-section__number">
+									2
+								</div>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-water-96.png"
+										alt="water"
+									/>
+								</div>
+								<h3 className="amenities-section__name">water</h3>
+								<div className="amenities-section__number">
+									24/7
+								</div>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-water-heater-96.png"
+										alt="water-heater"
+									/>
+								</div>
+								<h3 className="amenities-section__name">Geyser</h3>
+								<div className="amenities-section__number">
+									2
+								</div>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-open-curtains-96.png"
+										alt="open-curtains"
+									/>
+								</div>
+								<h3 className="amenities-section__name">Curatains</h3>
+								<div className="amenities-section__number">
+									2
+								</div>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-three-seater-sofa-96.png"
+										alt="three-seater-sofa"
+									/>
+								</div>
+								<h3 className="amenities-section__name">Sofa</h3>
+								<div className="amenities-section__number">
+									2
+								</div>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-water-cooler-96.png"
+										alt="Water purifier"
+									/>
+								</div>
+								<h3 className="amenities-section__name">Water Purifier</h3>
+								<div className="amenities-section__number">
+									2
+								</div>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="../../../images/amenities/icons8-cooker-hood-96.png"
+										alt="Exhaust"
+									/>
+								</div>
+								<h3 className="amenities-section__name">Exhaust</h3>
+								<div className="amenities-section__number">
+									2
+								</div>
+							</div>
+						</section>
 						{response?.otherFeatures.length > 0 && (
 							<section className="other-facilities-section">
 								<h1>Other Features</h1>
@@ -376,23 +618,6 @@ const Property = () => {
 							<p>{response.description}</p>
 						</section>
 
-						<h1 className="amenities-section__heading">Amenities</h1>
-						<section className="amenities-section">
-							<div className="amenities-container">
-								<div className="amenities-section_img">
-									<img
-										src="../../../images/amenities/icons8-air-conditioner-96.png"
-										alt="air cndition"
-									/>
-								</div>
-								<h3 className="amenities-section__name">
-									Air Conditioner
-								</h3>
-								<div className="amenities-section__number">
-									2
-								</div>
-							</div>
-						</section>
 
 						{response?.documents.map((doc, i) => (
 							<a href={doc.url} className="link" key={doc.key}>

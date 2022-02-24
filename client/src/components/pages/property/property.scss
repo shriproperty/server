@@ -253,16 +253,15 @@
 }
 
 .amenities-section {
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
 	padding: 0 4rem;
 
 	.amenities-container{
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		justify-content: center;
+		justify-content: space-around;
 		margin: 1rem 0;
 	}
 	&__heading {
@@ -270,8 +269,8 @@
 		font-size: 2rem;
 		padding: 0 4rem;
 	}
-	&__name{
-		margin: 2rem;
-		
+	img{
+		height: 3.5rem;
 	}
+
 }
