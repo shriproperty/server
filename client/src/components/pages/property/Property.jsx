@@ -376,6 +376,24 @@ const Property = () => {
 							<p>{response.description}</p>
 						</section>
 
+						<h1 className="amenities-section__heading">Amenities</h1>
+						<section className="amenities-section">
+							<div className="amenities-container">
+								<div className="amenities-section_img">
+									<img
+										src="../../../images/amenities/icons8-air-conditioner-96.png"
+										alt="air cndition"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Air Conditioner
+								</h3>
+								<div className="amenities-section__number">
+									2
+								</div>
+							</div>
+						</section>
+
 						{response?.documents.map((doc, i) => (
 							<a href={doc.url} className="link" key={doc.key}>
 								Download pdf {i + 1}
