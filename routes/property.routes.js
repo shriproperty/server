@@ -13,5 +13,9 @@ propertyRouter.delete(
 	'/properties/delete/:id',
 	propertyController.deleteProperty
 );
+propertyRouter.delete(
+	'/properties/delete-file/:id/:type/:key',
+	propertyController.deleteFile
+);
 
 export default propertyRouter;

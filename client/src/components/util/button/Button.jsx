@@ -41,7 +41,7 @@ BPrimary.propTypes = {
 	type: propTypes.string,
 	loading: propTypes.bool,
 	style: propTypes.object,
-	onclick: propTypes.func,
+	onClick: propTypes.func,
 };
 
 /**

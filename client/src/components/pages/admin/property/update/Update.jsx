@@ -13,6 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { patchFile } from '../../../../../api/patch';
 import get from '../../../../../api/get';
+import deleteRequest from '../../../../../api/delete';
 
 //WARNING: Sass is coming from form.scss file in ../form folder
 
@@ -64,6 +65,7 @@ const Update = () => {
 	const [openError, setOpenError] = useState(false);
 	const [successMessage, setSuccessMessage] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
+	const [deleteFile, setDeleteFile] = useState(false);
 
 	useEffect(() => {
 		get(`/properties/single/${id}`)
@@ -71,12 +73,13 @@ const Update = () => {
 				setProperty(res.data);
 				setOtherFeatures(res.data.otherFeatures);
 				setLoadingPage(false);
+				setDeleteFile(false);
 			})
 			.catch(err => {
 				navigate('/404');
 			});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [id]);
+	}, [id, deleteFile]);
 
 	const body = new FormData();
 
@@ -125,6 +128,16 @@ const Update = () => {
 				setErrorMessage(data.message);
 			}
 		});
+	};
+
+	const deleteFileHandler = (id, type, key) => {
+		return e => {
+			deleteRequest(`/properties/delete-file/${id}/${type}/${key}`).then(
+				data => {
+					setDeleteFile(true);
+				}
+			);
+		};
 	};
 
 	return (
@@ -308,8 +321,8 @@ const Update = () => {
 							</MenuItem>
 							<MenuItem value={'Biswa'}>Biswa</MenuItem>
 							<MenuItem value={'Biswa'}>Biswa</MenuItem>
-							<MenuItem value={'Biswa–Pucca'}>
-								Biswa–Pucca
+							<MenuItem value={'Biswa-Pucca'}>
+								Biswa-Pucca
 							</MenuItem>
 							<MenuItem value={'Kanal'}>Kanal</MenuItem>
 							<MenuItem value={'Killa'}>Killa</MenuItem>
@@ -661,7 +674,64 @@ const Update = () => {
 						</Select>
 					</FormControl>
 
-					{/* Amenities */}
+					<h1>Images</h1>
+					{property.images.length > 0 ? (
+						property.images.map(img => (
+							<div
+								className="admin-property-form__preview-container"
+								key={img.key}
+							>
+								<img
+									className="admin-property-form__preview"
+									src={img.url}
+									alt="can't preview"
+								/>
+								<BPrimary
+									title={<DeleteIcon />}
+									onClick={deleteFileHandler(
+										property._id,
+										'images',
+										img.key
+									)}
+								/>
+							</div>
+						))
+					) : (
+						<h1>there are no images</h1>
+					)}
+
+					<h1>Videos</h1>
+
+					{property.videos.length > 0 ? (
+						property.videos.map(vid => (
+							<div
+								className="admin-property-form__preview-container"
+								key={vid.key}
+							>
+								<video
+									controls
+									autoPlay
+									muted
+									loop
+									className="admin-property-form__preview"
+								>
+									<source src={vid.url} type="video/mp4" />
+								</video>
+
+								<BPrimary
+									title={<DeleteIcon />}
+									onClick={deleteFileHandler(
+										property._id,
+										'videos',
+										vid.key
+									)}
+								/>
+							</div>
+						))
+					) : (
+						<h1>there are no Videos</h1>
+					)}
+
 					<br />
 
 					<BUpload

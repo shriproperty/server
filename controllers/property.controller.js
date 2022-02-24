@@ -9,6 +9,7 @@ import {
 import {
 	uploadFileToS3,
 	deleteMultipleFilesFromS3,
+	deleteSingleFileFromS3,
 } from '../helpers/s3.helper.js';
 
 /* ----------------------------- create property ----------------------------- */
@@ -620,6 +621,57 @@ export const deleteProperty = async (req, res) => {
 		res.status(404).json({
 			success: false,
 			message: 'Invalid Id',
+			data: {},
+		});
+	}
+};
+
+/* -------------------------- delete specific File -------------------------- */
+export const deleteFile = async (req, res) => {
+	try {
+		const { key, id, type } = req.params;
+
+		const property = await Property.findById(id);
+
+		// delete files from property
+		if (type === 'images') {
+			const removedImage = property.images.filter(
+				image => image.key !== key
+			);
+
+			await Property.findByIdAndUpdate(
+				id,
+				{
+					images: removedImage,
+				},
+				{ new: true }
+			);
+		} else if (type === 'videos') {
+			const removedVideo = property.videos.filter(
+				video => video.key !== key
+			);
+
+			await Property.findByIdAndUpdate(
+				id,
+				{
+					videos: removedVideo,
+				},
+				{ new: true }
+			);
+		}
+
+		// delete file from aws s3
+		await deleteSingleFileFromS3(key);
+
+		res.status(200).json({
+			success: true,
+			message: 'File deleted successfully',
+			data: {},
+		});
+	} catch (err) {
+		res.status(400).json({
+			success: false,
+			message: 'Invalid key',
 			data: {},
 		});
 	}

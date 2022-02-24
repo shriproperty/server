@@ -255,7 +255,7 @@ const Form = () => {
 						<MenuItem value={'Bigha-Kachha'}>Bigha-Kachha</MenuItem>
 						<MenuItem value={'Biswa'}>Biswa</MenuItem>
 						<MenuItem value={'Biswa'}>Biswa</MenuItem>
-						<MenuItem value={'Biswa–Pucca'}>Biswa–Pucca</MenuItem>
+						<MenuItem value={'Biswa-Pucca'}>Biswa-Pucca</MenuItem>
 						<MenuItem value={'Kanal'}>Kanal</MenuItem>
 						<MenuItem value={'Killa'}>Killa</MenuItem>
 						<MenuItem value={'Kattha'}>Kattha</MenuItem>
