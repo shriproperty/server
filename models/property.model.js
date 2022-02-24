@@ -111,8 +111,8 @@ const propertySchema = new mongoose.Schema({
 	owner: { type: String, required: true },
 	ownerContact: { type: String, required: true },
 	commission: { type: String, required: true },
-	age: { type: String, required: true },
-	possession: { type: String, required: true },
+	age: { type: String, required: false },
+	possession: { type: String, required: false },
 });
 
 const Property = mongoose.model('Property', propertySchema);
