@@ -161,7 +161,6 @@ const Form = () => {
 					variant="outlined"
 					label="Location"
 					helperText="Paste google maps url here"
-					required
 					fullWidth
 					onChange={e =>
 						setProperty({ ...property, location: e.target.value })

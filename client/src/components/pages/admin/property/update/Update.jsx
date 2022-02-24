@@ -208,7 +208,6 @@ const Update = () => {
 						label="Location"
 						value={property.location}
 						helperText="Paste google maps url here"
-						required
 						fullWidth
 						onChange={e =>
 							setProperty({
