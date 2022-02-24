@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
@@ -8,6 +9,7 @@ import Select from '@mui/material/Select';
 import { BPrimary, BUpload } from '../../../../util/button/Button';
 import { ASuccess, AError } from '../../../../util/alert/Alert';
 import Loader from '../../../../util/loader/Loader';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { patchFile } from '../../../../../api/patch';
 import get from '../../../../../api/get';
@@ -21,8 +23,8 @@ const Update = () => {
 	const [property, setProperty] = useState({
 		title: '',
 		description: '',
-		price: 0,
-		specialPrice: 0,
+		price: '',
+		specialPrice: '',
 		type: '',
 		category: '',
 		status: '',
@@ -40,15 +42,21 @@ const Update = () => {
 		floor: '',
 		direction: '',
 		kitchen: 0,
+		lobby: 0,
 		address: '',
 		featured: false,
 		owner: '',
 		ownerContact: '',
+		commission: 0,
+		age: 0,
+		possession: '',
+		purchaseType: '',
+		constructionStatus: '',
 	});
 
 	const [images, setImages] = useState([]);
-	const [videos, setVideos] = useState('');
-	const [documents, setDocuments] = useState('');
+	const [videos, setVideos] = useState([]);
+	const [documents, setDocuments] = useState([]);
 	const [otherFeatures, setOtherFeatures] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [loadingPage, setLoadingPage] = useState(true);
@@ -188,9 +196,20 @@ const Update = () => {
 						required
 						fullWidth
 						onChange={e =>
+							setProperty({ ...property, owner: e.target.value })
+						}
+					/>
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Commission"
+						value={property.commission}
+						required
+						fullWidth
+						onChange={e =>
 							setProperty({
 								...property,
-								owner: e.target.value,
+								commission: e.target.value,
 							})
 						}
 					/>
@@ -215,7 +234,7 @@ const Update = () => {
 						variant="outlined"
 						label="Other Features"
 						helperText="Separate with enter"
-						value={otherFeatures.join('\n')}
+						value={property.otherFeatures.join('\n')}
 						fullWidth
 						multiline
 						onChange={e =>
@@ -241,7 +260,6 @@ const Update = () => {
 						label="Special Price"
 						type="number"
 						value={property.specialPrice}
-						required
 						onChange={e =>
 							setProperty({
 								...property,
@@ -262,12 +280,60 @@ const Update = () => {
 						}
 					/>
 
+					<FormControl className="admin-property-form__select">
+						<InputLabel>Unit</InputLabel>
+						<Select
+							label="Unit"
+							value={property.unit}
+							onChange={e =>
+								setProperty({
+									...property,
+									unit: e.target.value,
+								})
+							}
+						>
+							<MenuItem value={'Sq. Ft.'}>Sq. Ft</MenuItem>
+							<MenuItem value={'Acre'}>Acre</MenuItem>
+							<MenuItem value={'Gaj'}>Gaj</MenuItem>
+							<MenuItem value={'Marla'}>Marla</MenuItem>
+							<MenuItem value={'Bigha'}>Bigha</MenuItem>
+							<MenuItem value={'Bigha-Pucca'}>
+								Bigha-Pucca
+							</MenuItem>
+							<MenuItem value={'Bigha-Kachha'}>
+								Bigha-Kachha
+							</MenuItem>
+							<MenuItem value={'Bigha-Kachha'}>
+								Bigha-Kachha
+							</MenuItem>
+							<MenuItem value={'Biswa'}>Biswa</MenuItem>
+							<MenuItem value={'Biswa'}>Biswa</MenuItem>
+							<MenuItem value={'Biswa–Pucca'}>
+								Biswa–Pucca
+							</MenuItem>
+							<MenuItem value={'Kanal'}>Kanal</MenuItem>
+							<MenuItem value={'Killa'}>Killa</MenuItem>
+							<MenuItem value={'Kattha'}>Kattha</MenuItem>
+							<MenuItem value={'Ghumaon'}>Ghumaon</MenuItem>
+						</Select>
+					</FormControl>
+
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Floor"
+						value={property.floor}
+						onChange={e =>
+							setProperty({ ...property, floor: e.target.value })
+						}
+					/>
+
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
 						label="Bedrooms"
 						type="number"
-						value={property.bedroom}
+						value={property.bedrooms}
 						onChange={e =>
 							setProperty({
 								...property,
@@ -293,48 +359,6 @@ const Update = () => {
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
-						label="Kitchen"
-						type="number"
-						value={property.kitchen}
-						onChange={e =>
-							setProperty({
-								...property,
-								kitchen: e.target.value,
-							})
-						}
-					/>
-
-					<TextField
-						className="admin-property-form__input"
-						variant="outlined"
-						label="Open Parking"
-						type="number"
-						value={property.openParking}
-						onChange={e =>
-							setProperty({
-								...property,
-								openParking: e.target.value,
-							})
-						}
-					/>
-
-					<TextField
-						className="admin-property-form__input"
-						variant="outlined"
-						label="Close Parking"
-						type="number"
-						value={property.closeParking}
-						onChange={e =>
-							setProperty({
-								...property,
-								closeParking: e.target.value,
-							})
-						}
-					/>
-
-					<TextField
-						className="admin-property-form__input"
-						variant="outlined"
 						label="Living Room"
 						type="number"
 						value={property.livingRoom}
@@ -342,6 +366,31 @@ const Update = () => {
 							setProperty({
 								...property,
 								livingRoom: e.target.value,
+							})
+						}
+					/>
+
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Lobby"
+						type="number"
+						value={property.lobby}
+						onChange={e =>
+							setProperty({ ...property, lobby: e.target.value })
+						}
+					/>
+
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Kitchen"
+						type="number"
+						value={property.kitchen}
+						onChange={e =>
+							setProperty({
+								...property,
+								kitchen: e.target.value,
 							})
 						}
 					/>
@@ -365,7 +414,7 @@ const Update = () => {
 						variant="outlined"
 						label="Store Room"
 						type="number"
-						value={property.store}
+						value={property.storeRoom}
 						onChange={e =>
 							setProperty({ ...property, store: e.target.value })
 						}
@@ -388,6 +437,34 @@ const Update = () => {
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
+						label="Open Parking"
+						type="number"
+						value={property.openParking}
+						onChange={e =>
+							setProperty({
+								...property,
+								openParking: e.target.value,
+							})
+						}
+					/>
+
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Covered Parking"
+						type="number"
+						value={property.closeParking}
+						onChange={e =>
+							setProperty({
+								...property,
+								closeParking: e.target.value,
+							})
+						}
+					/>
+
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
 						label="Balcony"
 						type="number"
 						value={property.balcony}
@@ -398,14 +475,26 @@ const Update = () => {
 							})
 						}
 					/>
-
+					{/* backend still required */}
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
-						label="Floor"
-						value={property.floor}
+						label="Property Age"
+						value={property.age}
 						onChange={e =>
-							setProperty({ ...property, floor: e.target.value })
+							setProperty({ ...property, age: e.target.value })
+						}
+					/>
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Possession"
+						value={property.possession}
+						onChange={e =>
+							setProperty({
+								...property,
+								possession: e.target.value,
+							})
 						}
 					/>
 
@@ -456,6 +545,10 @@ const Update = () => {
 								Commercial Office
 							</MenuItem>
 
+							<MenuItem value="Commercial Office">
+								Commercial Plot
+							</MenuItem>
+
 							<MenuItem value="Serviced Apartments">
 								Serviced Apartments
 							</MenuItem>
@@ -489,44 +582,6 @@ const Update = () => {
 								Semifurnished
 							</MenuItem>
 							<MenuItem value="Furnished">Furnished</MenuItem>
-						</Select>
-					</FormControl>
-
-					<FormControl className="admin-property-form__select">
-						<InputLabel>Unit</InputLabel>
-						<Select
-							label="Unit"
-							value={property.unit}
-							onChange={e =>
-								setProperty({
-									...property,
-									unit: e.target.value,
-								})
-							}
-						>
-							<MenuItem value={'Sq. Ft'}>Sq. Ft</MenuItem>
-							<MenuItem value={'Acre'}>Acre</MenuItem>
-							<MenuItem value={'Gaj'}>Gaj</MenuItem>
-							<MenuItem value={'Marla'}>Marla</MenuItem>
-							<MenuItem value={'Bigha'}>Bigha</MenuItem>
-							<MenuItem value={'Bigha-Pucca'}>
-								Bigha-Pucca
-							</MenuItem>
-							<MenuItem value={'Bigha-Kachha'}>
-								Bigha-Kachha
-							</MenuItem>
-							<MenuItem value={'Bigha-Kachha'}>
-								Bigha-Kachha
-							</MenuItem>
-							<MenuItem value={'Biswa'}>Biswa</MenuItem>
-							<MenuItem value={'Biswa'}>Biswa</MenuItem>
-							<MenuItem value={'Biswa–Pucca'}>
-								Biswa–Pucca
-							</MenuItem>
-							<MenuItem value={'Kanal'}>Kanal</MenuItem>
-							<MenuItem value={'Killa'}>Killa</MenuItem>
-							<MenuItem value={'Kattha'}>Kattha</MenuItem>
-							<MenuItem value={'Ghumaon'}>Ghumaon</MenuItem>{' '}
 						</Select>
 					</FormControl>
 
@@ -569,29 +624,174 @@ const Update = () => {
 							<MenuItem value="South-West">South-West</MenuItem>
 						</Select>
 					</FormControl>
+					<FormControl className="admin-property-form__select">
+						<InputLabel>Purchase Type</InputLabel>
+						<Select
+							label="Purchase Type"
+							value={property.purchaseType}
+							onChange={e =>
+								setProperty({
+									...property,
+									purchaseType: e.target.value,
+								})
+							}
+						>
+							<MenuItem value="New Booking">New Booking</MenuItem>
+							<MenuItem value="Resale">Resale</MenuItem>
+						</Select>
+					</FormControl>
+					<FormControl className="admin-property-form__select">
+						<InputLabel>Construction Status</InputLabel>
+						<Select
+							label="Construction Status"
+							value={property.constructionStatus}
+							onChange={e =>
+								setProperty({
+									...property,
+									constructionStatus: e.target.value,
+								})
+							}
+						>
+							<MenuItem value="Under Construction">
+								Under Construction
+							</MenuItem>
+							<MenuItem value="Ready to Move">
+								Ready to Move
+							</MenuItem>
+						</Select>
+					</FormControl>
 
+					{/* Amenities */}
 					<br />
 
 					<BUpload
 						title="Image"
 						className="admin-property-form__upload-btn"
-						onChange={e => setImages(e.target.files)}
+						onChange={e =>
+							setImages([...images, ...e.target.files])
+						}
 						accept="image/*"
 					/>
+
+					{images.map((img, i) => {
+						if (img instanceof File) {
+							const objectURL = URL.createObjectURL(img);
+							return (
+								<div
+									className="admin-property-form__preview-container"
+									key={i}
+								>
+									<img
+										className="admin-property-form__preview"
+										src={objectURL}
+										alt="can't preview"
+									/>
+									<BPrimary
+										title={<DeleteIcon />}
+										onClick={() =>
+											setImages(
+												images.filter(
+													(_, i) =>
+														i !== images.length - 1
+												)
+											)
+										}
+									/>
+								</div>
+							);
+						}
+					})}
+
+					<br />
 
 					<BUpload
 						title="Videos"
 						className="admin-property-form__upload-btn"
-						onChange={e => setVideos(e.target.files)}
+						onChange={e =>
+							setVideos([...videos, ...e.target.files])
+						}
 						accept="video/*"
 					/>
+
+					{videos.map((vid, i) => {
+						if (vid instanceof File) {
+							const objectURL = URL.createObjectURL(vid);
+							return (
+								<div
+									className="admin-property-form__preview-container"
+									key={i}
+								>
+									<video
+										controls
+										autoPlay
+										muted
+										loop
+										className="admin-property-form__preview"
+									>
+										<source
+											src={objectURL}
+											type="video/mp4"
+										/>
+									</video>
+
+									<BPrimary
+										title={<DeleteIcon />}
+										onClick={() =>
+											setVideos(
+												videos.filter(
+													(_, i) =>
+														i !== videos.length - 1
+												)
+											)
+										}
+									/>
+								</div>
+							);
+						}
+					})}
+
+					<br />
 
 					<BUpload
 						title="Documents"
 						className="admin-property-form__upload-btn"
-						onChange={e => setDocuments(e.target.files)}
+						onChange={e =>
+							setDocuments([...documents, ...e.target.files])
+						}
 						accept="application/pdf"
 					/>
+
+					{documents.map((doc, i) => {
+						if (doc instanceof File) {
+							const objectURL = URL.createObjectURL(doc);
+							return (
+								<div
+									className="admin-property-form__preview-container"
+									key={i}
+								>
+									<iframe
+										src={objectURL}
+										title={objectURL}
+										height="200"
+										width="300"
+									></iframe>
+
+									<BPrimary
+										title={<DeleteIcon />}
+										onClick={() =>
+											setDocuments(
+												documents.filter(
+													(_, i) =>
+														i !==
+														documents.length - 1
+												)
+											)
+										}
+									/>
+								</div>
+							);
+						}
+					})}
 
 					<br />
 

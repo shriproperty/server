@@ -40,6 +40,11 @@ const Form = () => {
 		featured: false,
 		owner: '',
 		ownerContact: '',
+		commission: 0,
+		age: 0,
+		possession: '',
+		purchaseType: '',
+		constructionStatus: '',
 	});
 	const [otherFeatures, setOtherFeatures] = useState([]);
 	const [images, setImages] = useState([]);
@@ -97,8 +102,6 @@ const Form = () => {
 			}
 		});
 	};
-
-	console.log(images);
 
 	return (
 		<section>
@@ -162,16 +165,6 @@ const Form = () => {
 						setProperty({ ...property, owner: e.target.value })
 					}
 				/>
-				<TextField
-					className="admin-property-form__input"
-					variant="outlined"
-					label="Commission"
-					required
-					fullWidth
-					onChange={e =>
-						setProperty({ ...property, owner: e.target.value })
-					}
-				/>
 
 				<TextField
 					className="admin-property-form__input"
@@ -184,6 +177,17 @@ const Form = () => {
 							...property,
 							ownerContact: e.target.value,
 						})
+					}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					variant="outlined"
+					label="Commission"
+					required
+					fullWidth
+					onChange={e =>
+						setProperty({ ...property, commission: e.target.value })
 					}
 				/>
 
@@ -392,15 +396,15 @@ const Form = () => {
 					variant="outlined"
 					label="Property Age"
 					onChange={e =>
-						setProperty({ ...property, balcony: e.target.value })
+						setProperty({ ...property, age: e.target.value })
 					}
 				/>
 				<TextField
 					className="admin-property-form__input"
 					variant="outlined"
-					label="Possesion"
+					label="Possession"
 					onChange={e =>
-						setProperty({ ...property, balcony: e.target.value })
+						setProperty({ ...property, possession: e.target.value })
 					}
 				/>
 
@@ -526,11 +530,11 @@ const Form = () => {
 					<InputLabel>Purchase Type</InputLabel>
 					<Select
 						label="Purchase Type"
-						value={property.direction}
+						value={property.purchaseType}
 						onChange={e =>
 							setProperty({
 								...property,
-								direction: e.target.value,
+								purchaseType: e.target.value,
 							})
 						}
 					>
@@ -542,19 +546,21 @@ const Form = () => {
 					<InputLabel>Construction Status</InputLabel>
 					<Select
 						label="Construction Status"
-						value={property.direction}
+						value={property.constructionStatus}
 						onChange={e =>
 							setProperty({
 								...property,
-								direction: e.target.value,
+								constructionStatus: e.target.value,
 							})
 						}
 					>
-						<MenuItem value="Under Construction">Under Construction</MenuItem>
-						<MenuItem value="Resale">Resale</MenuItem>
+						<MenuItem value="Under Construction">
+							Under Construction
+						</MenuItem>
+						<MenuItem value="Ready to Move">Ready to Move</MenuItem>
 					</Select>
 				</FormControl>
-				
+
 				{/* Amanaties */}
 				<br />
 
@@ -565,11 +571,14 @@ const Form = () => {
 					accept="image/*"
 				/>
 
-				{images.map(img => {
+				{images.map((img, i) => {
 					if (img instanceof File) {
 						const objectURL = URL.createObjectURL(img);
 						return (
-							<div className="admin-property-form__preview-container">
+							<div
+								className="admin-property-form__preview-container"
+								key={i}
+							>
 								<img
 									className="admin-property-form__preview"
 									src={objectURL}
@@ -600,11 +609,14 @@ const Form = () => {
 					accept="video/*"
 				/>
 
-				{videos.map(vid => {
+				{videos.map((vid, i) => {
 					if (vid instanceof File) {
 						const objectURL = URL.createObjectURL(vid);
 						return (
-							<div className="admin-property-form__preview-container">
+							<div
+								className="admin-property-form__preview-container"
+								key={i}
+							>
 								<video
 									controls
 									autoPlay
@@ -642,11 +654,14 @@ const Form = () => {
 					accept="application/pdf"
 				/>
 
-				{documents.map(doc => {
+				{documents.map((doc, i) => {
 					if (doc instanceof File) {
 						const objectURL = URL.createObjectURL(doc);
 						return (
-							<div className="admin-property-form__preview-container">
+							<div
+								className="admin-property-form__preview-container"
+								key={i}
+							>
 								<iframe
 									src={objectURL}
 									title={objectURL}

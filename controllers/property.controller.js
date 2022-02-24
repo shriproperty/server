@@ -42,6 +42,11 @@ export const createProperty = async (req, res) => {
 			owner,
 			ownerContact,
 			lobby,
+			commission,
+			age,
+			possession,
+			purchaseType,
+			constructionStatus,
 		} = req.body;
 
 		const images = [];
@@ -60,13 +65,13 @@ export const createProperty = async (req, res) => {
 			!address ||
 			!direction ||
 			!owner ||
-			!ownerContact
+			!ownerContact ||
+			!commission
 		) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
-				message:
-					'Title, Description, Price, Type, category, Size, Unit, Address, Direction, Owner, Owner Contact and are required',
+				message: 'Please fill all the required fields',
 			});
 		}
 
@@ -168,13 +173,38 @@ export const createProperty = async (req, res) => {
 			});
 		}
 
+		// validate purchase type
+		if (purchaseType !== 'New Booking' && purchaseType !== 'Resale') {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
+				message:
+					"Purchase Type can only be either 'New Booking' or 'Resale'",
+				data: {},
+			});
+		}
+
+		// validate construction status
+		if (
+			constructionStatus !== 'Under Construction' &&
+			constructionStatus !== 'Ready to Move'
+		) {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
+				message:
+					"Construction Status can only be either 'Under Construction' or 'Ready to Move'",
+				data: {},
+			});
+		}
+
 		// upload files to aws s3
 		for (let file of req.files) {
 			const response = await uploadFileToS3(file);
 
 			const fileObject = { url: response.Location, key: response.Key };
 
-			// push file paths to respoective arrays
+			// push file paths to respective arrays
 			if (file.fieldname === 'images') {
 				images.push(fileObject);
 			} else if (file.fieldname === 'videos') {
@@ -219,6 +249,11 @@ export const createProperty = async (req, res) => {
 			owner,
 			ownerContact,
 			lobby,
+			commission,
+			age,
+			possession,
+			purchaseType,
+			constructionStatus,
 		});
 
 		// send response
@@ -321,6 +356,11 @@ export const update = async (req, res) => {
 			featured,
 			otherFeatures,
 			lobby,
+			commission,
+			age,
+			possession,
+			purchaseType,
+			constructionStatus,
 		} = req.body;
 
 		const images = [];
@@ -427,6 +467,31 @@ export const update = async (req, res) => {
 			});
 		}
 
+		// validate purchase type
+		if (purchaseType !== 'New Booking' && purchaseType !== 'Resale') {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
+				message:
+					"Purchase Type can only be either 'New Booking' or 'Resale'",
+				data: {},
+			});
+		}
+
+		// validate construction status
+		if (
+			constructionStatus !== 'Under Construction' &&
+			constructionStatus !== 'Ready to Move'
+		) {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
+				message:
+					"Construction Status can only be either 'Under Construction' or 'Ready to Move'",
+				data: {},
+			});
+		}
+
 		const propertyFromDB = await Property.findById(id);
 
 		if (req.files.length > 0) {
@@ -497,6 +562,11 @@ export const update = async (req, res) => {
 				featured,
 				otherFeatures,
 				lobby,
+				age,
+				commission,
+				possession,
+				purchaseType,
+				constructionStatus,
 				images: images.length > 0 ? images : propertyFromDB.images,
 				documents:
 					documents.length > 0 ? documents : propertyFromDB.documents,

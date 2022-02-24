@@ -88,6 +88,17 @@ const propertySchema = new mongoose.Schema({
 			'South-West',
 		],
 	},
+	purchaseType: {
+		type: String,
+		required: true,
+		enum: ['New Booking', 'Resale'],
+		default: 'New Booking',
+	},
+	constructionStatus: {
+		type: String,
+		required: true,
+		enum: ['Under Construction', 'Ready to Move'],
+	},
 	// images
 	images: { type: Array, required: false },
 	videos: { type: Array, required: false },
@@ -99,6 +110,9 @@ const propertySchema = new mongoose.Schema({
 	// owner/builder
 	owner: { type: String, required: true },
 	ownerContact: { type: String, required: true },
+	commission: { type: String, required: true },
+	age: { type: String, required: true },
+	possession: { type: String, required: true },
 });
 
 const Property = mongoose.model('Property', propertySchema);
