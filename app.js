@@ -33,7 +33,7 @@ app.use('/api', otpRouter);
 app.use('/api', addListingRouter);
 app.use('/api', authRouter);
 
-console.log('test');
+console.log('\x1b[31m%s\x1b[0m', 'test');
 
 /* --------------------------------- server --------------------------------- */
 if (process.env.NODE_ENV === 'production') {
