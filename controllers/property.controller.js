@@ -48,6 +48,7 @@ export const createProperty = async (req, res) => {
 			possession,
 			purchaseType,
 			constructionStatus,
+			location,
 		} = req.body;
 
 		const images = [];
@@ -255,6 +256,7 @@ export const createProperty = async (req, res) => {
 			possession,
 			purchaseType,
 			constructionStatus,
+			location,
 		});
 
 		// send response
@@ -362,6 +364,7 @@ export const update = async (req, res) => {
 			possession,
 			purchaseType,
 			constructionStatus,
+			location,
 		} = req.body;
 
 		const images = [];
@@ -568,6 +571,7 @@ export const update = async (req, res) => {
 				possession,
 				purchaseType,
 				constructionStatus,
+				location,
 				images: images.length > 0 ? images : propertyFromDB.images,
 				documents:
 					documents.length > 0 ? documents : propertyFromDB.documents,

@@ -53,6 +53,7 @@ const Update = () => {
 		possession: '',
 		purchaseType: '',
 		constructionStatus: '',
+		location: '',
 	});
 
 	const [images, setImages] = useState([]);
@@ -197,6 +198,22 @@ const Update = () => {
 							setProperty({
 								...property,
 								address: e.target.value,
+							})
+						}
+					/>
+
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Location"
+						value={property.location}
+						helperText="Paste google maps url here"
+						required
+						fullWidth
+						onChange={e =>
+							setProperty({
+								...property,
+								location: e.target.value,
 							})
 						}
 					/>
