@@ -307,7 +307,7 @@ const Property = () => {
 
 						<section className="facilities-section">
 							<h1 className="facilities-section_heading">
-								Facilities
+								Configuration
 							</h1>
 							<div className="facilities-section__facilities">
 								<div className="facilities-section_item">
@@ -360,13 +360,13 @@ const Property = () => {
 						</section>
 
 						<h1 className="amenities-section__heading">
-							Amenities
+							Furnishing Details
 						</h1>
 						<section className="amenities-section">
 							<div className="amenities-container">
 								<div>
 									<img
-										src="../../../images/amenities/icons8-air-conditioner-96.png"
+										src="/images/amenities/AC.png"
 										alt="air cndition"
 									/>
 								</div>
@@ -381,7 +381,7 @@ const Property = () => {
 							<div className="amenities-container">
 								<div>
 									<img
-										src="../../../images/amenities/icons8-electric-stovetop-96.png"
+										src="/images/amenities/stove.png"
 										alt="Stove"
 									/>
 								</div>
@@ -392,10 +392,26 @@ const Property = () => {
 									2
 								</div>
 							</div>
+
 							<div className="amenities-container">
 								<div>
 									<img
-										src="../../../images/amenities/icons8-fan-64.png"
+										src="/images/amenities/modular-kitchen.png"
+										alt="Modular Kitchen"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Modular Kitchen
+								</h3>
+								<div className="amenities-section__number">
+									1
+								</div>
+							</div>
+
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/fan.png"
 										alt="fan"
 									/>
 								</div>
@@ -407,7 +423,7 @@ const Property = () => {
 							<div className="amenities-container">
 								<div>
 									<img
-										src="../../../images/amenities/icons8-fridge-96.png"
+										src="/images/amenities/fridge.png"
 										alt="Fridge"
 									/>
 								</div>
@@ -418,24 +434,11 @@ const Property = () => {
 									2
 								</div>
 							</div>
+
 							<div className="amenities-container">
 								<div>
 									<img
-										src="../../../images/amenities/icons8-parking-lot-96.png"
-										alt="open Parking"
-									/>
-								</div>
-								<h3 className="amenities-section__name">
-									Visitor Parking
-								</h3>
-								<div className="amenities-section__number">
-									2
-								</div>
-							</div>
-							<div className="amenities-container">
-								<div>
-									<img
-										src="../../../images/amenities/icons8-light-96.png"
+										src="/images/amenities/bulb.png"
 										alt="light"
 									/>
 								</div>
@@ -449,13 +452,11 @@ const Property = () => {
 							<div className="amenities-container">
 								<div>
 									<img
-										src="../../../images/amenities/icons8-bed-96.png"
+										src="/images/amenities/bed.png"
 										alt="bed"
 									/>
 								</div>
-								<h3 className="amenities-section__name">
-									Bed
-								</h3>
+								<h3 className="amenities-section__name">Bed</h3>
 								<div className="amenities-section__number">
 									2
 								</div>
@@ -463,7 +464,7 @@ const Property = () => {
 							<div className="amenities-container">
 								<div>
 									<img
-										src="../../../images/amenities/icons8-microwave-96.png"
+										src="/images/amenities/microwave.png"
 										alt="microwave"
 									/>
 								</div>
@@ -477,7 +478,7 @@ const Property = () => {
 							<div className="amenities-container">
 								<div>
 									<img
-										src="../../../images/amenities/icons8-restaurant-table-96.png"
+										src="/images/amenities/restaurant.png"
 										alt="Dining table"
 									/>
 								</div>
@@ -491,7 +492,7 @@ const Property = () => {
 							<div className="amenities-container">
 								<div>
 									<img
-										src="../../../images/amenities/icons8-tv-96.png"
+										src="/images/amenities/TV.png"
 										alt="tv"
 									/>
 								</div>
@@ -503,7 +504,7 @@ const Property = () => {
 							<div className="amenities-container">
 								<div>
 									<img
-										src="../../../images/amenities/icons8-wardrobe-96.png"
+										src="/images/amenities/wardrobe.png"
 										alt="Wardrobe"
 									/>
 								</div>
@@ -517,7 +518,7 @@ const Property = () => {
 							<div className="amenities-container">
 								<div>
 									<img
-										src="../../../images/amenities/icons8-washing-machine-96.png"
+										src="/images/amenities/washing-machine.png"
 										alt="Washing Machine"
 									/>
 								</div>
@@ -528,26 +529,17 @@ const Property = () => {
 									2
 								</div>
 							</div>
+
 							<div className="amenities-container">
 								<div>
 									<img
-										src="../../../images/amenities/icons8-water-96.png"
-										alt="water"
-									/>
-								</div>
-								<h3 className="amenities-section__name">water</h3>
-								<div className="amenities-section__number">
-									24/7
-								</div>
-							</div>
-							<div className="amenities-container">
-								<div>
-									<img
-										src="../../../images/amenities/icons8-water-heater-96.png"
+										src="/images/amenities/geyser.png"
 										alt="water-heater"
 									/>
 								</div>
-								<h3 className="amenities-section__name">Geyser</h3>
+								<h3 className="amenities-section__name">
+									Geyser
+								</h3>
 								<div className="amenities-section__number">
 									2
 								</div>
@@ -555,11 +547,13 @@ const Property = () => {
 							<div className="amenities-container">
 								<div>
 									<img
-										src="../../../images/amenities/icons8-open-curtains-96.png"
+										src="/images/amenities/curtains.png"
 										alt="open-curtains"
 									/>
 								</div>
-								<h3 className="amenities-section__name">Curatains</h3>
+								<h3 className="amenities-section__name">
+									Curtains
+								</h3>
 								<div className="amenities-section__number">
 									2
 								</div>
@@ -567,11 +561,13 @@ const Property = () => {
 							<div className="amenities-container">
 								<div>
 									<img
-										src="../../../images/amenities/icons8-three-seater-sofa-96.png"
+										src="/images/amenities/sofa.png"
 										alt="three-seater-sofa"
 									/>
 								</div>
-								<h3 className="amenities-section__name">Sofa</h3>
+								<h3 className="amenities-section__name">
+									Sofa
+								</h3>
 								<div className="amenities-section__number">
 									2
 								</div>
@@ -579,11 +575,13 @@ const Property = () => {
 							<div className="amenities-container">
 								<div>
 									<img
-										src="../../../images/amenities/icons8-water-cooler-96.png"
+										src="/images/amenities/water-cooler.png"
 										alt="Water purifier"
 									/>
 								</div>
-								<h3 className="amenities-section__name">Water Purifier</h3>
+								<h3 className="amenities-section__name">
+									Water Purifier
+								</h3>
 								<div className="amenities-section__number">
 									2
 								</div>
@@ -591,16 +589,215 @@ const Property = () => {
 							<div className="amenities-container">
 								<div>
 									<img
-										src="../../../images/amenities/icons8-cooker-hood-96.png"
+										src="/images/amenities/exhaust.png"
 										alt="Exhaust"
 									/>
 								</div>
-								<h3 className="amenities-section__name">Exhaust</h3>
+								<h3 className="amenities-section__name">
+									Exhaust
+								</h3>
 								<div className="amenities-section__number">
 									2
 								</div>
 							</div>
 						</section>
+
+						{/* ------------------------------- Facilities ------------------------------- */}
+
+						<h1 className="amenities-section__heading">
+							Facilities
+						</h1>
+
+						<section className="amenities-section">
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/alarm.png"
+										alt="Alarm"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Fire/Security Alarm
+								</h3>
+							</div>
+
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/power-backup.png"
+										alt="Power Backup"
+									/>
+								</div>
+
+								<h3 className="amenities-section__name">
+									Power Backup
+								</h3>
+							</div>
+
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/intercome.png"
+										alt="intercome"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Intercome
+								</h3>
+							</div>
+
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/lift.png"
+										alt="Lift"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Lift
+								</h3>
+							</div>
+
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/maintenance.png"
+										alt="Maintenance"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Maintenance Staff
+								</h3>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/park.png"
+										alt="Park"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Park
+								</h3>
+							</div>
+
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/swimming-pool.png"
+										alt="Swimming Pool"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Swimming Pool
+								</h3>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/gym.png"
+										alt="Gym"
+									/>
+								</div>
+								<h3 className="amenities-section__name">Gym</h3>
+							</div>
+
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/market.png"
+										alt="Market"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Market
+								</h3>
+							</div>
+
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/water-tank.png"
+										alt="Water Tank"
+									/>
+								</div>
+
+								<h3 className="amenities-section__name">
+									Water Storage
+								</h3>
+							</div>
+
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/piped-gas.png"
+										alt="Pipe"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Piped Gas
+								</h3>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/parking.png"
+										alt="Parking"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Visitor Parking
+								</h3>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/water.png"
+										alt="water"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Water supply 24/7
+								</h3>
+							</div>
+
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/security-guard.png"
+										alt="Security Guard"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Security Guard
+								</h3>
+							</div>
+
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/wifi.png"
+										alt="wifi router"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Wifi
+								</h3>
+							</div>
+
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/club-house.png"
+										alt="Club House"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Club House/Community Center
+								</h3>
+							</div>
+						</section>
+
 						{response?.otherFeatures.length > 0 && (
 							<section className="other-facilities-section">
 								<h1>Other Features</h1>
@@ -617,7 +814,6 @@ const Property = () => {
 							<h1>About</h1>
 							<p>{response.description}</p>
 						</section>
-
 
 						{response?.documents.map((doc, i) => (
 							<a href={doc.url} className="link" key={doc.key}>

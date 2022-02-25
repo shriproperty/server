@@ -257,20 +257,25 @@
 	grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
 	padding: 0 4rem;
 
-	.amenities-container{
+	.amenities-container {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		justify-content: space-around;
+		// justify-content: space-around;
 		margin: 1rem 0;
+	}
+	&__number,
+	&__name {
+		margin-left: 1rem;
+		font-size: 1.5rem;
+		font-weight: 600;
 	}
 	&__heading {
 		margin-top: 2rem;
 		font-size: 2rem;
 		padding: 0 4rem;
 	}
-	img{
+	img {
 		height: 3.5rem;
 	}
-
 }
