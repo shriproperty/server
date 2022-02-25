@@ -8,6 +8,7 @@ import Select from '@mui/material/Select';
 import { BPrimary, BUpload } from '../../../../util/button/Button';
 import { ASuccess, AError } from '../../../../util/alert/Alert';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 
 import './form.scss';
 import { postFile } from '../../../../../api/post';
@@ -48,6 +49,7 @@ const Form = () => {
 		constructionStatus: '',
 	});
 	const [otherFeatures, setOtherFeatures] = useState([]);
+	const [furnishingDetails, setFurnishingDetails] = useState({});
 	const [images, setImages] = useState([]);
 	const [videos, setVideos] = useState([]);
 	const [documents, setDocuments] = useState([]);
@@ -89,6 +91,9 @@ const Form = () => {
 		for (let feature in otherFeatures) {
 			body.append('otherFeatures', otherFeatures[feature]);
 		}
+
+		// append furnishing details to body
+		body.append('furnishingDetails', JSON.stringify(furnishingDetails));
 
 		// post to server
 		postFile('/properties/add', body).then(data => {
@@ -422,6 +427,8 @@ const Form = () => {
 
 				<br />
 
+				{/* /* -------------------------------- Drop Down -------------------------------  */}
+
 				<FormControl className="admin-property-form__select">
 					<InputLabel>Type</InputLabel>
 					<Select
@@ -573,9 +580,258 @@ const Form = () => {
 					</Select>
 				</FormControl>
 
-				{/* Amanaties */}
 				<br />
 
+				{/*  --------------------------- Furnishing Details --------------------------- */}
+				{(property.status === 'Furnished' ||
+					property.status === 'Semifurnished') && (
+					<>
+						<h1>
+							Add Furnishing Details (Add amount of things eg:-
+							fans = 5)
+						</h1>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="AC"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									ac: e.target.value ? e.target.value : 0,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="stove"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									stove: e.target.value ? e.target.value : 0,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Modular Kitchen"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									modularKitchen: e.target.value
+										? e.target.value
+										: 0,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Fans"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									fans: e.target.value ? e.target.value : 0,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Fridge"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									fridge: e.target.value ? e.target.value : 0,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Light"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									light: e.target.value ? e.target.value : 0,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Bed"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									beds: e.target.value ? e.target.value : 0,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="microwave"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									microwave: e.target.value
+										? e.target.value
+										: 0,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="dinning table"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									dinningTable: e.target.value
+										? e.target.value
+										: 0,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="TV"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									tv: e.target.value ? e.target.value : 0,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="wardrobe"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									wardrobe: e.target.value
+										? e.target.value
+										: 0,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="washing machine"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									washingMachine: e.target.value
+										? e.target.value
+										: 0,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Geyser"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									geyser: e.target.value ? e.target.value : 0,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Curtains"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									curtains: e.target.value
+										? e.target.value
+										: 0,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Sofa"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									sofa: e.target.value ? e.target.value : 0,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="water purifier"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									waterPurifier: e.target.value
+										? e.target.value
+										: 0,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Exhaust"
+							type="number"
+							onChange={e =>
+								setFurnishingDetails({
+									...furnishingDetails,
+									exhaust: e.target.value
+										? e.target.value
+										: 0,
+								})
+							}
+						/>
+					</>
+				)}
+
+				{/* /* ----------------------------- Upload Buttons ----------------------------- */}
+				<h1>Choose your files</h1>
 				<BUpload
 					title="Image"
 					className="admin-property-form__upload-btn"
@@ -583,6 +839,7 @@ const Form = () => {
 					accept="image/*"
 				/>
 
+				{/* Image Preview */}
 				{images.map((img, i) => {
 					if (img instanceof File) {
 						const objectURL = URL.createObjectURL(img);
@@ -596,6 +853,8 @@ const Form = () => {
 									src={objectURL}
 									alt="can't preview"
 								/>
+
+								{/* Delete Image from preview */}
 								<BPrimary
 									title={<DeleteIcon />}
 									onClick={() =>
@@ -621,6 +880,8 @@ const Form = () => {
 					accept="video/*"
 				/>
 
+				{/* Video Preview */}
+
 				{videos.map((vid, i) => {
 					if (vid instanceof File) {
 						const objectURL = URL.createObjectURL(vid);
@@ -639,6 +900,7 @@ const Form = () => {
 									<source src={objectURL} type="video/mp4" />
 								</video>
 
+								{/* Delete Video from preview */}
 								<BPrimary
 									title={<DeleteIcon />}
 									onClick={() =>
@@ -666,6 +928,8 @@ const Form = () => {
 					accept="application/pdf"
 				/>
 
+				{/* Pdf Preview */}
+
 				{documents.map((doc, i) => {
 					if (doc instanceof File) {
 						const objectURL = URL.createObjectURL(doc);
@@ -681,6 +945,7 @@ const Form = () => {
 									width="300"
 								></iframe>
 
+								{/* Delete PDF from preview */}
 								<BPrimary
 									title={<DeleteIcon />}
 									onClick={() =>

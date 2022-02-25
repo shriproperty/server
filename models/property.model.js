@@ -115,7 +115,7 @@ const propertySchema = new mongoose.Schema({
 	possession: { type: String, required: false },
 	location: { type: String, required: false, default: '' },
 	furnishingDetails: {
-		type: { title: String, icon: String, amount: Number },
+		type: Object,
 		required: false,
 	},
 });

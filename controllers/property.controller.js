@@ -205,7 +205,8 @@ export const createProperty = async (req, res) => {
 		// validate furnishing details
 		if (
 			furnishingDetails &&
-			(status !== 'Semifurnished' || status !== 'Furnished')
+			status !== 'Semifurnished' &&
+			status !== 'Furnished'
 		) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
@@ -273,7 +274,7 @@ export const createProperty = async (req, res) => {
 			purchaseType,
 			constructionStatus,
 			location,
-			furnishingDetails,
+			furnishingDetails: JSON.parse(furnishingDetails),
 		});
 
 		// send response
