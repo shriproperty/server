@@ -2,7 +2,7 @@
 import TextField from '@mui/material/TextField';
 import { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { BPrimary, BSecondary } from '../../../components/util/button/Button';
+import { BPrimary } from '../../../components/util/button/Button';
 import get from '../../../api/get';
 import { post } from '../../../api/post';
 import './property.scss';
@@ -187,8 +187,8 @@ const Property = () => {
 				>
 					<section className="image-grid">
 						<div className="image-grid__btns">
-							<BSecondary title={response.category} />
-							<BSecondary title={response.status} />
+							<BPrimary title={response.category} />
+							<BPrimary title={response.status} />
 						</div>
 
 						{/* if there is no video than image will be shown */}
@@ -246,7 +246,7 @@ const Property = () => {
 							to={`/allimages/${response._id}`}
 							className="allimages"
 						>
-							<BSecondary title="All Images" />
+							<BPrimary title="All Images" />
 						</Link>
 					</section>
 
@@ -793,7 +793,29 @@ const Property = () => {
 									/>
 								</div>
 								<h3 className="amenities-section__name">
-									Club House/Community Center
+									Club House
+								</h3>
+							</div>
+
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/STP.png"
+										alt="STP"
+									/>
+								</div>
+								<h3 className="amenities-section__name">STP</h3>
+							</div>
+
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/ceiling-light.png"
+										alt="Ceiling Light"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Ceiling Light
 								</h3>
 							</div>
 						</section>

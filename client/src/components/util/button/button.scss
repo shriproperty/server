@@ -8,20 +8,8 @@
 		padding: 2rem 2rem !important;
 		font-size: 1.8rem !important;
 	}
-		
-	
+
 	svg {
 		color: $color-background !important;
-	}
-}
-
-.btn-secondary {
-	background-color: $color-background !important;
-	padding: 1.2rem 2rem !important;
-	font-size: 1rem !important;
-	color: $color-black !important; 
-
-	@media screen and (max-width:420px) {
-		font-size: 2rem !important;
 	}
 }
