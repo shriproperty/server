@@ -50,6 +50,7 @@ export const createProperty = async (req, res) => {
 			purchaseType,
 			constructionStatus,
 			location,
+			furnishingDetails,
 		} = req.body;
 
 		const images = [];
@@ -201,6 +202,20 @@ export const createProperty = async (req, res) => {
 			});
 		}
 
+		// validate furnishing details
+		if (
+			furnishingDetails &&
+			(status !== 'Semifurnished' || status !== 'Furnished')
+		) {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
+				message:
+					'Furnishing Details can only be filled when Status is either Semifurnished or Furnished',
+				data: {},
+			});
+		}
+
 		// upload files to aws s3
 		for (let file of req.files) {
 			const response = await uploadFileToS3(file);
@@ -258,6 +273,7 @@ export const createProperty = async (req, res) => {
 			purchaseType,
 			constructionStatus,
 			location,
+			furnishingDetails,
 		});
 
 		// send response

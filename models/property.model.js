@@ -114,6 +114,10 @@ const propertySchema = new mongoose.Schema({
 	age: { type: String, required: false },
 	possession: { type: String, required: false },
 	location: { type: String, required: false, default: '' },
+	furnishingDetails: {
+		type: { title: String, icon: String, amount: Number },
+		required: false,
+	},
 });
 
 const Property = mongoose.model('Property', propertySchema);
