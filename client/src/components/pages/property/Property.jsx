@@ -359,248 +359,276 @@ const Property = () => {
 							</div>
 						</section>
 
-						<h1 className="amenities-section__heading">
-							Furnishing Details
-						</h1>
-						<section className="amenities-section">
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/AC.png"
-										alt="air cndition"
-									/>
-								</div>
-								<h3 className="amenities-section__name">
-									Air Conditioner
-								</h3>
-								<div className="amenities-section__number">
-									2
-								</div>
-							</div>
+						{(response.status === 'Furnished' ||
+							response.status === 'Semifurnished') && (
+							<>
+								<h1 className="amenities-section__heading">
+									Furnishing Details
+								</h1>
 
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/stove.png"
-										alt="Stove"
-									/>
-								</div>
-								<h3 className="amenities-section__name">
-									Stove
-								</h3>
-								<div className="amenities-section__number">
-									2
-								</div>
-							</div>
-
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/modular-kitchen.png"
-										alt="Modular Kitchen"
-									/>
-								</div>
-								<h3 className="amenities-section__name">
-									Modular Kitchen
-								</h3>
-								<div className="amenities-section__number">
-									1
-								</div>
-							</div>
-
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/fan.png"
-										alt="fan"
-									/>
-								</div>
-								<h3 className="amenities-section__name">Fan</h3>
-								<div className="amenities-section__number">
-									5
-								</div>
-							</div>
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/fridge.png"
-										alt="Fridge"
-									/>
-								</div>
-								<h3 className="amenities-section__name">
-									Fridge
-								</h3>
-								<div className="amenities-section__number">
-									2
-								</div>
-							</div>
-
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/bulb.png"
-										alt="light"
-									/>
-								</div>
-								<h3 className="amenities-section__name">
-									Light
-								</h3>
-								<div className="amenities-section__number">
-									2
-								</div>
-							</div>
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/bed.png"
-										alt="bed"
-									/>
-								</div>
-								<h3 className="amenities-section__name">Bed</h3>
-								<div className="amenities-section__number">
-									2
-								</div>
-							</div>
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/microwave.png"
-										alt="microwave"
-									/>
-								</div>
-								<h3 className="amenities-section__name">
-									Microwave
-								</h3>
-								<div className="amenities-section__number">
-									2
-								</div>
-							</div>
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/restaurant.png"
-										alt="Dining table"
-									/>
-								</div>
-								<h3 className="amenities-section__name">
-									Dinning Table
-								</h3>
-								<div className="amenities-section__number">
-									1
-								</div>
-							</div>
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/TV.png"
-										alt="tv"
-									/>
-								</div>
-								<h3 className="amenities-section__name">TV</h3>
-								<div className="amenities-section__number">
-									2
-								</div>
-							</div>
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/wardrobe.png"
-										alt="Wardrobe"
-									/>
-								</div>
-								<h3 className="amenities-section__name">
-									Wardrobe
-								</h3>
-								<div className="amenities-section__number">
-									2
-								</div>
-							</div>
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/washing-machine.png"
-										alt="Washing Machine"
-									/>
-								</div>
-								<h3 className="amenities-section__name">
-									Washing Machine
-								</h3>
-								<div className="amenities-section__number">
-									2
-								</div>
-							</div>
-
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/geyser.png"
-										alt="water-heater"
-									/>
-								</div>
-								<h3 className="amenities-section__name">
-									Geyser
-								</h3>
-								<div className="amenities-section__number">
-									2
-								</div>
-							</div>
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/curtains.png"
-										alt="open-curtains"
-									/>
-								</div>
-								<h3 className="amenities-section__name">
-									Curtains
-								</h3>
-								<div className="amenities-section__number">
-									2
-								</div>
-							</div>
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/sofa.png"
-										alt="three-seater-sofa"
-									/>
-								</div>
-								<h3 className="amenities-section__name">
-									Sofa
-								</h3>
-								<div className="amenities-section__number">
-									2
-								</div>
-							</div>
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/water-cooler.png"
-										alt="Water purifier"
-									/>
-								</div>
-								<h3 className="amenities-section__name">
-									Water Purifier
-								</h3>
-								<div className="amenities-section__number">
-									2
-								</div>
-							</div>
-							<div className="amenities-container">
-								<div>
-									<img
-										src="/images/amenities/exhaust.png"
-										alt="Exhaust"
-									/>
-								</div>
-								<h3 className="amenities-section__name">
-									Exhaust
-								</h3>
-								<div className="amenities-section__number">
-									2
-								</div>
-							</div>
-						</section>
+								<section className="amenities-section">
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/AC.png"
+												alt="air codition"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Air Conditioner
+										</h3>
+										<div className="amenities-section__number">
+											{response.furnishingDetails.ac}
+										</div>
+									</div>
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/stove.png"
+												alt="Stove"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Stove
+										</h3>
+										<div className="amenities-section__number">
+											{response.furnishingDetails.stove}
+										</div>
+									</div>
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/modular-kitchen.png"
+												alt="Modular Kitchen"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Modular Kitchen
+										</h3>
+										<div className="amenities-section__number">
+											{
+												response.furnishingDetails
+													.modularKitchen
+											}
+										</div>
+									</div>
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/fan.png"
+												alt="fan"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Fan
+										</h3>
+										<div className="amenities-section__number">
+											{response.furnishingDetails.fans}
+										</div>
+									</div>
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/fridge.png"
+												alt="Fridge"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Fridge
+										</h3>
+										<div className="amenities-section__number">
+											{response.furnishingDetails.fridge}
+										</div>
+									</div>
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/bulb.png"
+												alt="light"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Light
+										</h3>
+										<div className="amenities-section__number">
+											{response.furnishingDetails.light}
+										</div>
+									</div>
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/bed.png"
+												alt="bed"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Bed
+										</h3>
+										<div className="amenities-section__number">
+											{response.furnishingDetails.beds}
+										</div>
+									</div>
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/microwave.png"
+												alt="microwave"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Microwave
+										</h3>
+										<div className="amenities-section__number">
+											{
+												response.furnishingDetails
+													.microwave
+											}
+										</div>
+									</div>
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/restaurant.png"
+												alt="Dining table"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Dinning Table
+										</h3>
+										<div className="amenities-section__number">
+											{
+												response.furnishingDetails
+													.dinningTable
+											}
+										</div>
+									</div>
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/TV.png"
+												alt="tv"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											TV
+										</h3>
+										<div className="amenities-section__number">
+											{response.furnishingDetails.tv}
+										</div>
+									</div>
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/wardrobe.png"
+												alt="Wardrobe"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Wardrobe
+										</h3>
+										<div className="amenities-section__number">
+											{
+												response.furnishingDetails
+													.wardrobe
+											}
+										</div>
+									</div>
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/washing-machine.png"
+												alt="Washing Machine"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Washing Machine
+										</h3>
+										<div className="amenities-section__number">
+											{
+												response.furnishingDetails
+													.washingMachine
+											}
+										</div>
+									</div>
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/geyser.png"
+												alt="water-heater"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Geyser
+										</h3>
+										<div className="amenities-section__number">
+											{response.furnishingDetails.geyser}
+										</div>
+									</div>
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/curtains.png"
+												alt="open-curtains"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Curtains
+										</h3>
+										<div className="amenities-section__number">
+											{
+												response.furnishingDetails
+													.curtains
+											}
+										</div>
+									</div>
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/sofa.png"
+												alt="three-seater-sofa"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Sofa
+										</h3>
+										<div className="amenities-section__number">
+											{response.furnishingDetails.sofa}
+										</div>
+									</div>
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/water-cooler.png"
+												alt="Water purifier"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Water Purifier
+										</h3>
+										<div className="amenities-section__number">
+											{
+												response.furnishingDetails
+													.waterPurifier
+											}
+										</div>
+									</div>
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/exhaust.png"
+												alt="Exhaust"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Exhaust
+										</h3>
+										<div className="amenities-section__number">
+											{response.furnishingDetails.exhaust}
+										</div>
+									</div>
+								</section>
+							</>
+						)}
 
 						{/* ------------------------------- Facilities ------------------------------- */}
 
