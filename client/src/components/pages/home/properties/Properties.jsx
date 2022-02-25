@@ -12,7 +12,6 @@ import get from '../../../../api/get';
 
 import HotelIcon from '@mui/icons-material/Hotel';
 import ShowerIcon from '@mui/icons-material/Shower';
-import CarRepairIcon from '@mui/icons-material/CarRepair';
 import MapIcon from '@mui/icons-material/Map';
 
 import './properties.scss';
@@ -31,7 +30,6 @@ const Properties = () => {
 
 	return (
 		<section className="properties-section">
-			
 			<div className="properties-section__headings">
 				<HPrimary title="Afforadable Homes in Chandigarh" />
 
@@ -60,8 +58,8 @@ const Properties = () => {
 											alt="property"
 										/>
 									</div>
-									</div>
-								
+								</div>
+
 								{/* Mains */}
 								<HSecondary
 									title={property.title}
@@ -87,10 +85,7 @@ const Properties = () => {
 										<ShowerIcon />
 										<h4>{property.bathroom}</h4>
 									</div>
-									<div className="properties-section__property-iconbar-icon">
-										<CarRepairIcon />
-										<h4>{property.parking}</h4>
-									</div>
+
 									<div className="properties-section__property-iconbar-icon">
 										<MapIcon />
 										<h4>

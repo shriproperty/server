@@ -8,7 +8,6 @@ import NotFound from '../notFound/NotFound';
 
 import HotelIcon from '@mui/icons-material/Hotel';
 import ShowerIcon from '@mui/icons-material/Shower';
-import CarRepairIcon from '@mui/icons-material/CarRepair';
 import MapIcon from '@mui/icons-material/Map';
 
 import '../home/properties/properties.scss';
@@ -106,10 +105,7 @@ const Properties = () => {
 												<ShowerIcon />
 												<h4>{property.bathroom}</h4>
 											</div>
-											<div className="properties-section__property-iconbar-icon">
-												<CarRepairIcon />
-												<h4>{property.parking}</h4>
-											</div>
+
 											<div className="properties-section__property-iconbar-icon">
 												<MapIcon />
 												<h4>
