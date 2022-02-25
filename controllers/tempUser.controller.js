@@ -136,15 +136,22 @@ export const verifyUser = (req, res) => {
 		if (token) {
 			const verifiedToken = verifyJWT(token);
 
-			if (verifiedToken) {
-				return res.status(200).json({
-					success: true,
-					message: 'User verified successfully',
+			if (!verifiedToken) {
+				return res.status(401).json({
+					success: false,
+					message: 'Invalid token',
 					data: {},
 				});
 			}
+
+			return res.status(200).json({
+				success: true,
+				message: 'User verified successfully',
+				data: {},
+			});
 		}
 
+		// use this to verify if user is temp user
 		const verifiedUser = verifyJWT(tempUserToken);
 
 		if (!verifiedUser) {

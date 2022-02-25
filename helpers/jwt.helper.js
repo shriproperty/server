@@ -24,5 +24,17 @@ export const generateJWT = (body, expire) => {
  * @return {boolean} `True` if token is valid, `false` otherwise
  */
 export const verifyJWT = token => {
-	return jwt.verify(token, process.env.JWT_SECRET);
+	let isVerified;
+
+	if (token) {
+		jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+			if (err) {
+				throw new Error(err);
+			}
+
+			isVerified = decoded;
+		});
+	}
+
+	return isVerified;
 };
