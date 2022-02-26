@@ -393,7 +393,7 @@ const Listing = () => {
 							setProperty({ ...property, unit: e.target.value })
 						}
 					>
-						{/* WARNING: Add more units here */}
+						{/* NOTE: Add more units here */}
 						<MenuItem value={'sq'}>sq</MenuItem>
 						<MenuItem value={'marla'}>marla</MenuItem>
 					</Select>

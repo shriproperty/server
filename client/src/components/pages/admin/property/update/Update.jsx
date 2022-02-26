@@ -15,7 +15,7 @@ import { patchFile } from '../../../../../api/patch';
 import get from '../../../../../api/get';
 import deleteRequest from '../../../../../api/delete';
 
-//WARNING: Sass is coming from form.scss file in ../form folder
+//NOTE Sass is coming from form.scss file in ../form folder
 
 const Update = () => {
 	const { id } = useParams();

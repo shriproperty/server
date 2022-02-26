@@ -14,7 +14,7 @@ import {
 	deleteMultipleFilesFromS3,
 } from '../helpers/s3.helper.js';
 
-/* ----------------------------- add new listing ---------------------------- */
+/* ----------------------------- ANCHOR add new listing ---------------------------- */
 export const addNewListing = async (req, res) => {
 	try {
 		const {
@@ -226,7 +226,7 @@ export const addNewListing = async (req, res) => {
 	}
 };
 
-/* --------------------------- get all properties --------------------------- */
+/* --------------------------- ANCHOR get all properties --------------------------- */
 export const getAll = async (req, res) => {
 	try {
 		const properties = await AddListing.find();
@@ -245,7 +245,7 @@ export const getAll = async (req, res) => {
 	}
 };
 
-/* --------------------------- get single property -------------------------- */
+/* --------------------------- ANCHOR get single property -------------------------- */
 export const getSingle = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -266,7 +266,7 @@ export const getSingle = async (req, res) => {
 	}
 };
 
-/* --------------------------------- update --------------------------------- */
+/* --------------------------------- ANCHOR update --------------------------------- */
 export const update = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -486,7 +486,7 @@ export const update = async (req, res) => {
 	}
 };
 
-/* ----------------------------- delete property ---------------------------- */
+/* ----------------------------- ANCHOR delete property ---------------------------- */
 export const deleteListing = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -519,7 +519,7 @@ export const deleteListing = async (req, res) => {
 	}
 };
 
-/* ----------------------------- approve listing ---------------------------- */
+/* ----------------------------- ANCHOR approve listing ---------------------------- */
 export const approveListing = async (req, res) => {
 	try {
 		const { id } = req.params;

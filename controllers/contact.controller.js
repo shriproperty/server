@@ -4,7 +4,7 @@ import Contact from '../models/contact.model.js';
 import logger from '../helpers/logger.helper.js';
 import { validationResult } from 'express-validator';
 
-/* ---------------------------------- create new ---------------------------------- */
+/* ---------------------------------- ANCHOR create new ---------------------------------- */
 export const createNew = async (req, res) => {
 	try {
 		// get input from user
@@ -60,7 +60,7 @@ export const createNew = async (req, res) => {
 	}
 };
 
-/* ---------------------------- get all contacts ---------------------------- */
+/* ---------------------------- ANCHOR get all contacts ---------------------------- */
 export const getAll = async (req, res) => {
 	try {
 		const contacts = await Contact.find({});
@@ -81,7 +81,7 @@ export const getAll = async (req, res) => {
 	}
 };
 
-/* ------------------------------ update status ----------------------------- */
+/* ------------------------------ ANCHOR update status ----------------------------- */
 export const updateStatus = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -134,7 +134,7 @@ export const updateStatus = async (req, res) => {
 	}
 };
 
-/* ----------------------------- delete contact ---------------------------- */
+/* ----------------------------- ANCHOR delete contact ---------------------------- */
 export const deleteContact = async (req, res) => {
 	try {
 		const { id } = req.params;

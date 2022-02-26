@@ -427,7 +427,7 @@ const Form = () => {
 
 				<br />
 
-				{/* /* -------------------------------- Drop Down -------------------------------  */}
+				{/* -------------------------------- ANCHOR Drop Down -------------------------------  */}
 
 				<FormControl className="admin-property-form__select">
 					<InputLabel>Type</InputLabel>
@@ -582,7 +582,7 @@ const Form = () => {
 
 				<br />
 
-				{/*  --------------------------- Furnishing Details --------------------------- */}
+				{/*  --------------------------- ANCHOR Furnishing Details --------------------------- */}
 				{(property.status === 'Furnished' ||
 					property.status === 'Semifurnished') && (
 					<>
@@ -830,7 +830,7 @@ const Form = () => {
 					</>
 				)}
 
-				{/* /* ----------------------------- Upload Buttons ----------------------------- */}
+				{/*   ----------------------------- ANCHOR Upload Buttons ----------------------------- */}
 				<h1>Choose your files</h1>
 				<BUpload
 					title="Image"

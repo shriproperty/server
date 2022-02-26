@@ -7,6 +7,7 @@ import { generateJWT, verifyJWT } from '../helpers/jwt.helper.js';
 import { httpOnlyCookie } from '../helpers/cookie.helper.js';
 import logger from '../helpers/logger.helper.js';
 
+/* --------------------------------- ANCHOR Signup --------------------------------- */
 export const signup = async (req, res) => {
 	try {
 		const { name, email, phone, password, cpassword } = req.body;
@@ -80,7 +81,7 @@ export const signup = async (req, res) => {
 	}
 };
 
-/* ---------------------------------- login --------------------------------- */
+/* ---------------------------------- ANCHOR login --------------------------------- */
 export const login = async (req, res) => {
 	try {
 		const { email, password } = req.body;
@@ -140,7 +141,7 @@ export const login = async (req, res) => {
 	}
 };
 
-/* ------------------------------ is logged in ------------------------------ */
+/* ------------------------------ ANCHOR is logged in ------------------------------ */
 export const isLoggedIn = (req, res) => {
 	try {
 		const { token } = req.cookies;

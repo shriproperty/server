@@ -7,7 +7,7 @@ import { generateJWT, verifyJWT } from '../helpers/jwt.helper.js';
 import { httpOnlyCookie } from '../helpers/cookie.helper.js';
 import logger from '../helpers/logger.helper.js';
 
-/* --------------------------------- create --------------------------------- */
+/* --------------------------------- ANCHOR create --------------------------------- */
 export const createNew = async (req, res) => {
 	try {
 		const { name, email, phone } = req.body;
@@ -43,7 +43,7 @@ export const createNew = async (req, res) => {
 	}
 };
 
-/* ------------------------------ get all users ----------------------------- */
+/* ------------------------------ ANCHOR get all users ----------------------------- */
 export const getAllUsers = async (req, res) => {
 	try {
 		const users = await TempUser.find();
@@ -63,7 +63,7 @@ export const getAllUsers = async (req, res) => {
 	}
 };
 
-/* ------------------------------- update user calling status for admin ------------------------------ */
+/* ------------------------------- ANCHOR update user calling status for admin ------------------------------ */
 export const updateUserCallingStatus = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -127,7 +127,7 @@ export const updateUserCallingStatus = async (req, res) => {
 	}
 };
 
-/* ------------------------------- verify user ------------------------------ */
+/* ------------------------------- ANCHOR verify user ------------------------------ */
 export const verifyUser = (req, res) => {
 	try {
 		const { tempUserToken, token } = req.cookies;

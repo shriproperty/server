@@ -185,6 +185,7 @@ const Property = () => {
 						}`,
 					}}
 				>
+					{/* /* ---------------------------- ANCHOR Image Grid --------------------------- */}
 					<section className="image-grid">
 						<div className="image-grid__btns">
 							<BPrimary title={response.category} />
@@ -305,6 +306,8 @@ const Property = () => {
 							</div>
 						</section>
 
+						{/* /* -------------------------- ANCHOR Configurations ------------------------- */}
+
 						<section className="facilities-section">
 							<h1 className="facilities-section_heading">
 								Configuration
@@ -358,6 +361,8 @@ const Property = () => {
 								</div>
 							</div>
 						</section>
+
+						{/* /* --------------------------- ANCHOR Furnishing Details ---------------------------  */}
 
 						{(response.status === 'Furnished' ||
 							response.status === 'Semifurnished') && (
@@ -630,7 +635,7 @@ const Property = () => {
 							</>
 						)}
 
-						{/* ------------------------------- Facilities ------------------------------- */}
+						{/* ------------------------------- ANCHOR Facilities ------------------------------- */}
 
 						<h1 className="amenities-section__heading">
 							Facilities

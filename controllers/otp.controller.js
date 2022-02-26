@@ -5,7 +5,7 @@ import { sendEmail } from '../helpers/email.helper.js';
 import { validationResult } from 'express-validator';
 import logger from '../helpers/logger.helper.js';
 
-/* ------------------------------- send otp ------------------------------- */
+/* ------------------------------- ANCHOR send otp ------------------------------- */
 export const sendOtp = async (req, res) => {
 	try {
 		const { email } = req.body;
@@ -48,7 +48,7 @@ export const sendOtp = async (req, res) => {
 	}
 };
 
-/* ------------------------------- verify otp ------------------------------- */
+/* ------------------------------- ANCHOR verify otp ------------------------------- */
 export const verifyOtp = async (req, res) => {
 	try {
 		const { otp, email } = req.body;

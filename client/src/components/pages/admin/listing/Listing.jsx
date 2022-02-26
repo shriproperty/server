@@ -14,7 +14,7 @@ import putRequest from '../../../../api/put';
 import get from '../../../../api/get';
 import deleteRequest from '../../../../api/delete';
 
-//WARNING: Sass is coming from form.scss file in ../form folder
+//NOTE: Sass is coming from form.scss file in ../form folder
 
 const Listing = () => {
 	const { id } = useParams();
@@ -546,7 +546,7 @@ const Listing = () => {
 								})
 							}
 						>
-							{/* WARNING: Add more units here */}
+							{/* NOTE: Add more units here */}
 							<MenuItem value={'sq'}>sq</MenuItem>
 							<MenuItem value={'marla'}>marla</MenuItem>
 						</Select>

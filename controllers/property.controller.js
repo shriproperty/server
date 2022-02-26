@@ -13,7 +13,7 @@ import {
 	deleteSingleFileFromS3,
 } from '../helpers/s3.helper.js';
 
-/* ----------------------------- create property ----------------------------- */
+/* ----------------------------- ANCHOR create property ----------------------------- */
 export const createProperty = async (req, res) => {
 	try {
 		const {
@@ -207,7 +207,7 @@ export const createProperty = async (req, res) => {
 			/**
 			 * this will first parse the furnishing details to object
 			 *  and than push it's keys to an array and than check if its
-			 *  length is greater than 0 so that we can check if object is empty or not 
+			 *  length is greater than 0 so that we can check if object is empty or not
 			 */
 			Object.keys(JSON.parse(furnishingDetails)).length > 0 &&
 			status !== 'Semifurnished' &&
@@ -300,7 +300,7 @@ export const createProperty = async (req, res) => {
 	}
 };
 
-/* --------------------------- get all properties --------------------------- */
+/* --------------------------- ANCHOR get all properties --------------------------- */
 export const getAll = async (req, res) => {
 	try {
 		const { featured } = req.query;
@@ -332,7 +332,7 @@ export const getAll = async (req, res) => {
 	}
 };
 
-/* --------------------------- get single property -------------------------- */
+/* --------------------------- ANCHOR get single property -------------------------- */
 export const getSingle = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -354,7 +354,7 @@ export const getSingle = async (req, res) => {
 	}
 };
 
-/* ----------------------------- update property ---------------------------- */
+/* ----------------------------- ANCHOR update property ---------------------------- */
 export const update = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -624,7 +624,7 @@ export const update = async (req, res) => {
 	}
 };
 
-/* ----------------------------- delete property ---------------------------- */
+/* ----------------------------- ANCHOR delete property ---------------------------- */
 export const deleteProperty = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -658,7 +658,7 @@ export const deleteProperty = async (req, res) => {
 	}
 };
 
-/* -------------------------- delete specific File -------------------------- */
+/* -------------------------- ANCHOR delete specific File -------------------------- */
 export const deleteFile = async (req, res) => {
 	try {
 		const { key, id, type } = req.params;

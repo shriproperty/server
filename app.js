@@ -19,13 +19,13 @@ import authRouter from './routes/auth.routes.js';
 
 const app = express();
 
-/* ------------------------------- middlewares ------------------------------ */
+/* ------------------------------- ANCHOR middlewares ------------------------------ */
 app.use(express.json());
 app.use(cookieParser());
 app.use('/api', apiAuth);
 app.use('/api', fileUpload);
 
-/* --------------------------------- routes --------------------------------- */
+/* --------------------------------- ANCHOR routes --------------------------------- */
 app.use('/api', tempUserRouter);
 app.use('/api', contactRouter);
 app.use('/api', propertyRouter);
@@ -33,7 +33,7 @@ app.use('/api', otpRouter);
 app.use('/api', addListingRouter);
 app.use('/api', authRouter);
 
-/* --------------------------------- server --------------------------------- */
+/* --------------------------------- ANCHOR server --------------------------------- */
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'));
 	app.get('*', (req, res) => {
