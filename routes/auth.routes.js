@@ -14,9 +14,7 @@ const signupValidationChecks = [
 	check('phone', 'Please enter a valid phone number')
 		.exists()
 		.isMobilePhone('en-IN'),
-	check('password', 'Please enter a strong password')
-		.exists()
-		.isStrongPassword(),
+	check('password', 'Please enter a strong password').exists(),
 ];
 
 const loginValidationChecks = [

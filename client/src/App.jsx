@@ -23,7 +23,7 @@ import AdminListing from './components/routes/admin/Listing';
 import Signup from './components/pages/signup/Signup';
 import Login from './components/routes/Login';
 import AllImages from './components/pages/allimages/Images';
-
+import Account from './components/routes/Account'
 import './app.scss';
 
 const App = () => {
@@ -84,6 +84,7 @@ const UserRoutes = () => {
 				<Route path="/signup" element={<Signup />} />
 				<Route path="/allimages/:id" element={<AllImages />} />
 				<Route path="/login" element={<Login />} />
+				<Route path="/account" element={<Account />} />
 				<Route path="/allimages" element={<AllImages />} />
 				<Route path="/404" element={<NotFound />} />
 				<Route path="*" element={<Navigate replace to="/404" />} />
