@@ -636,7 +636,6 @@ const Property = () => {
 						)}
 
 						{/* ------------------------------- ANCHOR Facilities ------------------------------- */}
-
 						<h1 className="amenities-section__heading">
 							Facilities
 						</h1>
@@ -827,6 +826,17 @@ const Property = () => {
 								</div>
 								<h3 className="amenities-section__name">
 									Club House
+								</h3>
+							</div>
+							<div className="amenities-container">
+								<div>
+									<img
+										src="/images/amenities/earthquakes.png"
+										alt="Earthquake Resistance"
+									/>
+								</div>
+								<h3 className="amenities-section__name">
+									Earthquake Resistance
 								</h3>
 							</div>
 
