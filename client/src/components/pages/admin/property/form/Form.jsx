@@ -7,8 +7,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { BPrimary, BUpload } from '../../../../util/button/Button';
 import { ASuccess, AError } from '../../../../util/alert/Alert';
+import { CheckBox } from '../../../../util/input/Input';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
 
 import './form.scss';
 import { postFile } from '../../../../../api/post';
@@ -830,6 +830,29 @@ const Form = () => {
 					</>
 				)}
 
+				{/* /* ------------------------------- ANCHOR Facilities -------------------------------  */}
+				<h1>Choose Facilities From The Following </h1>
+				<div className="admin-property-form__facilities">
+					<CheckBox label="Fire/Security Alarm" />
+					<CheckBox label="Power Backup" />
+					<CheckBox label="Intercome" />
+					<CheckBox label="Lift" />
+					<CheckBox label="Maintenance Staff" />
+					<CheckBox label="Park" />
+					<CheckBox label="Swimming Pool" />
+					<CheckBox label="Gym" />
+					<CheckBox label="Market" />
+					<CheckBox label="Water Storage" />
+					<CheckBox label="Piped Gas" />
+					<CheckBox label="Visitor Parking" />
+					<CheckBox label="Water supply" />
+					<CheckBox label="Security Guard" />
+					<CheckBox label="Wifi" />
+					<CheckBox label="Club House" />
+					<CheckBox label="STP" />
+					<CheckBox label="Ceiling Light" />
+				</div>
+
 				{/*   ----------------------------- ANCHOR Upload Buttons ----------------------------- */}
 				<h1>Choose your files</h1>
 				<BUpload
@@ -839,7 +862,6 @@ const Form = () => {
 					accept="image/*"
 				/>
 
-				{/* Image Preview */}
 				{images.map((img, i) => {
 					if (img instanceof File) {
 						const objectURL = URL.createObjectURL(img);
@@ -853,8 +875,8 @@ const Form = () => {
 									src={objectURL}
 									alt="can't preview"
 								/>
-
 								{/* Delete Image from preview */}
+
 								<BPrimary
 									title={<DeleteIcon />}
 									onClick={() =>
