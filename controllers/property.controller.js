@@ -13,9 +13,10 @@ import {
 	deleteSingleFileFromS3,
 } from '../helpers/s3.helper.js';
 
-/* ----------------------------- ANCHOR create property ----------------------------- */
+/* ----------------------------- SECTION create property ----------------------------- */
 export const createProperty = async (req, res) => {
 	try {
+		// ANCHOR Get Inputs
 		const {
 			title,
 			description,
@@ -51,13 +52,16 @@ export const createProperty = async (req, res) => {
 			constructionStatus,
 			location,
 			furnishingDetails,
+			facilities,
 		} = req.body;
 
+		const parsedFacilities = [];
 		const images = [];
 		const documents = [];
 		const videos = [];
 
-		// validate user input
+		// ANCHOR Validate Inputs
+
 		if (
 			!title ||
 			!description ||
@@ -222,6 +226,8 @@ export const createProperty = async (req, res) => {
 			});
 		}
 
+		// ANCHOR Create Property
+
 		// upload files to aws s3
 		for (let file of req.files) {
 			const response = await uploadFileToS3(file);
@@ -239,6 +245,13 @@ export const createProperty = async (req, res) => {
 
 			// delete files from uploads folder
 			deleteSingleFileFromDisk(file.path);
+		}
+
+		// Parse Facilities
+		if (facilities.length > 0) {
+			facilities.forEach(facility =>
+				parsedFacilities.push(JSON.parse(facility))
+			);
 		}
 
 		// create new property
@@ -279,6 +292,7 @@ export const createProperty = async (req, res) => {
 			purchaseType,
 			constructionStatus,
 			location,
+			facilities: parsedFacilities,
 			furnishingDetails: JSON.parse(furnishingDetails),
 		});
 
@@ -291,7 +305,6 @@ export const createProperty = async (req, res) => {
 	} catch (err) {
 		logger.error(err);
 		deleteMultipleFilesFromDisk(req.files);
-		console.log(err);
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
@@ -300,11 +313,14 @@ export const createProperty = async (req, res) => {
 	}
 };
 
-/* --------------------------- ANCHOR get all properties --------------------------- */
+/* -------------------------------- !SECTION Create Property End -------------------------------- */
+
+/* --------------------------- SECTION get all properties --------------------------- */
 export const getAll = async (req, res) => {
 	try {
 		const { featured } = req.query;
 
+		// ANCHOR Get featured
 		if (featured) {
 			const featuredProperties = await Property.find({ featured: true });
 
@@ -314,6 +330,8 @@ export const getAll = async (req, res) => {
 				data: featuredProperties,
 			});
 		}
+
+		// ANCHOR Get All
 
 		const properties = await Property.find();
 
@@ -332,7 +350,9 @@ export const getAll = async (req, res) => {
 	}
 };
 
-/* --------------------------- ANCHOR get single property -------------------------- */
+/* ------------------------------ !SECTION Get all property end ------------------------------ */
+
+/* --------------------------- SECTION get single property -------------------------- */
 export const getSingle = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -354,9 +374,12 @@ export const getSingle = async (req, res) => {
 	}
 };
 
-/* ----------------------------- ANCHOR update property ---------------------------- */
+/* -------------------- !SECTION get single property end -------------------- */
+
+/* ----------------------------- SECTION update property ---------------------------- */
 export const update = async (req, res) => {
 	try {
+		// ANCHOR get inputs
 		const { id } = req.params;
 
 		const {
@@ -398,6 +421,8 @@ export const update = async (req, res) => {
 		const documents = [];
 
 		const filesToDelete = [];
+
+		// ANCHOR Validate Inputs
 
 		// validate type
 		if (type !== 'Rental' && type !== 'Sale') {
@@ -522,6 +547,7 @@ export const update = async (req, res) => {
 			});
 		}
 
+		// ANCHOR Update Property
 		const propertyFromDB = await Property.findById(id);
 
 		if (req.files.length > 0) {
@@ -563,7 +589,7 @@ export const update = async (req, res) => {
 			deleteMultipleFilesFromS3(filesToDelete);
 		}
 
-		// update property
+		//  update property
 		const updatedProperty = await Property.findByIdAndUpdate(
 			id,
 			{
@@ -624,7 +650,9 @@ export const update = async (req, res) => {
 	}
 };
 
-/* ----------------------------- ANCHOR delete property ---------------------------- */
+/* ---------------------- !SECTION update property end ---------------------- */
+
+/* ----------------------------- SECTION delete property ---------------------------- */
 export const deleteProperty = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -658,7 +686,9 @@ export const deleteProperty = async (req, res) => {
 	}
 };
 
-/* -------------------------- ANCHOR delete specific File -------------------------- */
+/* -------------------------------- !SECTION delete property end -------------------------------- */
+
+/* -------------------------- SECTION delete specific File -------------------------- */
 export const deleteFile = async (req, res) => {
 	try {
 		const { key, id, type } = req.params;
@@ -709,3 +739,5 @@ export const deleteFile = async (req, res) => {
 		});
 	}
 };
+
+/* -------------------------------- !SECTION delete file end -------------------------------- */

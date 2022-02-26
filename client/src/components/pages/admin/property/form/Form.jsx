@@ -14,6 +14,7 @@ import './form.scss';
 import { postFile } from '../../../../../api/post';
 
 const Form = () => {
+	/* --------------------------------- ANCHOR States --------------------------------- */
 	const [property, setProperty] = useState({
 		title: '',
 		description: '',
@@ -50,6 +51,7 @@ const Form = () => {
 	});
 	const [otherFeatures, setOtherFeatures] = useState([]);
 	const [furnishingDetails, setFurnishingDetails] = useState({});
+	const [facilities, setFacilities] = useState([]);
 	const [images, setImages] = useState([]);
 	const [videos, setVideos] = useState([]);
 	const [documents, setDocuments] = useState([]);
@@ -62,7 +64,7 @@ const Form = () => {
 
 	const body = new FormData();
 
-	// submit handler
+	/* -------------------------- ANCHOR submit handler ------------------------- */
 	const submitHandler = e => {
 		e.preventDefault();
 		setLoading(true);
@@ -92,6 +94,11 @@ const Form = () => {
 			body.append('otherFeatures', otherFeatures[feature]);
 		}
 
+		// append Facilities to body
+		for (let facility in facilities) {
+			body.append('facilities', facilities[facility]);
+		}
+
 		// append furnishing details to body
 		body.append('furnishingDetails', JSON.stringify(furnishingDetails));
 
@@ -107,6 +114,30 @@ const Form = () => {
 				setErrorMessage(data.message);
 			}
 		});
+	};
+	console.log(facilities);
+	/* --------------------------------- ANCHOR Checkbox handler --------------------------------- */
+	/**
+	 * Checkbox handler
+	 * @param {boolean} checked The value of the checkbox
+	 * @param {string} title The title of the facility
+	 * @param {string} icon Icon which will be used for facility should be same as icon name in file system
+	 * @return {Function} Function used by onChange event of checkbox
+	 */
+	const checkboxHandler = (checked, title, icon) => {
+		if (checked) {
+			setFacilities(prevState => [
+				...prevState,
+				JSON.stringify({
+					title,
+					icon,
+				}),
+			]);
+		} else {
+			setFacilities(prevState =>
+				prevState.filter(item => JSON.parse(item).title !== title)
+			);
+		}
 	};
 
 	return (
@@ -833,24 +864,194 @@ const Form = () => {
 				{/* /* ------------------------------- ANCHOR Facilities -------------------------------  */}
 				<h1>Choose Facilities From The Following </h1>
 				<div className="admin-property-form__facilities">
-					<CheckBox label="Fire/Security Alarm" />
-					<CheckBox label="Power Backup" />
-					<CheckBox label="Intercome" />
-					<CheckBox label="Lift" />
-					<CheckBox label="Maintenance Staff" />
-					<CheckBox label="Park" />
-					<CheckBox label="Swimming Pool" />
-					<CheckBox label="Gym" />
-					<CheckBox label="Market" />
-					<CheckBox label="Water Storage" />
-					<CheckBox label="Piped Gas" />
-					<CheckBox label="Visitor Parking" />
-					<CheckBox label="Water supply" />
-					<CheckBox label="Security Guard" />
-					<CheckBox label="Wifi" />
-					<CheckBox label="Club House" />
-					<CheckBox label="STP" />
-					<CheckBox label="Ceiling Light" />
+					<CheckBox
+						label="Fire/Security Alarm"
+						onChange={e =>
+							checkboxHandler(
+								e.target.checked,
+								'Fire/Security Alarm',
+								'alarm.png'
+							)
+						}
+					/>
+
+					<CheckBox
+						label="Power Backup"
+						onChange={e =>
+							checkboxHandler(
+								e.target.checked,
+								'Power Backup',
+								'power-backup.png'
+							)
+						}
+					/>
+
+					<CheckBox
+						label="Intercome"
+						onChange={e =>
+							checkboxHandler(
+								e.target.checked,
+								'Intercome',
+								'intercome.png'
+							)
+						}
+					/>
+
+					<CheckBox
+						label="Lift"
+						onChange={e =>
+							checkboxHandler(
+								e.target.checked,
+								'Lift',
+								'lift.png'
+							)
+						}
+					/>
+
+					<CheckBox
+						label="Maintenance Staff"
+						onChange={e =>
+							checkboxHandler(
+								e.target.checked,
+								'Maintenance Staff',
+								'maintenance.png'
+							)
+						}
+					/>
+
+					<CheckBox
+						label="Park"
+						onChange={e =>
+							checkboxHandler(
+								e.target.checked,
+								'Park',
+								'park.png'
+							)
+						}
+					/>
+
+					<CheckBox
+						label="Swimming Pool"
+						onChange={e =>
+							checkboxHandler(
+								e.target.checked,
+								'Swimming Pool',
+								'swimming-pool.png'
+							)
+						}
+					/>
+
+					<CheckBox
+						label="Gym"
+						onChange={e =>
+							checkboxHandler(e.target.checked, 'Gym', 'gym.png')
+						}
+					/>
+
+					<CheckBox
+						label="Market"
+						onChange={e =>
+							checkboxHandler(
+								e.target.checked,
+								'Market',
+								'market.png'
+							)
+						}
+					/>
+
+					<CheckBox
+						label="Water Storage"
+						onChange={e =>
+							checkboxHandler(
+								e.target.checked,
+								'Water Storage',
+								'water-tank.png'
+							)
+						}
+					/>
+
+					<CheckBox
+						label="Piped Gas"
+						onChange={e =>
+							checkboxHandler(
+								e.target.checked,
+								'Piped Gas',
+								'piped-gas.png'
+							)
+						}
+					/>
+
+					<CheckBox
+						label="Visitor Parking"
+						onChange={e =>
+							checkboxHandler(
+								e.target.checked,
+								'Visitor Parking',
+								'parking.png'
+							)
+						}
+					/>
+
+					<CheckBox
+						label="Water supply 24/7"
+						onChange={e =>
+							checkboxHandler(
+								e.target.checked,
+								'Water Supply',
+								'water.png'
+							)
+						}
+					/>
+
+					<CheckBox
+						label="Security Guard"
+						onChange={e =>
+							checkboxHandler(
+								e.target.checked,
+								'Security Guard',
+								'security-guard.png'
+							)
+						}
+					/>
+
+					<CheckBox
+						label="Wifi"
+						onChange={e =>
+							checkboxHandler(
+								e.target.checked,
+								'WiFi',
+								'wifi.png'
+							)
+						}
+					/>
+					<CheckBox
+						label="Club House"
+						onChange={e =>
+							checkboxHandler(
+								e.target.checked,
+								'Club House',
+								'club-house.png'
+							)
+						}
+					/>
+
+					<CheckBox
+						label="STP"
+						onChange={e =>
+							checkboxHandler(e.target.checked, 'STP', 'STP.png')
+						}
+					/>
+
+					<CheckBox
+						label="Ceiling Light"
+						onChange={e =>
+							checkboxHandler(
+								e.target.checked,
+								'Ceiling Light',
+								'ceiling-light.png'
+							)
+						}
+					/>
 				</div>
 
 				{/*   ----------------------------- ANCHOR Upload Buttons ----------------------------- */}

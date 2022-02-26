@@ -767,6 +767,7 @@ const Property = () => {
 										alt="Pipe"
 									/>
 								</div>
+
 								<h3 className="amenities-section__name">
 									Piped Gas
 								</h3>

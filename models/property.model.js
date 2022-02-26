@@ -118,6 +118,10 @@ const propertySchema = new mongoose.Schema({
 		type: Object,
 		required: false,
 	},
+	facilities: {
+		type: Array,
+		required: false,
+	},
 });
 
 const Property = mongoose.model('Property', propertySchema);
