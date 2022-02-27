@@ -127,6 +127,28 @@ export const updateUserCallingStatus = async (req, res) => {
 	}
 };
 
+/* --------------------------- ANCHOR delete user --------------------------- */
+export const deleteUser = async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const deletedUser = await TempUser.findByIdAndDelete(id);
+
+		res.status(200).json({
+			success: true,
+			message: 'User deleted successfully',
+			data: deletedUser,
+		});
+	} catch (err) {
+		logger.error(err);
+		res.status(500).json({
+			success: false,
+			message: 'Internal Server Error',
+			data: {},
+		});
+	}
+};
+
 /* ------------------------------- ANCHOR verify user ------------------------------ */
 export const verifyUser = (req, res) => {
 	try {

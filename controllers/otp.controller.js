@@ -20,8 +20,12 @@ export const sendOtp = async (req, res) => {
 			});
 		}
 
-		// delete all previous otps
-		await Otp.deleteMany({ email });
+		// get all otps which match same email and than delete them
+		const existingOtps = await Otp.find({ email });
+
+		if (existingOtps.length > 0) {
+			await Otp.deleteMany({ email });
+		}
 
 		// generate otp
 		const otp = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
