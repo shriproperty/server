@@ -1,9 +1,9 @@
 import Form from '../pages/signup/Signup';
 
-const Signup = () => {
+const Signup = ({ setAuthFormSubmit }) => {
 	return (
 		<main>
-			<Form />
+			<Form setAuthFormSubmit={setAuthFormSubmit} />
 		</main>
 	);
 };

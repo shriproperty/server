@@ -80,8 +80,11 @@ const Update = () => {
 				setOtherFeatures(res.data.otherFeatures);
 				setFurnishingDetails(res.data.furnishingDetails);
 				res.data.facilities.forEach(fac => {
-					setFacilities(prevState => [...prevState, JSON.stringify(fac)]);
-				})
+					setFacilities(prevState => [
+						...prevState,
+						JSON.stringify(fac),
+					]);
+				});
 				setLoadingPage(false);
 				setDeleteFile(false);
 			})
@@ -193,7 +196,9 @@ const Update = () => {
 	 * @return {boolean} `true` if the facility exists, `false` otherwise
 	 */
 	const facilityChecker = title => {
-		return facilities.some(facility => JSON.parse(facility).title === title);
+		return facilities.some(
+			facility => JSON.parse(facility).title === title
+		);
 	};
 
 	return (

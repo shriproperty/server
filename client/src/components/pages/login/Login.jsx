@@ -7,7 +7,7 @@ import { AError } from '../../../components/util/alert/Alert';
 
 import './login.scss';
 
-const Login = () => {
+const Login = ({ setAuthFormSubmit }) => {
 	const navigate = useNavigate();
 
 	const [email, setEmail] = useState('');
@@ -28,8 +28,10 @@ const Login = () => {
 
 		setBtnLoading(false);
 
-		if (res.success) navigate('/');
-		else {
+		if (res.success) {
+			navigate('/');
+			setAuthFormSubmit(true);
+		} else {
 			setErrorMessage(res.message);
 			setErrorOpen(true);
 		}
