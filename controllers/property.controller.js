@@ -341,7 +341,7 @@ export const getAll = async (req, res) => {
 			data: properties,
 		});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
@@ -365,7 +365,7 @@ export const getSingle = async (req, res) => {
 			data: property,
 		});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 		res.status(400).json({
 			success: false,
 			message: 'Invalid Id',
@@ -414,11 +414,14 @@ export const update = async (req, res) => {
 			purchaseType,
 			constructionStatus,
 			location,
+			furnishingDetails,
+			facilities,
 		} = req.body;
 
 		const images = [];
 		const videos = [];
 		const documents = [];
+		const parsedFacilities = [];
 
 		const filesToDelete = [];
 
@@ -560,7 +563,7 @@ export const update = async (req, res) => {
 					key: response.Key,
 				};
 
-				// push file paths to respoective arrays
+				// push file paths to respective arrays
 				if (file.fieldname === 'images') {
 					images.push(fileObject);
 				} else if (file.fieldname === 'videos') {
@@ -588,6 +591,12 @@ export const update = async (req, res) => {
 
 			deleteMultipleFilesFromS3(filesToDelete);
 		}
+
+			if (facilities.length > 0) {
+				facilities.forEach(facility =>
+					parsedFacilities.push(JSON.parse(facility))
+				);
+			}
 
 		//  update property
 		const updatedProperty = await Property.findByIdAndUpdate(
@@ -624,6 +633,8 @@ export const update = async (req, res) => {
 				purchaseType,
 				constructionStatus,
 				location,
+				facilities: parsedFacilities,
+				furnishingDetails: JSON.parse(furnishingDetails),
 				images: images.length > 0 ? images : propertyFromDB.images,
 				documents:
 					documents.length > 0 ? documents : propertyFromDB.documents,
@@ -639,7 +650,7 @@ export const update = async (req, res) => {
 			data: updatedProperty,
 		});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 		deleteMultipleFilesFromDisk(req.files);
 
 		res.status(400).json({
@@ -677,7 +688,7 @@ export const deleteProperty = async (req, res) => {
 			data: deletedProperty,
 		});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 		res.status(404).json({
 			success: false,
 			message: 'Invalid Id',
@@ -731,7 +742,7 @@ export const deleteFile = async (req, res) => {
 			data: {},
 		});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 		res.status(400).json({
 			success: false,
 			message: 'Invalid key',

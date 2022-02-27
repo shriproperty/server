@@ -50,7 +50,7 @@ export const createNew = async (req, res) => {
 			data: newContact,
 		});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 
 		res.status(500).json({
 			success: false,
@@ -71,7 +71,7 @@ export const getAll = async (req, res) => {
 			data: contacts,
 		});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 
 		res.status(500).json({
 			success: false,
@@ -124,7 +124,7 @@ export const updateStatus = async (req, res) => {
 			data: updatedContact,
 		});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 
 		res.status(404).json({
 			success: false,
@@ -147,7 +147,7 @@ export const deleteContact = async (req, res) => {
 			data: deletedContact,
 		});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 
 		res.status(404).json({
 			success: false,

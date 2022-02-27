@@ -115,7 +115,7 @@ const Form = () => {
 			}
 		});
 	};
-	console.log(facilities);
+
 	/* --------------------------------- ANCHOR Checkbox handler --------------------------------- */
 	/**
 	 * Checkbox handler

@@ -34,7 +34,7 @@ export const createNew = async (req, res) => {
 				data: user,
 			});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
@@ -54,7 +54,7 @@ export const getAllUsers = async (req, res) => {
 			data: users,
 		});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
@@ -118,7 +118,7 @@ export const updateUserCallingStatus = async (req, res) => {
 			data: updatedUser,
 		});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 		res.status(404).json({
 			success: false,
 			message: 'User not found invalid id',
@@ -168,7 +168,7 @@ export const verifyUser = (req, res) => {
 			data: {},
 		});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 		res.status(401).json({
 			success: false,
 			message: 'Invalid token',

@@ -656,6 +656,8 @@ const Property = () => {
 							))}
 						</section>
 
+						{/* /* --------------------------------- ANCHOR Other Features ---------------------------------  */}
+
 						{response?.otherFeatures.length > 0 && (
 							<section className="other-facilities-section">
 								<h1>Other Features</h1>
