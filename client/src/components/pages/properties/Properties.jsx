@@ -59,7 +59,7 @@ const Properties = () => {
 			) : (
 				<section className="properties-section">
 					{notFound ? (
-						<NotFound />
+						<NotFound comingSoon />
 					) : (
 						<div className="properties-section__properties">
 							{response.map(property => (
