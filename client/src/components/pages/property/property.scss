@@ -91,7 +91,7 @@
 	align-items: center;
 
 	&_sub {
-		padding: 1rem 0 3rem 4rem;
+		padding: 1rem 0 3rem 1.5rem;
 	}
 
 	&_addr {
@@ -101,6 +101,12 @@
 
 	&_link {
 		font-size: 1rem;
+	}
+
+	&_location{
+		margin-left: 3.5rem;
+		height: 6rem;
+		width: 5.5rem;
 	}
 }
 
