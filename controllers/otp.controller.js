@@ -20,6 +20,13 @@ export const sendOtp = async (req, res) => {
 			});
 		}
 
+		// get all otps which match same email and than delete them
+		const existingOtps = await Otp.find({ email });
+
+		if (existingOtps.length > 0) {
+			await Otp.deleteMany({ email });
+		}
+
 		// generate otp
 		const otp = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
 
@@ -72,6 +79,10 @@ export const verifyOtp = async (req, res) => {
 				data: {},
 			});
 		}
+
+		// delete otp from db
+
+		await Otp.deleteOne({ email });
 
 		res.status(200).json({
 			success: true,

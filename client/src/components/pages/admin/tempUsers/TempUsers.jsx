@@ -10,11 +10,14 @@ import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import DoneIcon from '@mui/icons-material/Done';
 import moment from 'moment';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { AError } from '../../../util/alert/Alert';
 import getRequest from '../../../../api/get';
 import { patchRequest } from '../../../../api/patch';
 import { TextField } from '@mui/material';
+import { BPrimary } from '../../../util/button/Button';
+import deleteRequest from '../../../../api/delete';
 
 import './tempUsers.scss';
 
@@ -25,8 +28,10 @@ const TempUsers = () => {
 	const [talkProgress, setTalkProgress] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
 	const [openError, setOpenError] = useState(false);
+	const [submit, setSubmit] = useState(false);
 
 	useEffect(() => {
+		setSubmit(false);
 		getRequest('/temp-users/all').then(data => {
 			// sort data.data by date
 			data.data.sort((a, b) => {
@@ -44,9 +49,9 @@ const TempUsers = () => {
 
 			setResponse(data.data);
 		});
-	}, []);
+	}, [submit]);
 
-	const submitHandler = id => {
+	const updateHandler = id => {
 		return e => {
 			e.preventDefault();
 
@@ -61,10 +66,26 @@ const TempUsers = () => {
 					return setOpenError(true);
 				}
 
-				window.location.reload();
+				setSubmit(true);
 			});
 		};
 	};
+
+	const deleteHandler = id => {
+		return e => {
+			e.preventDefault();
+
+			deleteRequest(`/temp-users/delete/${id}`).then(data => {
+				if (data.success === false) {
+					setErrorMessage(data.message);
+					return setOpenError(true);
+				}
+
+				setSubmit(true);
+			});
+		};
+	};
+
 	return (
 		<>
 			<AError
@@ -105,6 +126,9 @@ const TempUsers = () => {
 						</TableCell>
 						<TableCell className="user-table__cell" align="right">
 							Update
+						</TableCell>
+						<TableCell className="user-table__cell" align="right">
+							Delete
 						</TableCell>
 					</TableRow>
 				</TableHead>
@@ -205,14 +229,28 @@ const TempUsers = () => {
 									}
 								/>
 							</TableCell>
+
 							<TableCell
 								className="user-table__cell"
 								align="right"
 							>
-								<form onSubmit={submitHandler(user._id)}>
-									<button type="submit">
-										<DoneIcon />
-									</button>
+								<form onSubmit={updateHandler(user._id)}>
+									<BPrimary
+										type="submit"
+										title={<DoneIcon />}
+									/>
+								</form>
+							</TableCell>
+
+							<TableCell
+								className="user-table__cell"
+								align="right"
+							>
+								<form onSubmit={deleteHandler(user._id)}>
+									<BPrimary
+										type="submit"
+										title={<DeleteIcon />}
+									/>
 								</form>
 							</TableCell>
 						</TableRow>

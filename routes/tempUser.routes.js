@@ -27,5 +27,6 @@ tempUserRouter.patch(
 	'/temp-users/update-calling-status/:id',
 	tempUserController.updateUserCallingStatus
 );
+tempUserRouter.delete('/temp-users/delete/:id', tempUserController.deleteUser);
 
 export default tempUserRouter;

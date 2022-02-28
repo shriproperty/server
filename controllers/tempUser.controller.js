@@ -34,7 +34,7 @@ export const createNew = async (req, res) => {
 				data: user,
 			});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
@@ -54,7 +54,7 @@ export const getAllUsers = async (req, res) => {
 			data: users,
 		});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 		res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
@@ -118,10 +118,32 @@ export const updateUserCallingStatus = async (req, res) => {
 			data: updatedUser,
 		});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 		res.status(404).json({
 			success: false,
 			message: 'User not found invalid id',
+			data: {},
+		});
+	}
+};
+
+/* --------------------------- ANCHOR delete user --------------------------- */
+export const deleteUser = async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const deletedUser = await TempUser.findByIdAndDelete(id);
+
+		res.status(200).json({
+			success: true,
+			message: 'User deleted successfully',
+			data: deletedUser,
+		});
+	} catch (err) {
+		logger.error(err);
+		res.status(500).json({
+			success: false,
+			message: 'Internal Server Error',
 			data: {},
 		});
 	}
@@ -168,7 +190,7 @@ export const verifyUser = (req, res) => {
 			data: {},
 		});
 	} catch (err) {
-		logger.log(err);
+		logger.error(err);
 		res.status(401).json({
 			success: false,
 			message: 'Invalid token',

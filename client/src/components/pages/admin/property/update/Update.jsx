@@ -14,13 +14,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { patchFile } from '../../../../../api/patch';
 import get from '../../../../../api/get';
 import deleteRequest from '../../../../../api/delete';
+import { CheckBox } from '../../../../util/input/Input';
 
 //NOTE Sass is coming from form.scss file in ../form folder
 
 const Update = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
-
+	/* --------------------------------- ANCHOR States --------------------------------- */
 	const [property, setProperty] = useState({
 		title: '',
 		description: '',
@@ -45,6 +46,7 @@ const Update = () => {
 		kitchen: 0,
 		lobby: 0,
 		address: '',
+		location: '',
 		featured: false,
 		owner: '',
 		ownerContact: '',
@@ -53,26 +55,36 @@ const Update = () => {
 		possession: '',
 		purchaseType: '',
 		constructionStatus: '',
-		location: '',
 	});
-
+	const [otherFeatures, setOtherFeatures] = useState([]);
+	const [furnishingDetails, setFurnishingDetails] = useState({});
+	const [facilities, setFacilities] = useState([]);
 	const [images, setImages] = useState([]);
 	const [videos, setVideos] = useState([]);
 	const [documents, setDocuments] = useState([]);
-	const [otherFeatures, setOtherFeatures] = useState([]);
-	const [loading, setLoading] = useState(false);
-	const [loadingPage, setLoadingPage] = useState(true);
+
 	const [openSuccess, setOpenSuccess] = useState(false);
 	const [openError, setOpenError] = useState(false);
 	const [successMessage, setSuccessMessage] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
-	const [deleteFile, setDeleteFile] = useState(false);
 
+	const [loading, setLoading] = useState(false);
+	const [deleteFile, setDeleteFile] = useState(false);
+	const [loadingPage, setLoadingPage] = useState(true);
+
+	/* ------------------------------- ANCHOR Use Effect ------------------------------- */
 	useEffect(() => {
 		get(`/properties/single/${id}`)
 			.then(res => {
 				setProperty(res.data);
 				setOtherFeatures(res.data.otherFeatures);
+				setFurnishingDetails(res.data.furnishingDetails);
+				res.data.facilities.forEach(fac => {
+					setFacilities(prevState => [
+						...prevState,
+						JSON.stringify(fac),
+					]);
+				});
 				setLoadingPage(false);
 				setDeleteFile(false);
 			})
@@ -84,14 +96,18 @@ const Update = () => {
 
 	const body = new FormData();
 
-	// submit handler
+	/* -------------------------- ANCHOR submit handler ------------------------- */
 	const submitHandler = e => {
 		e.preventDefault();
 		setLoading(true);
 
 		// append data to body to send
 		for (const key in property) {
-			if (key !== 'otherFeatures') {
+			if (
+				key !== 'otherFeatures' &&
+				key !== 'facilities' &&
+				key !== 'furnishingDetails'
+			) {
 				body.append(key, property[key]);
 			}
 		}
@@ -115,6 +131,14 @@ const Update = () => {
 		for (let feature in otherFeatures) {
 			body.append('otherFeatures', otherFeatures[feature]);
 		}
+
+		//  append Facilities to body
+		for (let facility in facilities) {
+			body.append('facilities', facilities[facility]);
+		}
+
+		// append furnishing details to body
+		body.append('furnishingDetails', JSON.stringify(furnishingDetails));
 
 		// post to server
 		patchFile(`/properties/update/${id}`, body).then(data => {
@@ -141,6 +165,42 @@ const Update = () => {
 		};
 	};
 
+	/* --------------------------------- ANCHOR Checkbox handler --------------------------------- */
+	/**
+	 * Checkbox handler
+	 * @param {boolean} checked The value of the checkbox
+	 * @param {string} title The title of the facility
+	 * @param {string} icon Icon which will be used for facility should be same as icon name in file system
+	 * @return {Function} Function used by onChange event of checkbox
+	 */
+	const checkboxHandler = (checked, title, icon) => {
+		if (checked) {
+			setFacilities(prevState => [
+				...prevState,
+				JSON.stringify({
+					title,
+					icon,
+				}),
+			]);
+		} else {
+			setFacilities(prevState =>
+				prevState.filter(item => JSON.parse(item).title !== title)
+			);
+		}
+	};
+
+	/* ---------------------------- ANCHOR Facility Checker ---------------------------- */
+	/**
+	 * Check if an facility exists in the facilities array
+	 * @param {string} title The title of the facility
+	 * @return {boolean} `true` if the facility exists, `false` otherwise
+	 */
+	const facilityChecker = title => {
+		return facilities.some(
+			facility => JSON.parse(facility).title === title
+		);
+	};
+
 	return (
 		<section>
 			{loadingPage ? (
@@ -152,13 +212,11 @@ const Update = () => {
 						open={openSuccess}
 						setOpen={setOpenSuccess}
 					/>
-
 					<AError
 						title={errorMessage}
 						open={openError}
 						setOpen={setOpenError}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -170,7 +228,6 @@ const Update = () => {
 							setProperty({ ...property, title: e.target.value })
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -186,7 +243,6 @@ const Update = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -201,7 +257,6 @@ const Update = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -216,7 +271,6 @@ const Update = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -242,7 +296,6 @@ const Update = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -257,7 +310,6 @@ const Update = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -270,7 +322,6 @@ const Update = () => {
 							setOtherFeatures(e.target.value.split('\n'))
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -282,7 +333,6 @@ const Update = () => {
 							setProperty({ ...property, price: e.target.value })
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -296,7 +346,6 @@ const Update = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -308,7 +357,6 @@ const Update = () => {
 							setProperty({ ...property, size: e.target.value })
 						}
 					/>
-
 					<FormControl className="admin-property-form__select">
 						<InputLabel>Unit</InputLabel>
 						<Select
@@ -346,7 +394,6 @@ const Update = () => {
 							<MenuItem value={'Ghumaon'}>Ghumaon</MenuItem>
 						</Select>
 					</FormControl>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -356,7 +403,6 @@ const Update = () => {
 							setProperty({ ...property, floor: e.target.value })
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -370,7 +416,6 @@ const Update = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -384,7 +429,6 @@ const Update = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -398,7 +442,6 @@ const Update = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -409,7 +452,6 @@ const Update = () => {
 							setProperty({ ...property, lobby: e.target.value })
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -423,7 +465,6 @@ const Update = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -437,7 +478,6 @@ const Update = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -448,7 +488,6 @@ const Update = () => {
 							setProperty({ ...property, store: e.target.value })
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -462,7 +501,6 @@ const Update = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -476,7 +514,6 @@ const Update = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -490,7 +527,6 @@ const Update = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -526,8 +562,8 @@ const Update = () => {
 							})
 						}
 					/>
-
 					<br />
+					{/* -------------------------------- ANCHOR Drop Down -------------------------------  */}
 
 					<FormControl className="admin-property-form__select">
 						<InputLabel>Type</InputLabel>
@@ -593,7 +629,6 @@ const Update = () => {
 							<MenuItem value="Other">Other</MenuItem>
 						</Select>
 					</FormControl>
-
 					<FormControl className="admin-property-form__select">
 						<InputLabel>Status</InputLabel>
 						<Select
@@ -613,7 +648,6 @@ const Update = () => {
 							<MenuItem value="Furnished">Furnished</MenuItem>
 						</Select>
 					</FormControl>
-
 					<FormControl className="admin-property-form__select">
 						<InputLabel>Featured</InputLabel>
 						<Select
@@ -630,7 +664,6 @@ const Update = () => {
 							<MenuItem value={false}>False</MenuItem>
 						</Select>
 					</FormControl>
-
 					<FormControl className="admin-property-form__select">
 						<InputLabel>Direction</InputLabel>
 						<Select
@@ -690,6 +723,476 @@ const Update = () => {
 						</Select>
 					</FormControl>
 
+					{/*  --------------------------- ANCHOR Furnishing Details --------------------------- */}
+					{(property.status === 'Furnished' ||
+						property.status === 'Semifurnished') && (
+						<>
+							<h1>
+								Add Furnishing Details (Add amount of things
+								eg:- fans = 5)
+							</h1>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="AC"
+								type="number"
+								value={furnishingDetails.ac}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										ac: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="stove"
+								type="number"
+								value={furnishingDetails.stove}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										stove: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Modular Kitchen"
+								type="number"
+								value={furnishingDetails.modularKitchen}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										modularKitchen: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Fans"
+								type="number"
+								value={furnishingDetails.fans}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										fans: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Fridge"
+								type="number"
+								value={furnishingDetails.fridge}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										fridge: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Light"
+								type="number"
+								value={furnishingDetails.light}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										light: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Bed"
+								type="number"
+								value={furnishingDetails.beds}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										beds: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="microwave"
+								type="number"
+								value={furnishingDetails.microwave}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										microwave: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="dinning table"
+								type="number"
+								value={furnishingDetails.dinningTable}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										dinningTable: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="TV"
+								type="number"
+								value={furnishingDetails.tv}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										tv: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="wardrobe"
+								type="number"
+								value={furnishingDetails.wardrobe}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										wardrobe: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="washing machine"
+								type="number"
+								value={furnishingDetails.washingMachine}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										washingMachine: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Geyser"
+								type="number"
+								value={furnishingDetails.geyser}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										geyser: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Curtains"
+								type="number"
+								value={furnishingDetails.curtains}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										curtains: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Sofa"
+								type="number"
+								value={furnishingDetails.sofa}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										sofa: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="water purifier"
+								type="number"
+								value={furnishingDetails.waterPurifier}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										waterPurifier: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Exhaust"
+								type="number"
+								value={furnishingDetails.exhaust}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										exhaust: e.target.value,
+									})
+								}
+							/>
+						</>
+					)}
+
+					{/* /* ------------------------------- ANCHOR Facilities -------------------------------  */}
+					<h1>Choose Facilities From The Following </h1>
+					<div className="admin-property-form__facilities">
+						<CheckBox
+							label="Fire/Security Alarm"
+							checked={facilityChecker('Fire/Security Alarm')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Fire/Security Alarm',
+									'alarm.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Power Backup"
+							checked={facilityChecker('Power Backup')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Power Backup',
+									'power-backup.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Intercome"
+							checked={facilityChecker('Intercome')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Intercome',
+									'intercome.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Lift"
+							checked={facilityChecker('Lift')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Lift',
+									'lift.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Maintenance Staff"
+							checked={facilityChecker('Maintenance Staff')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Maintenance Staff',
+									'maintenance.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Park"
+							checked={facilityChecker('Park')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Park',
+									'park.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Swimming Pool"
+							checked={facilityChecker('Swimming Pool')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Swimming Pool',
+									'swimming-pool.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Gym"
+							checked={facilityChecker('Gym')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Gym',
+									'gym.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Market"
+							checked={facilityChecker('Market')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Market',
+									'market.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Water Storage"
+							checked={facilityChecker('Water Storage')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Water Storage',
+									'water-tank.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Piped Gas"
+							checked={facilityChecker('Piped Gas')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Piped Gas',
+									'piped-gas.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Visitor Parking"
+							checked={facilityChecker('Visitor Parking')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Visitor Parking',
+									'parking.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Water supply 24/7"
+							checked={facilityChecker('Water supply 24/7')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Water Supply',
+									'water.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Security Guard"
+							checked={facilityChecker('Security Guard')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Security Guard',
+									'security-guard.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Wifi"
+							checked={facilityChecker('Wifi')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'WiFi',
+									'wifi.png'
+								)
+							}
+						/>
+						<CheckBox
+							label="Club House"
+							checked={facilityChecker('Club House')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Club House',
+									'club-house.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="STP"
+							checked={facilityChecker('STP')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'STP',
+									'STP.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Ceiling Light"
+							checked={facilityChecker('Ceiling Light')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Ceiling Light',
+									'ceiling-light.png'
+								)
+							}
+						/>
+					</div>
+
+					{/*   ----------------------------- ANCHOR Upload Buttons ----------------------------- */}
+
 					<h1>Images</h1>
 					{property.images.length > 0 ? (
 						property.images.map(img => (
@@ -715,9 +1218,7 @@ const Update = () => {
 					) : (
 						<h1>there are no images</h1>
 					)}
-
 					<h1>Videos</h1>
-
 					{property.videos.length > 0 ? (
 						property.videos.map(vid => (
 							<div
@@ -747,9 +1248,7 @@ const Update = () => {
 					) : (
 						<h1>there are no Videos</h1>
 					)}
-
 					<br />
-
 					<BUpload
 						title="Image"
 						className="admin-property-form__upload-btn"
@@ -758,7 +1257,6 @@ const Update = () => {
 						}
 						accept="image/*"
 					/>
-
 					{images.map((img, i) => {
 						if (img instanceof File) {
 							const objectURL = URL.createObjectURL(img);
@@ -787,9 +1285,7 @@ const Update = () => {
 							);
 						}
 					})}
-
 					<br />
-
 					<BUpload
 						title="Videos"
 						className="admin-property-form__upload-btn"
@@ -798,7 +1294,6 @@ const Update = () => {
 						}
 						accept="video/*"
 					/>
-
 					{videos.map((vid, i) => {
 						if (vid instanceof File) {
 							const objectURL = URL.createObjectURL(vid);
@@ -835,9 +1330,7 @@ const Update = () => {
 							);
 						}
 					})}
-
 					<br />
-
 					<BUpload
 						title="Documents"
 						className="admin-property-form__upload-btn"
@@ -846,7 +1339,6 @@ const Update = () => {
 						}
 						accept="application/pdf"
 					/>
-
 					{documents.map((doc, i) => {
 						if (doc instanceof File) {
 							const objectURL = URL.createObjectURL(doc);
@@ -878,9 +1370,7 @@ const Update = () => {
 							);
 						}
 					})}
-
 					<br />
-
 					<BPrimary
 						title="Submit"
 						className="admin-property-form__submit-btn"

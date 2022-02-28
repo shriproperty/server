@@ -1,26 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Search from '@mui/icons-material/Search';
 import { Drawer } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import get from '../../../api/get';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import './nav.scss';
 import { BPrimary } from '../../util/button/Button';
 
-const Nav = () => {
+const Nav = ({ isLoggedIn }) => {
 	const navigate = useNavigate();
 
 	const [search, setSearch] = useState('');
 	const [open, setOpen] = useState(false);
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-	useEffect(() => {
-		get('/auth/is-logged-in').then(res => {
-			setIsLoggedIn(res.success);
-		});
-	}, []);
 
 	return (
 		<header>

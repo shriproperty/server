@@ -9,7 +9,7 @@ import Modal from '../../util/modal/Modal';
 
 import './signup.scss';
 
-const Signup = () => {
+const Signup = ({ setAuthFormSubmit }) => {
 	const navigate = useNavigate();
 
 	const [name, setName] = useState('');
@@ -65,6 +65,7 @@ const Signup = () => {
 				password,
 				cpassword,
 			});
+			setAuthFormSubmit(true);
 
 			if (signupRes.success) navigate('/');
 			else {

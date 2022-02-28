@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import {
 	BrowserRouter as Router,
 	Routes,
@@ -23,7 +24,8 @@ import AdminListing from './components/routes/admin/Listing';
 import Signup from './components/pages/signup/Signup';
 import Login from './components/routes/Login';
 import AllImages from './components/pages/allimages/Images';
-import Account from './components/routes/Account'
+import Account from './components/routes/Account';
+import get from './api/get';
 import './app.scss';
 
 const App = () => {
@@ -73,17 +75,38 @@ const App = () => {
 
 // created a different router to hide navbar in admin routes
 const UserRoutes = () => {
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [authFormSubmit, setAuthFormSubmit] = useState(false);
+
+	console.log(authFormSubmit);
+
+	useEffect(() => {
+		get('/auth/is-logged-in').then(res => {
+			setIsLoggedIn(res.success);
+			setAuthFormSubmit(false);
+		});
+	}, [authFormSubmit]);
+
 	return (
 		<>
-			<Nav />
+			<Nav isLoggedIn={isLoggedIn} />
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/properties" element={<Properties />} />
 				<Route path="/properties/:id" element={<Property />} />
 				<Route path="/listing" element={<Listing />} />
-				<Route path="/signup" element={<Signup />} />
 				<Route path="/allimages/:id" element={<AllImages />} />
-				<Route path="/login" element={<Login />} />
+
+				<Route
+					path="/signup"
+					element={<Signup setAuthFormSubmit={setAuthFormSubmit} />}
+				/>
+
+				<Route
+					path="/login"
+					element={<Login setAuthFormSubmit={setAuthFormSubmit} />}
+				/>
+
 				<Route path="/account" element={<Account />} />
 				<Route path="/allimages" element={<AllImages />} />
 				<Route path="/404" element={<NotFound />} />
