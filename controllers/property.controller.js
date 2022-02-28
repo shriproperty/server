@@ -430,8 +430,6 @@ export const update = async (req, res) => {
 		const documents = [];
 		const parsedFacilities = [];
 
-		const filesToDelete = [];
-
 		// ANCHOR Validate Inputs
 
 		// validate type
@@ -607,21 +605,6 @@ export const update = async (req, res) => {
 				// delete files from uploads folder
 				deleteSingleFileFromDisk(file.path);
 			}
-
-			// delete files from aws s3
-
-			/**
-			 * delete only those files which we are getting from the request
-			 * eg if we are updating property and we are not getting any new images
-			 * but we are getting new videos and documents
-			 * then we will delete only videos and documents not images
-			 */
-			if (images.length > 0) filesToDelete.push(...propertyFromDB.images);
-			if (videos.length > 0) filesToDelete.push(...propertyFromDB.videos);
-			if (documents.length > 0)
-				filesToDelete.push(...propertyFromDB.documents);
-
-			deleteMultipleFilesFromS3(filesToDelete);
 		}
 
 		if (facilities.length > 0) {
@@ -669,10 +652,18 @@ export const update = async (req, res) => {
 				furnishingDetails: furnishingDetails
 					? JSON.parse(furnishingDetails)
 					: {},
-				images: images.length > 0 ? images : propertyFromDB.images,
+				images:
+					images.length > 0
+						? [...propertyFromDB.images, ...images]
+						: propertyFromDB.images,
+				videos:
+					videos.length > 0
+						? [...propertyFromDB.videos, ...videos]
+						: propertyFromDB.videos,
 				documents:
-					documents.length > 0 ? documents : propertyFromDB.documents,
-				videos: videos.length > 0 ? videos : propertyFromDB.videos,
+					documents.length > 0
+						? [...propertyFromDB.documents, ...documents]
+						: propertyFromDB.documents,
 			},
 			{ new: true }
 		);
