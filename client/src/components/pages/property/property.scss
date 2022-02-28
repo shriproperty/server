@@ -166,6 +166,7 @@
 
 	&_heading {
 		margin-top: 2rem;
+		margin-bottom: 2rem;
 		font-size: 2rem;
 	}
 
@@ -188,6 +189,7 @@
 
 	h1 {
 		margin-top: 2rem;
+		margin-bottom: 2rem;
 		font-size: 2rem;
 	}
 
@@ -205,6 +207,7 @@
 
 	h1 {
 		margin-top: 2rem;
+		margin-bottom: 2rem;
 		font-size: 2rem;
 	}
 
@@ -254,7 +257,7 @@
 
 .amenities-section {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
 	padding: 0 4rem;
 
 	.amenities-container {

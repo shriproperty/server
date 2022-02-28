@@ -75,9 +75,9 @@ const Property = () => {
 		});
 
 		setBtnLoading(false);
-
 		// if otp is valid than create new user
 		if (verifyOtpResponse.success) {
+			console.log(response.data);
 			const newUserResponse = await post('/temp-users/add', {
 				name,
 				email,
@@ -253,6 +253,7 @@ const Property = () => {
 
 					<div>
 						<section className="heading-section">
+							<Link to = ""></Link>
 							<div className="heading-section_sub">
 								<HPrimary title={response.title} />
 
@@ -350,6 +351,10 @@ const Property = () => {
 									<h3>Dinning Room</h3>
 									<h3>{response.dinningRoom}</h3>
 								</div>
+								<div className="facilities-section_item">
+									<h3>Floor</h3>
+									<h3>{response.floor}</h3>
+								</div>
 
 								<div className="facilities-section_item">
 									<h3>Living Room</h3>
@@ -358,6 +363,20 @@ const Property = () => {
 								<div className="facilities-section_item">
 									<h3>Store Room</h3>{' '}
 									<h3>{response.store}</h3>
+								</div>
+								<div className="facilities-section_item">
+									<h3>{response.constructionStatus}</h3>
+								</div>
+								<div className="facilities-section_item">
+									<h3>{response.purchaseType}</h3>
+								</div>
+								<div className="facilities-section_item">
+									<h3>Property age</h3>{' '}
+									<h3>{response.age}</h3>
+								</div>
+								<div className="facilities-section_item">
+									<h3>Possession</h3>{' '}
+									<h3>{response.possession}</h3>
 								</div>
 							</div>
 						</section>
