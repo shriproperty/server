@@ -1277,8 +1277,7 @@ const Update = () => {
 										onClick={() =>
 											setImages(
 												images.filter(
-													(_, i) =>
-														i !== images.length - 1
+													(_, index) => index !== i
 												)
 											)
 										}
@@ -1322,8 +1321,7 @@ const Update = () => {
 										onClick={() =>
 											setVideos(
 												videos.filter(
-													(_, i) =>
-														i !== videos.length - 1
+													(_, index) => index !== i
 												)
 											)
 										}
@@ -1361,9 +1359,7 @@ const Update = () => {
 										onClick={() =>
 											setDocuments(
 												documents.filter(
-													(_, i) =>
-														i !==
-														documents.length - 1
+													(_, index) => index !== i
 												)
 											)
 										}

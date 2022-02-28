@@ -227,7 +227,7 @@ const Listing = ({ isLoggedIn }) => {
 				<TextField
 					className="admin-property-form__input"
 					variant="outlined"
-					label="Owner"
+					label="Owner Name"
 					required
 					fullWidth
 					onChange={e =>
@@ -685,7 +685,7 @@ const Listing = ({ isLoggedIn }) => {
 						<TextField
 							className="admin-property-form__input"
 							variant="outlined"
-							label="Fridge"
+							label="Fridge/Refrigerator"
 							type="number"
 							onChange={e =>
 								setFurnishingDetails({

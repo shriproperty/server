@@ -56,6 +56,8 @@ const Form = () => {
 	const [videos, setVideos] = useState([]);
 	const [documents, setDocuments] = useState([]);
 
+	console.log(images);
+
 	const [loading, setLoading] = useState(false);
 	const [openSuccess, setOpenSuccess] = useState(false);
 	const [openError, setOpenError] = useState(false);
@@ -104,8 +106,8 @@ const Form = () => {
 		body.append(
 			'furnishingDetails',
 			JSON.stringify(furnishingDetails ? furnishingDetails : {})
-		); 
-		
+		);
+
 		// post to server
 		postFile('/properties/add', body).then(data => {
 			setLoading(false);
@@ -1087,8 +1089,7 @@ const Form = () => {
 									onClick={() =>
 										setImages(
 											images.filter(
-												(_, i) =>
-													i !== images.length - 1
+												(_, index) => index !== i
 											)
 										)
 									}
@@ -1133,8 +1134,7 @@ const Form = () => {
 									onClick={() =>
 										setVideos(
 											videos.filter(
-												(_, i) =>
-													i !== videos.length - 1
+												(_, index) => index !== i
 											)
 										)
 									}
@@ -1178,8 +1178,7 @@ const Form = () => {
 									onClick={() =>
 										setDocuments(
 											documents.filter(
-												(_, i) =>
-													i !== documents.length - 1
+												(_, index) => index !== i
 											)
 										)
 									}
