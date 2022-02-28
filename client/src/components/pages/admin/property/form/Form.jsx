@@ -100,8 +100,12 @@ const Form = () => {
 		}
 
 		// append furnishing details to body
-		body.append('furnishingDetails', JSON.stringify(furnishingDetails));
 
+		body.append(
+			'furnishingDetails',
+			JSON.stringify(furnishingDetails ? furnishingDetails : {})
+		); 
+		
 		// post to server
 		postFile('/properties/add', body).then(data => {
 			setLoading(false);

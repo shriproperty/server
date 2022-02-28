@@ -38,3 +38,19 @@ export const verifyJWT = token => {
 
 	return isVerified;
 };
+
+/**
+ * @param {string} token Token to verify
+ * @return {object} Decoded token
+ */
+export const decodeJWT = token => {
+	let decoded;
+
+	const verified = verifyJWT(token);
+
+	if (verified) {
+		decoded = jwt.decode(token);
+	}
+
+	return decoded;
+};

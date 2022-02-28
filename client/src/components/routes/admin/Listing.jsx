@@ -1,9 +1,9 @@
 import Form from '../../pages/admin/listing/Listing';
 
-const Listing = () => {
+const Listing = ({ isLoggedIn }) => {
 	return (
 		<main>
-			<Form />
+			<Form isLoggedIn={isLoggedIn} />
 		</main>
 	);
 };

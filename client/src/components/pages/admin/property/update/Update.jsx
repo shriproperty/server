@@ -132,13 +132,15 @@ const Update = () => {
 			body.append('otherFeatures', otherFeatures[feature]);
 		}
 
+		body.append(
+			'furnishingDetails',
+			JSON.stringify(furnishingDetails ? furnishingDetails : {})
+		);
+
 		//  append Facilities to body
 		for (let facility in facilities) {
 			body.append('facilities', facilities[facility]);
 		}
-
-		// append furnishing details to body
-		body.append('furnishingDetails', JSON.stringify(furnishingDetails));
 
 		// post to server
 		patchFile(`/properties/update/${id}`, body).then(data => {

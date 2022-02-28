@@ -57,7 +57,7 @@ const Nav = ({ isLoggedIn }) => {
 						<AccountCircleIcon />
 					</Link>
 
-					<Link to={'/listing'}>
+					<Link to={isLoggedIn ? '/listing' : '/login'}>
 						<BPrimary title="Add Listings" />
 					</Link>
 				</div>

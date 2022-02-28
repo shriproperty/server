@@ -1,9 +1,12 @@
-import React from 'react'
-import List from '../pages/account/Account'
-const Account = () => {
-  return (
-    <List/>
-  )
-}
+import React from 'react';
+import Page from '../pages/account/Account';
 
-export default Account
+const Account = ({ isLoggedIn }) => {
+	return (
+		<main>
+			<Page isLoggedIn={isLoggedIn} />
+		</main>
+	);
+};
+
+export default Account;

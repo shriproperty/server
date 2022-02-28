@@ -16,7 +16,8 @@ const userSchema = new mongoose.Schema({
 		required: true,
 	},
 
-	properties: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'AddListing' }],
+	properties: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Properties' }],
+	listings: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Listings' }],
 });
 
 const User = mongoose.model('User', userSchema);

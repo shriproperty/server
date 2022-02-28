@@ -78,8 +78,6 @@ const UserRoutes = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [authFormSubmit, setAuthFormSubmit] = useState(false);
 
-	console.log(authFormSubmit);
-
 	useEffect(() => {
 		get('/auth/is-logged-in').then(res => {
 			setIsLoggedIn(res.success);
@@ -94,7 +92,10 @@ const UserRoutes = () => {
 				<Route path="/" element={<Home />} />
 				<Route path="/properties" element={<Properties />} />
 				<Route path="/properties/:id" element={<Property />} />
-				<Route path="/listing" element={<Listing />} />
+				<Route
+					path="/listing"
+					element={<Listing isLoggedIn={isLoggedIn} />}
+				/>
 				<Route path="/allimages/:id" element={<AllImages />} />
 
 				<Route
@@ -107,7 +108,10 @@ const UserRoutes = () => {
 					element={<Login setAuthFormSubmit={setAuthFormSubmit} />}
 				/>
 
-				<Route path="/account" element={<Account />} />
+				<Route
+					path="/account"
+					element={<Account isLoggedIn={isLoggedIn} />}
+				/>
 				<Route path="/allimages" element={<AllImages />} />
 				<Route path="/404" element={<NotFound />} />
 				<Route path="*" element={<Navigate replace to="/404" />} />

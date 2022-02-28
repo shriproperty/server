@@ -2,17 +2,17 @@
 
 import mongoose from 'mongoose';
 
-const addListingSchema = new mongoose.Schema({
+const listingSchema = new mongoose.Schema({
 	// property
-	title: { type: String, required: true, default: '' },
-	description: { type: String, required: true, default: '' },
-	price: { type: String, required: true, default: 0 },
-	specialPrice: { type: String, required: true, default: '0' },
+	title: { type: String, required: true },
+	description: { type: String, required: true },
+	price: { type: String, required: true },
+	specialPrice: { type: String, required: false },
 	type: {
 		type: String,
 		required: true,
 		enum: ['Rental', 'Sale'],
-		default: 'Rental',
+		default: 'Sale',
 	},
 	category: {
 		type: String,
@@ -27,8 +27,9 @@ const addListingSchema = new mongoose.Schema({
 			'Independent/Builder Floor',
 			'Other',
 		],
-		default: 'Residential Apartment',
+		default: 'Other',
 	},
+
 	status: {
 		type: String,
 		required: true,
@@ -39,20 +40,39 @@ const addListingSchema = new mongoose.Schema({
 
 	// other details
 	size: { type: String, required: true },
-	//TODO: Add enum for unit
-	unit: { type: String, required: true },
-	bedroom: { type: String, required: true, default: 1 },
-	bathroom: { type: String, required: true, default: 1 },
+	unit: {
+		type: String,
+		required: true,
+		enum: [
+			'Sq. Ft.',
+			'Acre',
+			'Gaj',
+			'Marla',
+			'Bigha',
+			'Bigha-Pucca',
+			'Bigha-Kachha',
+			'Biswa',
+			'Biswa–Pucca',
+			'Kanal',
+			'Killa',
+			'Kattha',
+			'Ghumaon',
+		],
+	},
+
+	bedroom: { type: String, required: true, default: 0 },
+	bathroom: { type: String, required: true, default: 0 },
 	openParking: { type: String, required: true, default: 0 },
 	closeParking: { type: String, required: true, default: 0 },
-	kitchen: { type: String, required: true, default: 1 },
+	kitchen: { type: String, required: true, default: 0 },
 	livingRoom: { type: String, required: true, default: 0 },
 	store: { type: String, required: true, default: 0 },
 	balcony: { type: String, required: true, default: 0 },
 	dinningRoom: { type: String, required: true, default: 0 },
-	floor: { type: String, required: true, default: 'ground' },
+	floor: { type: String, required: true, default: 'Ground' },
 	poojaRoom: { type: String, required: true, default: 0 },
-	otherFeatures: { type: Array, required: true },
+	otherFeatures: { type: Array, required: true, default: [] },
+	lobby: { type: String, required: true, default: 0 },
 	direction: {
 		type: String,
 		required: true,
@@ -68,8 +88,19 @@ const addListingSchema = new mongoose.Schema({
 			'South-West',
 		],
 	},
+	purchaseType: {
+		type: String,
+		required: true,
+		enum: ['New Booking', 'Resale'],
+		default: 'New Booking',
+	},
+	constructionStatus: {
+		type: String,
+		required: true,
+		enum: ['Under Construction', 'Ready to Move'],
+	},
 	// images
-	images: { type: Array, required: true },
+	images: { type: Array, required: false },
 	videos: { type: Array, required: false },
 	documents: { type: Array, required: false },
 
@@ -79,8 +110,20 @@ const addListingSchema = new mongoose.Schema({
 	// owner/builder
 	owner: { type: String, required: true },
 	ownerContact: { type: String, required: true },
+	commission: { type: String, required: true },
+	age: { type: String, required: false },
+	possession: { type: String, required: false },
+	location: { type: String, required: false, default: '' },
+	furnishingDetails: {
+		type: Object,
+		required: false,
+	},
+	facilities: {
+		type: Array,
+		required: false,
+	},
 });
 
-const AddListing = mongoose.model('AddListing', addListingSchema);
+const Listing = mongoose.model('Listing', listingSchema);
 
-export default AddListing;
+export default Listing;

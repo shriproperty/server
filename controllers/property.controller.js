@@ -116,10 +116,10 @@ export const createProperty = async (req, res) => {
 
 		// validate status
 		if (
+			status &&
 			status !== 'Unfurnished' &&
 			status !== 'Semifurnished' &&
-			status !== 'Furnished' &&
-			status !== null
+			status !== 'Furnished'
 		) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
@@ -182,7 +182,11 @@ export const createProperty = async (req, res) => {
 		}
 
 		// validate purchase type
-		if (purchaseType !== 'New Booking' && purchaseType !== 'Resale') {
+		if (
+			purchaseType &&
+			purchaseType !== 'New Booking' &&
+			purchaseType !== 'Resale'
+		) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
@@ -194,6 +198,7 @@ export const createProperty = async (req, res) => {
 
 		// validate construction status
 		if (
+			constructionStatus &&
 			constructionStatus !== 'Under Construction' &&
 			constructionStatus !== 'Ready to Move'
 		) {
@@ -293,7 +298,9 @@ export const createProperty = async (req, res) => {
 			constructionStatus,
 			location,
 			facilities: parsedFacilities,
-			furnishingDetails: JSON.parse(furnishingDetails),
+			furnishingDetails: furnishingDetails
+				? JSON.parse(furnishingDetails)
+				: {},
 		});
 
 		// send response
@@ -526,7 +533,11 @@ export const update = async (req, res) => {
 		}
 
 		// validate purchase type
-		if (purchaseType !== 'New Booking' && purchaseType !== 'Resale') {
+		if (
+			purchaseType &&
+			purchaseType !== 'New Booking' &&
+			purchaseType !== 'Resale'
+		) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
@@ -538,6 +549,7 @@ export const update = async (req, res) => {
 
 		// validate construction status
 		if (
+			constructionStatus &&
 			constructionStatus !== 'Under Construction' &&
 			constructionStatus !== 'Ready to Move'
 		) {
@@ -546,6 +558,26 @@ export const update = async (req, res) => {
 				success: false,
 				message:
 					"Construction Status can only be either 'Under Construction' or 'Ready to Move'",
+				data: {},
+			});
+		}
+
+		// validate furnishing details
+		if (
+			/**
+			 * this will first parse the furnishing details to object
+			 *  and than push it's keys to an array and than check if its
+			 *  length is greater than 0 so that we can check if object is empty or not
+			 */
+			Object.keys(JSON.parse(furnishingDetails)).length > 0 &&
+			status !== 'Semifurnished' &&
+			status !== 'Furnished'
+		) {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
+				message:
+					'Furnishing Details can only be filled when Status is either Semifurnished or Furnished',
 				data: {},
 			});
 		}
@@ -592,13 +624,13 @@ export const update = async (req, res) => {
 			deleteMultipleFilesFromS3(filesToDelete);
 		}
 
-			if (facilities.length > 0) {
-				facilities.forEach(facility =>
-					parsedFacilities.push(JSON.parse(facility))
-				);
-			}
+		if (facilities.length > 0) {
+			facilities.forEach(facility =>
+				parsedFacilities.push(JSON.parse(facility))
+			);
+		}
 
-		//  update property
+		// ANCHOR  update property
 		const updatedProperty = await Property.findByIdAndUpdate(
 			id,
 			{
@@ -634,7 +666,9 @@ export const update = async (req, res) => {
 				constructionStatus,
 				location,
 				facilities: parsedFacilities,
-				furnishingDetails: JSON.parse(furnishingDetails),
+				furnishingDetails: furnishingDetails
+					? JSON.parse(furnishingDetails)
+					: {},
 				images: images.length > 0 ? images : propertyFromDB.images,
 				documents:
 					documents.length > 0 ? documents : propertyFromDB.documents,
