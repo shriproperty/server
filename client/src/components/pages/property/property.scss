@@ -91,7 +91,7 @@
 	align-items: center;
 
 	&_sub {
-		padding: 1rem 0 3rem 4rem;
+		padding: 1rem 0 3rem 1.5rem;
 	}
 
 	&_addr {
@@ -101,6 +101,12 @@
 
 	&_link {
 		font-size: 1rem;
+	}
+
+	&_location{
+		margin-left: 3.5rem;
+		height: 6rem;
+		width: 5.5rem;
 	}
 }
 
@@ -166,6 +172,7 @@
 
 	&_heading {
 		margin-top: 2rem;
+		margin-bottom: 2rem;
 		font-size: 2rem;
 	}
 
@@ -188,6 +195,7 @@
 
 	h1 {
 		margin-top: 2rem;
+		margin-bottom: 2rem;
 		font-size: 2rem;
 	}
 
@@ -205,6 +213,7 @@
 
 	h1 {
 		margin-top: 2rem;
+		margin-bottom: 2rem;
 		font-size: 2rem;
 	}
 
@@ -254,7 +263,7 @@
 
 .amenities-section {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
 	padding: 0 4rem;
 
 	.amenities-container {

@@ -42,6 +42,18 @@ const Category = () => {
 						/>
 					</Link>
 				</div>
+				<div className="category-grid__child  category-grid__child--2">
+					<h2 className="category-grid__child-heading">
+						Commercial Plot
+					</h2>
+					<Link to="/properties?s=Commercial Plot">
+						<BPrimary
+							title="Explore"
+							className="category-grid__child-btn"
+							type="submit"
+						/>
+					</Link>
+				</div>
 
 				<div className="category-grid__child  category-grid__child--3">
 					<h2 className="category-grid__child-heading">Plots</h2>
