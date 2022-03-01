@@ -4,8 +4,6 @@ import get from '../../../api/get';
 import { Link } from 'react-router-dom';
 import { BPrimary } from '../../util/button/Button';
 import { HPrimary } from '../../util/typography/Typography';
-import { AError, ASuccess } from '../../util/alert/Alert';
-import Modal from '../../util/modal/Modal';
 import Loader from '../../util/loader/Loader';
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -17,13 +15,9 @@ import {
 } from '@mui/material';
 import './account.scss';
 
-const Account = ({ isLoggedIn }) => {
+const Account = () => {
 	const [response, setResponse] = useState([]);
 	const [propertyLoading, setPropertyLoading] = useState(true);
-	const [errorMessage, setErrorMessage] = useState('');
-	const [openError, setOpenError] = useState(false);
-	const [successMessage, setSuccessMessage] = useState('');
-	const [openSuccess, setOpenSuccess] = useState(false);
 
 	useEffect(() => {
 		get('/users/decode').then(res => {
@@ -38,26 +32,15 @@ const Account = ({ isLoggedIn }) => {
 
 	return (
 		<section>
-			<h1 className="main-heading">My Account</h1>
+			<HPrimary title="My Account" className="main-heading" />
+
 			<div className="buttons">
 				<Link to="/account/edit">
 					<BPrimary title="Hello" />
 				</Link>
 			</div>
 			<h1 className="listing-heading">Approved Listing</h1>
-			<ASuccess
-				title={successMessage}
-				open={openSuccess}
-				setOpen={setOpenSuccess}
-				className="admin-page__alert"
-			/>
 
-			<AError
-				title={errorMessage}
-				open={openError}
-				setOpen={setOpenError}
-				className="admin-page__alert"
-			/>
 			{propertyLoading ? (
 				<Loader fullScreen />
 			) : (
@@ -78,14 +61,6 @@ const Account = ({ isLoggedIn }) => {
 
 							<TableCell className="contact-table__cell">
 								Special Price
-							</TableCell>
-
-							<TableCell className="contact-table__cell">
-								Owner
-							</TableCell>
-
-							<TableCell className="contact-table__cell">
-								Owner Contact
 							</TableCell>
 
 							<TableCell className="contact-table__cell">
@@ -111,14 +86,6 @@ const Account = ({ isLoggedIn }) => {
 
 								<TableCell className="contact-table__cell">
 									{item.specialPrice}
-								</TableCell>
-
-								<TableCell className="contact-table__cell">
-									{item.owner}
-								</TableCell>
-
-								<TableCell className="contact-table__cell">
-									{item.ownerContact}
 								</TableCell>
 
 								<TableCell className="contact-table__cell">
