@@ -14,7 +14,6 @@ const Account = ({ isLoggedIn }) => {
 				`/users/single/${res.data.id}?listings=true&properties=false`
 			).then(data => {
 				setResponse(data.data);
-				console.log(data);
 			});
 		});
 	}, []);
