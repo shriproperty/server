@@ -1,15 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import get from '../../../api/get';
+
 import './account.scss';
 const Account = ({ isLoggedIn }) => {
 	const navigate = useNavigate();
+	const [id, setId] = useState('');
+	const [response, setResponse] = useState({});
 
 	useEffect(() => {
-		!isLoggedIn && navigate('/login');
-	}, [isLoggedIn]);
+		get('/users/decode').then(res => {
+			get(`/users/single/${res.data.id}?listings=true&properties=false`).then(data => {
+				setResponse(data.data);
+				console.log(data);
+			});
+		});
+	}, []);
 
-	return <section>Account</section>;
+	return (
+		<section>
+			<h1 className="main-heading">MyAccount</h1>
+		</section>
+	);
 };
 
 export default Account;
