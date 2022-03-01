@@ -53,20 +53,3 @@ a {
 	background: $color-primary !important;
 	color: $color-white !important;
 }
-
-::-webkit-scrollbar {
-	width: 1rem;
-}
-
-::-webkit-scrollbar-thumb {
-	background-color: $color-primary;
-	border-radius: 0.5rem;
-}
-
-::-webkit-scrollbar-thumb:hover {
-	background-color: $color-primary-dark;
-}
-
-::-webkit-scrollbar-thumb:active {
-	background-color: rgba($color: $color-primary-dark, $alpha: 0.8);
-}

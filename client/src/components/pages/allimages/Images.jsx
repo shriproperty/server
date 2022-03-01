@@ -63,7 +63,6 @@ const Images = () => {
 						<div className="allImages-section__others">
 							{response.videos.map(video => (
 								<video
-									controls
 									autoPlay
 									muted
 									loop

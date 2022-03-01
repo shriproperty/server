@@ -25,6 +25,7 @@
 	&__others {
 		display: flex;
 		margin-top: 2rem;
+		overflow-x: scroll;
 
 		img,
 		video {
