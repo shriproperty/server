@@ -709,13 +709,13 @@ export const deleteListing = async (req, res) => {
 /* ----------------------------- SECTION approve listing ---------------------------- */
 export const approveListing = async (req, res) => {
 	try {
-		const { id, userId } = req.params;
+		const { id } = req.params;
+		const { userId } = req.query;
 
 		// get listing from db
 		const listing = await Listing.findById(id);
 
 		// push listing to user's approved listings
-		const user = await User.findById(id);
 
 		const newPropertyObject = {};
 
@@ -731,6 +731,15 @@ export const approveListing = async (req, res) => {
 
 		// create new property from listing
 		const newProperty = await Property.create(newPropertyObject);
+
+		const user = await User.findById(userId);
+
+		const newListings = user.listings.filter(listing => listing._id !== id);
+
+		await User.findByIdAndUpdate(userId, {
+			listings: newListings,
+			properties: [...user.properties, newProperty],
+		});
 
 		// delete listing from db
 		await Listing.findByIdAndDelete(id);

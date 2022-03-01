@@ -11,6 +11,7 @@ import { ASuccess, AError } from '../../util/alert/Alert';
 import { CheckBox } from '../../util/input/Input';
 import DeleteIcon from '@mui/icons-material/Delete';
 import get from '../../../api/get';
+import put from '../../../api/put';
 
 import '../admin/property/form/form.scss';
 import { postFile } from '../../../api/post';

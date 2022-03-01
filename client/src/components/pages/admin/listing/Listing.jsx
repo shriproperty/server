@@ -162,7 +162,7 @@ const Listing = () => {
 		return e => {
 			e.preventDefault();
 
-			putRequest(`/listings/approve/${id}`).then(data => {
+			putRequest(`/listings/approve/${property._id}?userId=${property.ownerId}`).then(data => {
 				if (data.success) {
 					setSuccessMessage(data.message);
 					setOpenSuccess(true);
