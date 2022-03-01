@@ -170,6 +170,7 @@ const Property = () => {
 						title="Verify"
 						type="submit"
 						loading={btnLoading}
+						className="model-btn"
 					/>
 				</form>
 			</Modal>

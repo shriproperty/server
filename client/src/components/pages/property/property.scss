@@ -240,7 +240,7 @@
 	width: 35% !important;
 
 	@media screen and (max-width: 800px) {
-		width: 50% !important;
+		width: 80% !important;
 	}
 	&-container {
 		display: flex;
@@ -264,6 +264,7 @@
 			background-color: $color-background !important;
 		}
 	}
+	
 }
 
 .amenities-section {
