@@ -110,6 +110,11 @@ const listingSchema = new mongoose.Schema({
 	// owner/builder
 	owner: { type: String, required: true },
 	ownerContact: { type: String, required: true },
+	ownerId: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true,
+	},
+
 	commission: { type: String, required: true },
 	age: { type: String, required: false },
 	possession: { type: String, required: false },

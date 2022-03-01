@@ -42,7 +42,7 @@ export const deleteSingleFileFromS3 = key => {
 		Key: key,
 	};
 
-	s3.deleteObject(params).promise();
+	return s3.deleteObject(params).promise();
 };
 
 /**

@@ -284,6 +284,7 @@ export const addNewListing = async (req, res) => {
 			videos,
 			owner,
 			ownerContact,
+			ownerId: userId,
 			lobby,
 			commission,
 			age,
