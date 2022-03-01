@@ -67,7 +67,7 @@ const Properties = () => {
 								/>
 
 								<h4 className="properties-section__property-price">
-									₹ {property.specialPrice}
+									₹ {property.price} Click here for best price
 								</h4>
 
 								<SSecondary
