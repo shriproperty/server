@@ -734,7 +734,9 @@ export const approveListing = async (req, res) => {
 
 		const user = await User.findById(userId);
 
-		const newListings = user.listings.filter(listing => listing._id !== id);
+		const newListings = user.listings.filter(
+			listing => listing._id.toString() !== id
+		);
 
 		await User.findByIdAndUpdate(userId, {
 			listings: newListings,
