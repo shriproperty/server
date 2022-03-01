@@ -12,8 +12,12 @@
 		justify-content: space-between;
 		width: 70%;
 		border-radius: 2rem;
-		padding: 0 4rem;
+		padding: 1.5rem 4rem;
 		box-shadow: $shadow-secondary;
+		@media screen and (max-width: 900px) {
+			width: 80%;
+			flex-direction: column;
+		}
 	}
 
 	&__form {
@@ -21,11 +25,19 @@
 		flex-direction: column;
 		display: flex;
 		align-items: center;
+		@media screen and (max-width: 900px) {
+			margin-top: 4rem;
+			width: 100%;
+		}
 	}
 
 	&__image {
 		height: 50rem;
 		width: 50rem;
+		@media screen and (max-width: 900px) {
+			height: 40rem;
+			width: 40rem;
+		}
 	}
 
 	&__input {
@@ -33,6 +45,10 @@
 
 		input {
 			font-size: 1.4rem !important;
+			@media screen and (max-width: 900px) {
+				margin-top: 1rem;
+				font-size: 2rem !important;
+			}
 		}
 
 		label {
@@ -57,5 +73,8 @@
 
 	&__btn {
 		margin-top: 2rem !important;
+		@media screen and (max-width: 900px) {
+			font-size: 2rem !important;
+		}
 	}
 }

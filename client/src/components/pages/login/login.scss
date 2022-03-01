@@ -14,6 +14,10 @@
 		border-radius: 2rem;
 		padding: 1.5rem 4rem;
 		box-shadow: $shadow-secondary;
+		@media screen and (max-width: 900px) {
+			flex-direction: column;
+			width: 80%;
+		}
 	}
 
 	&__form {
@@ -21,11 +25,19 @@
 		flex-direction: column;
 		display: flex;
 		align-items: center;
+		@media screen and (max-width: 900px) {
+			margin-top: 4rem;
+			width: 100%;
+		}
 	}
 
 	&__image {
 		height: 50rem;
 		width: 50rem;
+		@media screen and (max-width: 900px) {
+			height: 40rem;
+			width: 40rem;
+		}
 	}
 
 	&__input {
@@ -44,6 +56,11 @@
 	&__link {
 		font-size: 1.4rem;
 
+		@media screen and (max-width: 900px) {
+			maring-top:1rem;
+			font-size: 2rem;
+		}
+
 		a {
 			color: $color-primary;
 			text-decoration: underline;
@@ -57,5 +74,8 @@
 
 	&__btn {
 		margin-top: 2rem !important;
+		@media screen and (max-width: 900px) {
+			font-size: 2rem !important;
+		}
 	}
 }

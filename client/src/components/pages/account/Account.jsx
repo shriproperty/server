@@ -65,7 +65,10 @@ const Account = ({ isLoggedIn }) => {
 	return (
 		<section>
 			<h1 className="main-heading">MyAccount</h1>
-			<h1>Approved Listing</h1>
+			<div className="buttons">
+				<Link to="/account/edit"><BPrimary title = 'Hello'/></Link>
+			</div>
+			<h1 className='listing-heading'>Approved Listing</h1>
 			<ASuccess
 				title={successMessage}
 				open={openSuccess}
@@ -159,7 +162,7 @@ const Account = ({ isLoggedIn }) => {
 									{item.ownerContact}
 								</TableCell>
 
-								<TableCell className="contact-table__cell">
+								{/* <TableCell className="contact-table__cell">
 									<BPrimary
 										title={<DeleteIcon />}
 										onClick={() => setOpenModal(true)}
@@ -175,7 +178,7 @@ const Account = ({ isLoggedIn }) => {
 											onClick={() => setOpenModal(true)}
 										/>
 									</Link>
-								</TableCell>
+								</TableCell> */}
 							</TableRow>
 						))}
 					</TableBody>
