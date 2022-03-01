@@ -20,7 +20,7 @@ export const getSingleUser = async (req, res) => {
 					data: {},
 				});
 			}
-
+			
 			return res.status(200).json({
 				success: true,
 				message: 'User fetched successfully',
