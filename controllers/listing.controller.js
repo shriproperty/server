@@ -13,6 +13,7 @@ import {
 import {
 	uploadFileToS3,
 	deleteMultipleFilesFromS3,
+	deleteSingleFileFromS3,
 } from '../helpers/s3.helper.js';
 
 /* ----------------------------- SECTION add new listing ---------------------------- */
@@ -339,7 +340,9 @@ export const getAll = async (req, res) => {
 	}
 };
 
-/* --------------------------- ANCHOR get single property -------------------------- */
+/* --------------------------- !SECTION get all property end -------------------------- */
+
+/* --------------------------- SECTION get single property -------------------------- */
 export const getSingle = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -360,9 +363,12 @@ export const getSingle = async (req, res) => {
 	}
 };
 
-/* --------------------------------- ANCHOR update --------------------------------- */
+/* --------------------------- !SECTION get single end -------------------------- */
+
+/* ----------------------------- SECTION update property ---------------------------- */
 export const update = async (req, res) => {
 	try {
+		// ANCHOR get inputs
 		const { id } = req.params;
 
 		const {
@@ -390,13 +396,23 @@ export const update = async (req, res) => {
 			status,
 			featured,
 			otherFeatures,
+			lobby,
+			commission,
+			age,
+			possession,
+			purchaseType,
+			constructionStatus,
+			location,
+			furnishingDetails,
+			facilities,
 		} = req.body;
 
 		const images = [];
 		const videos = [];
 		const documents = [];
+		const parsedFacilities = [];
 
-		const filesToDelete = [];
+		// ANCHOR Validate Inputs
 
 		// validate type
 		if (type !== 'Rental' && type !== 'Sale') {
@@ -414,6 +430,7 @@ export const update = async (req, res) => {
 			category !== 'Independent House/Villa' &&
 			category !== 'Plot' &&
 			category !== 'Commercial Office' &&
+			category !== 'Commercial Plot' &&
 			category !== 'Serviced Apartments' &&
 			category !== '1 RK/ Studio Apartment' &&
 			category !== 'Independent/Builder Floor' &&
@@ -444,12 +461,34 @@ export const update = async (req, res) => {
 			});
 		}
 
-		//TODO: add more fields for unit enum
-		if (unit !== 'sq' && unit !== 'marla') {
+		if (
+			unit !== 'Sq. Ft.' &&
+			unit !== 'Acre' &&
+			unit !== 'Gaj' &&
+			unit !== 'Marla' &&
+			unit !== 'Bigha' &&
+			unit !== 'Bigha-Pucca' &&
+			unit !== 'Bigha-Kachha' &&
+			unit !== 'Biswa' &&
+			unit !== 'Biswa-Pucca' &&
+			unit !== 'Kanal' &&
+			unit !== 'Killa' &&
+			unit !== 'Kattha' &&
+			unit !== 'Ghumaon'
+		) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
 				message: 'Unit can only be "sq" or "marla"',
+			});
+		}
+
+		// validate featured
+		if (featured !== 'true' && featured !== 'false') {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
+				message: 'Featured can only be true or false',
 			});
 		}
 
@@ -473,7 +512,58 @@ export const update = async (req, res) => {
 			});
 		}
 
-		const addListingFromDB = await Listing.findById(id);
+		// validate purchase type
+		if (
+			purchaseType &&
+			purchaseType !== 'New Booking' &&
+			purchaseType !== 'Resale'
+		) {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
+				message:
+					"Purchase Type can only be either 'New Booking' or 'Resale'",
+				data: {},
+			});
+		}
+
+		// validate construction status
+		if (
+			constructionStatus &&
+			constructionStatus !== 'Under Construction' &&
+			constructionStatus !== 'Ready to Move'
+		) {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
+				message:
+					"Construction Status can only be either 'Under Construction' or 'Ready to Move'",
+				data: {},
+			});
+		}
+
+		// validate furnishing details
+		if (
+			/**
+			 * this will first parse the furnishing details to object
+			 *  and than push it's keys to an array and than check if its
+			 *  length is greater than 0 so that we can check if object is empty or not
+			 */
+			Object.keys(JSON.parse(furnishingDetails)).length > 0 &&
+			status !== 'Semifurnished' &&
+			status !== 'Furnished'
+		) {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
+				message:
+					'Furnishing Details can only be filled when Status is either Semifurnished or Furnished',
+				data: {},
+			});
+		}
+
+		// ANCHOR Update Property
+		const propertyFromDB = await Listing.findById(id);
 
 		if (req.files.length > 0) {
 			// upload files to aws s3
@@ -485,7 +575,7 @@ export const update = async (req, res) => {
 					key: response.Key,
 				};
 
-				// push file paths to respoective arrays
+				// push file paths to respective arrays
 				if (file.fieldname === 'images') {
 					images.push(fileObject);
 				} else if (file.fieldname === 'videos') {
@@ -497,27 +587,16 @@ export const update = async (req, res) => {
 				// delete files from uploads folder
 				deleteSingleFileFromDisk(file.path);
 			}
-
-			// delete files from aws s3
-
-			/**
-			 * delete only those files which we are getting from the request
-			 * eg if we are updating property and we are not getting any new images
-			 * but we are getting new videos and documents
-			 * then we will delete only videos and documents not images
-			 */
-			if (images.length > 0)
-				filesToDelete.push(...addListingFromDB.images);
-			if (videos.length > 0)
-				filesToDelete.push(...addListingFromDB.videos);
-			if (documents.length > 0)
-				filesToDelete.push(...addListingFromDB.documents);
-
-			deleteMultipleFilesFromS3(filesToDelete);
 		}
 
-		// update property
-		const updatedAddListing = await Listing.findByIdAndUpdate(
+		if (facilities.length > 0) {
+			facilities.forEach(facility =>
+				parsedFacilities.push(JSON.parse(facility))
+			);
+		}
+
+		// ANCHOR  update property
+		const updatedProperty = await Listing.findByIdAndUpdate(
 			id,
 			{
 				title,
@@ -544,12 +623,29 @@ export const update = async (req, res) => {
 				status,
 				featured,
 				otherFeatures,
-				images: images.length > 0 ? images : addListingFromDB.images,
+				lobby,
+				age,
+				commission,
+				possession,
+				purchaseType,
+				constructionStatus,
+				location,
+				facilities: parsedFacilities,
+				furnishingDetails: furnishingDetails
+					? JSON.parse(furnishingDetails)
+					: {},
+				images:
+					images.length > 0
+						? [...propertyFromDB.images, ...images]
+						: propertyFromDB.images,
+				videos:
+					videos.length > 0
+						? [...propertyFromDB.videos, ...videos]
+						: propertyFromDB.videos,
 				documents:
 					documents.length > 0
-						? documents
-						: addListingFromDB.documents,
-				videos: videos.length > 0 ? videos : addListingFromDB.videos,
+						? [...propertyFromDB.documents, ...documents]
+						: propertyFromDB.documents,
 			},
 			{ new: true }
 		);
@@ -558,12 +654,13 @@ export const update = async (req, res) => {
 		res.status(200).json({
 			success: true,
 			message: 'Property updated successfully',
-			data: updatedAddListing,
+			data: updatedProperty,
 		});
 	} catch (err) {
+		logger.error(err);
 		deleteMultipleFilesFromDisk(req.files);
 
-		res.status(404).json({
+		res.status(400).json({
 			success: false,
 			message: 'Invalid Id',
 			data: {},
@@ -571,9 +668,9 @@ export const update = async (req, res) => {
 	}
 };
 
-/* -------------------------------- !SECTION update listing end -------------------------------- */
+/* ---------------------- !SECTION update property end ---------------------- */
 
-/* ----------------------------- ANCHOR delete property ---------------------------- */
+/* ----------------------------- SECTION delete property ---------------------------- */
 export const deleteListing = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -605,6 +702,8 @@ export const deleteListing = async (req, res) => {
 		});
 	}
 };
+
+/* ----------------------------- !SECTION delete property end ---------------------------- */
 
 /* ----------------------------- SECTION approve listing ---------------------------- */
 export const approveListing = async (req, res) => {
@@ -651,3 +750,57 @@ export const approveListing = async (req, res) => {
 };
 
 /* -------------------------------- !SECTION approve listing end -------------------------------- */
+
+/* -------------------------- SECTION delete specific File -------------------------- */
+export const deleteFile = async (req, res) => {
+	try {
+		const { key, id, type } = req.params;
+
+		const property = await Listing.findById(id);
+
+		// delete files from property
+		if (type === 'images') {
+			const removedImage = property.images.filter(
+				image => image.key !== key
+			);
+
+			await Listing.findByIdAndUpdate(
+				id,
+				{
+					images: removedImage,
+				},
+				{ new: true }
+			);
+		} else if (type === 'videos') {
+			const removedVideo = property.videos.filter(
+				video => video.key !== key
+			);
+
+			await Listing.findByIdAndUpdate(
+				id,
+				{
+					videos: removedVideo,
+				},
+				{ new: true }
+			);
+		}
+
+		// delete file from aws s3
+		await deleteSingleFileFromS3(key);
+
+		res.status(200).json({
+			success: true,
+			message: 'File deleted successfully',
+			data: {},
+		});
+	} catch (err) {
+		logger.error(err);
+		res.status(400).json({
+			success: false,
+			message: 'Invalid key',
+			data: {},
+		});
+	}
+};
+
+/* -------------------------------- !SECTION delete file end -------------------------------- */

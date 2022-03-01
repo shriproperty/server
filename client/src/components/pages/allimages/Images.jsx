@@ -66,6 +66,7 @@ const Images = () => {
 									autoPlay
 									muted
 									loop
+									key={video.key}
 									onClick={e =>
 										setMainImgUrl({
 											type: 'video',
@@ -92,26 +93,6 @@ const Images = () => {
 								/>
 							))}
 						</div>
-
-						{/* {response.videos.length > 0 && (
-							<video controls autoPlay muted loop>
-								<source
-									src={response.videos[0]?.url}
-									type="video/mp4"
-								/>
-								there is no video :(
-							</video>
-						)}
-						{response.images.map(img => (
-							<div className="image-container">
-								<img
-									key={img.key}
-									src={img.url}
-									className="image"
-									alt="property"
-								/>
-							</div>
-						))} */}
 					</>
 				)}
 			</section>

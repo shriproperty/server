@@ -16,7 +16,7 @@ const Listings = ({ submit, setSubmit }) => {
 	const [propertyLoading, setPropertyLoading] = useState(true);
 
 	useEffect(() => {
-		getRequest('/add-listing/all').then(data => {
+		getRequest('/listings/all').then(data => {
 			setResponse(data.data);
 			setPropertyLoading(false);
 			setSubmit(false);

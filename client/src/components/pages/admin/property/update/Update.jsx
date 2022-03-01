@@ -410,7 +410,7 @@ const Update = () => {
 						variant="outlined"
 						label="Bedrooms"
 						type="number"
-						value={property.bedrooms}
+						value={property.bedroom}
 						onChange={e =>
 							setProperty({
 								...property,
@@ -485,7 +485,7 @@ const Update = () => {
 						variant="outlined"
 						label="Store Room"
 						type="number"
-						value={property.storeRoom}
+						value={property.store}
 						onChange={e =>
 							setProperty({ ...property, store: e.target.value })
 						}

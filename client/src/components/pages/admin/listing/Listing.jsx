@@ -8,23 +8,25 @@ import Select from '@mui/material/Select';
 import { BPrimary, BUpload } from '../../../util/button/Button';
 import { ASuccess, AError } from '../../../util/alert/Alert';
 import Loader from '../../../util/loader/Loader';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { patchFile } from '../../../../api/patch';
 import putRequest from '../../../../api/put';
 import get from '../../../../api/get';
 import deleteRequest from '../../../../api/delete';
+import { CheckBox } from '../../../util/input/Input';
 
 //NOTE: Sass is coming from form.scss file in ../form folder
 
 const Listing = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
-
+	/* --------------------------------- ANCHOR States --------------------------------- */
 	const [property, setProperty] = useState({
 		title: '',
 		description: '',
-		price: 0,
-		specialPrice: 0,
+		price: '',
+		specialPrice: '',
 		type: '',
 		category: '',
 		status: '',
@@ -42,35 +44,54 @@ const Listing = () => {
 		floor: '',
 		direction: '',
 		kitchen: 0,
+		lobby: 0,
 		address: '',
+		location: '',
 		featured: false,
 		owner: '',
 		ownerContact: '',
+		commission: 0,
+		age: 0,
+		possession: '',
+		purchaseType: '',
+		constructionStatus: '',
 	});
-
-	const [images, setImages] = useState([]);
-	const [videos, setVideos] = useState('');
-	const [documents, setDocuments] = useState('');
 	const [otherFeatures, setOtherFeatures] = useState([]);
-	const [loading, setLoading] = useState(false);
-	const [loadingPage, setLoadingPage] = useState(true);
+	const [furnishingDetails, setFurnishingDetails] = useState({});
+	const [facilities, setFacilities] = useState([]);
+	const [images, setImages] = useState([]);
+	const [videos, setVideos] = useState([]);
+	const [documents, setDocuments] = useState([]);
+
 	const [openSuccess, setOpenSuccess] = useState(false);
 	const [openError, setOpenError] = useState(false);
 	const [successMessage, setSuccessMessage] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
 
+	const [loading, setLoading] = useState(false);
+	const [deleteFile, setDeleteFile] = useState(false);
+	const [loadingPage, setLoadingPage] = useState(true);
+
 	useEffect(() => {
-		get(`/add-listing/single/${id}`)
+		get(`/listings/single/${id}`)
 			.then(res => {
 				setProperty(res.data);
 				setOtherFeatures(res.data.otherFeatures);
+				setFurnishingDetails(res.data.furnishingDetails);
+				res.data.facilities.forEach(fac => {
+					setFacilities(prevState => [
+						...prevState,
+						JSON.stringify(fac),
+					]);
+				});
 				setLoadingPage(false);
+				setDeleteFile(false);
 			})
 			.catch(err => {
 				navigate('/404');
 			});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [id]);
+	}, [id, deleteFile]);
 
 	const body = new FormData();
 
@@ -81,7 +102,11 @@ const Listing = () => {
 
 		// append data to body to send
 		for (const key in property) {
-			if (key !== 'otherFeatures') {
+			if (
+				key !== 'otherFeatures' &&
+				key !== 'facilities' &&
+				key !== 'furnishingDetails'
+			) {
 				body.append(key, property[key]);
 			}
 		}
@@ -106,8 +131,18 @@ const Listing = () => {
 			body.append('otherFeatures', otherFeatures[feature]);
 		}
 
+		body.append(
+			'furnishingDetails',
+			JSON.stringify(furnishingDetails ? furnishingDetails : {})
+		);
+
+		//  append Facilities to body
+		for (let facility in facilities) {
+			body.append('facilities', facilities[facility]);
+		}
+
 		// post to server
-		patchFile(`/add-listing/update/${id}`, body).then(data => {
+		patchFile(`/listings/update/${id}`, body).then(data => {
 			setLoading(false);
 
 			if (data.success) {
@@ -127,7 +162,7 @@ const Listing = () => {
 		return e => {
 			e.preventDefault();
 
-			putRequest(`/add-listing/approve/${id}`).then(data => {
+			putRequest(`/listings/approve/${id}`).then(data => {
 				if (data.success) {
 					setSuccessMessage(data.message);
 					setOpenSuccess(true);
@@ -142,11 +177,21 @@ const Listing = () => {
 		};
 	};
 
+	const deleteFileHandler = (id, type, key) => {
+		return e => {
+			deleteRequest(`/listings/delete-file/${id}/${type}/${key}`).then(
+				data => {
+					setDeleteFile(true);
+				}
+			);
+		};
+	};
+
 	const deleteHandler = id => {
 		return e => {
 			e.preventDefault();
 
-			deleteRequest(`/add-listing/delete/${id}`).then(data => {
+			deleteRequest(`/listings/delete/${id}`).then(data => {
 				if (data.success) {
 					setSuccessMessage(data.message);
 					setOpenSuccess(true);
@@ -159,6 +204,42 @@ const Listing = () => {
 				}
 			});
 		};
+	};
+
+	/* --------------------------------- ANCHOR Checkbox handler --------------------------------- */
+	/**
+	 * Checkbox handler
+	 * @param {boolean} checked The value of the checkbox
+	 * @param {string} title The title of the facility
+	 * @param {string} icon Icon which will be used for facility should be same as icon name in file system
+	 * @return {Function} Function used by onChange event of checkbox
+	 */
+	const checkboxHandler = (checked, title, icon) => {
+		if (checked) {
+			setFacilities(prevState => [
+				...prevState,
+				JSON.stringify({
+					title,
+					icon,
+				}),
+			]);
+		} else {
+			setFacilities(prevState =>
+				prevState.filter(item => JSON.parse(item).title !== title)
+			);
+		}
+	};
+
+	/* ---------------------------- ANCHOR Facility Checker ---------------------------- */
+	/**
+	 * Check if an facility exists in the facilities array
+	 * @param {string} title The title of the facility
+	 * @return {boolean} `true` if the facility exists, `false` otherwise
+	 */
+	const facilityChecker = title => {
+		return facilities.some(
+			facility => JSON.parse(facility).title === title
+		);
 	};
 
 	return (
@@ -172,13 +253,11 @@ const Listing = () => {
 						open={openSuccess}
 						setOpen={setOpenSuccess}
 					/>
-
 					<AError
 						title={errorMessage}
 						open={openError}
 						setOpen={setOpenError}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -190,7 +269,6 @@ const Listing = () => {
 							setProperty({ ...property, title: e.target.value })
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -206,7 +284,6 @@ const Listing = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -221,7 +298,20 @@ const Listing = () => {
 							})
 						}
 					/>
-
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Location"
+						value={property.location}
+						helperText="Paste google maps url here"
+						fullWidth
+						onChange={e =>
+							setProperty({
+								...property,
+								location: e.target.value,
+							})
+						}
+					/>
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -230,13 +320,23 @@ const Listing = () => {
 						required
 						fullWidth
 						onChange={e =>
+							setProperty({ ...property, owner: e.target.value })
+						}
+					/>
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Commission"
+						value={property.commission}
+						required
+						fullWidth
+						onChange={e =>
 							setProperty({
 								...property,
-								owner: e.target.value,
+								commission: e.target.value,
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -251,20 +351,18 @@ const Listing = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
 						label="Other Features"
 						helperText="Separate with enter"
-						value={otherFeatures.join('\n')}
+						value={property.otherFeatures.join('\n')}
 						fullWidth
 						multiline
 						onChange={e =>
 							setOtherFeatures(e.target.value.split('\n'))
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -276,14 +374,12 @@ const Listing = () => {
 							setProperty({ ...property, price: e.target.value })
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
 						label="Special Price"
 						type="number"
 						value={property.specialPrice}
-						required
 						onChange={e =>
 							setProperty({
 								...property,
@@ -291,7 +387,6 @@ const Listing = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -303,7 +398,52 @@ const Listing = () => {
 							setProperty({ ...property, size: e.target.value })
 						}
 					/>
-
+					<FormControl className="admin-property-form__select">
+						<InputLabel>Unit</InputLabel>
+						<Select
+							label="Unit"
+							value={property.unit}
+							onChange={e =>
+								setProperty({
+									...property,
+									unit: e.target.value,
+								})
+							}
+						>
+							<MenuItem value={'Sq. Ft.'}>Sq. Ft</MenuItem>
+							<MenuItem value={'Acre'}>Acre</MenuItem>
+							<MenuItem value={'Gaj'}>Gaj</MenuItem>
+							<MenuItem value={'Marla'}>Marla</MenuItem>
+							<MenuItem value={'Bigha'}>Bigha</MenuItem>
+							<MenuItem value={'Bigha-Pucca'}>
+								Bigha-Pucca
+							</MenuItem>
+							<MenuItem value={'Bigha-Kachha'}>
+								Bigha-Kachha
+							</MenuItem>
+							<MenuItem value={'Bigha-Kachha'}>
+								Bigha-Kachha
+							</MenuItem>
+							<MenuItem value={'Biswa'}>Biswa</MenuItem>
+							<MenuItem value={'Biswa'}>Biswa</MenuItem>
+							<MenuItem value={'Biswa-Pucca'}>
+								Biswa-Pucca
+							</MenuItem>
+							<MenuItem value={'Kanal'}>Kanal</MenuItem>
+							<MenuItem value={'Killa'}>Killa</MenuItem>
+							<MenuItem value={'Kattha'}>Kattha</MenuItem>
+							<MenuItem value={'Ghumaon'}>Ghumaon</MenuItem>
+						</Select>
+					</FormControl>
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Floor"
+						value={property.floor}
+						onChange={e =>
+							setProperty({ ...property, floor: e.target.value })
+						}
+					/>
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -317,7 +457,6 @@ const Listing = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -331,49 +470,6 @@ const Listing = () => {
 							})
 						}
 					/>
-
-					<TextField
-						className="admin-property-form__input"
-						variant="outlined"
-						label="Kitchen"
-						type="number"
-						value={property.kitchen}
-						onChange={e =>
-							setProperty({
-								...property,
-								kitchen: e.target.value,
-							})
-						}
-					/>
-
-					<TextField
-						className="admin-property-form__input"
-						variant="outlined"
-						label="Open Parking"
-						type="number"
-						value={property.openParking}
-						onChange={e =>
-							setProperty({
-								...property,
-								openParking: e.target.value,
-							})
-						}
-					/>
-
-					<TextField
-						className="admin-property-form__input"
-						variant="outlined"
-						label="Close Parking"
-						type="number"
-						value={property.closeParking}
-						onChange={e =>
-							setProperty({
-								...property,
-								closeParking: e.target.value,
-							})
-						}
-					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -387,7 +483,29 @@ const Listing = () => {
 							})
 						}
 					/>
-
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Lobby"
+						type="number"
+						value={property.lobby}
+						onChange={e =>
+							setProperty({ ...property, lobby: e.target.value })
+						}
+					/>
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Kitchen"
+						type="number"
+						value={property.kitchen}
+						onChange={e =>
+							setProperty({
+								...property,
+								kitchen: e.target.value,
+							})
+						}
+					/>
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -401,7 +519,6 @@ const Listing = () => {
 							})
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -412,7 +529,6 @@ const Listing = () => {
 							setProperty({ ...property, store: e.target.value })
 						}
 					/>
-
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -426,7 +542,32 @@ const Listing = () => {
 							})
 						}
 					/>
-
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Open Parking"
+						type="number"
+						value={property.openParking}
+						onChange={e =>
+							setProperty({
+								...property,
+								openParking: e.target.value,
+							})
+						}
+					/>
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Covered Parking"
+						type="number"
+						value={property.closeParking}
+						onChange={e =>
+							setProperty({
+								...property,
+								closeParking: e.target.value,
+							})
+						}
+					/>
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -440,18 +581,30 @@ const Listing = () => {
 							})
 						}
 					/>
-
+					{/* backend still required */}
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
-						label="Floor"
-						value={property.floor}
+						label="Property Age"
+						value={property.age}
 						onChange={e =>
-							setProperty({ ...property, floor: e.target.value })
+							setProperty({ ...property, age: e.target.value })
 						}
 					/>
-
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Possession"
+						value={property.possession}
+						onChange={e =>
+							setProperty({
+								...property,
+								possession: e.target.value,
+							})
+						}
+					/>
 					<br />
+					{/* -------------------------------- ANCHOR Drop Down -------------------------------  */}
 
 					<FormControl className="admin-property-form__select">
 						<InputLabel>Type</InputLabel>
@@ -498,6 +651,10 @@ const Listing = () => {
 								Commercial Office
 							</MenuItem>
 
+							<MenuItem value="Commercial Office">
+								Commercial Plot
+							</MenuItem>
+
 							<MenuItem value="Serviced Apartments">
 								Serviced Apartments
 							</MenuItem>
@@ -513,7 +670,6 @@ const Listing = () => {
 							<MenuItem value="Other">Other</MenuItem>
 						</Select>
 					</FormControl>
-
 					<FormControl className="admin-property-form__select">
 						<InputLabel>Status</InputLabel>
 						<Select
@@ -533,25 +689,6 @@ const Listing = () => {
 							<MenuItem value="Furnished">Furnished</MenuItem>
 						</Select>
 					</FormControl>
-
-					<FormControl className="admin-property-form__select">
-						<InputLabel>Unit</InputLabel>
-						<Select
-							label="Unit"
-							value={property.unit}
-							onChange={e =>
-								setProperty({
-									...property,
-									unit: e.target.value,
-								})
-							}
-						>
-							{/* NOTE: Add more units here */}
-							<MenuItem value={'sq'}>sq</MenuItem>
-							<MenuItem value={'marla'}>marla</MenuItem>
-						</Select>
-					</FormControl>
-
 					<FormControl className="admin-property-form__select">
 						<InputLabel>Featured</InputLabel>
 						<Select
@@ -568,7 +705,6 @@ const Listing = () => {
 							<MenuItem value={false}>False</MenuItem>
 						</Select>
 					</FormControl>
-
 					<FormControl className="admin-property-form__select">
 						<InputLabel>Direction</InputLabel>
 						<Select
@@ -591,84 +727,689 @@ const Listing = () => {
 							<MenuItem value="South-West">South-West</MenuItem>
 						</Select>
 					</FormControl>
+					<FormControl className="admin-property-form__select">
+						<InputLabel>Purchase Type</InputLabel>
+						<Select
+							label="Purchase Type"
+							value={property.purchaseType}
+							onChange={e =>
+								setProperty({
+									...property,
+									purchaseType: e.target.value,
+								})
+							}
+						>
+							<MenuItem value="New Booking">New Booking</MenuItem>
+							<MenuItem value="Resale">Resale</MenuItem>
+						</Select>
+					</FormControl>
+					<FormControl className="admin-property-form__select">
+						<InputLabel>Construction Status</InputLabel>
+						<Select
+							label="Construction Status"
+							value={property.constructionStatus}
+							onChange={e =>
+								setProperty({
+									...property,
+									constructionStatus: e.target.value,
+								})
+							}
+						>
+							<MenuItem value="Under Construction">
+								Under Construction
+							</MenuItem>
+							<MenuItem value="Ready to Move">
+								Ready to Move
+							</MenuItem>
+						</Select>
+					</FormControl>
 
-					<br />
+					{/*  --------------------------- ANCHOR Furnishing Details --------------------------- */}
+					{(property.status === 'Furnished' ||
+						property.status === 'Semifurnished') && (
+						<>
+							<h1>
+								Add Furnishing Details (Add amount of things
+								eg:- fans = 5)
+							</h1>
 
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="AC"
+								type="number"
+								value={furnishingDetails.ac}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										ac: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="stove"
+								type="number"
+								value={furnishingDetails.stove}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										stove: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Modular Kitchen"
+								type="number"
+								value={furnishingDetails.modularKitchen}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										modularKitchen: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Fans"
+								type="number"
+								value={furnishingDetails.fans}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										fans: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Fridge"
+								type="number"
+								value={furnishingDetails.fridge}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										fridge: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Light"
+								type="number"
+								value={furnishingDetails.light}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										light: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Bed"
+								type="number"
+								value={furnishingDetails.beds}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										beds: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="microwave"
+								type="number"
+								value={furnishingDetails.microwave}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										microwave: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="dinning table"
+								type="number"
+								value={furnishingDetails.dinningTable}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										dinningTable: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="TV"
+								type="number"
+								value={furnishingDetails.tv}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										tv: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="wardrobe"
+								type="number"
+								value={furnishingDetails.wardrobe}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										wardrobe: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="washing machine"
+								type="number"
+								value={furnishingDetails.washingMachine}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										washingMachine: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Geyser"
+								type="number"
+								value={furnishingDetails.geyser}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										geyser: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Curtains"
+								type="number"
+								value={furnishingDetails.curtains}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										curtains: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Sofa"
+								type="number"
+								value={furnishingDetails.sofa}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										sofa: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="water purifier"
+								type="number"
+								value={furnishingDetails.waterPurifier}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										waterPurifier: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Exhaust"
+								type="number"
+								value={furnishingDetails.exhaust}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										exhaust: e.target.value,
+									})
+								}
+							/>
+						</>
+					)}
+
+					{/* /* ------------------------------- ANCHOR Facilities -------------------------------  */}
+					<h1>Choose Facilities From The Following </h1>
+					<div className="admin-property-form__facilities">
+						<CheckBox
+							label="Fire/Security Alarm"
+							checked={facilityChecker('Fire/Security Alarm')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Fire/Security Alarm',
+									'alarm.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Power Backup"
+							checked={facilityChecker('Power Backup')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Power Backup',
+									'power-backup.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Intercome"
+							checked={facilityChecker('Intercome')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Intercome',
+									'intercome.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Lift"
+							checked={facilityChecker('Lift')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Lift',
+									'lift.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Maintenance Staff"
+							checked={facilityChecker('Maintenance Staff')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Maintenance Staff',
+									'maintenance.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Park"
+							checked={facilityChecker('Park')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Park',
+									'park.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Swimming Pool"
+							checked={facilityChecker('Swimming Pool')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Swimming Pool',
+									'swimming-pool.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Gym"
+							checked={facilityChecker('Gym')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Gym',
+									'gym.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Market"
+							checked={facilityChecker('Market')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Market',
+									'market.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Water Storage"
+							checked={facilityChecker('Water Storage')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Water Storage',
+									'water-tank.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Piped Gas"
+							checked={facilityChecker('Piped Gas')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Piped Gas',
+									'piped-gas.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Visitor Parking"
+							checked={facilityChecker('Visitor Parking')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Visitor Parking',
+									'parking.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Water supply 24/7"
+							checked={facilityChecker('Water supply 24/7')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Water Supply',
+									'water.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Security Guard"
+							checked={facilityChecker('Security Guard')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Security Guard',
+									'security-guard.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Wifi"
+							checked={facilityChecker('Wifi')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'WiFi',
+									'wifi.png'
+								)
+							}
+						/>
+						<CheckBox
+							label="Club House"
+							checked={facilityChecker('Club House')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Club House',
+									'club-house.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="STP"
+							checked={facilityChecker('STP')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'STP',
+									'STP.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Ceiling Light"
+							checked={facilityChecker('Ceiling Light')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Ceiling Light',
+									'ceiling-light.png'
+								)
+							}
+						/>
+					</div>
+
+					{/*   ----------------------------- ANCHOR Upload Buttons ----------------------------- */}
+
+					<h1>Images</h1>
 					{property.images.length > 0 ? (
 						property.images.map(img => (
-							<img
-								src={img.url}
-								alt="property"
-								className="admin-property-form__image"
+							<div
+								className="admin-property-form__preview-container"
 								key={img.key}
-							/>
+							>
+								<img
+									className="admin-property-form__preview"
+									src={img.url}
+									alt="can't preview"
+								/>
+								<BPrimary
+									title={<DeleteIcon />}
+									onClick={deleteFileHandler(
+										property._id,
+										'images',
+										img.key
+									)}
+								/>
+							</div>
 						))
 					) : (
-						<h2>there are no images</h2>
+						<h1>there are no images</h1>
 					)}
-
-					<br />
-
+					<h1>Videos</h1>
 					{property.videos.length > 0 ? (
 						property.videos.map(vid => (
-							<video
-								muted
-								loop
-								autoPlay
-								controls
-								className="admin-property-form__image"
+							<div
+								className="admin-property-form__preview-container"
 								key={vid.key}
 							>
-								<source src={vid.url} type="video/mp4" />
-							</video>
+								<video
+									controls
+									autoPlay
+									muted
+									loop
+									className="admin-property-form__preview"
+								>
+									<source src={vid.url} type="video/mp4" />
+								</video>
+
+								<BPrimary
+									title={<DeleteIcon />}
+									onClick={deleteFileHandler(
+										property._id,
+										'videos',
+										vid.key
+									)}
+								/>
+							</div>
 						))
 					) : (
-						<h1>There is no video</h1>
+						<h1>there are no Videos</h1>
 					)}
-
 					<br />
-
-					{property.documents.length > 0 ? (
-						property.documents.map((doc, i) => (
-							<a
-								href={doc.url}
-								className="admin-property-form__link"
-								key={doc.key}
-							>
-								Download Document {i + 1}
-							</a>
-						))
-					) : (
-						<h1>There are no documents</h1>
-					)}
-
-					<br />
-
 					<BUpload
 						title="Image"
 						className="admin-property-form__upload-btn"
-						onChange={e => setImages(e.target.files)}
+						onChange={e =>
+							setImages([...images, ...e.target.files])
+						}
 						accept="image/*"
 					/>
-
+					{images.map((img, i) => {
+						if (img instanceof File) {
+							const objectURL = URL.createObjectURL(img);
+							return (
+								<div
+									className="admin-property-form__preview-container"
+									key={i}
+								>
+									<img
+										className="admin-property-form__preview"
+										src={objectURL}
+										alt="can't preview"
+									/>
+									<BPrimary
+										title={<DeleteIcon />}
+										onClick={() =>
+											setImages(
+												images.filter(
+													(_, index) => index !== i
+												)
+											)
+										}
+									/>
+								</div>
+							);
+						}
+					})}
+					<br />
 					<BUpload
 						title="Videos"
 						className="admin-property-form__upload-btn"
-						onChange={e => setVideos(e.target.files)}
+						onChange={e =>
+							setVideos([...videos, ...e.target.files])
+						}
 						accept="video/*"
 					/>
+					{videos.map((vid, i) => {
+						if (vid instanceof File) {
+							const objectURL = URL.createObjectURL(vid);
+							return (
+								<div
+									className="admin-property-form__preview-container"
+									key={i}
+								>
+									<video
+										controls
+										autoPlay
+										muted
+										loop
+										className="admin-property-form__preview"
+									>
+										<source
+											src={objectURL}
+											type="video/mp4"
+										/>
+									</video>
 
+									<BPrimary
+										title={<DeleteIcon />}
+										onClick={() =>
+											setVideos(
+												videos.filter(
+													(_, index) => index !== i
+												)
+											)
+										}
+									/>
+								</div>
+							);
+						}
+					})}
+					<br />
 					<BUpload
 						title="Documents"
 						className="admin-property-form__upload-btn"
-						onChange={e => setDocuments(e.target.files)}
+						onChange={e =>
+							setDocuments([...documents, ...e.target.files])
+						}
 						accept="application/pdf"
 					/>
+					{documents.map((doc, i) => {
+						if (doc instanceof File) {
+							const objectURL = URL.createObjectURL(doc);
+							return (
+								<div
+									className="admin-property-form__preview-container"
+									key={i}
+								>
+									<iframe
+										src={objectURL}
+										title={objectURL}
+										height="200"
+										width="300"
+									></iframe>
 
+									<BPrimary
+										title={<DeleteIcon />}
+										onClick={() =>
+											setDocuments(
+												documents.filter(
+													(_, index) => index !== i
+												)
+											)
+										}
+									/>
+								</div>
+							);
+						}
+					})}
 					<br />
-
 					<BPrimary
-						title="Update"
+						title="Submit"
 						className="admin-property-form__submit-btn"
 						type="submit"
 						loading={loading}
