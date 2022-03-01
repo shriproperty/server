@@ -1,16 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import get from '../../../api/get';
 import { Link } from 'react-router-dom';
-import getRequest from '../../../api/get';
-import deleteRequest from '../../../api/delete';
 import { BPrimary } from '../../util/button/Button';
 import { HPrimary } from '../../util/typography/Typography';
 import { AError, ASuccess } from '../../util/alert/Alert';
 import Modal from '../../util/modal/Modal';
 import Loader from '../../util/loader/Loader';
-import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import {
 	Table,
@@ -22,10 +18,7 @@ import {
 import './account.scss';
 
 const Account = ({ isLoggedIn }) => {
-	const navigate = useNavigate();
 	const [response, setResponse] = useState([]);
-	const [openModal, setOpenModal] = useState(false);
-	const [deleteLoading, setDeleteLoading] = useState(false);
 	const [propertyLoading, setPropertyLoading] = useState(true);
 	const [errorMessage, setErrorMessage] = useState('');
 	const [openError, setOpenError] = useState(false);
@@ -43,32 +36,15 @@ const Account = ({ isLoggedIn }) => {
 		});
 	}, []);
 
-	const deleteHandler = id => {
-		return e => {
-			e.preventDefault();
-			setDeleteLoading(true);
-
-			deleteRequest(`/properties/delete/${id}`).then(data => {
-				setDeleteLoading(false);
-				setOpenModal(false);
-
-				if (data.success) {
-					setSuccessMessage(data.message);
-					setOpenSuccess(true);
-				} else {
-					setErrorMessage(data.message);
-					setOpenError(true);
-				}
-			});
-		};
-	};
 	return (
 		<section>
-			<h1 className="main-heading">MyAccount</h1>
+			<h1 className="main-heading">My Account</h1>
 			<div className="buttons">
-				<Link to="/account/edit"><BPrimary title = 'Hello'/></Link>
+				<Link to="/account/edit">
+					<BPrimary title="Hello" />
+				</Link>
 			</div>
-			<h1 className='listing-heading'>Approved Listing</h1>
+			<h1 className="listing-heading">Approved Listing</h1>
 			<ASuccess
 				title={successMessage}
 				open={openSuccess}
@@ -113,11 +89,7 @@ const Account = ({ isLoggedIn }) => {
 							</TableCell>
 
 							<TableCell className="contact-table__cell">
-								Delete
-							</TableCell>
-
-							<TableCell className="contact-table__cell">
-								Update
+								Edit
 							</TableCell>
 						</TableRow>
 					</TableHead>
@@ -125,19 +97,6 @@ const Account = ({ isLoggedIn }) => {
 					<TableBody>
 						{response.map(item => (
 							<TableRow key={item._id}>
-								{/* Modal */}
-								<Modal
-									open={openModal}
-									onClose={() => setOpenModal(false)}
-									className="admin-page__modal"
-								>
-									<BPrimary
-										title="confirm"
-										onClick={deleteHandler(item._id)}
-										loading={deleteLoading}
-									/>
-								</Modal>
-
 								<TableCell className="contact-table__cell">
 									{item.title}
 								</TableCell>
@@ -162,23 +121,11 @@ const Account = ({ isLoggedIn }) => {
 									{item.ownerContact}
 								</TableCell>
 
-								{/* <TableCell className="contact-table__cell">
-									<BPrimary
-										title={<DeleteIcon />}
-										onClick={() => setOpenModal(true)}
-									/>
-								</TableCell>
-
 								<TableCell className="contact-table__cell">
-									<Link
-										to={`/thisissomethingrandomwhichnoonecanthinkabout/property/update/${item._id}`}
-									>
-										<BPrimary
-											title={<EditIcon />}
-											onClick={() => setOpenModal(true)}
-										/>
+									<Link to={`/property/update/${item._id}`}>
+										<BPrimary title={<EditIcon />} />
 									</Link>
-								</TableCell> */}
+								</TableCell>
 							</TableRow>
 						))}
 					</TableBody>

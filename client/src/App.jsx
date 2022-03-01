@@ -16,6 +16,7 @@ import Property from './components/routes/Property';
 import Contacts from './components/routes/admin/Contacts';
 import AddProperty from './components/routes/admin/AddProperty';
 import UpdateProperty from './components/routes/admin/UpdateProperty';
+import UserUpdateProperty from './components/routes/UpdateProperty';
 import Listing from './components/routes/Listing';
 import NotFound from './components/routes/NotFound';
 import Admin from './components/routes/admin/Admin';
@@ -113,6 +114,10 @@ const UserRoutes = () => {
 					element={<Account isLoggedIn={isLoggedIn} />}
 				/>
 				<Route path="/allimages" element={<AllImages />} />
+				<Route
+					path="/property/update/:id"
+					element={<UserUpdateProperty />}
+				/>
 				<Route path="/404" element={<NotFound />} />
 				<Route path="*" element={<Navigate replace to="/404" />} />
 			</Routes>
