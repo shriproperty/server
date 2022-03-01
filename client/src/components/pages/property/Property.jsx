@@ -254,7 +254,14 @@ const Property = () => {
 
 					<div>
 						<section className="heading-section">
-							<a href = {`${response.location}`}><img src="/images/location.png" alt="location" className='heading-section_location'/></a>
+							<a href={response.location} target="_blank">
+								<img
+									src="/images/location.png"
+									alt="location"
+									className="heading-section_location"
+								/>
+							</a>
+
 							<div className="heading-section_sub">
 								<HPrimary title={response.title} />
 
