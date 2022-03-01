@@ -67,7 +67,7 @@ const Properties = () => {
 								/>
 
 								<h4 className="properties-section__property-price">
-									₹ {property.price}
+									₹ {property.specialPrice}
 								</h4>
 
 								<SSecondary
