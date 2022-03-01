@@ -2,6 +2,7 @@
 
 import Property from '../models/property.model.js';
 import logger from '../helpers/logger.helper.js';
+import User from '../models/user.model.js';
 
 import {
 	deleteMultipleFilesFromDisk,
@@ -703,6 +704,19 @@ export const deleteProperty = async (req, res) => {
 
 		// delete files from s3
 		await deleteMultipleFilesFromS3(filesArray);
+
+		// delete property from user
+		if (property.ownerId) {
+			const user = await User.findById(property.ownerId.toString());
+
+			const newPropertyList = user.properties.filter(prop => {
+				return prop.toString() !== property._id.toString();
+			});
+
+			await User.findByIdAndUpdate(user._id, {
+				properties: newPropertyList,
+			});
+		}
 
 		// delete property from DB
 		const deletedProperty = await Property.findByIdAndDelete(id);
