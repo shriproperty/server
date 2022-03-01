@@ -38,9 +38,9 @@
 		object-fit: contain;
 
 		&--1 {
+			width: contain;
 			grid-column: 1 / 8;
 			grid-row: 1 / 13;
-
 			@media screen and (max-width: 900px) {
 				grid-column: 1 / 13;
 				grid-row: 1 / 8;
@@ -54,6 +54,8 @@
 		&--2 {
 			grid-column: 8 / 13;
 			grid-row: 1 / 7;
+			width: contain;
+
 			@media screen and (max-width: 900px) {
 				grid-column: 1 / 6;
 				grid-row: 8 / 13;
@@ -65,6 +67,8 @@
 		}
 
 		&--3 {
+			width: contain;
+
 			grid-column: 8 / 13;
 			grid-row: 7 / 13;
 			@media screen and (max-width: 900px) {
@@ -78,10 +82,10 @@
 		}
 	}
 	.allimages {
-		grid-row: 11/12;
-		grid-column: 12/13;
+		// grid-row: 11/12;
+		// grid-column: 12/13;
 		@media screen and (max-width: 900px) {
-			grid-row: 12/13;
+			// grid-row: 12/13;
 		}
 	}
 }
@@ -103,7 +107,7 @@
 		font-size: 1rem;
 	}
 
-	&_location{
+	&_location {
 		margin-left: 3.5rem;
 		height: 6rem;
 		width: 5.5rem;
@@ -185,6 +189,7 @@
 		padding: 0.5rem;
 
 		h3 {
+			font-size: 2rem;
 			padding: 0 1rem;
 		}
 	}
@@ -278,6 +283,9 @@
 		margin-left: 1rem;
 		font-size: 1.5rem;
 		font-weight: 600;
+		@media screen and (max-width: 500px) {
+			font-size: 2rem;
+		}
 	}
 	&__heading {
 		margin-top: 2rem;
