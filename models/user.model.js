@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import Listing from './listing.model.js';
+import Property from './property.model.js';
 
 const userSchema = new mongoose.Schema({
 	name: {
@@ -16,8 +18,8 @@ const userSchema = new mongoose.Schema({
 		required: true,
 	},
 
-	properties: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Properties' }],
-	listings: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Listings' }],
+	properties: [{ type: mongoose.SchemaTypes.ObjectId, ref: Property }],
+	listings: [{ type: mongoose.SchemaTypes.ObjectId, ref: Listing }],
 });
 
 const User = mongoose.model('User', userSchema);
