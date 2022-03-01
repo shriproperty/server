@@ -123,6 +123,7 @@ const propertySchema = new mongoose.Schema({
 		type: Array,
 		required: false,
 	},
+	sold: { type: Boolean, required: false, default: false },
 });
 
 const Property = mongoose.model('Property', propertySchema);

@@ -687,6 +687,17 @@ export const deleteListing = async (req, res) => {
 		// delete files from s3
 		await deleteMultipleFilesFromS3(filesArray);
 
+		// delete listing from user
+		const user = await User.findById(listing.ownerId.toString());
+
+		const newListingArray = user.listings.filter(
+			listing => listing.toString() !== id
+		);
+
+		await User.findByIdAndUpdate(user._id, {
+			listings: newListingArray,
+		});
+
 		// delete property from DB
 		const deletedListing = await Listing.findByIdAndDelete(id);
 
@@ -696,6 +707,7 @@ export const deleteListing = async (req, res) => {
 			data: deletedListing,
 		});
 	} catch (err) {
+		logger.error(err);
 		res.status(404).json({
 			success: false,
 			message: 'Invalid Id',
