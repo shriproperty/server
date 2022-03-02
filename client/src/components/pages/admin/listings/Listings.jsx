@@ -11,7 +11,7 @@ import {
 	TableHead,
 } from '@mui/material';
 
-const Listings = ({ submit, setSubmit }) => {
+const Listings = () => {
 	const [response, setResponse] = useState([]);
 	const [propertyLoading, setPropertyLoading] = useState(true);
 
@@ -19,10 +19,9 @@ const Listings = ({ submit, setSubmit }) => {
 		getRequest('/listings/all').then(data => {
 			setResponse(data.data);
 			setPropertyLoading(false);
-			setSubmit(false);
 		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [submit]);
+	}, []);
 
 	return (
 		<section>

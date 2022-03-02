@@ -9,27 +9,34 @@ import { CssBaseline } from '@mui/material';
 
 import Nav from './components/layout/nav/Nav';
 import Footer from './components/layout/footer/Footer';
-import Home from './components/routes/Home';
-import Properties from './components/routes/Properties';
-import TempUsers from './components/routes/admin/TempUsers';
-import Property from './components/routes/Property';
-import Contacts from './components/routes/admin/Contacts';
-import AddProperty from './components/routes/admin/AddProperty';
-import UpdateProperty from './components/routes/admin/UpdateProperty';
-import UserUpdateProperty from './components/routes/UpdateProperty';
-import Listing from './components/routes/Listing';
-import NotFound from './components/routes/NotFound';
-import Admin from './components/routes/admin/Admin';
-import Listings from './components/routes/admin/Listings';
-import AdminListing from './components/routes/admin/Listing';
+import Properties from './components/pages/properties/Properties';
+import TempUsers from './components/pages/admin/tempUsers/TempUsers';
+import Property from './components/pages/property/Property';
+import Contacts from './components/pages/admin/contacts/Contacts';
+import AddProperty from './components/pages/admin/property/form/Form';
+import UpdateProperty from './components/pages/admin/property/update/Update';
+import UserUpdateProperty from './components/pages/updateProperty/UpdateProperty';
+import Listing from './components/pages/listing/Listing';
+import NotFound from './components/pages/notFound/NotFound';
+import Admin from './components/pages/admin/Admin';
+import Listings from './components/pages/admin/listings/Listings';
+import AdminListing from './components/pages/admin/listing/Listing';
 import Signup from './components/pages/signup/Signup';
-import Login from './components/routes/Login';
+import Login from './components/pages/login/Login';
 import AllImages from './components/pages/allimages/Images';
-import Account from './components/routes/Account';
+import Account from './components/pages/account/Account';
 import get from './api/get';
+import Hero from './components/pages/home/hero/Hero';
+import PropertiesSection from './components/pages/home/properties/Properties';
+import Category from './components/pages/home/category/Category';
+import ListingSection from './components/pages/home/listing/Listing';
+import Form from './components/pages/home/form/Form';
+
 import './app.scss';
 
 const App = () => {
+	const [submit, setSubmit] = useState(false);
+
 	return (
 		<>
 			<CssBaseline />
@@ -37,7 +44,9 @@ const App = () => {
 				<Routes>
 					<Route
 						path="/thisissomethingrandomwhichnoonecanthinkabout/"
-						element={<Admin />}
+						element={
+							<Admin submit={submit} setSubmit={setSubmit} />
+						}
 					/>
 
 					<Route
@@ -90,7 +99,18 @@ const UserRoutes = () => {
 		<>
 			<Nav isLoggedIn={isLoggedIn} />
 			<Routes>
-				<Route path="/" element={<Home />} />
+				<Route
+					path="/"
+					element={
+						<main>
+							<Hero />
+							<PropertiesSection />
+							<Category />
+							<ListingSection />
+							<Form />
+						</main>
+					}
+				/>
 				<Route path="/properties" element={<Properties />} />
 				<Route path="/properties/:id" element={<Property />} />
 				<Route
