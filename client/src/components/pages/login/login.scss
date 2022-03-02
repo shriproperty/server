@@ -57,14 +57,16 @@
 		font-size: 1.4rem;
 
 		@media screen and (max-width: 900px) {
-			maring-top:1rem;
+			maring-top: 1rem;
 			font-size: 2rem;
 		}
 
-		a {
+		a,
+		span {
 			color: $color-primary;
 			text-decoration: underline;
 			transition: $transition-fast;
+			cursor: pointer;
 
 			&:hover {
 				color: #000;

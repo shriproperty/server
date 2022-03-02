@@ -254,7 +254,11 @@ const Property = () => {
 
 					<div>
 						<section className="heading-section">
-							<a href={response.location} target="_blank">
+							<a
+								href={response.location}
+								target="_blank"
+								rel="noreferrer"
+							>
 								<img
 									src="/images/location.png"
 									alt="location"
