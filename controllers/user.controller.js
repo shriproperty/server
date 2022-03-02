@@ -2,6 +2,30 @@ import { decodeJWT } from '../helpers/jwt.helper.js';
 import User from '../models/user.model.js';
 import logger from '../helpers/logger.helper.js';
 
+/* ---------------------------- SECTION get all users ---------------------------- */
+
+export const getAll = async (req, res) => {
+	try {
+		const users = await User.find({});
+
+		res.status(200).json({
+			success: true,
+			message: 'All contacts fetched successfully',
+			data: users,
+		});
+	} catch (err) {
+		logger.error(err);
+
+		res.status(500).json({
+			success: false,
+			message: 'Internal Server Error',
+			data: {},
+		});
+	}
+};
+
+/* -------------------------------- !SECTION Get all users end -------------------------------- */
+
 /* ------------------------- SECTION get single user ------------------------ */
 
 export const getSingleUser = async (req, res) => {
@@ -108,24 +132,3 @@ export const decode = async (req, res) => {
 };
 
 /* ----------------------------- !SECTION decode ---------------------------- */
-/* ---------------------------- ANCHOR get all users ---------------------------- */
-
-export const getAll = async (req, res) => {
-	try {
-		const contacts = await User.find({});
-
-		res.status(200).json({
-			success: true,
-			message: 'All contacts fetched successfully',
-			data: contacts,
-		});
-	} catch (err) {
-		logger.error(err);
-
-		res.status(500).json({
-			success: false,
-			message: 'Internal Server Error',
-			data: {},
-		});
-	}
-};

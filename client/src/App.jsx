@@ -31,6 +31,7 @@ import PropertiesSection from './components/pages/home/properties/Properties';
 import Category from './components/pages/home/category/Category';
 import ListingSection from './components/pages/home/listing/Listing';
 import Form from './components/pages/home/form/Form';
+import Users from './components/pages/admin/users/Users';
 
 import './app.scss';
 
@@ -75,6 +76,10 @@ const App = () => {
 					<Route
 						path="/thisissomethingrandomwhichnoonecanthinkabout/listings/:id"
 						element={<AdminListing />}
+					/>
+					<Route
+						path="/thisissomethingrandomwhichnoonecanthinkabout/users"
+						element={<Users />}
 					/>
 					<Route path="*" element={<UserRoutes />} />
 				</Routes>

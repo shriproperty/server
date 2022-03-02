@@ -94,6 +94,7 @@ const TempUsers = () => {
 				open={openError}
 				setOpen={setOpenError}
 			/>
+
 			<Table className="user-table">
 				<TableHead>
 					<TableRow>
