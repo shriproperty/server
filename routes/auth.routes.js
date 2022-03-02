@@ -22,8 +22,18 @@ const loginValidationChecks = [
 	check('password', 'Please enter your password').exists(),
 ];
 
+const resetPasswordChecks = [
+	check('email', 'Please enter a valid email address').exists().isEmail(),
+	check('newPassword', 'Please enter a strong password').exists(),
+];
+
 authRouter.post('/auth/signup', signupValidationChecks, authController.signup);
 authRouter.post('/auth/login', loginValidationChecks, authController.login);
 authRouter.get('/auth/is-logged-in', authController.isLoggedIn);
+authRouter.patch(
+	'/auth/reset-password',
+	resetPasswordChecks,
+	authController.resetPassword
+);
 
 export default authRouter;

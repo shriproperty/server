@@ -35,8 +35,8 @@ const Account = () => {
 			<HPrimary title="My Account" className="main-heading" />
 
 			<div className="buttons">
-				<Link to="/account/edit">
-					<BPrimary title="Hello" />
+				<Link to="/account/listings">
+					<BPrimary title="Pending listings" />
 				</Link>
 			</div>
 			<h1 className="listing-heading">Approved Listing</h1>

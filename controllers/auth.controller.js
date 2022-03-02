@@ -171,3 +171,57 @@ export const isLoggedIn = (req, res) => {
 		});
 	}
 };
+
+/* -------------------------- ANCHOR reset password ------------------------- */
+export const resetPassword = async (req, res) => {
+	try {
+		const { email, newPassword } = req.body;
+
+		// validate body
+		const errors = validationResult(req).array();
+
+		if (errors.length > 0) {
+			return res.status(400).json({
+				success: false,
+				message: errors[0].msg,
+				data: {},
+			});
+		}
+
+		// check if user exists
+		const user = await User.findOne({ email });
+
+		if (!user) {
+			return res.status(404).json({
+				success: false,
+				message: 'User not found please check if your email is correct',
+				data: {},
+			});
+		}
+
+		// hash password
+		const salt = await genSalt(10);
+
+		const hashedPassword = await hash(newPassword, salt);
+
+		// update password
+		const updatedUser = await User.findOneAndUpdate(
+			{ email },
+			{ password: hashedPassword },
+			{ new: true }
+		);
+
+		res.status(200).json({
+			success: true,
+			message: 'Password updated successfully',
+			data: updatedUser,
+		});
+	} catch (err) {
+		logger.error(err);
+		res.status(500).json({
+			success: false,
+			message: 'Internal Server Error',
+			data: {},
+		});
+	}
+};
