@@ -82,7 +82,9 @@ const PendingListings = () => {
 								</TableCell>
 
 								<TableCell className="contact-table__cell">
-									<Link to={`/property/update/${item._id}`}>
+									<Link
+										to={`/account/pending-listings/${item._id}`}
+									>
 										<BPrimary title={<EditIcon />} />
 									</Link>
 								</TableCell>

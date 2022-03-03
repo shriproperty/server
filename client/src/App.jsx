@@ -33,6 +33,7 @@ import ListingSection from './components/pages/home/listing/Listing';
 import Form from './components/pages/home/form/Form';
 import Users from './components/pages/admin/users/Users';
 import PendingListings from './components/pages/pendingListings/PendingListings';
+import UpdatePendingListing from './components/pages/updatePendingListings/UpdatePendingListing';
 
 import './app.scss';
 
@@ -144,6 +145,10 @@ const UserRoutes = () => {
 				<Route
 					path="/property/update/:id"
 					element={<UserUpdateProperty />}
+				/>
+				<Route
+					path="/account/pending-listings/:id"
+					element={<UpdatePendingListing />}
 				/>
 				<Route path="/404" element={<NotFound />} />
 				<Route path="*" element={<Navigate replace to="/404" />} />
