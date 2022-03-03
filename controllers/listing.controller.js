@@ -722,10 +722,11 @@ export const deleteListing = async (req, res) => {
 export const approveListing = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const { userId } = req.query;
 
 		// get listing from db
 		const listing = await Listing.findById(id);
+
+		const userId = listing.ownerId.toString();
 
 		// push listing to user's approved listings
 
@@ -765,6 +766,7 @@ export const approveListing = async (req, res) => {
 			data: newProperty,
 		});
 	} catch (err) {
+		logger.error(err);
 		res.status(404).json({
 			success: false,
 			message: 'Invalid Id',

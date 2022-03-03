@@ -143,13 +143,13 @@ const UpdatePendingListing = () => {
 		}
 
 		// post to server
-		patchFile(`/properties/update/${id}`, body).then(data => {
+		patchFile(`/listings/update/${id}`, body).then(data => {
 			setLoading(false);
 
 			if (data.success) {
 				setOpenSuccess(true);
 				setSuccessMessage(data.message);
-				navigate('/thisissomethingrandomwhichnoonecanthinkabout');
+				navigate('/account');
 			} else {
 				setOpenError(true);
 				setErrorMessage(data.message);

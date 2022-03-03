@@ -15,6 +15,7 @@ import { patchFile } from '../../../api/patch';
 import get from '../../../api/get';
 import deleteRequest from '../../../api/delete';
 import { CheckBox } from '../../util/input/Input';
+import putRequest from '../../../api/put';
 
 //NOTE Sass is coming from form.scss file in ../form folder
 
@@ -147,10 +148,16 @@ const UpdateProperty = () => {
 			setLoading(false);
 
 			if (data.success) {
-				setOpenSuccess(true);
-				setSuccessMessage(data.message);
-				navigate('/account');
+				putRequest(`/properties/move-property-to-listings/${id}`).then(
+					res => {
+						setOpenSuccess(true);
+						setSuccessMessage(data.message);
+						navigate('/account');
+					}
+				);
 			} else {
+				setLoading(false);
+
 				setOpenError(true);
 				setErrorMessage(data.message);
 			}

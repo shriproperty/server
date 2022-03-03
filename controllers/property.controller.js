@@ -1,6 +1,7 @@
 'use strict';
 
 import Property from '../models/property.model.js';
+import Listing from '../models/listing.model.js';
 import logger from '../helpers/logger.helper.js';
 import User from '../models/user.model.js';
 
@@ -791,3 +792,61 @@ export const deleteFile = async (req, res) => {
 };
 
 /* -------------------------------- !SECTION delete file end -------------------------------- */
+
+/* --------------------------------- SECTION move property to listings to approve them -------------------------------- */
+export const movePropertyToListings = async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		// get property from db
+		const property = await Property.findById(id);
+
+		const userId = property.ownerId.toString();
+
+		// push listing to user's pending listings
+
+		const newPropertyObject = {};
+
+		/**
+		 * create property object with loop so that we don't have to write all
+		 *  properties while creating property in Property.create() function
+		 */
+		for (let key in property) {
+			if (key !== '_id' && key !== '__v') {
+				newPropertyObject[key] = property[key];
+			}
+		}
+
+		// create new property from listing
+		const newListing = await Listing.create(newPropertyObject);
+
+		const user = await User.findById(userId);
+
+		const newProperties = user.properties.filter(
+			property => property._id.toString() !== id
+		);
+
+		await User.findByIdAndUpdate(userId, {
+			listings: [...user.listings, newListing],
+			properties: newProperties,
+		});
+
+		// delete listing from db
+		await Property.findByIdAndDelete(id);
+
+		// send response
+		res.status(201).json({
+			success: true,
+			message: 'Property approved successfully',
+			data: newListing,
+		});
+	} catch (err) {
+		res.status(500).json({
+			success: false,
+			message: 'Internal server error',
+			data: {},
+		});
+	}
+};
+
+/* -------------------------------- !SECTION -------------------------------- */
