@@ -34,7 +34,7 @@ export const getSingleUser = async (req, res) => {
 		const { listings, properties } = req.query;
 
 		// ANCHOR populate listings
-		if (listings === 'true' && properties === 'false') {
+		if (listings === 'true') {
 			const user = await User.findById(id).populate('listings');
 
 			if (!user) {
@@ -53,7 +53,7 @@ export const getSingleUser = async (req, res) => {
 		}
 
 		// ANCHOR populate properties
-		if (listings === 'false' && properties === 'true') {
+		if (properties === 'true') {
 			const user = await User.findById(id).populate('properties');
 
 			if (!user) {

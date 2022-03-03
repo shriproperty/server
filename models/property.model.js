@@ -14,6 +14,7 @@ const propertySchema = new mongoose.Schema({
 		enum: ['Rental', 'Sale'],
 		default: 'Sale',
 	},
+	security: { type: String, required: false },
 	category: {
 		type: String,
 		required: true,

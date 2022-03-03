@@ -32,6 +32,7 @@ import Category from './components/pages/home/category/Category';
 import ListingSection from './components/pages/home/listing/Listing';
 import Form from './components/pages/home/form/Form';
 import Users from './components/pages/admin/users/Users';
+import PendingListings from './components/pages/pendingListings/PendingListings';
 
 import './app.scss';
 
@@ -134,9 +135,10 @@ const UserRoutes = () => {
 					element={<Login setAuthFormSubmit={setAuthFormSubmit} />}
 				/>
 
+				<Route path="/account" element={<Account />} />
 				<Route
-					path="/account"
-					element={<Account isLoggedIn={isLoggedIn} />}
+					path="/account/pending-listings"
+					element={<PendingListings />}
 				/>
 				<Route path="/allimages" element={<AllImages />} />
 				<Route

@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
-import get from '../../../api/get';
 import { Link, useNavigate } from 'react-router-dom';
 import { BPrimary } from '../../util/button/Button';
-import { HPrimary } from '../../util/typography/Typography';
 import Loader from '../../util/loader/Loader';
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -13,23 +11,21 @@ import {
 	TableCell,
 	TableHead,
 } from '@mui/material';
-import './account.scss';
+import get from '../../../api/get';
 
-const Account = () => {
+const PendingListings = () => {
 	const navigate = useNavigate();
 
-	const [response, setResponse] = useState([]);
+	const [response, setResponse] = useState('');
 	const [propertyLoading, setPropertyLoading] = useState(true);
 
 	useEffect(() => {
 		get('/users/decode')
 			.then(res => {
-				get(`/users/single/${res.data.id}?properties=true`).then(
-					data => {
-						setResponse(data.data);
-						setPropertyLoading(false);
-					}
-				);
+				get(`/users/single/${res.data.id}?listings=true`).then(data => {
+					setResponse(data.data);
+					setPropertyLoading(false);
+				});
 			})
 			.catch(() => {
 				navigate('/login');
@@ -38,15 +34,6 @@ const Account = () => {
 
 	return (
 		<main>
-			<HPrimary title="My Account" className="main-heading" />
-
-			<div className="buttons">
-				<Link to="/account/pending-listings">
-					<BPrimary title="Pending listings" />
-				</Link>
-			</div>
-			<h1 className="listing-heading">Approved Listing</h1>
-
 			{propertyLoading ? (
 				<Loader fullScreen />
 			) : (
@@ -76,7 +63,7 @@ const Account = () => {
 					</TableHead>
 
 					<TableBody>
-						{response.properties.map(item => (
+						{response.listings.map(item => (
 							<TableRow key={item._id}>
 								<TableCell className="contact-table__cell">
 									{item.title}
@@ -108,4 +95,4 @@ const Account = () => {
 	);
 };
 
-export default Account;
+export default PendingListings;
