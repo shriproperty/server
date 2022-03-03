@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import './account.scss';
 
-const Account = () => {
+const Account = ({ setAuthFormSubmit }) => {
 	const navigate = useNavigate();
 
 	const [response, setResponse] = useState([]);
@@ -36,6 +36,13 @@ const Account = () => {
 			});
 	}, []);
 
+	const logoutHandler = () => {
+		get('/auth/logout').then(() => {
+			setAuthFormSubmit(true);
+			navigate('/');
+		});
+	};
+
 	return (
 		<main>
 			<HPrimary title="My Account" className="main-heading" />
@@ -44,6 +51,8 @@ const Account = () => {
 				<Link to="/account/pending-listings">
 					<BPrimary title="Pending listings" />
 				</Link>
+
+				<BPrimary title="Logout" onClick={logoutHandler} />
 			</div>
 			<h1 className="listing-heading">Approved Listing</h1>
 

@@ -136,7 +136,10 @@ const UserRoutes = () => {
 					element={<Login setAuthFormSubmit={setAuthFormSubmit} />}
 				/>
 
-				<Route path="/account" element={<Account />} />
+				<Route
+					path="/account"
+					element={<Account setAuthFormSubmit={setAuthFormSubmit} />}
+				/>
 				<Route
 					path="/account/pending-listings"
 					element={<PendingListings />}
