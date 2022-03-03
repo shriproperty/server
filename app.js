@@ -35,6 +35,8 @@ app.use('/api', listingRouter);
 app.use('/api', authRouter);
 app.use('/api', userRouter);
 
+console.log('test');
+
 /* --------------------------------- ANCHOR server --------------------------------- */
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'));
