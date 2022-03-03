@@ -64,23 +64,23 @@ const AdminPage = ({ submit, setSubmit }) => {
 		<section className="admin-page">
 			<HPrimary title="Admin Page" className="admin-page__heading" />
 
-			<Link to="/thisissomethingrandomwhichnoonecanthinkabout/contacts">
+			<Link to={`${process.env.REACT_APP_ADMIN_ROUTE}/contacts`}>
 				<BPrimary title="Contacts" className="admin-page__button" />
 			</Link>
 
-			<Link to="/thisissomethingrandomwhichnoonecanthinkabout/property/add">
+			<Link to={`${process.env.REACT_APP_ADMIN_ROUTE}/property/add`}>
 				<BPrimary title="Add Property" className="admin-page__button" />
 			</Link>
 
-			<Link to="/thisissomethingrandomwhichnoonecanthinkabout/temp-users">
+			<Link to={`${process.env.REACT_APP_ADMIN_ROUTE}/temp-users`}>
 				<BPrimary title="Temporary" className="admin-page__button" />
 			</Link>
 
-			<Link to="/thisissomethingrandomwhichnoonecanthinkabout/listings">
+			<Link to={`${process.env.REACT_APP_ADMIN_ROUTE}/listings`}>
 				<BPrimary title="Listings" className="admin-page__button" />
 			</Link>
 
-			<Link to="/thisissomethingrandomwhichnoonecanthinkabout/users">
+			<Link to={`${process.env.REACT_APP_ADMIN_ROUTE}/users`}>
 				<BPrimary title="Users" className="admin-page__button" />
 			</Link>
 
@@ -191,7 +191,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 
 								<TableCell className="contact-table__cell">
 									<Link
-										to={`/thisissomethingrandomwhichnoonecanthinkabout/property/update/${item._id}`}
+										to={`${process.env.REACT_APP_ADMIN_ROUTE}/property/update/${item._id}`}
 									>
 										<BPrimary
 											title={<EditIcon />}

@@ -46,41 +46,41 @@ const App = () => {
 			<Router>
 				<Routes>
 					<Route
-						path="/thisissomethingrandomwhichnoonecanthinkabout/"
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}`}
 						element={
 							<Admin submit={submit} setSubmit={setSubmit} />
 						}
 					/>
 
 					<Route
-						path="/thisissomethingrandomwhichnoonecanthinkabout/temp-users"
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}/temp-users`}
 						element={<TempUsers />}
 					/>
 
 					<Route
-						path="/thisissomethingrandomwhichnoonecanthinkabout/property/add"
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}/property/add`}
 						element={<AddProperty />}
 					/>
 
 					<Route
-						path="/thisissomethingrandomwhichnoonecanthinkabout/property/update/:id"
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}/property/update/:id`}
 						element={<UpdateProperty />}
 					/>
 
 					<Route
-						path="/thisissomethingrandomwhichnoonecanthinkabout/contacts"
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}/contacts`}
 						element={<Contacts />}
 					/>
 					<Route
-						path="/thisissomethingrandomwhichnoonecanthinkabout/listings"
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}/listings`}
 						element={<Listings />}
 					/>
 					<Route
-						path="/thisissomethingrandomwhichnoonecanthinkabout/listings/:id"
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}/listings/:id`}
 						element={<AdminListing />}
 					/>
 					<Route
-						path="/thisissomethingrandomwhichnoonecanthinkabout/users"
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}/users`}
 						element={<Users />}
 					/>
 					<Route path="*" element={<UserRoutes />} />

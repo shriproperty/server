@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
@@ -149,7 +150,7 @@ const Listing = () => {
 				setOpenSuccess(true);
 				setSuccessMessage(data.message);
 				navigate(
-					'/thisissomethingrandomwhichnoonecanthinkabout/listings'
+					`${process.env.REACT_APP_ADMIN_ROUTE}/listings`
 				);
 			} else {
 				setOpenError(true);
@@ -167,7 +168,7 @@ const Listing = () => {
 					setSuccessMessage(data.message);
 					setOpenSuccess(true);
 					navigate(
-						'/thisissomethingrandomwhichnoonecanthinkabout/listings'
+						`${process.env.REACT_APP_ADMIN_ROUTE}/listings`
 					);
 				} else {
 					setErrorMessage(data.message);
@@ -196,7 +197,7 @@ const Listing = () => {
 					setSuccessMessage(data.message);
 					setOpenSuccess(true);
 					navigate(
-						'/thisissomethingrandomwhichnoonecanthinkabout/listings'
+						`${process.env.REACT_APP_ADMIN_ROUTE}/listings`
 					);
 				} else {
 					setErrorMessage(data.message);

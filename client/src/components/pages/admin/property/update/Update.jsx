@@ -149,7 +149,7 @@ const Update = () => {
 			if (data.success) {
 				setOpenSuccess(true);
 				setSuccessMessage(data.message);
-				navigate('/thisissomethingrandomwhichnoonecanthinkabout');
+				navigate(`${process.env.REACT_APP_ADMIN_ROUTE}`);
 			} else {
 				setOpenError(true);
 				setErrorMessage(data.message);
