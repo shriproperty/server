@@ -32,6 +32,7 @@ import Category from './components/pages/home/category/Category';
 import ListingSection from './components/pages/home/listing/Listing';
 import Form from './components/pages/home/form/Form';
 import Users from './components/pages/admin/users/Users';
+import User from './components/pages/admin/user/User';
 import PendingListings from './components/pages/pendingListings/PendingListings';
 import UpdatePendingListing from './components/pages/updatePendingListings/UpdatePendingListing';
 
@@ -82,6 +83,10 @@ const App = () => {
 					<Route
 						path={`${process.env.REACT_APP_ADMIN_ROUTE}/users`}
 						element={<Users />}
+					/>
+					<Route
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}/users/:id`}
+						element={<User />}
 					/>
 					<Route path="*" element={<UserRoutes />} />
 				</Routes>
