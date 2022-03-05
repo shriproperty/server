@@ -11,7 +11,6 @@ import { ASuccess, AError } from '../../util/alert/Alert';
 import { CheckBox } from '../../util/input/Input';
 import DeleteIcon from '@mui/icons-material/Delete';
 import get from '../../../api/get';
-import put from '../../../api/put';
 
 import '../admin/property/form/form.scss';
 import { postFile } from '../../../api/post';
@@ -25,6 +24,7 @@ const Listing = ({ isLoggedIn }) => {
 		price: '',
 		specialPrice: '',
 		type: '',
+		security: '',
 		category: '',
 		status: '',
 		size: '',
@@ -498,6 +498,20 @@ const Listing = ({ isLoggedIn }) => {
 						<MenuItem value="Sale">Sale</MenuItem>
 					</Select>
 				</FormControl>
+
+				{property.type === 'Rental' && (
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Security"
+						onChange={e =>
+							setProperty({
+								...property,
+								security: e.target.value,
+							})
+						}
+					/>
+				)}
 
 				<FormControl className="admin-property-form__select">
 					<InputLabel>category</InputLabel>

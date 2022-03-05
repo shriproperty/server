@@ -292,13 +292,27 @@ const Property = () => {
 											'line-through'
 										}
 									>
-										{response.price}
+										 {response.price}
 									</h3>
 
 									<h3 className="special-price">
-										{response.specialPrice}
+										 {response.specialPrice}
 									</h3>
 								</div>
+
+								{response.security && (
+									<div className="pricing-section_item space">
+										<div className="sell-icon">
+											<LocalOfferIcon />
+										</div>
+										<h3>Security: </h3>
+
+										<h3 className="special-price">
+											₹ {response.security}
+										</h3>
+									</div>
+								)}
+
 								<div className="pricing-section_item">
 									<div className="sell-icon">
 										<StraightenIcon />

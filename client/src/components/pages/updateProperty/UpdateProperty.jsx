@@ -29,6 +29,7 @@ const UpdateProperty = () => {
 		price: '',
 		specialPrice: '',
 		type: '',
+		security: '',
 		category: '',
 		status: '',
 		size: '',
@@ -591,6 +592,21 @@ const UpdateProperty = () => {
 							<MenuItem value="Sale">Sale</MenuItem>
 						</Select>
 					</FormControl>
+
+					{property.type === 'Rental' && (
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Security"
+							value={property.security}
+							onChange={e =>
+								setProperty({
+									...property,
+									security: e.target.value,
+								})
+							}
+						/>
+					)}
 
 					<FormControl className="admin-property-form__select">
 						<InputLabel>category</InputLabel>

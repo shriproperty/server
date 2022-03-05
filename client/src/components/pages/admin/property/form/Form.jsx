@@ -21,6 +21,7 @@ const Form = () => {
 		price: '',
 		specialPrice: '',
 		type: '',
+		security: '',
 		category: '',
 		status: '',
 		size: '',
@@ -478,6 +479,20 @@ const Form = () => {
 						<MenuItem value="Sale">Sale</MenuItem>
 					</Select>
 				</FormControl>
+
+				{property.type === 'Rental' && (
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Security"
+						onChange={e =>
+							setProperty({
+								...property,
+								security: e.target.value,
+							})
+						}
+					/>
+				)}
 
 				<FormControl className="admin-property-form__select">
 					<InputLabel>category</InputLabel>
