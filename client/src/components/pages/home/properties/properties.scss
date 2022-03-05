@@ -62,10 +62,20 @@
 				object-fit: cover;
 			}
 		}
+		&-type{
+			position: absolute;
+			top: 0.5rem;
+			left: 0.5rem;
+			font-size: 1.5rem;
+			background-color: $color-primary;
+			color: white;
+			padding: .6rem 1rem;
+			border-radius: 8px;
+		}
 		&-image {
 			height: 25rem;
 			width: fit-content;
-
+			position: relative;
 			@media screen and (max-width: 600px) {
 				height: 35rem;
 			}
