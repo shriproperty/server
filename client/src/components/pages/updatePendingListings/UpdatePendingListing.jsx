@@ -862,6 +862,38 @@ const UpdatePendingListing = () => {
 							<TextField
 								className="admin-property-form__input"
 								variant="outlined"
+								label="Dressing Table"
+								type="number"
+								value={furnishingDetails.dressingTable}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										dressingTable: e.target.value
+											? e.target.value
+											: 0,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="TV Wall Panel"
+								type="number"
+								value={furnishingDetails.tvWallPanel}
+								onChange={e =>
+									setFurnishingDetails({
+										...furnishingDetails,
+										tvWallPanel: e.target.value
+											? e.target.value
+											: 0,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
 								label="wardrobe"
 								type="number"
 								value={furnishingDetails.wardrobe}

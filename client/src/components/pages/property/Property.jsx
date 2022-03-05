@@ -402,7 +402,7 @@ const Property = () => {
 										<div>
 											<img
 												src="/images/amenities/AC.png"
-												alt="air codition"
+												alt="air conditioner"
 											/>
 										</div>
 										<h3 className="amenities-section__name">
@@ -545,6 +545,42 @@ const Property = () => {
 										</h3>
 										<div className="amenities-section__number">
 											{response.furnishingDetails.tv}
+										</div>
+									</div>
+
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/dressing-table.png"
+												alt="dressing table"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Dressing Table
+										</h3>
+										<div className="amenities-section__number">
+											{
+												response.furnishingDetails
+													.dressingTable
+											}
+										</div>
+									</div>
+
+									<div className="amenities-container">
+										<div>
+											<img
+												src="/images/amenities/TV.png"
+												alt="dressing table"
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											Tv Wall Panel
+										</h3>
+										<div className="amenities-section__number">
+											{
+												response.furnishingDetails
+													.tvWallPanel
+											}
 										</div>
 									</div>
 									<div className="amenities-container">
