@@ -47,13 +47,8 @@ const Account = ({ setAuthFormSubmit }) => {
 		<main>
 			<HPrimary title="My Account" className="main-heading" />
 
-<<<<<<< HEAD
-			<div className="buttons"> 
-				<Link to="/account/listings">
-=======
 			<div className="account-page__buttons">
 				<Link to="/account/pending-listings">
->>>>>>> 3e22e311ef84d60da6c0fbedba1bb49be50766be
 					<BPrimary title="Pending listings" />
 				</Link>
 
