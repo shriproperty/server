@@ -74,3 +74,33 @@ check status of mongod
 ```bash
 sudo systemctl status mongod
 ```
+
+PM2 Start for first time
+
+```bash
+pm2 start "yarn start" --name Server
+```
+
+PM2 Start
+
+```bash
+pm2 start Server
+```
+
+PM2 Stop
+
+```bash
+pm2 stop Server
+```
+
+PM2 Restart
+
+```bash
+pm2 restart Server
+```
+
+PM2 Logs
+
+```bash
+pm2 logs
+```

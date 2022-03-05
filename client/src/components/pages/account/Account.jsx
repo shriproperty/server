@@ -34,7 +34,7 @@ const Account = () => {
 		<section>
 			<HPrimary title="My Account" className="main-heading" />
 
-			<div className="buttons">
+			<div className="buttons"> 
 				<Link to="/account/listings">
 					<BPrimary title="Pending listings" />
 				</Link>
