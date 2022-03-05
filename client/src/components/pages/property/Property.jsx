@@ -77,7 +77,6 @@ const Property = () => {
 		setBtnLoading(false);
 		// if otp is valid than create new user
 		if (verifyOtpResponse.success) {
-			console.log(response.data);
 			const newUserResponse = await post('/temp-users/add', {
 				name,
 				email,
@@ -254,17 +253,19 @@ const Property = () => {
 
 					<div>
 						<section className="heading-section">
-							<a
-								href={response.location}
-								target="_blank"
-								rel="noreferrer"
-							>
-								<img
-									src="/images/location.png"
-									alt="location"
-									className="heading-section_location"
-								/>
-							</a>
+							{response.location && (
+								<a
+									href={response.location}
+									target="_blank"
+									rel="noreferrer"
+								>
+									<img
+										src="/images/location.png"
+										alt="location"
+										className="heading-section_location"
+									/>
+								</a>
+							)}
 
 							<div className="heading-section_sub">
 								<HPrimary title={response.title} />
@@ -273,16 +274,6 @@ const Property = () => {
 									{response.address}
 								</h2>
 							</div>
-
-							{/* <Link
-								to="/properties"
-								className="heading-section_link"
-							>
-								<BPrimary
-									title="Request a Call"
-									type="submit"
-								/>
-							</Link> */}
 						</section>
 
 						<section className="pricing-section">
@@ -337,6 +328,10 @@ const Property = () => {
 
 								<div className="facilities-section_item">
 									<h3>Kitchen</h3> <h3>{response.kitchen}</h3>
+								</div>
+
+								<div className="facilities-section_item">
+									<h3>Lobby</h3> <h3>{response.lobby}</h3>
 								</div>
 
 								<div className="facilities-section_item">

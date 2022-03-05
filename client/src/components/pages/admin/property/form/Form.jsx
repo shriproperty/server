@@ -56,8 +56,6 @@ const Form = () => {
 	const [videos, setVideos] = useState([]);
 	const [documents, setDocuments] = useState([]);
 
-	console.log(images);
-
 	const [loading, setLoading] = useState(false);
 	const [openSuccess, setOpenSuccess] = useState(false);
 	const [openError, setOpenError] = useState(false);
