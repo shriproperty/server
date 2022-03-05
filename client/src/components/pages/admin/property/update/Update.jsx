@@ -1146,6 +1146,42 @@ const Update = () => {
 						/>
 
 						<CheckBox
+							label="CCTV"
+							checked={facilityChecker('CCTV')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'CCTV',
+									'cctv.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Gated Society"
+							checked={facilityChecker('Gated Society')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Gated Society',
+									'gate.png'
+								)
+							}
+						/>
+
+						<CheckBox
+							label="Street Light"
+							checked={facilityChecker('Street Light')}
+							onChange={e =>
+								checkboxHandler(
+									e.target.checked,
+									'Street Light',
+									'street-light.png'
+								)
+							}
+						/>
+
+						<CheckBox
 							label="WiFi"
 							checked={facilityChecker('WiFi')}
 							onChange={e =>
