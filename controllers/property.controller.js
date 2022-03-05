@@ -55,6 +55,7 @@ export const createProperty = async (req, res) => {
 			location,
 			furnishingDetails,
 			facilities,
+			security,
 		} = req.body;
 
 		const parsedFacilities = [];
@@ -300,6 +301,7 @@ export const createProperty = async (req, res) => {
 			constructionStatus,
 			location,
 			facilities: parsedFacilities,
+			security,
 			furnishingDetails: furnishingDetails
 				? JSON.parse(furnishingDetails)
 				: {},
@@ -399,6 +401,7 @@ export const update = async (req, res) => {
 			specialPrice,
 			size,
 			type,
+			security,
 			category,
 			unit,
 			bedroom,
@@ -626,6 +629,7 @@ export const update = async (req, res) => {
 				specialPrice,
 				size,
 				type,
+				security,
 				category,
 				unit,
 				bedroom,
