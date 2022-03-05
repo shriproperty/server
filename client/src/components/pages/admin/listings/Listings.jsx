@@ -64,7 +64,7 @@ const Listings = () => {
 							<TableRow key={item._id}>
 								<TableCell className="contact-table__cell">
 									<Link
-										to={`/thisissomethingrandomwhichnoonecanthinkabout/listings/${item._id}`}
+										to={`${process.env.REACT_APP_ADMIN_ROUTE}/listings/${item._id}`}
 									>
 										{item.title}
 									</Link>

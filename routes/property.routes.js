@@ -9,6 +9,10 @@ propertyRouter.post('/properties/add', propertyController.createProperty);
 propertyRouter.get('/properties/all', propertyController.getAll);
 propertyRouter.get('/properties/single/:id', propertyController.getSingle);
 propertyRouter.patch('/properties/update/:id', propertyController.update);
+propertyRouter.put(
+	'/properties/move-property-to-listings/:id',
+	propertyController.movePropertyToListings
+);
 propertyRouter.delete(
 	'/properties/delete/:id',
 	propertyController.deleteProperty

@@ -77,25 +77,64 @@ const Nav = ({ isLoggedIn }) => {
 				>
 					<ul>
 						<li>
-							<Link to="/">Home</Link>
-						</li>
-
-						<li>
-							<Link to="/properties">Properties</Link>
-						</li>
-
-						<li>
-							<a href="/#form-section">Contact Us</a>
-						</li>
-
-						<li>
-							<Link to={isLoggedIn ? '/account' : '/login'}>
-								My Account
+							<Link onClick={() => setOpen(false)} to="/">
+								Home
 							</Link>
 						</li>
 
 						<li>
-							<Link to="/listing">Add Listing</Link>
+							<Link
+								onClick={() => setOpen(false)}
+								to="/properties"
+							>
+								Properties
+							</Link>
+						</li>
+
+						<li>
+							<a
+								onClick={() => setOpen(false)}
+								href="/#form-section"
+							>
+								Contact Us
+							</a>
+						</li>
+
+						{isLoggedIn ? (
+							<li>
+								<Link
+									onClick={() => setOpen(false)}
+									to="/account"
+								>
+									My Account
+								</Link>
+							</li>
+						) : (
+							<>
+								<li>
+									<Link
+										onClick={() => setOpen(false)}
+										to="/signup"
+									>
+										Signup
+									</Link>
+								</li>
+
+								<li>
+									<Link
+										onClick={() => setOpen(false)}
+										to="/login"
+									>
+										Login
+									</Link>
+								</li>
+							</>
+						)}
+
+						<li>
+							<Link onClick={() => setOpen(false)} to="/listing">
+								Add Listing
+							</Link>
 						</li>
 					</ul>
 				</Drawer>

@@ -32,6 +32,9 @@ import Category from './components/pages/home/category/Category';
 import ListingSection from './components/pages/home/listing/Listing';
 import Form from './components/pages/home/form/Form';
 import Users from './components/pages/admin/users/Users';
+import User from './components/pages/admin/user/User';
+import PendingListings from './components/pages/pendingListings/PendingListings';
+import UpdatePendingListing from './components/pages/updatePendingListings/UpdatePendingListing';
 
 import './app.scss';
 
@@ -44,42 +47,46 @@ const App = () => {
 			<Router>
 				<Routes>
 					<Route
-						path="/thisissomethingrandomwhichnoonecanthinkabout/"
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}`}
 						element={
 							<Admin submit={submit} setSubmit={setSubmit} />
 						}
 					/>
 
 					<Route
-						path="/thisissomethingrandomwhichnoonecanthinkabout/temp-users"
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}/temp-users`}
 						element={<TempUsers />}
 					/>
 
 					<Route
-						path="/thisissomethingrandomwhichnoonecanthinkabout/property/add"
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}/property/add`}
 						element={<AddProperty />}
 					/>
 
 					<Route
-						path="/thisissomethingrandomwhichnoonecanthinkabout/property/update/:id"
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}/property/update/:id`}
 						element={<UpdateProperty />}
 					/>
 
 					<Route
-						path="/thisissomethingrandomwhichnoonecanthinkabout/contacts"
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}/contacts`}
 						element={<Contacts />}
 					/>
 					<Route
-						path="/thisissomethingrandomwhichnoonecanthinkabout/listings"
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}/listings`}
 						element={<Listings />}
 					/>
 					<Route
-						path="/thisissomethingrandomwhichnoonecanthinkabout/listings/:id"
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}/listings/:id`}
 						element={<AdminListing />}
 					/>
 					<Route
-						path="/thisissomethingrandomwhichnoonecanthinkabout/users"
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}/users`}
 						element={<Users />}
+					/>
+					<Route
+						path={`${process.env.REACT_APP_ADMIN_ROUTE}/users/:id`}
+						element={<User />}
 					/>
 					<Route path="*" element={<UserRoutes />} />
 				</Routes>
@@ -136,12 +143,20 @@ const UserRoutes = () => {
 
 				<Route
 					path="/account"
-					element={<Account isLoggedIn={isLoggedIn} />}
+					element={<Account setAuthFormSubmit={setAuthFormSubmit} />}
+				/>
+				<Route
+					path="/account/pending-listings"
+					element={<PendingListings />}
 				/>
 				<Route path="/allimages" element={<AllImages />} />
 				<Route
 					path="/property/update/:id"
 					element={<UserUpdateProperty />}
+				/>
+				<Route
+					path="/account/pending-listings/:id"
+					element={<UpdatePendingListing />}
 				/>
 				<Route path="/404" element={<NotFound />} />
 				<Route path="*" element={<Navigate replace to="/404" />} />

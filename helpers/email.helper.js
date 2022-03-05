@@ -18,7 +18,10 @@ export const sendEmail = (to, subject, text) => {
 	});
 
 	const mailOptions = {
-		from: process.env.EMAIL_ID,
+		from: {
+			name: 'Shri Property',
+			address: process.env.EMAIL_ID,
+		},
 		to,
 		subject,
 		text,

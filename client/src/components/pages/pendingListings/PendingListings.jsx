@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
-import get from '../../../api/get';
 import { Link, useNavigate } from 'react-router-dom';
 import { BPrimary } from '../../util/button/Button';
-import { HPrimary } from '../../util/typography/Typography';
 import Loader from '../../util/loader/Loader';
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -13,54 +11,29 @@ import {
 	TableCell,
 	TableHead,
 } from '@mui/material';
-import './account.scss';
+import get from '../../../api/get';
 
-const Account = ({ setAuthFormSubmit }) => {
+const PendingListings = () => {
 	const navigate = useNavigate();
 
-	const [response, setResponse] = useState([]);
+	const [response, setResponse] = useState('');
 	const [propertyLoading, setPropertyLoading] = useState(true);
 
 	useEffect(() => {
 		get('/users/decode')
 			.then(res => {
-				get(`/users/single/${res.data.id}?properties=true`).then(
-					data => {
-						setResponse(data.data);
-						setPropertyLoading(false);
-					}
-				);
+				get(`/users/single/${res.data.id}?listings=true`).then(data => {
+					setResponse(data.data);
+					setPropertyLoading(false);
+				});
 			})
 			.catch(() => {
 				navigate('/login');
 			});
 	}, []);
 
-	const logoutHandler = () => {
-		get('/auth/logout').then(() => {
-			setAuthFormSubmit(true);
-			navigate('/');
-		});
-	};
-
 	return (
 		<main>
-			<HPrimary title="My Account" className="main-heading" />
-
-<<<<<<< HEAD
-			<div className="buttons"> 
-				<Link to="/account/listings">
-=======
-			<div className="account-page__buttons">
-				<Link to="/account/pending-listings">
->>>>>>> 3e22e311ef84d60da6c0fbedba1bb49be50766be
-					<BPrimary title="Pending listings" />
-				</Link>
-
-				<BPrimary title="Logout" onClick={logoutHandler} />
-			</div>
-			<h1 className="listing-heading">Approved Listing</h1>
-
 			{propertyLoading ? (
 				<Loader fullScreen />
 			) : (
@@ -90,7 +63,7 @@ const Account = ({ setAuthFormSubmit }) => {
 					</TableHead>
 
 					<TableBody>
-						{response.properties.map(item => (
+						{response.listings.map(item => (
 							<TableRow key={item._id}>
 								<TableCell className="contact-table__cell">
 									{item.title}
@@ -109,7 +82,9 @@ const Account = ({ setAuthFormSubmit }) => {
 								</TableCell>
 
 								<TableCell className="contact-table__cell">
-									<Link to={`/property/update/${item._id}`}>
+									<Link
+										to={`/account/pending-listings/${item._id}`}
+									>
 										<BPrimary title={<EditIcon />} />
 									</Link>
 								</TableCell>
@@ -122,4 +97,4 @@ const Account = ({ setAuthFormSubmit }) => {
 	);
 };
 
-export default Account;
+export default PendingListings;

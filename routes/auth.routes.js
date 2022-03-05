@@ -30,6 +30,7 @@ const resetPasswordChecks = [
 authRouter.post('/auth/signup', signupValidationChecks, authController.signup);
 authRouter.post('/auth/login', loginValidationChecks, authController.login);
 authRouter.get('/auth/is-logged-in', authController.isLoggedIn);
+authRouter.get('/auth/logout', authController.logout);
 authRouter.patch(
 	'/auth/reset-password',
 	resetPasswordChecks,

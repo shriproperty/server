@@ -33,8 +33,29 @@ export const getSingleUser = async (req, res) => {
 		const { id } = req.params;
 		const { listings, properties } = req.query;
 
+		// ANCHOR populate both listings and properties
+		if (listings === 'true' && properties === 'true') {
+			const user = await User.findById(id)
+				.populate('listings')
+				.populate('properties');
+
+			if (!user) {
+				return res.status(404).json({
+					success: false,
+					message: 'User not found',
+					data: {},
+				});
+			}
+
+			return res.status(200).json({
+				success: true,
+				message: 'User fetched successfully',
+				data: user,
+			});
+		}
+
 		// ANCHOR populate listings
-		if (listings === 'true' && properties === 'false') {
+		if (listings === 'true') {
 			const user = await User.findById(id).populate('listings');
 
 			if (!user) {
@@ -53,29 +74,8 @@ export const getSingleUser = async (req, res) => {
 		}
 
 		// ANCHOR populate properties
-		if (listings === 'false' && properties === 'true') {
+		if (properties === 'true') {
 			const user = await User.findById(id).populate('properties');
-
-			if (!user) {
-				return res.status(404).json({
-					success: false,
-					message: 'User not found',
-					data: {},
-				});
-			}
-
-			return res.status(200).json({
-				success: true,
-				message: 'User fetched successfully',
-				data: user,
-			});
-		}
-
-		// ANCHOR populate both listings and properties
-		if (listings === 'true' && properties === 'true') {
-			const user = await User.findById(id)
-				.populate('listings')
-				.populate('properties');
 
 			if (!user) {
 				return res.status(404).json({

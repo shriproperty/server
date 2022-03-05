@@ -1,8 +1,5 @@
 # Notes
 
-[Admin Link of Live](https://shriproperty.com/thisissomethingrandomwhichnoonecanthinkabout)
-[Admin Link of Localhost](http://localhost:3000/thisissomethingrandomwhichnoonecanthinkabout)
-
 command to generate csv file of collection from terminal
 
 ```bash

@@ -6,20 +6,19 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { BPrimary, BUpload } from '../../../util/button/Button';
-import { ASuccess, AError } from '../../../util/alert/Alert';
-import Loader from '../../../util/loader/Loader';
+import { BPrimary, BUpload } from '../../util/button/Button';
+import { ASuccess, AError } from '../../util/alert/Alert';
+import Loader from '../../util/loader/Loader';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { patchFile } from '../../../../api/patch';
-import putRequest from '../../../../api/put';
-import get from '../../../../api/get';
-import deleteRequest from '../../../../api/delete';
-import { CheckBox } from '../../../util/input/Input';
+import { patchFile } from '../../../api/patch';
+import get from '../../../api/get';
+import deleteRequest from '../../../api/delete';
+import { CheckBox } from '../../util/input/Input';
 
-//NOTE: Sass is coming from form.scss file in ../form folder
+//NOTE Sass is coming from form.scss file in ../form folder
 
-const Listing = () => {
+const UpdatePendingListing = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	/* --------------------------------- ANCHOR States --------------------------------- */
@@ -73,6 +72,7 @@ const Listing = () => {
 	const [deleteFile, setDeleteFile] = useState(false);
 	const [loadingPage, setLoadingPage] = useState(true);
 
+	/* ------------------------------- ANCHOR Use Effect ------------------------------- */
 	useEffect(() => {
 		get(`/listings/single/${id}`)
 			.then(res => {
@@ -96,8 +96,8 @@ const Listing = () => {
 
 	const body = new FormData();
 
-	// submit handler
-	const updateHandler = e => {
+	/* -------------------------- ANCHOR submit handler ------------------------- */
+	const submitHandler = e => {
 		e.preventDefault();
 		setLoading(true);
 
@@ -149,33 +149,12 @@ const Listing = () => {
 			if (data.success) {
 				setOpenSuccess(true);
 				setSuccessMessage(data.message);
-				navigate(
-					`${process.env.REACT_APP_ADMIN_ROUTE}/listings`
-				);
+				navigate('/account');
 			} else {
 				setOpenError(true);
 				setErrorMessage(data.message);
 			}
 		});
-	};
-
-	const approveHandler = id => {
-		return e => {
-			e.preventDefault();
-
-			putRequest(`/listings/approve/${property._id}`).then(data => {
-				if (data.success) {
-					setSuccessMessage(data.message);
-					setOpenSuccess(true);
-					navigate(
-						`${process.env.REACT_APP_ADMIN_ROUTE}/listings`
-					);
-				} else {
-					setErrorMessage(data.message);
-					setOpenError(true);
-				}
-			});
-		};
 	};
 
 	const deleteFileHandler = (id, type, key) => {
@@ -185,25 +164,6 @@ const Listing = () => {
 					setDeleteFile(true);
 				}
 			);
-		};
-	};
-
-	const deleteHandler = id => {
-		return e => {
-			e.preventDefault();
-
-			deleteRequest(`/listings/delete/${id}`).then(data => {
-				if (data.success) {
-					setSuccessMessage(data.message);
-					setOpenSuccess(true);
-					navigate(
-						`${process.env.REACT_APP_ADMIN_ROUTE}/listings`
-					);
-				} else {
-					setErrorMessage(data.message);
-					setOpenError(true);
-				}
-			});
 		};
 	};
 
@@ -248,7 +208,7 @@ const Listing = () => {
 			{loadingPage ? (
 				<Loader fullScreen />
 			) : (
-				<form onSubmit={updateHandler} className="admin-property-form">
+				<form onSubmit={submitHandler} className="admin-property-form">
 					<ASuccess
 						title={successMessage}
 						open={openSuccess}
@@ -690,22 +650,7 @@ const Listing = () => {
 							<MenuItem value="Furnished">Furnished</MenuItem>
 						</Select>
 					</FormControl>
-					<FormControl className="admin-property-form__select">
-						<InputLabel>Featured</InputLabel>
-						<Select
-							label="Featured"
-							value={property.featured}
-							onChange={e =>
-								setProperty({
-									...property,
-									featured: e.target.value,
-								})
-							}
-						>
-							<MenuItem value={true}>True</MenuItem>
-							<MenuItem value={false}>False</MenuItem>
-						</Select>
-					</FormControl>
+
 					<FormControl className="admin-property-form__select">
 						<InputLabel>Direction</InputLabel>
 						<Select
@@ -1415,24 +1360,10 @@ const Listing = () => {
 						type="submit"
 						loading={loading}
 					/>
-
-					<BPrimary
-						title="Approve"
-						className="admin-property-form__submit-btn"
-						loading={loading}
-						onClick={approveHandler(property._id)}
-					/>
-
-					<BPrimary
-						title="Delete"
-						className="admin-property-form__submit-btn"
-						loading={loading}
-						onClick={deleteHandler(property._id)}
-					/>
 				</form>
 			)}
 		</section>
 	);
 };
 
-export default Listing;
+export default UpdatePendingListing;
