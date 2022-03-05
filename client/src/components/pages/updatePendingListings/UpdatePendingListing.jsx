@@ -1112,7 +1112,7 @@ const UpdatePendingListing = () => {
 							onChange={e =>
 								checkboxHandler(
 									e.target.checked,
-									'Water Supply',
+									'Water supply 24/7',
 									'water.png'
 								)
 							}
@@ -1131,8 +1131,8 @@ const UpdatePendingListing = () => {
 						/>
 
 						<CheckBox
-							label="Wifi"
-							checked={facilityChecker('Wifi')}
+							label="WiFi"
+							checked={facilityChecker('WiFi')}
 							onChange={e =>
 								checkboxHandler(
 									e.target.checked,

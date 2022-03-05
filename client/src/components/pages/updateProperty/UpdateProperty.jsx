@@ -1138,8 +1138,8 @@ const UpdateProperty = () => {
 						/>
 
 						<CheckBox
-							label="Wifi"
-							checked={facilityChecker('Wifi')}
+							label="WiFi"
+							checked={facilityChecker('WiFi')}
 							onChange={e =>
 								checkboxHandler(
 									e.target.checked,

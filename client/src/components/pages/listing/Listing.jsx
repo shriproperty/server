@@ -1004,7 +1004,7 @@ const Listing = ({ isLoggedIn }) => {
 						onChange={e =>
 							checkboxHandler(
 								e.target.checked,
-								'Water Supply',
+								'Water supply 24/7',
 								'water.png'
 							)
 						}
@@ -1022,7 +1022,7 @@ const Listing = ({ isLoggedIn }) => {
 					/>
 
 					<CheckBox
-						label="Wifi"
+						label="WiFi"
 						onChange={e =>
 							checkboxHandler(
 								e.target.checked,

@@ -1003,7 +1003,7 @@ const Form = () => {
 						onChange={e =>
 							checkboxHandler(
 								e.target.checked,
-								'Water Supply',
+								'Water supply 24/7',
 								'water.png'
 							)
 						}
@@ -1021,7 +1021,7 @@ const Form = () => {
 					/>
 
 					<CheckBox
-						label="Wifi"
+						label="WiFi"
 						onChange={e =>
 							checkboxHandler(
 								e.target.checked,

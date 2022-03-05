@@ -170,13 +170,13 @@ const Update = () => {
 	/* --------------------------------- ANCHOR Checkbox handler --------------------------------- */
 	/**
 	 * Checkbox handler
-	 * @param {boolean} checked The value of the checkbox
+	 * @param {boolean} checked If checkbox is checked: `true` or unchecked: `false`
 	 * @param {string} title The title of the facility
 	 * @param {string} icon Icon which will be used for facility should be same as icon name in file system
 	 * @return {Function} Function used by onChange event of checkbox
 	 */
 	const checkboxHandler = (checked, title, icon) => {
-		if (checked) {
+		if (checked && !facilities.includes({title, icon})) {
 			setFacilities(prevState => [
 				...prevState,
 				JSON.stringify({
@@ -1127,7 +1127,7 @@ const Update = () => {
 							onChange={e =>
 								checkboxHandler(
 									e.target.checked,
-									'Water Supply',
+									'Water supply 24/7',
 									'water.png'
 								)
 							}
@@ -1146,8 +1146,8 @@ const Update = () => {
 						/>
 
 						<CheckBox
-							label="Wifi"
-							checked={facilityChecker('Wifi')}
+							label="WiFi"
+							checked={facilityChecker('WiFi')}
 							onChange={e =>
 								checkboxHandler(
 									e.target.checked,
