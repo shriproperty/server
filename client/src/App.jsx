@@ -43,7 +43,7 @@ const App = () => {
 	const [submit, setSubmit] = useState(false);
 
 	return (
-		<>
+		<HelmetProvider>
 			<CssBaseline />
 			<Router>
 				<Routes>
@@ -92,7 +92,7 @@ const App = () => {
 					<Route path="*" element={<UserRoutes />} />
 				</Routes>
 			</Router>
-		</>
+		</HelmetProvider>
 	);
 };
 
@@ -109,7 +109,7 @@ const UserRoutes = () => {
 	}, [authFormSubmit]);
 
 	return (
-		<HelmetProvider>
+		<>
 			<Nav isLoggedIn={isLoggedIn} />
 			<Routes>
 				<Route
@@ -173,7 +173,7 @@ const UserRoutes = () => {
 				<Route path="*" element={<Navigate replace to="/404" />} />
 			</Routes>
 			<Footer />
-		</HelmetProvider>
+		</>
 	);
 };
 
