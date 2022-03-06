@@ -10,6 +10,7 @@ import {
 	TableCell,
 	TableHead,
 } from '@mui/material';
+import { Helmet } from 'react-helmet-async';
 
 const Listings = () => {
 	const [response, setResponse] = useState([]);
@@ -25,7 +26,9 @@ const Listings = () => {
 
 	return (
 		<section>
-			{/* Alert */}
+			<Helmet>
+				<meta name="robots" content="noindex" />
+			</Helmet>
 
 			{propertyLoading ? (
 				<Loader fullScreen />

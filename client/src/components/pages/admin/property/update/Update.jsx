@@ -15,6 +15,7 @@ import { patchFile } from '../../../../../api/patch';
 import get from '../../../../../api/get';
 import deleteRequest from '../../../../../api/delete';
 import { CheckBox } from '../../../../util/input/Input';
+import { Helmet } from 'react-helmet-async';
 
 //NOTE Sass is coming from form.scss file in ../form folder
 
@@ -206,6 +207,10 @@ const Update = () => {
 
 	return (
 		<section>
+			<Helmet>
+				<meta name="robots" content="noindex" />
+			</Helmet>
+
 			{loadingPage ? (
 				<Loader fullScreen />
 			) : (
@@ -581,7 +586,6 @@ const Update = () => {
 									type: e.target.value,
 								})
 							}
-							required
 						>
 							<MenuItem value="Rental">Rental</MenuItem>
 							<MenuItem value="Sale">Sale</MenuItem>
@@ -615,7 +619,6 @@ const Update = () => {
 									category: e.target.value,
 								})
 							}
-							required
 						>
 							<MenuItem value="Residential Apartment">
 								Residential Apartment

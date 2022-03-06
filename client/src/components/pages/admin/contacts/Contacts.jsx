@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -64,6 +65,10 @@ const Users = () => {
 
 	return (
 		<>
+			<Helmet>
+				<meta name="robots" content="noindex" />
+			</Helmet>
+
 			<AError
 				title={errorMessage}
 				id="alert-error"

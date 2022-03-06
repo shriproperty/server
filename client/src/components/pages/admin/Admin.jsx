@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 
 import './admin.scss';
+import { Helmet } from 'react-helmet-async';
 
 const AdminPage = ({ submit, setSubmit }) => {
 	const [response, setResponse] = useState([]);
@@ -62,6 +63,10 @@ const AdminPage = ({ submit, setSubmit }) => {
 
 	return (
 		<section className="admin-page">
+			<Helmet>
+				<meta name="robots" content="noindex" />
+			</Helmet>
+
 			<HPrimary title="Admin Page" className="admin-page__heading" />
 
 			<Link to={`${process.env.REACT_APP_ADMIN_ROUTE}/contacts`}>

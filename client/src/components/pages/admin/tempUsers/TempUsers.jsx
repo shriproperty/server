@@ -20,6 +20,7 @@ import { BPrimary } from '../../../util/button/Button';
 import deleteRequest from '../../../../api/delete';
 
 import './tempUsers.scss';
+import { Helmet } from 'react-helmet-async';
 
 const TempUsers = () => {
 	const [response, setResponse] = useState([]);
@@ -88,6 +89,10 @@ const TempUsers = () => {
 
 	return (
 		<>
+			<Helmet>
+				<meta name="robots" content="noindex" />
+			</Helmet>
+
 			<AError
 				title={errorMessage}
 				id="alert-error"

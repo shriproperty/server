@@ -16,6 +16,7 @@ import putRequest from '../../../../api/put';
 import get from '../../../../api/get';
 import deleteRequest from '../../../../api/delete';
 import { CheckBox } from '../../../util/input/Input';
+import { Helmet } from 'react-helmet-async';
 
 //NOTE: Sass is coming from form.scss file in ../form folder
 
@@ -240,6 +241,10 @@ const Listing = () => {
 
 	return (
 		<section>
+			<Helmet>
+				<meta name="robots" content="noindex" />
+			</Helmet>
+
 			{loadingPage ? (
 				<Loader fullScreen />
 			) : (
@@ -399,7 +404,6 @@ const Listing = () => {
 						<Select
 							required
 							label="Unit"
-							required
 							value={property.unit}
 							onChange={e =>
 								setProperty({
@@ -616,7 +620,6 @@ const Listing = () => {
 									type: e.target.value,
 								})
 							}
-							required
 						>
 							<MenuItem value="Rental">Rental</MenuItem>
 							<MenuItem value="Sale">Sale</MenuItem>
@@ -650,7 +653,6 @@ const Listing = () => {
 									category: e.target.value,
 								})
 							}
-							required
 						>
 							<MenuItem value="Residential Apartment">
 								Residential Apartment

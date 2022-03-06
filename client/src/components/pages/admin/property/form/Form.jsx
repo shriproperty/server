@@ -12,6 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import './form.scss';
 import { postFile } from '../../../../../api/post';
+import { Helmet } from 'react-helmet-async';
 
 const Form = () => {
 	/* --------------------------------- ANCHOR States --------------------------------- */
@@ -147,6 +148,10 @@ const Form = () => {
 
 	return (
 		<section>
+			<Helmet>
+				<meta name="robots" content="noindex" />
+			</Helmet>
+
 			<form onSubmit={submitHandler} className="admin-property-form">
 				<ASuccess
 					title={successMessage}

@@ -13,6 +13,7 @@ import { BPrimary } from '../../../util/button/Button';
 import Loader from '../../../util/loader/Loader';
 import get from '../../../../api/get';
 import deleteRequest from '../../../../api/delete';
+import { Helmet } from 'react-helmet-async';
 
 const User = () => {
 	const { id } = useParams();
@@ -60,7 +61,9 @@ const User = () => {
 
 	return (
 		<main>
-			{/* Alert */}
+			<Helmet>
+				<meta name="robots" content="noindex" />
+			</Helmet>
 
 			<ASuccess
 				title={successMessage}

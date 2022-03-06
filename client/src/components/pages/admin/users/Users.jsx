@@ -7,6 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import getRequest from '../../../../api/get';
 import Loader from '../../../util/loader/Loader';
+import { Helmet } from 'react-helmet-async';
 
 const Users = () => {
 	const [response, setResponse] = useState([]);
@@ -21,6 +22,10 @@ const Users = () => {
 
 	return (
 		<main>
+			<Helmet>
+				<meta name="robots" content="noindex" />
+			</Helmet>
+
 			{loading ? (
 				<Loader fullScreen />
 			) : (
