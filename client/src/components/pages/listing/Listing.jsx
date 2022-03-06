@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -164,6 +165,15 @@ const Listing = ({ isLoggedIn }) => {
 
 	return (
 		<section>
+			<Helmet>
+				<title>Listing | Shri Property</title>
+				<link rel="canonical" href="/listing" />
+				<meta
+					name="description"
+					content="List Your Properties on Shri Property and get best prices for them"
+				/>
+			</Helmet>
+
 			<form onSubmit={submitHandler} className="admin-property-form">
 				<ASuccess
 					title={successMessage}
@@ -494,7 +504,6 @@ const Listing = ({ isLoggedIn }) => {
 						onChange={e =>
 							setProperty({ ...property, type: e.target.value })
 						}
-						required
 					>
 						<MenuItem value="Rental">Rental</MenuItem>
 						<MenuItem value="Sale">Sale</MenuItem>
@@ -527,7 +536,6 @@ const Listing = ({ isLoggedIn }) => {
 								category: e.target.value,
 							})
 						}
-						required
 					>
 						<MenuItem value="Residential Apartment">
 							Residential Apartment

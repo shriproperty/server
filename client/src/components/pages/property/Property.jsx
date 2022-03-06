@@ -12,6 +12,7 @@ import Loader from '../../util/loader/Loader';
 import Modal from '../../util/modal/Modal';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import StraightenIcon from '@mui/icons-material/Straighten';
+import { Helmet } from 'react-helmet-async';
 
 const Property = () => {
 	const { id } = useParams();
@@ -101,6 +102,12 @@ const Property = () => {
 
 	return (
 		<main className="property-section">
+			<Helmet>
+				<title>Property | Shri Property</title>
+				<link rel="canonical" href="/property/" />
+				<meta name="description" content="Check this Property Out!" />
+			</Helmet>
+
 			<Modal open={modal} className="model">
 				<form className="model-container" onSubmit={sendOtpHandler}>
 					<AError

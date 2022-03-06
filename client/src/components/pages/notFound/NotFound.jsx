@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
 import { HPrimary } from '../../util/typography/Typography';
+import { Helmet } from 'react-helmet-async';
 import './notFound.scss';
 
 /**
@@ -10,6 +11,15 @@ import './notFound.scss';
 const NotFound = ({ comingSoon }) => {
 	return (
 		<section className="notFound-section">
+			<Helmet>
+				<title>404 | Shri Property</title>
+				<link rel="canonical" href="/404" />
+				<meta
+					name="description"
+					content="The Url you have visited is no longer valid"
+				/>
+			</Helmet>
+
 			{comingSoon ? (
 				<>
 					<img

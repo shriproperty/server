@@ -8,6 +8,7 @@ import { AError } from '../../../components/util/alert/Alert';
 import Modal from '../../util/modal/Modal';
 
 import './signup.scss';
+import { Helmet } from 'react-helmet-async';
 
 const Signup = ({ setAuthFormSubmit }) => {
 	const navigate = useNavigate();
@@ -81,6 +82,15 @@ const Signup = ({ setAuthFormSubmit }) => {
 
 	return (
 		<section className="signup-section">
+			<Helmet>
+				<title>Signup | Shri Property</title>
+				<link rel="canonical" href="/signup" />
+				<meta
+					name="description"
+					content="Signup on Shri Property to get exclusive feature of listing your own properties"
+				/>
+			</Helmet>
+
 			<Modal open={verifyOtpModel} className="model">
 				<form className="model-container" onSubmit={verifyOtpHandler}>
 					<h2>Verify Otp</h2>

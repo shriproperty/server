@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import get from '../../../api/get';
 import { Link, useNavigate } from 'react-router-dom';
 import { BPrimary } from '../../util/button/Button';
@@ -45,6 +46,15 @@ const Account = ({ setAuthFormSubmit }) => {
 
 	return (
 		<main>
+			<Helmet>
+				<title>Account | Shri Property</title>
+				<link rel="canonical" href="/account" />
+				<meta
+					name="description"
+					content="Check your approved and pending properties that you have added in Shri Property"
+				/>
+			</Helmet>
+
 			<HPrimary title="My Account" className="main-heading" />
 
 			<div className="account-page__buttons">

@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { BPrimary } from '../../util/button/Button';
 import Loader from '../../util/loader/Loader';
 import EditIcon from '@mui/icons-material/Edit';
@@ -34,6 +35,15 @@ const PendingListings = () => {
 
 	return (
 		<main>
+			<Helmet>
+				<title>Pending Listings | Shri Property</title>
+				<link rel="canonical" href="/account/pending-listings" />
+				<meta
+					name="description"
+					content="See All your properties which are not approved yet"
+				/>
+			</Helmet>
+
 			{propertyLoading ? (
 				<Loader fullScreen />
 			) : (

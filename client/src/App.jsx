@@ -6,6 +6,7 @@ import {
 	Navigate,
 } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 
 import Nav from './components/layout/nav/Nav';
 import Footer from './components/layout/footer/Footer';
@@ -108,13 +109,24 @@ const UserRoutes = () => {
 	}, [authFormSubmit]);
 
 	return (
-		<>
+		<HelmetProvider>
 			<Nav isLoggedIn={isLoggedIn} />
 			<Routes>
 				<Route
 					path="/"
 					element={
 						<main>
+							<Helmet>
+								<title>Shri Property</title>
+								<link rel="canonical" href="/" />
+								<meta
+									name="description"
+									content="Shri Property is committed to delivering a high level of
+						expertise, customer service, and attention to detail to
+						sales of real estate, and rental
+						properties."
+								/>
+							</Helmet>
 							<Hero />
 							<PropertiesSection />
 							<Category />
@@ -162,7 +174,7 @@ const UserRoutes = () => {
 				<Route path="*" element={<Navigate replace to="/404" />} />
 			</Routes>
 			<Footer />
-		</>
+		</HelmetProvider>
 	);
 };
 

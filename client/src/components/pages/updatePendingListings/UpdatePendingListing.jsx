@@ -15,6 +15,7 @@ import { patchFile } from '../../../api/patch';
 import get from '../../../api/get';
 import deleteRequest from '../../../api/delete';
 import { CheckBox } from '../../util/input/Input';
+import { Helmet } from 'react-helmet-async';
 
 //NOTE Sass is coming from form.scss file in ../form folder
 
@@ -206,6 +207,15 @@ const UpdatePendingListing = () => {
 
 	return (
 		<section>
+			<Helmet>
+				<title>Update Pending Listing | Shri Property</title>
+				<link rel="canonical" href="/account/pending-listings/" />
+				<meta
+					name="description"
+					content="Update your pending Listing"
+				/>
+			</Helmet>
+
 			{loadingPage ? (
 				<Loader fullScreen />
 			) : (
@@ -581,7 +591,6 @@ const UpdatePendingListing = () => {
 									type: e.target.value,
 								})
 							}
-							required
 						>
 							<MenuItem value="Rental">Rental</MenuItem>
 							<MenuItem value="Sale">Sale</MenuItem>
@@ -615,7 +624,6 @@ const UpdatePendingListing = () => {
 									category: e.target.value,
 								})
 							}
-							required
 						>
 							<MenuItem value="Residential Apartment">
 								Residential Apartment

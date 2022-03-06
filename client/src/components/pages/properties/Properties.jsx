@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 import { HSecondary, SSecondary } from '../../util/typography/Typography';
 import get from '../../../api/get';
@@ -54,6 +55,15 @@ const Properties = () => {
 
 	return (
 		<>
+			<Helmet>
+				<title>Properties | Shri Property</title>
+				<link rel="canonical" href="/properties" />
+				<meta
+					name="description"
+					content="Check out all type of properties/real-estate at reasonable rates"
+				/>
+			</Helmet>
+
 			{loading ? (
 				<Loader fullScreen />
 			) : (

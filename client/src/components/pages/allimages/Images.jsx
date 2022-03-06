@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 import get from '../../../api/get';
 import Loader from '../../util/loader/Loader';
@@ -36,6 +37,15 @@ const Images = () => {
 
 	return (
 		<main>
+			<Helmet>
+				<title>All Images | Shri Property</title>
+				<link rel="canonical" href="/allimages/" />
+				<meta
+					name="description"
+					content="See all images and videos of property"
+				/>
+			</Helmet>
+
 			<section className="allImages-section">
 				{loading ? (
 					<Loader fullScreen />

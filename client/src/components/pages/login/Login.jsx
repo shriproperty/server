@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { TextField } from '@mui/material';
 import { post } from '../../../api/post';
 import { patchRequest } from '../../../api/patch';
@@ -105,6 +106,12 @@ const Login = ({ setAuthFormSubmit }) => {
 
 	return (
 		<section className="login-section">
+			<Helmet>
+				<title>Login | Shri Property</title>
+				<link rel="canonical" href="/login" />
+				<meta name="description" content="Login on Shri Property" />
+			</Helmet>
+
 			<Modal
 				open={modal}
 				onClose={() => setModal(false)}
@@ -131,7 +138,7 @@ const Login = ({ setAuthFormSubmit }) => {
 					<TextField
 						label="New Password"
 						variant="outlined"
-						type='password'
+						type="password"
 						className="model-container__input"
 						onChange={e => setNewPassword(e.target.value)}
 						fullWidth

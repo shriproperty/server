@@ -16,6 +16,7 @@ import get from '../../../api/get';
 import deleteRequest from '../../../api/delete';
 import { CheckBox } from '../../util/input/Input';
 import putRequest from '../../../api/put';
+import { Helmet } from 'react-helmet-async';
 
 //NOTE Sass is coming from form.scss file in ../form folder
 
@@ -213,6 +214,15 @@ const UpdateProperty = () => {
 
 	return (
 		<section>
+			<Helmet>
+				<title>Update Property | Shri Property</title>
+				<link rel="canonical" href="/property/update/" />
+				<meta
+					name="description"
+					content="Update Already listed property"
+				/>
+			</Helmet>
+
 			{loadingPage ? (
 				<Loader fullScreen />
 			) : (
@@ -588,7 +598,6 @@ const UpdateProperty = () => {
 									type: e.target.value,
 								})
 							}
-							required
 						>
 							<MenuItem value="Rental">Rental</MenuItem>
 							<MenuItem value="Sale">Sale</MenuItem>
@@ -622,7 +631,6 @@ const UpdateProperty = () => {
 									category: e.target.value,
 								})
 							}
-							required
 						>
 							<MenuItem value="Residential Apartment">
 								Residential Apartment
