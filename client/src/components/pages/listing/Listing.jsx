@@ -311,6 +311,7 @@ const Listing = ({ isLoggedIn }) => {
 				<FormControl className="admin-property-form__select">
 					<InputLabel>Unit</InputLabel>
 					<Select
+						required
 						label="Unit"
 						value={property.unit}
 						onChange={e =>
@@ -487,6 +488,7 @@ const Listing = ({ isLoggedIn }) => {
 				<FormControl className="admin-property-form__select">
 					<InputLabel>Type</InputLabel>
 					<Select
+						required
 						label="Type"
 						value={property.type}
 						onChange={e =>
@@ -516,6 +518,7 @@ const Listing = ({ isLoggedIn }) => {
 				<FormControl className="admin-property-form__select">
 					<InputLabel>category</InputLabel>
 					<Select
+						required
 						label="category"
 						value={property.category}
 						onChange={e =>
@@ -563,6 +566,7 @@ const Listing = ({ isLoggedIn }) => {
 				<FormControl className="admin-property-form__select">
 					<InputLabel>Status</InputLabel>
 					<Select
+						required
 						label="Status"
 						value={property.status}
 						onChange={e =>
@@ -578,6 +582,7 @@ const Listing = ({ isLoggedIn }) => {
 				<FormControl className="admin-property-form__select">
 					<InputLabel>Direction</InputLabel>
 					<Select
+						required
 						label="Direction"
 						value={property.direction}
 						onChange={e =>
@@ -600,6 +605,7 @@ const Listing = ({ isLoggedIn }) => {
 				<FormControl className="admin-property-form__select">
 					<InputLabel>Purchase Type</InputLabel>
 					<Select
+						required
 						label="Purchase Type"
 						value={property.purchaseType}
 						onChange={e =>
@@ -616,6 +622,7 @@ const Listing = ({ isLoggedIn }) => {
 				<FormControl className="admin-property-form__select">
 					<InputLabel>Construction Status</InputLabel>
 					<Select
+						required
 						label="Construction Status"
 						value={property.constructionStatus}
 						onChange={e =>

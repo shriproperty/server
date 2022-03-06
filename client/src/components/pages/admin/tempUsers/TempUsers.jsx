@@ -185,6 +185,7 @@ const TempUsers = () => {
 								<FormControl sx={{ m: 1, minWidth: 80 }}>
 									<InputLabel>Update Call Status</InputLabel>
 									<Select
+										required
 										id="demo-simple-select"
 										value={callingStatus}
 										label="Update Call Status"

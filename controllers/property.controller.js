@@ -236,7 +236,7 @@ export const createProperty = async (req, res) => {
 		}
 
 		// Parse Facilities
-		if (facilities.length > 0) {
+		if (facilities && facilities.length > 0) {
 			facilities.forEach(facility =>
 				parsedFacilities.push(JSON.parse(facility))
 			);
@@ -572,7 +572,7 @@ export const update = async (req, res) => {
 			}
 		}
 
-		if (facilities.length > 0) {
+		if (facilities && facilities.length > 0) {
 			facilities.forEach(facility =>
 				parsedFacilities.push(JSON.parse(facility))
 			);

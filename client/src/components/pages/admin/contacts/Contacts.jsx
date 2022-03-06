@@ -189,6 +189,7 @@ const Users = () => {
 								<FormControl sx={{ m: 1, minWidth: 80 }}>
 									<InputLabel>Update Call Status</InputLabel>
 									<Select
+										required
 										value={status}
 										label="Update Call Status"
 										onChange={e =>

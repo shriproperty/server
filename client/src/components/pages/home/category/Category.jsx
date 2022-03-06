@@ -11,13 +11,13 @@ const Category = () => {
 
 				<SPrimary
 					title="Highlight the best of your properties by using the List
-					Category shortcode. You can list categories, types, cities,
+					Category sorted. You can list categories, types, cities,
 					areas and states."
 				/>
 			</div>
 
 			<div className="category-grid">
-				<div className="category-grid__child  category-grid__child--1">
+				<div className="category-grid__child  category-grid__child--apartment">
 					<h2 className="category-grid__child-heading">
 						Residential Apartment
 					</h2>
@@ -30,7 +30,7 @@ const Category = () => {
 					</Link>
 				</div>
 
-				<div className="category-grid__child  category-grid__child--2">
+				<div className="category-grid__child  category-grid__child--villa">
 					<h2 className="category-grid__child-heading">
 						Independent House/Villa
 					</h2>
@@ -42,7 +42,7 @@ const Category = () => {
 						/>
 					</Link>
 				</div>
-				<div className="category-grid__child  category-grid__child--2">
+				<div className="category-grid__child  category-grid__child--plot">
 					<h2 className="category-grid__child-heading">
 						Commercial Plot
 					</h2>
@@ -55,9 +55,9 @@ const Category = () => {
 					</Link>
 				</div>
 
-				<div className="category-grid__child  category-grid__child--3">
+				<div className="category-grid__child  category-grid__child--plot">
 					<h2 className="category-grid__child-heading">Plots</h2>
-					<Link to="/properteis?s=Plots">
+					<Link to="/properties?s=Plots">
 						<BPrimary
 							title="Explore"
 							className="category-grid__child-btn"
@@ -66,7 +66,7 @@ const Category = () => {
 					</Link>
 				</div>
 
-				<div className="category-grid__child  category-grid__child--4">
+				<div className="category-grid__child  category-grid__child--office">
 					<h2 className="category-grid__child-heading">
 						Commercial Office
 					</h2>
@@ -79,7 +79,7 @@ const Category = () => {
 					</Link>
 				</div>
 
-				<div className="category-grid__child  category-grid__child--5">
+				<div className="category-grid__child  category-grid__child--serviced-apartment">
 					<h2 className="category-grid__child-heading">
 						Serviced Apartments
 					</h2>
@@ -92,7 +92,7 @@ const Category = () => {
 					</Link>
 				</div>
 
-				<div className="category-grid__child  category-grid__child--6">
+				<div className="category-grid__child  category-grid__child--studio-apartment">
 					<h2 className="category-grid__child-heading">
 						1 RK/ Studio Apartment
 					</h2>
@@ -105,7 +105,7 @@ const Category = () => {
 					</Link>
 				</div>
 
-				<div className="category-grid__child  category-grid__child--7">
+				<div className="category-grid__child  category-grid__child--floor">
 					<h2 className="category-grid__child-heading">
 						Independent/Builder Floor
 					</h2>
@@ -118,7 +118,7 @@ const Category = () => {
 					</Link>
 				</div>
 
-				<div className="category-grid__child  category-grid__child--8">
+				<div className="category-grid__child  category-grid__child--others">
 					<h2 className="category-grid__child-heading">Other</h2>
 					<Link to="/properties?s=Other">
 						<BPrimary
