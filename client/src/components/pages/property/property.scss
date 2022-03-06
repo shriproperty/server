@@ -248,8 +248,16 @@
 		align-items: center;
 	}
 
-	h2 {
-		font-size: 2rem;
+	span {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+		cursor: pointer;
+		text-decoration: underline;
+		transition: $transition-fast;
+
+		&:hover {
+			color: $color-primary;
+		}
 	}
 
 	.model-container__input {
@@ -264,7 +272,6 @@
 			background-color: $color-background !important;
 		}
 	}
-	
 }
 
 .amenities-section {

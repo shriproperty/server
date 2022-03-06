@@ -101,6 +101,8 @@ const Signup = ({ setAuthFormSubmit }) => {
 						fullWidth
 					/>
 
+					<span onClick={sendOtpHandler}>Resend OTP</span>
+
 					<BPrimary
 						title="Verify"
 						type="submit"

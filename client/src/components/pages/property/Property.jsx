@@ -103,8 +103,6 @@ const Property = () => {
 		<main className="property-section">
 			<Modal open={modal} className="model">
 				<form className="model-container" onSubmit={sendOtpHandler}>
-					<h2>Login</h2>
-
 					<AError
 						title={errorModalMessage}
 						open={errorModalOpen}
@@ -164,6 +162,8 @@ const Property = () => {
 						onChange={e => setOtp(e.target.value)}
 						fullWidth
 					/>
+
+					<span onClick={sendOtpHandler}>Resend OTP</span>
 
 					<BPrimary
 						title="Verify"
@@ -292,11 +292,11 @@ const Property = () => {
 											'line-through'
 										}
 									>
-										 {response.price}
+										{response.price}
 									</h3>
 
 									<h3 className="special-price">
-										 {response.specialPrice}
+										{response.specialPrice}
 									</h3>
 								</div>
 
