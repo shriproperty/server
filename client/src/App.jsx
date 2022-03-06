@@ -161,7 +161,6 @@ const UserRoutes = () => {
 					path="/account/pending-listings"
 					element={<PendingListings />}
 				/>
-				<Route path="/allimages" element={<AllImages />} />
 				<Route
 					path="/property/update/:id"
 					element={<UserUpdateProperty />}
