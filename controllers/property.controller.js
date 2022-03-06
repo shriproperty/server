@@ -214,26 +214,6 @@ export const createProperty = async (req, res) => {
 			});
 		}
 
-		// validate furnishing details
-		if (
-			/**
-			 * this will first parse the furnishing details to object
-			 *  and than push it's keys to an array and than check if its
-			 *  length is greater than 0 so that we can check if object is empty or not
-			 */
-			Object.keys(JSON.parse(furnishingDetails)).length > 0 &&
-			status !== 'Semifurnished' &&
-			status !== 'Furnished'
-		) {
-			deleteMultipleFilesFromDisk(req.files);
-			return res.status(400).json({
-				success: false,
-				message:
-					'Furnishing Details can only be filled when Status is either Semifurnished or Furnished',
-				data: {},
-			});
-		}
-
 		// ANCHOR Create Property
 
 		// upload files to aws s3
@@ -561,26 +541,6 @@ export const update = async (req, res) => {
 				success: false,
 				message:
 					"Construction Status can only be either 'Under Construction' or 'Ready to Move'",
-				data: {},
-			});
-		}
-
-		// validate furnishing details
-		if (
-			/**
-			 * this will first parse the furnishing details to object
-			 *  and than push it's keys to an array and than check if its
-			 *  length is greater than 0 so that we can check if object is empty or not
-			 */
-			Object.keys(JSON.parse(furnishingDetails)).length > 0 &&
-			status !== 'Semifurnished' &&
-			status !== 'Furnished'
-		) {
-			deleteMultipleFilesFromDisk(req.files);
-			return res.status(400).json({
-				success: false,
-				message:
-					'Furnishing Details can only be filled when Status is either Semifurnished or Furnished',
 				data: {},
 			});
 		}
