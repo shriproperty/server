@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import {
 	BrowserRouter as Router,
 	Routes,
@@ -8,11 +8,7 @@ import {
 import { CssBaseline } from '@mui/material';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 
-import Nav from './components/layout/nav/Nav';
-import Footer from './components/layout/footer/Footer';
-import Properties from './components/pages/properties/Properties';
 import TempUsers from './components/pages/admin/tempUsers/TempUsers';
-import Property from './components/pages/property/Property';
 import Contacts from './components/pages/admin/contacts/Contacts';
 import AddProperty from './components/pages/admin/property/form/Form';
 import UpdateProperty from './components/pages/admin/property/update/Update';
@@ -24,13 +20,8 @@ import Listings from './components/pages/admin/listings/Listings';
 import AdminListing from './components/pages/admin/listing/Listing';
 import Signup from './components/pages/signup/Signup';
 import Login from './components/pages/login/Login';
-import AllImages from './components/pages/allimages/Images';
 import Account from './components/pages/account/Account';
 import get from './api/get';
-import Hero from './components/pages/home/hero/Hero';
-import PropertiesSection from './components/pages/home/properties/Properties';
-import Category from './components/pages/home/category/Category';
-import ListingSection from './components/pages/home/listing/Listing';
 import Form from './components/pages/home/form/Form';
 import Users from './components/pages/admin/users/Users';
 import User from './components/pages/admin/user/User';
@@ -38,60 +29,82 @@ import PendingListings from './components/pages/pendingListings/PendingListings'
 import UpdatePendingListing from './components/pages/updatePendingListings/UpdatePendingListing';
 
 import './app.scss';
+import Loader from './components/util/loader/Loader';
+const Nav = lazy(() => import('./components/layout/nav/Nav'));
+const Footer = lazy(() => import('./components/layout/footer/Footer'));
+
+const Properties = lazy(() =>
+	import('./components/pages/properties/Properties')
+);
+const AllImages = lazy(() => import('./components/pages/allimages/Images'));
+const Hero = lazy(() => import('./components/pages/home/hero/Hero'));
+const PropertiesSection = lazy(() =>
+	import('./components/pages/home/properties/Properties')
+);
+const Category = lazy(() =>
+	import('./components/pages/home/category/Category')
+);
+const ListingSection = lazy(() =>
+	import('./components/pages/home/listing/Listing')
+);
+
+const Property = lazy(() => import('./components/pages/property/Property'));
 
 const App = () => {
 	const [submit, setSubmit] = useState(false);
 
 	return (
 		<HelmetProvider>
-			<CssBaseline />
-			<Router>
-				<Routes>
-					<Route
-						path={`${process.env.REACT_APP_ADMIN_ROUTE}`}
-						element={
-							<Admin submit={submit} setSubmit={setSubmit} />
-						}
-					/>
+			<Suspense fallback={<Loader fullScreen />}>
+				<CssBaseline />
+				<Router>
+					<Routes>
+						<Route
+							path={`${process.env.REACT_APP_ADMIN_ROUTE}`}
+							element={
+								<Admin submit={submit} setSubmit={setSubmit} />
+							}
+						/>
 
-					<Route
-						path={`${process.env.REACT_APP_ADMIN_ROUTE}/temp-users`}
-						element={<TempUsers />}
-					/>
+						<Route
+							path={`${process.env.REACT_APP_ADMIN_ROUTE}/temp-users`}
+							element={<TempUsers />}
+						/>
 
-					<Route
-						path={`${process.env.REACT_APP_ADMIN_ROUTE}/property/add`}
-						element={<AddProperty />}
-					/>
+						<Route
+							path={`${process.env.REACT_APP_ADMIN_ROUTE}/property/add`}
+							element={<AddProperty />}
+						/>
 
-					<Route
-						path={`${process.env.REACT_APP_ADMIN_ROUTE}/property/update/:id`}
-						element={<UpdateProperty />}
-					/>
+						<Route
+							path={`${process.env.REACT_APP_ADMIN_ROUTE}/property/update/:id`}
+							element={<UpdateProperty />}
+						/>
 
-					<Route
-						path={`${process.env.REACT_APP_ADMIN_ROUTE}/contacts`}
-						element={<Contacts />}
-					/>
-					<Route
-						path={`${process.env.REACT_APP_ADMIN_ROUTE}/listings`}
-						element={<Listings />}
-					/>
-					<Route
-						path={`${process.env.REACT_APP_ADMIN_ROUTE}/listings/:id`}
-						element={<AdminListing />}
-					/>
-					<Route
-						path={`${process.env.REACT_APP_ADMIN_ROUTE}/users`}
-						element={<Users />}
-					/>
-					<Route
-						path={`${process.env.REACT_APP_ADMIN_ROUTE}/users/:id`}
-						element={<User />}
-					/>
-					<Route path="*" element={<UserRoutes />} />
-				</Routes>
-			</Router>
+						<Route
+							path={`${process.env.REACT_APP_ADMIN_ROUTE}/contacts`}
+							element={<Contacts />}
+						/>
+						<Route
+							path={`${process.env.REACT_APP_ADMIN_ROUTE}/listings`}
+							element={<Listings />}
+						/>
+						<Route
+							path={`${process.env.REACT_APP_ADMIN_ROUTE}/listings/:id`}
+							element={<AdminListing />}
+						/>
+						<Route
+							path={`${process.env.REACT_APP_ADMIN_ROUTE}/users`}
+							element={<Users />}
+						/>
+						<Route
+							path={`${process.env.REACT_APP_ADMIN_ROUTE}/users/:id`}
+							element={<User />}
+						/>
+						<Route path="*" element={<UserRoutes />} />
+					</Routes>
+				</Router>
+			</Suspense>
 		</HelmetProvider>
 	);
 };
