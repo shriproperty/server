@@ -275,7 +275,7 @@ const User = () => {
 										align="right"
 									>
 										<Link
-											to={`${process.env.REACT_APP_ADMIN_ROUTE}/properties/${property._id}`}
+											to={`${process.env.REACT_APP_ADMIN_ROUTE}/property/update/${property._id}`}
 										>
 											{property.title}
 										</Link>
