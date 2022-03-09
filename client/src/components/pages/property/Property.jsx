@@ -81,7 +81,7 @@ const Property = () => {
 			const newUserResponse = await post('/temp-users/add', {
 				name,
 				email,
-				phone: `+91${phone}`,
+				phone,
 			});
 
 			// if user is created successfully than save token and hide modal
