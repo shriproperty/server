@@ -7,6 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import getRequest from '../../../../api/get';
 import Loader from '../../../util/loader/Loader';
+import moment from 'moment';
 import { Helmet } from 'react-helmet-async';
 
 const Users = () => {
@@ -50,6 +51,12 @@ const Users = () => {
 							>
 								Phone
 							</TableCell>
+							<TableCell
+								className="user-table__cell"
+								align="right"
+							>
+								Date
+							</TableCell>
 						</TableRow>
 					</TableHead>
 
@@ -77,6 +84,14 @@ const Users = () => {
 									align="right"
 								>
 									{user.phone}
+								</TableCell>
+								<TableCell
+									className="user-table__cell"
+									align="right"
+								>
+									{moment(new Date(user.createdAt)).format(
+										'DD/MM/YY'
+									)}
 								</TableCell>
 							</TableRow>
 						))}
