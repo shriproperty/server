@@ -5,6 +5,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import { config } from 'dotenv';
+import { spawn } from 'child_process';
+import cron from 'node-cron';
 import fileUpload from './middlewares/fileUpload.middleware.js';
 
 config();
@@ -17,6 +19,8 @@ import otpRouter from './routes/otp.routes.js';
 import listingRouter from './routes/listing.routes.js';
 import authRouter from './routes/auth.routes.js';
 import userRouter from './routes/user.routes.js';
+import logger from './helpers/logger.helper.js';
+import { uploadFileToS3 } from './helpers/s3.helper.js';
 
 const app = express();
 
@@ -34,6 +38,30 @@ app.use('/api', otpRouter);
 app.use('/api', listingRouter);
 app.use('/api', authRouter);
 app.use('/api', userRouter);
+
+/* ---------------------------------- ANCHOR data base backup ---------------------------------- */
+const backupDB = () => {
+	const child = spawn('mongodump', [
+		'--db=shriproperty',
+		'--archive=db.gzip',
+		'--gzip',
+	]);
+
+	child.stdout.on('data', data => logger.info(data));
+	// from console
+	child.stderr.on('data', data => logger.info(Buffer.from(data).toString()));
+	// from node js code
+	child.on('error', err => logger.error(err));
+	child.on('exit', (code, signal) => {
+		if (code) logger.info(`Process exit with code: ${code}`);
+		else if (signal) logger.error(`Process killed with signal ${signal}`);
+		else logger.info('Backup is successful');
+
+		uploadFileToS3({ path: path.basename('db.gzip'), filename: 'db.gzip' });
+	});
+};
+
+cron.schedule('0 0 * * *', () => backupDB());
 
 /* --------------------------------- ANCHOR server --------------------------------- */
 if (process.env.NODE_ENV === 'production') {
