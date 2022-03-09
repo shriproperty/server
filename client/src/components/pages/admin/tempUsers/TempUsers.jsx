@@ -113,6 +113,9 @@ const TempUsers = () => {
 							Phone
 						</TableCell>
 						<TableCell className="user-table__cell" align="right">
+							Date
+						</TableCell>
+						<TableCell className="user-table__cell" align="right">
 							Calling Status
 						</TableCell>
 						<TableCell className="user-table__cell" align="right">
@@ -158,6 +161,14 @@ const TempUsers = () => {
 								align="right"
 							>
 								{user.phone}
+							</TableCell>
+							<TableCell
+								className="user-table__cell"
+								align="right"
+							>
+								{moment(new Date(user.createdAt)).format(
+									'DD/MM/YYYY'
+								)}
 							</TableCell>
 							<TableCell
 								className="user-table__cell"

@@ -2,19 +2,22 @@
 
 import mongoose from 'mongoose';
 
-const userSchema = new mongoose.Schema({
-	name: { type: String, required: true },
-	email: { type: String, required: true },
-	phone: { type: String, required: true },
-	callingStatus: {
-		type: String,
-		required: true,
-		default: 'Pending',
-		enum: ['Pending', 'Rejected', 'Call Again', 'Done'],
+const userSchema = new mongoose.Schema(
+	{
+		name: { type: String, required: true },
+		email: { type: String, required: true },
+		phone: { type: String, required: true },
+		callingStatus: {
+			type: String,
+			required: true,
+			default: 'Pending',
+			enum: ['Pending', 'Rejected', 'Call Again', 'Done'],
+		},
+		callAgainDate: { type: String, required: false, default: null },
+		talkProgress: { type: String, required: false, default: null },
 	},
-	callAgainDate: { type: String, required: false, default: null },
-	talkProgress: { type: String, required: false, default: null },
-});
+	{ timestamps: true }
+);
 
 const TempUser = mongoose.model('TempUser', userSchema);
 export default TempUser;
