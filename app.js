@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import { config } from 'dotenv';
 import { spawn } from 'child_process';
 import cron from 'node-cron';
+import { unlink } from 'fs';
 import fileUpload from './middlewares/fileUpload.middleware.js';
 
 config();
@@ -52,12 +53,19 @@ const backupDB = () => {
 	child.stderr.on('data', data => logger.info(Buffer.from(data).toString()));
 	// from node js code
 	child.on('error', err => logger.error(err));
-	child.on('exit', (code, signal) => {
+	child.on('exit', async (code, signal) => {
 		if (code) logger.info(`Process exit with code: ${code}`);
 		else if (signal) logger.error(`Process killed with signal ${signal}`);
 		else logger.info('Backup is successful');
 
-		uploadFileToS3({ path: path.basename('db.gzip'), filename: 'db.gzip' });
+		await uploadFileToS3({
+			path: path.basename('db.gzip'),
+			filename: 'db.gzip',
+		});
+
+		unlink(path.basename('db.gzip'), () =>
+			logger.info('deleted .gzip file')
+		);
 	});
 };
 
