@@ -130,7 +130,9 @@ const UserRoutes = () => {
 					element={
 						<main>
 							<Helmet>
-								<title>Shri Property</title>
+								<title>
+									Shri Property | live in your dreams
+								</title>
 								<link rel="canonical" href="/" />
 								<meta
 									name="description"
