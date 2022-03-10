@@ -57,7 +57,10 @@ const Properties = () => {
 		<>
 			<Helmet>
 				<title>Properties | Shri Property</title>
-				<link rel="canonical" href="/properties" />
+				<link
+					rel="canonical"
+					href="https://shriproperty.com/properties"
+				/>
 				<meta
 					name="description"
 					content="Check out all type of properties/real-estate at reasonable rates"

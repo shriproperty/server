@@ -216,7 +216,7 @@ const UpdateProperty = () => {
 		<section>
 			<Helmet>
 				<title>Update Property | Shri Property</title>
-				<link rel="canonical" href="/property/update/" />
+				<link rel="canonical" href="https://shriproperty.com/property/update/" />
 				<meta
 					name="description"
 					content="Update Already listed property"

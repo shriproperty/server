@@ -39,7 +39,10 @@ const Images = () => {
 		<main>
 			<Helmet>
 				<title>All Images | Shri Property</title>
-				<link rel="canonical" href="/allimages/" />
+				<link
+					rel="canonical"
+					href="https://shriproperty.com/allimages/"
+				/>
 				<meta
 					name="description"
 					content="See all images and videos of property"

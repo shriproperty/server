@@ -48,7 +48,7 @@ const Account = ({ setAuthFormSubmit }) => {
 		<main>
 			<Helmet>
 				<title>Account | Shri Property</title>
-				<link rel="canonical" href="/account" />
+				<link rel="canonical" href="https://shriproperty.com/account" />
 				<meta
 					name="description"
 					content="Check your approved and pending properties that you have added in Shri Property"

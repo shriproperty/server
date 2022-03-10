@@ -108,7 +108,7 @@ const Login = ({ setAuthFormSubmit }) => {
 		<section className="login-section">
 			<Helmet>
 				<title>Login | Shri Property</title>
-				<link rel="canonical" href="/login" />
+				<link rel="canonical" href="https://shriproperty.com/login" />
 				<meta name="description" content="Login on Shri Property" />
 			</Helmet>
 

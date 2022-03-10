@@ -209,7 +209,7 @@ const UpdatePendingListing = () => {
 		<section>
 			<Helmet>
 				<title>Update Pending Listing | Shri Property</title>
-				<link rel="canonical" href="/account/pending-listings/" />
+				<link rel="canonical" href="https://shriproperty.com/account/pending-listings/" />
 				<meta
 					name="description"
 					content="Update your pending Listing"

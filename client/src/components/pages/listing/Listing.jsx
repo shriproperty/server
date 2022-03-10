@@ -167,7 +167,7 @@ const Listing = ({ isLoggedIn }) => {
 		<section>
 			<Helmet>
 				<title>Listing | Shri Property</title>
-				<link rel="canonical" href="/listing" />
+				<link rel="canonical" href="https://shriproperty.com/listing" />
 				<meta
 					name="description"
 					content="List Your Properties on Shri Property and get best prices for them"

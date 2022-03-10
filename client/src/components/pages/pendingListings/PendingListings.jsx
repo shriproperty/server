@@ -37,7 +37,10 @@ const PendingListings = () => {
 		<main>
 			<Helmet>
 				<title>Pending Listings | Shri Property</title>
-				<link rel="canonical" href="/account/pending-listings" />
+				<link
+					rel="canonical"
+					href="https://shriproperty.com/account/pending-listings"
+				/>
 				<meta
 					name="description"
 					content="See All your properties which are not approved yet"

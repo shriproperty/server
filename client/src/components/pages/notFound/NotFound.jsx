@@ -13,7 +13,7 @@ const NotFound = ({ comingSoon }) => {
 		<section className="notFound-section">
 			<Helmet>
 				<title>404 | Shri Property</title>
-				<link rel="canonical" href="/404" />
+				<link rel="canonical" href="https://shriproperty.com/404" />
 				<meta
 					name="description"
 					content="The Url you have visited is no longer valid"

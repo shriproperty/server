@@ -84,7 +84,7 @@ const Signup = ({ setAuthFormSubmit }) => {
 		<section className="signup-section">
 			<Helmet>
 				<title>Signup | Shri Property</title>
-				<link rel="canonical" href="/signup" />
+				<link rel="canonical" href="https://shriproperty.com/signup" />
 				<meta
 					name="description"
 					content="Signup on Shri Property to get exclusive feature of listing your own properties"

@@ -104,7 +104,10 @@ const Property = () => {
 		<main className="property-section">
 			<Helmet>
 				<title>Property | Shri Property</title>
-				<link rel="canonical" href="/property/" />
+				<link
+					rel="canonical"
+					href="https://shriproperty.com/property/"
+				/>
 				<meta name="description" content="Check this Property Out!" />
 			</Helmet>
 

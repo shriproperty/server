@@ -133,7 +133,7 @@ const UserRoutes = () => {
 								<title>
 									Shri Property | live in your dreams
 								</title>
-								<link rel="canonical" href="/" />
+								<link rel="canonical" href="https://shriproperty.com" />
 								<meta
 									name="description"
 									content="Shri Property is committed to delivering a high level of
