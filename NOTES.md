@@ -1,5 +1,16 @@
 # Notes
 
+deploy to ec2
+
+```bash
+pm2 stop Server
+cd shriproperty/
+git pull
+cd client/
+yarn build
+pm2 start Server
+```
+
 command to generate csv file of collection from terminal
 
 ```bash
