@@ -53,8 +53,9 @@ const Images = () => {
 					<>
 						<div className="allImages-section__main">
 							{mainImgUrl.type === 'video' ? (
-								<video controls autoPlay muted loop>
+								<video controls>
 									<source
+										width="auto"
 										src={mainImgUrl.url}
 										type="video/mp4"
 									/>
@@ -73,9 +74,6 @@ const Images = () => {
 						<div className="allImages-section__others">
 							{response.videos.map(video => (
 								<video
-									autoPlay
-									muted
-									loop
 									key={video.key}
 									onClick={e =>
 										setMainImgUrl({

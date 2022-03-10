@@ -10,6 +10,7 @@ import { BPrimary, BUpload } from '../../../util/button/Button';
 import { ASuccess, AError } from '../../../util/alert/Alert';
 import Loader from '../../../util/loader/Loader';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Modal from '../../../util/modal/Modal';
 
 import { patchFile } from '../../../../api/patch';
 import putRequest from '../../../../api/put';
@@ -74,7 +75,7 @@ const Listing = () => {
 	const [loading, setLoading] = useState(false);
 	const [deleteFile, setDeleteFile] = useState(false);
 	const [loadingPage, setLoadingPage] = useState(true);
-
+	const [modal, setModal] = useState(false)
 	useEffect(() => {
 		get(`/listings/single/${id}`)
 			.then(res => {
@@ -249,16 +250,6 @@ const Listing = () => {
 				<Loader fullScreen />
 			) : (
 				<form onSubmit={updateHandler} className="admin-property-form">
-					<ASuccess
-						title={successMessage}
-						open={openSuccess}
-						setOpen={setOpenSuccess}
-					/>
-					<AError
-						title={errorMessage}
-						open={openError}
-						setOpen={setOpenError}
-					/>
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -1498,6 +1489,16 @@ const Listing = () => {
 						}
 					})}
 					<br />
+					<ASuccess
+						title={successMessage}
+						open={openSuccess}
+						setOpen={setOpenSuccess}
+					/>
+					<AError
+						title={errorMessage}
+						open={openError}
+						setOpen={setOpenError}
+					/> 	
 					<BPrimary
 						title="Submit"
 						className="admin-property-form__submit-btn"

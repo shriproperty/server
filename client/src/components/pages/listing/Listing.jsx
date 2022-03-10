@@ -175,18 +175,6 @@ const Listing = ({ isLoggedIn }) => {
 			</Helmet>
 
 			<form onSubmit={submitHandler} className="admin-property-form">
-				<ASuccess
-					title={successMessage}
-					open={openSuccess}
-					setOpen={setOpenSuccess}
-				/>
-
-				<AError
-					title={errorMessage}
-					open={openError}
-					setOpen={setOpenError}
-				/>
-
 				<TextField
 					className="admin-property-form__input"
 					variant="outlined"
@@ -1285,7 +1273,17 @@ const Listing = ({ isLoggedIn }) => {
 				})}
 
 				<br />
+				<ASuccess
+					title={successMessage}
+					open={openSuccess}
+					setOpen={setOpenSuccess}
+				/>
 
+				<AError
+					title={errorMessage}
+					open={openError}
+					setOpen={setOpenError}
+				/>
 				<BPrimary
 					title="Submit"
 					className="admin-property-form__submit-btn"

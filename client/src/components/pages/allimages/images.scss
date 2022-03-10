@@ -5,6 +5,9 @@
 	flex-direction: column;
 	padding: 2rem 10rem;
 	margin-bottom: 5rem;
+	@media screen and (max-width: 900px) {
+		padding: 2rem;
+	}
 
 	&__main {
 		height: 95vh;
@@ -25,7 +28,7 @@
 			height: 100%;
 		}
 
-		img {
+		img,video {
 			height: 100%;
 			@media screen and (max-width: 900px) {
 				height: fit-content;
@@ -33,9 +36,9 @@
 			}
 		}
 
-		video {
-			height: 90vh;
-		}
+		// video {
+		// 	height: 90vh;
+		// }
 	}
 
 	&__others {

@@ -204,9 +204,6 @@ const Property = () => {
 							<>
 								<video
 									controls
-									autoPlay
-									muted
-									loop
 									className="image-grid__image image-grid__image--1"
 								>
 									<source
