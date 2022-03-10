@@ -57,6 +57,9 @@ const Properties = () => {
 											src={property.images[0]?.url}
 											alt="property"
 										/>
+										<div className="properties-section__property-type">
+											{property.type}
+										</div>
 									</div>
 								</div>
 
