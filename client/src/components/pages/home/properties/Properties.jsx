@@ -5,7 +5,6 @@ import { BPrimary } from '../../../util/button/Button';
 import {
 	HPrimary,
 	HSecondary,
-	SPrimary,
 	SSecondary,
 } from '../../../util/typography/Typography';
 import get from '../../../../api/get';
@@ -31,13 +30,7 @@ const Properties = () => {
 	return (
 		<section className="properties-section">
 			<div className="properties-section__headings">
-				<HPrimary title="Afforadable Homes in Chandigarh" />
-
-				<SPrimary
-					title="Showcase properties in homepage to be visible and
-					accessible. Select the most wanted categories or cities to
-					be displayed in the lists."
-				/>
+				<HPrimary title="Affordable Homes in Chandigarh" />
 			</div>
 			{/* Properties */}
 			{loading ? (

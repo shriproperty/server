@@ -1,19 +1,13 @@
 import { Link } from 'react-router-dom';
 import { BPrimary } from '../../../util/button/Button';
-import { HPrimary, SPrimary } from '../../../util/typography/Typography';
+import { HPrimary } from '../../../util/typography/Typography';
 import './category.scss';
 
 const Category = () => {
 	return (
 		<section className="category-section">
 			<div className="category-section__headings">
-				<HPrimary title="The most attractive deals" />
-
-				<SPrimary
-					title="Highlight the best of your properties by using the List
-					Category sorted. You can list categories, types, cities,
-					areas and states."
-				/>
+				<HPrimary title="Choose from following catagories" />
 			</div>
 
 			<div className="category-grid">
