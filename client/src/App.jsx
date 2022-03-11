@@ -7,29 +7,45 @@ import {
 } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
+import get from './api/get';
+import Loader from './components/util/loader/Loader';
+import './app.scss';
 
-import TempUsers from './components/pages/admin/tempUsers/TempUsers';
 import Contacts from './components/pages/admin/contacts/Contacts';
 import AddProperty from './components/pages/admin/property/form/Form';
-import UpdateProperty from './components/pages/admin/property/update/Update';
-import UserUpdateProperty from './components/pages/updateProperty/UpdateProperty';
-import Listing from './components/pages/listing/Listing';
-import NotFound from './components/pages/notFound/NotFound';
-import Admin from './components/pages/admin/Admin';
-import Listings from './components/pages/admin/listings/Listings';
-import AdminListing from './components/pages/admin/listing/Listing';
-import Signup from './components/pages/signup/Signup';
-import Login from './components/pages/login/Login';
-import Account from './components/pages/account/Account';
-import get from './api/get';
-import Form from './components/pages/home/form/Form';
-import Users from './components/pages/admin/users/Users';
-import User from './components/pages/admin/user/User';
-import PendingListings from './components/pages/pendingListings/PendingListings';
-import UpdatePendingListing from './components/pages/updatePendingListings/UpdatePendingListing';
 
-import './app.scss';
-import Loader from './components/util/loader/Loader';
+const Account = lazy(() => import('./components/pages/account/Account'));
+
+const TempUsers = lazy(() =>
+	import('./components/pages/admin/tempUsers/TempUsers')
+);
+const UserUpdateProperty = lazy(() =>
+	import('./components/pages/updateProperty/UpdateProperty')
+);
+const NotFound = lazy(() => import('./components/pages/notFound/NotFound'));
+const Listings = lazy(() =>
+	import('./components/pages/admin/listings/Listings')
+);
+const AdminListing = lazy(() =>
+	import('./components/pages/admin/listing/Listing')
+);
+const Signup = lazy(() => import('./components/pages/signup/Signup'));
+const Login = lazy(() => import('./components/pages/login/Login'));
+const Form = lazy(() => import('./components/pages/home/form/Form'));
+const Users = lazy(() => import('./components/pages/admin/users/Users'));
+const User = lazy(() => import('./components/pages/admin/user/User'));
+const PendingListings = lazy(() =>
+	import('./components/pages/pendingListings/PendingListings')
+);
+const UpdatePendingListing = lazy(() =>
+	import('./components/pages/updatePendingListings/UpdatePendingListing')
+);
+
+const Admin = lazy(() => import('./components/pages/admin/Admin'));
+const UpdateProperty = lazy(() =>
+	import('./components/pages/admin/property/update/Update')
+);
+const Listing = lazy(() => import('./components/pages/listing/Listing'));
 const Nav = lazy(() => import('./components/layout/nav/Nav'));
 const Footer = lazy(() => import('./components/layout/footer/Footer'));
 
@@ -82,6 +98,15 @@ const App = () => {
 						/>
 
 						<Route
+							path={`${process.env.REACT_APP_ADMIN_ROUTE}/users`}
+							element={<Users />}
+						/>
+						<Route
+							path={`${process.env.REACT_APP_ADMIN_ROUTE}/users/:id`}
+							element={<User />}
+						/>
+
+						<Route
 							path={`${process.env.REACT_APP_ADMIN_ROUTE}/contacts`}
 							element={<Contacts />}
 						/>
@@ -93,14 +118,7 @@ const App = () => {
 							path={`${process.env.REACT_APP_ADMIN_ROUTE}/listings/:id`}
 							element={<AdminListing />}
 						/>
-						<Route
-							path={`${process.env.REACT_APP_ADMIN_ROUTE}/users`}
-							element={<Users />}
-						/>
-						<Route
-							path={`${process.env.REACT_APP_ADMIN_ROUTE}/users/:id`}
-							element={<User />}
-						/>
+
 						<Route path="*" element={<UserRoutes />} />
 					</Routes>
 				</Router>
@@ -133,7 +151,10 @@ const UserRoutes = () => {
 								<title>
 									Shri Property | live in your dreams
 								</title>
-								<link rel="canonical" href="https://shriproperty.com" />
+								<link
+									rel="canonical"
+									href="https://shriproperty.com"
+								/>
 								<meta
 									name="description"
 									content="Shri Property is committed to delivering a high level of

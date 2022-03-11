@@ -30,29 +30,29 @@ const Users = () => {
 			{loading ? (
 				<Loader fullScreen />
 			) : (
-				<Table className="user-table">
+				<Table className="contact-table">
 					<TableHead>
 						<TableRow>
 							<TableCell
-								className="user-table__cell"
+								className="contact-table__cell"
 								align="right"
 							>
 								Name
 							</TableCell>
 							<TableCell
-								className="user-table__cell"
+								className="contact-table__cell"
 								align="right"
 							>
 								Email
 							</TableCell>
 							<TableCell
-								className="user-table__cell"
+								className="contact-table__cell"
 								align="right"
 							>
 								Phone
 							</TableCell>
 							<TableCell
-								className="user-table__cell"
+								className="contact-table__cell"
 								align="right"
 							>
 								Date
@@ -64,7 +64,7 @@ const Users = () => {
 						{response.map(user => (
 							<TableRow key={user._id}>
 								<TableCell
-									className="user-table__cell"
+									className="contact-table__cell"
 									align="right"
 								>
 									<Link
@@ -74,19 +74,19 @@ const Users = () => {
 									</Link>
 								</TableCell>
 								<TableCell
-									className="user-table__cell"
+									className="contact-table__cell"
 									align="right"
 								>
 									{user.email}
 								</TableCell>
 								<TableCell
-									className="user-table__cell"
+									className="contact-table__cell"
 									align="right"
 								>
 									{user.phone}
 								</TableCell>
 								<TableCell
-									className="user-table__cell"
+									className="contact-table__cell"
 									align="right"
 								>
 									{moment(new Date(user.createdAt)).format(

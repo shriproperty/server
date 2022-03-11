@@ -85,44 +85,44 @@ const User = () => {
 				<>
 					<h1>Listings</h1>
 
-					<Table className="user-table">
+					<Table className="contact-table">
 						<TableHead>
 							<TableRow>
 								<TableCell
-									className="user-table__cell"
+									className="contact-table__cell"
 									align="right"
 								>
 									Title
 								</TableCell>
 								<TableCell
-									className="user-table__cell"
+									className="contact-table__cell"
 									align="right"
 								>
 									Address
 								</TableCell>
 								<TableCell
-									className="user-table__cell"
+									className="contact-table__cell"
 									align="right"
 								>
 									Price
 								</TableCell>
 
 								<TableCell
-									className="user-table__cell"
+									className="contact-table__cell"
 									align="right"
 								>
 									Special Price
 								</TableCell>
 
 								<TableCell
-									className="user-table__cell"
+									className="contact-table__cell"
 									align="right"
 								>
 									Delete
 								</TableCell>
 
 								<TableCell
-									className="user-table__cell"
+									className="contact-table__cell"
 									align="right"
 								>
 									Update
@@ -148,7 +148,7 @@ const User = () => {
 									</Modal>
 
 									<TableCell
-										className="user-table__cell"
+										className="contact-table__cell"
 										align="right"
 									>
 										<Link
@@ -158,20 +158,20 @@ const User = () => {
 										</Link>
 									</TableCell>
 									<TableCell
-										className="user-table__cell"
+										className="contact-table__cell"
 										align="right"
 									>
 										{listing.address}
 									</TableCell>
 									<TableCell
-										className="user-table__cell"
+										className="contact-table__cell"
 										align="right"
 									>
 										{listing.price}
 									</TableCell>
 
 									<TableCell
-										className="user-table__cell"
+										className="contact-table__cell"
 										align="right"
 									>
 										{listing.specialPrice}
@@ -208,44 +208,44 @@ const User = () => {
 					</Table>
 					<h1>Properties</h1>
 
-					<Table className="user-table">
+					<Table className="contact-table">
 						<TableHead>
 							<TableRow>
 								<TableCell
-									className="user-table__cell"
+									className="contact-table__cell"
 									align="right"
 								>
 									Title
 								</TableCell>
 								<TableCell
-									className="user-table__cell"
+									className="contact-table__cell"
 									align="right"
 								>
 									Address
 								</TableCell>
 								<TableCell
-									className="user-table__cell"
+									className="contact-table__cell"
 									align="right"
 								>
 									Price
 								</TableCell>
 
 								<TableCell
-									className="user-table__cell"
+									className="contact-table__cell"
 									align="right"
 								>
 									Special Price
 								</TableCell>
 
 								<TableCell
-									className="user-table__cell"
+									className="contact-table__cell"
 									align="right"
 								>
 									Delete
 								</TableCell>
 
 								<TableCell
-									className="user-table__cell"
+									className="contact-table__cell"
 									align="right"
 								>
 									Update
@@ -271,7 +271,7 @@ const User = () => {
 									</Modal>
 
 									<TableCell
-										className="user-table__cell"
+										className="contact-table__cell"
 										align="right"
 									>
 										<Link
@@ -281,20 +281,20 @@ const User = () => {
 										</Link>
 									</TableCell>
 									<TableCell
-										className="user-table__cell"
+										className="contact-table__cell"
 										align="right"
 									>
 										{property.address}
 									</TableCell>
 									<TableCell
-										className="user-table__cell"
+										className="contact-table__cell"
 										align="right"
 									>
 										{property.price}
 									</TableCell>
 
 									<TableCell
-										className="user-table__cell"
+										className="contact-table__cell"
 										align="right"
 									>
 										{property.specialPrice}
