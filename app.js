@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import { config } from 'dotenv';
 import { spawn } from 'child_process';
 import cron from 'node-cron';
+import compression from 'compression';
 import { unlink } from 'fs';
 import fileUpload from './middlewares/fileUpload.middleware.js';
 
@@ -28,6 +29,11 @@ const app = express();
 /* ------------------------------- ANCHOR middlewares ------------------------------ */
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+	compression({
+		level: 9,
+	})
+);
 app.use('/api', apiAuth);
 app.use('/api', fileUpload);
 
