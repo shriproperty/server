@@ -12,6 +12,8 @@
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 	width: 100%;
+	position: fixed;
+	z-index: 10;
 
 	/* ---------------------------------- ANCHOR logo ---------------------------------- */
 	&__logo {
