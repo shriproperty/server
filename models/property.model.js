@@ -107,6 +107,8 @@ const propertySchema = new mongoose.Schema({
 
 	//location
 	address: { type: String, required: true },
+	location: { type: String, required: false, default: '' },
+	locality: { type: String, required: true, default: '' },
 
 	// owner/builder
 	owner: { type: String, required: true },
@@ -115,7 +117,6 @@ const propertySchema = new mongoose.Schema({
 	commission: { type: String, required: true },
 	age: { type: String, required: false },
 	possession: { type: String, required: false },
-	location: { type: String, required: false, default: '' },
 	furnishingDetails: {
 		type: Object,
 		required: false,
