@@ -11,4 +11,12 @@
 	&__table {
 		margin: 2rem !important;
 	}
+	&_location {
+		height: 5rem;
+		width: 4.5rem;
+	}
+}
+.table_address{
+	display: flex;
+	align-items: center;
 }

@@ -118,7 +118,10 @@ const AdminPage = ({ submit, setSubmit }) => {
 							</TableCell>
 
 							<TableCell className="contact-table__cell">
-								Location
+								Address
+							</TableCell>
+							<TableCell className="contact-table__cell">
+								Locality
 							</TableCell>
 
 							<TableCell className="contact-table__cell">
@@ -167,10 +170,26 @@ const AdminPage = ({ submit, setSubmit }) => {
 									{item.title}
 								</TableCell>
 
-								<TableCell className="contact-table__cell ">
+								<TableCell className="contact-table__cell table_address">
+									{item.location && (
+										<a
+											href={item.location}
+											target="_blank"
+											rel="noreferrer"
+										>
+											<img
+												src="/images/location.png"
+												alt="location"
+												className="admin-page_location"
+											/>
+										</a>
+									)}
 									{item.address}
 								</TableCell>
 
+								<TableCell className="contact-table__cell">
+									{item.locality || 'Chandigarh'} 
+								</TableCell>
 								<TableCell className="contact-table__cell">
 									{item.price}
 								</TableCell>

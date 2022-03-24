@@ -260,19 +260,7 @@ const Property = () => {
 
 					<div>
 						<section className="heading-section">
-							{response.location && (
-								<a
-									href={response.location}
-									target="_blank"
-									rel="noreferrer"
-								>
-									<img
-										src="/images/location.png"
-										alt="location"
-										className="heading-section_location"
-									/>
-								</a>
-							)}
+							
 
 							<div className="heading-section_sub">
 								<HPrimary title={response.title} />
