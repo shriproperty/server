@@ -13,6 +13,7 @@ import {
 	TableHead,
 } from '@mui/material';
 import get from '../../../api/get';
+import './pendingListing.scss';
 
 const PendingListings = () => {
 	const navigate = useNavigate();
@@ -58,7 +59,10 @@ const PendingListings = () => {
 							</TableCell>
 
 							<TableCell className="contact-table__cell">
-								Location
+								Address
+							</TableCell>
+							<TableCell className="contact-table__cell">
+								Locality
 							</TableCell>
 
 							<TableCell className="contact-table__cell">
@@ -83,7 +87,24 @@ const PendingListings = () => {
 								</TableCell>
 
 								<TableCell className="contact-table__cell ">
-									{item.address}
+									{item.location && (
+										<a
+											href={item.location}
+											target="_blank"
+											rel="noreferrer"
+										>
+											<img
+												src="/images/location.png"
+												alt="location"
+												className="pendingListing-location"
+											/>
+										</a>
+									)}
+									{item.address || 'hi'}
+								</TableCell>
+
+								<TableCell className="contact-table__cell">
+									{item.locality}
 								</TableCell>
 
 								<TableCell className="contact-table__cell">

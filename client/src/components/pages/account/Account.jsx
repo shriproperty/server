@@ -77,7 +77,10 @@ const Account = ({ setAuthFormSubmit }) => {
 							</TableCell>
 
 							<TableCell className="contact-table__cell">
-								Location
+								Address
+							</TableCell>
+							<TableCell className="contact-table__cell">
+								Locality
 							</TableCell>
 
 							<TableCell className="contact-table__cell">
@@ -102,7 +105,23 @@ const Account = ({ setAuthFormSubmit }) => {
 								</TableCell>
 
 								<TableCell className="contact-table__cell ">
-									{item.address}
+									{item.location && (
+										<a
+											href={item.location}
+											target="_blank"
+											rel="noreferrer"
+										>
+											<img
+												src="/images/location.png"
+												alt="location"
+												className="pendingListing-location"
+											/>
+										</a>
+									)}
+									{item.address }
+								</TableCell>
+								<TableCell className="contact-table__cell ">
+									{item.locality}
 								</TableCell>
 
 								<TableCell className="contact-table__cell">

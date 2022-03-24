@@ -260,8 +260,6 @@ const Property = () => {
 
 					<div>
 						<section className="heading-section">
-							
-
 							<div className="heading-section_sub">
 								<HPrimary title={response.title} />
 

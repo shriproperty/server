@@ -175,7 +175,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 										<a
 											href={item.location}
 											target="_blank"
-											rel="noreferrer"
+											rel="noreferrer" 
 										>
 											<img
 												src="/images/location.png"

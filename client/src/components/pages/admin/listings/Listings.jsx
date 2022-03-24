@@ -11,7 +11,7 @@ import {
 	TableHead,
 } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
-
+import '../admin.scss';
 const Listings = () => {
 	const [response, setResponse] = useState([]);
 	const [propertyLoading, setPropertyLoading] = useState(true);
@@ -41,7 +41,10 @@ const Listings = () => {
 							</TableCell>
 
 							<TableCell className="contact-table__cell">
-								Location
+								Address
+							</TableCell>
+							<TableCell className="contact-table__cell">
+								Locality
 							</TableCell>
 
 							<TableCell className="contact-table__cell">
@@ -74,9 +77,28 @@ const Listings = () => {
 								</TableCell>
 
 								<TableCell className="contact-table__cell ">
+									{item.location && (
+										<a
+											href={item.location}
+											target="_blank"
+											rel="noreferrer"
+										>
+											<img
+												src="/images/location.png"
+												alt="location"
+												className="pendingListing-location"
+											/>
+										</a>
+									)}
 									{item.address}
 								</TableCell>
 
+								<TableCell className="contact-table__cell">
+									{item.locality}
+								</TableCell>
+								<TableCell className="contact-table__cell">
+									{item.price}
+								</TableCell>
 								<TableCell className="contact-table__cell">
 									{item.price}
 								</TableCell>
