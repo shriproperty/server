@@ -54,6 +54,7 @@ export const addNewListing = async (req, res) => {
 			purchaseType,
 			constructionStatus,
 			location,
+			locality,
 			furnishingDetails,
 			facilities,
 			userId,
@@ -75,6 +76,7 @@ export const addNewListing = async (req, res) => {
 			!size ||
 			!unit ||
 			!address ||
+			!locality ||
 			!direction ||
 			!owner ||
 			!ownerContact ||
@@ -89,7 +91,7 @@ export const addNewListing = async (req, res) => {
 		}
 
 		// validate type
-		if (type !== 'Rental' && type !== 'Sale') {
+		if (type !== 'Rental' && type !== 'Sale' && type !== 'PG') {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
@@ -294,6 +296,7 @@ export const addNewListing = async (req, res) => {
 			purchaseType,
 			constructionStatus,
 			location,
+			locality,
 			facilities: parsedFacilities,
 			furnishingDetails: JSON.parse(furnishingDetails),
 		});
@@ -407,6 +410,7 @@ export const update = async (req, res) => {
 			purchaseType,
 			constructionStatus,
 			location,
+			locality,
 			furnishingDetails,
 			facilities,
 		} = req.body;
@@ -419,7 +423,7 @@ export const update = async (req, res) => {
 		// ANCHOR Validate Inputs
 
 		// validate type
-		if (type !== 'Rental' && type !== 'Sale') {
+		if (type !== 'Rental' && type !== 'Sale' && type !== 'PG') {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
@@ -635,6 +639,7 @@ export const update = async (req, res) => {
 				purchaseType,
 				constructionStatus,
 				location,
+				locality,
 				facilities: parsedFacilities,
 				furnishingDetails: furnishingDetails
 					? JSON.parse(furnishingDetails)

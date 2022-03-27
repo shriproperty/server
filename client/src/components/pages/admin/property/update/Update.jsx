@@ -49,6 +49,7 @@ const Update = () => {
 		lobby: 0,
 		address: '',
 		location: '',
+		locality: '',
 		featured: false,
 		owner: '',
 		ownerContact: '',
@@ -215,16 +216,6 @@ const Update = () => {
 				<Loader fullScreen />
 			) : (
 				<form onSubmit={submitHandler} className="admin-property-form">
-					<ASuccess
-						title={successMessage}
-						open={openSuccess}
-						setOpen={setOpenSuccess}
-					/>
-					<AError
-						title={errorMessage}
-						open={openError}
-						setOpen={setOpenError}
-					/>
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -265,6 +256,21 @@ const Update = () => {
 							})
 						}
 					/>
+
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Locality"
+						value={property.locality}
+						fullWidth
+						onChange={e =>
+							setProperty({
+								...property,
+								locality: e.target.value,
+							})
+						}
+					/>
+
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -589,6 +595,7 @@ const Update = () => {
 						>
 							<MenuItem value="Rental">Rental</MenuItem>
 							<MenuItem value="Sale">Sale</MenuItem>
+							<MenuItem value="PG">PG</MenuItem>
 						</Select>
 					</FormControl>
 
@@ -1464,6 +1471,19 @@ const Update = () => {
 						}
 					})}
 					<br />
+
+					<ASuccess
+						title={successMessage}
+						open={openSuccess}
+						setOpen={setOpenSuccess}
+					/>
+
+					<AError
+						title={errorMessage}
+						open={openError}
+						setOpen={setOpenError}
+					/>
+
 					<BPrimary
 						title="Submit"
 						className="admin-property-form__submit-btn"

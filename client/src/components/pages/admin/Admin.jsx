@@ -175,7 +175,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 										<a
 											href={item.location}
 											target="_blank"
-											rel="noreferrer" 
+											rel="noreferrer"
 										>
 											<img
 												src="/images/location.png"
@@ -188,7 +188,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 								</TableCell>
 
 								<TableCell className="contact-table__cell">
-									{item.locality || 'Chandigarh'} 
+									{item.locality || '---'}
 								</TableCell>
 								<TableCell className="contact-table__cell">
 									{item.price}

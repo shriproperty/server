@@ -42,6 +42,7 @@ const Form = () => {
 		lobby: 0,
 		address: '',
 		location: '',
+		locality: '',
 		featured: false,
 		owner: '',
 		ownerContact: '',
@@ -153,18 +154,7 @@ const Form = () => {
 			</Helmet>
 
 			<form onSubmit={submitHandler} className="admin-property-form">
-				<ASuccess
-					title={successMessage}
-					open={openSuccess}
-					setOpen={setOpenSuccess}
-				/>
-
-				<AError
-					title={errorMessage}
-					open={openError}
-					setOpen={setOpenError}
-				/>
-
+				
 				<TextField
 					className="admin-property-form__input"
 					variant="outlined"
@@ -199,6 +189,17 @@ const Form = () => {
 					fullWidth
 					onChange={e =>
 						setProperty({ ...property, address: e.target.value })
+					}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					variant="outlined"
+					label="Locality"
+					required
+					fullWidth
+					onChange={e =>
+						setProperty({ ...property, locality: e.target.value })
 					}
 				/>
 
@@ -300,7 +301,6 @@ const Form = () => {
 						required
 						label="Unit"
 						value={property.unit}
-						
 						onChange={e =>
 							setProperty({ ...property, unit: e.target.value })
 						}
@@ -481,10 +481,10 @@ const Form = () => {
 						onChange={e =>
 							setProperty({ ...property, type: e.target.value })
 						}
-						
 					>
 						<MenuItem value="Rental">Rental</MenuItem>
 						<MenuItem value="Sale">Sale</MenuItem>
+						<MenuItem value="PG">PG</MenuItem>
 					</Select>
 				</FormControl>
 
@@ -514,7 +514,6 @@ const Form = () => {
 								category: e.target.value,
 							})
 						}
-						
 					>
 						<MenuItem value="Residential Apartment">
 							Residential Apartment
@@ -556,7 +555,6 @@ const Form = () => {
 						required
 						label="Status"
 						value={property.status}
-						
 						onChange={e =>
 							setProperty({ ...property, status: e.target.value })
 						}
@@ -573,7 +571,6 @@ const Form = () => {
 						required
 						label="Featured"
 						value={property.featured}
-						
 						onChange={e =>
 							setProperty({
 								...property,
@@ -592,7 +589,6 @@ const Form = () => {
 						required
 						label="Direction"
 						value={property.direction}
-						
 						onChange={e =>
 							setProperty({
 								...property,
@@ -616,7 +612,6 @@ const Form = () => {
 						required
 						label="Purchase Type"
 						value={property.purchaseType}
-						
 						onChange={e =>
 							setProperty({
 								...property,
@@ -634,7 +629,6 @@ const Form = () => {
 						required
 						label="Construction Status"
 						value={property.constructionStatus}
-						
 						onChange={e =>
 							setProperty({
 								...property,
@@ -1317,6 +1311,18 @@ const Form = () => {
 				})}
 
 				<br />
+
+				<ASuccess
+					title={successMessage}
+					open={openSuccess}
+					setOpen={setOpenSuccess}
+				/>
+
+				<AError
+					title={errorMessage}
+					open={openError}
+					setOpen={setOpenError}
+				/>
 
 				<BPrimary
 					title="Submit"

@@ -200,6 +200,7 @@ const Property = () => {
 						<div className="image-grid__btns">
 							<BPrimary title={response.category} />
 							<BPrimary title={response.status} />
+							<BPrimary title={response.type} />
 						</div>
 
 						{/* if there is no video than image will be shown */}
@@ -285,11 +286,11 @@ const Property = () => {
 											'line-through'
 										}
 									>
-										{response.price}
+										₹ {response.price}
 									</h3>
 
 									<h3 className="special-price">
-										{response.specialPrice}
+										₹ {response.specialPrice}
 									</h3>
 								</div>
 
