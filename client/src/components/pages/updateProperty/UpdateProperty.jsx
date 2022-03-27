@@ -50,6 +50,7 @@ const UpdateProperty = () => {
 		lobby: 0,
 		address: '',
 		location: '',
+		locality: '',
 		featured: false,
 		owner: '',
 		ownerContact: '',
@@ -216,7 +217,10 @@ const UpdateProperty = () => {
 		<section>
 			<Helmet>
 				<title>Update Property | Shri Property</title>
-				<link rel="canonical" href="https://shriproperty.com/property/update/" />
+				<link
+					rel="canonical"
+					href="https://shriproperty.com/property/update/"
+				/>
 				<meta
 					name="description"
 					content="Update Already listed property"
@@ -263,6 +267,7 @@ const UpdateProperty = () => {
 							})
 						}
 					/>
+
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -277,6 +282,21 @@ const UpdateProperty = () => {
 							})
 						}
 					/>
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Locality"
+						value={property.locality}
+						required
+						fullWidth
+						onChange={e =>
+							setProperty({
+								...property,
+								locality: e.target.value,
+							})
+						}
+					/>
+
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -601,6 +621,7 @@ const UpdateProperty = () => {
 						>
 							<MenuItem value="Rental">Rental</MenuItem>
 							<MenuItem value="Sale">Sale</MenuItem>
+							<MenuItem value="PG">PG</MenuItem>
 						</Select>
 					</FormControl>
 

@@ -45,6 +45,7 @@ const Listing = ({ isLoggedIn }) => {
 		lobby: 0,
 		address: '',
 		location: '',
+		locality: '',
 		featured: false,
 		owner: '',
 		ownerContact: '',
@@ -209,6 +210,17 @@ const Listing = ({ isLoggedIn }) => {
 					fullWidth
 					onChange={e =>
 						setProperty({ ...property, address: e.target.value })
+					}
+				/>
+
+				<TextField
+					className="admin-property-form__input"
+					variant="outlined"
+					label="Locality"
+					required
+					fullWidth
+					onChange={e =>
+						setProperty({ ...property, locality: e.target.value })
 					}
 				/>
 
@@ -495,6 +507,7 @@ const Listing = ({ isLoggedIn }) => {
 					>
 						<MenuItem value="Rental">Rental</MenuItem>
 						<MenuItem value="Sale">Sale</MenuItem>
+						<MenuItem value="PG">PG</MenuItem>
 					</Select>
 				</FormControl>
 

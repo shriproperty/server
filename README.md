@@ -2,13 +2,16 @@
 
 ## Add new field in property
 
-1. [ ] Add field in property schema - [property.model.js](./models/property.model.js)
-1. [ ] Add field in listing schema - [listing.model.js](./models/listing.model.js)
-1. [ ] Implement logic for that field in property controller - [property.controller.js](./controllers/property.controller.js)
-1. [ ] Implement logic for that field in listing controller - [listing.controller.js](./controllers/listing.controller.js)
-1. [ ] Add new text/dropdown field or update existing one in Admin Add property form - [Form.jsx](./client/src/components/pages/admin/property/form/Form.jsx)
-1. [ ] Add new text/dropdown field or update existing one in Admin Update property form - [Update.jsx](./client/src/components/pages/admin/property/update/Update.jsx)
-1. [ ] Add new text/dropdown field or update existing one in Listing Page - [Listing.jsx](./client/src/components/pages/listing/Listing.jsx)
+1.  -   [ ] Add field in property schema - [property.model.js](./models/property.model.js)
+1.  -   [ ] Add field in listing schema - [listing.model.js](./models/listing.model.js)
+1.  -   [ ] Implement logic for that field in property controller - [property.controller.js](./controllers/property.controller.js)
+1.  -   [ ] Implement logic for that field in listing controller - [listing.controller.js](./controllers/listing.controller.js)
+1.  -   [ ] Add new text/dropdown field or update existing one in Admin Add property form - [Form.jsx](./client/src/components/pages/admin/property/form/Form.jsx)
+1.  -   [ ] Add new text/dropdown field or update existing one in Admin Update property form - [Update.jsx](./client/src/components/pages/admin/property/update/Update.jsx)
+1.  -   [ ] Add new text/dropdown field or update existing one in User Listing Page - [Listing.jsx](./client/src/components/pages/listing/Listing.jsx)
+1.  -   [ ] Add new text/dropdown field or update existing one in Admin Listing Page - [Listing.jsx](./client/src/components/pages/admin/listing/Listing.jsx)
+1.  -   [ ] Add new text/dropdown field or update existing one in User Update Listing Page - [UpdatePendingListing.jsx](./client/src/components/pages/updatePendingListing/UpdatePendingListing.jsx)
+1.  -   [ ] Add new text/dropdown field or update existing one in User Update Property Page - [UpdateProperty.jsx](./client/src/components/pages/updateProperty/UpdateProperty.jsx)
 
 ---
 

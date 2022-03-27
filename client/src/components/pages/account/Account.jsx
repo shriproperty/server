@@ -5,6 +5,7 @@ import get from '../../../api/get';
 import { Link, useNavigate } from 'react-router-dom';
 import { BPrimary } from '../../util/button/Button';
 import { HPrimary } from '../../util/typography/Typography';
+import { AWarning } from '../../util/alert/Alert';
 import Loader from '../../util/loader/Loader';
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -68,7 +69,7 @@ const Account = ({ setAuthFormSubmit }) => {
 
 			{propertyLoading ? (
 				<Loader fullScreen />
-			) : (
+			) : response.properties.length > 0 ? (
 				<Table className="admin-page__table">
 					<TableHead>
 						<TableRow>
@@ -104,7 +105,7 @@ const Account = ({ setAuthFormSubmit }) => {
 									{item.title}
 								</TableCell>
 
-								<TableCell className="contact-table__cell ">
+								<TableCell className="contact-table__cell table_address">
 									{item.location && (
 										<a
 											href={item.location}
@@ -118,7 +119,7 @@ const Account = ({ setAuthFormSubmit }) => {
 											/>
 										</a>
 									)}
-									{item.address }
+									{item.address}
 								</TableCell>
 								<TableCell className="contact-table__cell ">
 									{item.locality}
@@ -141,6 +142,8 @@ const Account = ({ setAuthFormSubmit }) => {
 						))}
 					</TableBody>
 				</Table>
+			) : (
+				<AWarning title="No Approved Properties" open={true} />
 			)}
 		</main>
 	);

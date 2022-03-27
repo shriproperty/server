@@ -120,6 +120,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 							<TableCell className="contact-table__cell">
 								Address
 							</TableCell>
+
 							<TableCell className="contact-table__cell">
 								Locality
 							</TableCell>
@@ -190,6 +191,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 								<TableCell className="contact-table__cell">
 									{item.locality || '---'}
 								</TableCell>
+
 								<TableCell className="contact-table__cell">
 									{item.price}
 								</TableCell>

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { BPrimary } from '../../util/button/Button';
+import { AWarning } from '../../util/alert/Alert';
 import Loader from '../../util/loader/Loader';
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -50,7 +51,7 @@ const PendingListings = () => {
 
 			{propertyLoading ? (
 				<Loader fullScreen />
-			) : (
+			) : response.listings.length > 0 ? (
 				<Table className="admin-page__table">
 					<TableHead>
 						<TableRow>
@@ -86,7 +87,7 @@ const PendingListings = () => {
 									{item.title}
 								</TableCell>
 
-								<TableCell className="contact-table__cell ">
+								<TableCell className="contact-table__cell table_address">
 									{item.location && (
 										<a
 											href={item.location}
@@ -100,11 +101,11 @@ const PendingListings = () => {
 											/>
 										</a>
 									)}
-									{item.address || 'hi'}
+									{item.address || '---'}
 								</TableCell>
 
 								<TableCell className="contact-table__cell">
-									{item.locality}
+									{item.locality || '---'}
 								</TableCell>
 
 								<TableCell className="contact-table__cell">
@@ -126,6 +127,8 @@ const PendingListings = () => {
 						))}
 					</TableBody>
 				</Table>
+			) : (
+				<AWarning title="No Pending Listings" open={true} />
 			)}
 		</main>
 	);

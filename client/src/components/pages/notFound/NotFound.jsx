@@ -11,15 +11,6 @@ import './notFound.scss';
 const NotFound = ({ comingSoon }) => {
 	return (
 		<section className="notFound-section">
-			<Helmet>
-				<title>404 | Shri Property</title>
-				<link rel="canonical" href="https://shriproperty.com/404" />
-				<meta
-					name="description"
-					content="The Url you have visited is no longer valid"
-				/>
-			</Helmet>
-
 			{comingSoon ? (
 				<>
 					<img
@@ -34,6 +25,18 @@ const NotFound = ({ comingSoon }) => {
 				</>
 			) : (
 				<>
+					<Helmet>
+						<title>404 | Shri Property</title>
+						<link
+							rel="canonical"
+							href="https://shriproperty.com/404"
+						/>
+						<meta
+							name="description"
+							content="The Url you have visited is no longer valid"
+						/>
+					</Helmet>
+
 					<img
 						src="/images/illustrations/page-not-found.svg"
 						alt="page not found"

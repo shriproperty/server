@@ -311,7 +311,7 @@ export const addNewListing = async (req, res) => {
 		// send response
 		res.status(201).json({
 			success: true,
-			message: 'Property created successfully',
+			message: 'Listing Add successfully It will be reviewed approved in 24 hours',
 			data: property,
 		});
 	} catch (err) {
@@ -663,7 +663,8 @@ export const update = async (req, res) => {
 		// send response
 		res.status(200).json({
 			success: true,
-			message: 'Property updated successfully',
+			message:
+				'Listing Updated successfully It will be reviewed approved in 24 hours',
 			data: updatedProperty,
 		});
 	} catch (err) {

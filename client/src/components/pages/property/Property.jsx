@@ -265,7 +265,7 @@ const Property = () => {
 								<HPrimary title={response.title} />
 
 								<h2 className="heading-section_addr">
-									{response.address}
+									{response.locality}
 								</h2>
 							</div>
 						</section>

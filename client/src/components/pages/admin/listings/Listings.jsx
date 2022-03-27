@@ -43,6 +43,7 @@ const Listings = () => {
 							<TableCell className="contact-table__cell">
 								Address
 							</TableCell>
+
 							<TableCell className="contact-table__cell">
 								Locality
 							</TableCell>
@@ -76,7 +77,7 @@ const Listings = () => {
 									</Link>
 								</TableCell>
 
-								<TableCell className="contact-table__cell ">
+								<TableCell className="contact-table__cell table_address">
 									{item.location && (
 										<a
 											href={item.location}
@@ -86,7 +87,7 @@ const Listings = () => {
 											<img
 												src="/images/location.png"
 												alt="location"
-												className="pendingListing-location"
+												className="admin-page_location"
 											/>
 										</a>
 									)}
@@ -94,10 +95,7 @@ const Listings = () => {
 								</TableCell>
 
 								<TableCell className="contact-table__cell">
-									{item.locality}
-								</TableCell>
-								<TableCell className="contact-table__cell">
-									{item.price}
+									{item.locality || '---'}
 								</TableCell>
 								<TableCell className="contact-table__cell">
 									{item.price}

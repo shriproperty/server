@@ -10,7 +10,6 @@ import { BPrimary, BUpload } from '../../../util/button/Button';
 import { ASuccess, AError } from '../../../util/alert/Alert';
 import Loader from '../../../util/loader/Loader';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Modal from '../../../util/modal/Modal';
 
 import { patchFile } from '../../../../api/patch';
 import putRequest from '../../../../api/put';
@@ -51,6 +50,7 @@ const Listing = () => {
 		lobby: 0,
 		address: '',
 		location: '',
+		locality: '',
 		featured: false,
 		owner: '',
 		ownerContact: '',
@@ -75,7 +75,7 @@ const Listing = () => {
 	const [loading, setLoading] = useState(false);
 	const [deleteFile, setDeleteFile] = useState(false);
 	const [loadingPage, setLoadingPage] = useState(true);
-	const [modal, setModal] = useState(false)
+
 	useEffect(() => {
 		get(`/listings/single/${id}`)
 			.then(res => {
@@ -290,6 +290,22 @@ const Listing = () => {
 							})
 						}
 					/>
+
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Locality"
+						value={property.locality}
+						required
+						fullWidth
+						onChange={e =>
+							setProperty({
+								...property,
+								locality: e.target.value,
+							})
+						}
+					/>
+
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -614,6 +630,7 @@ const Listing = () => {
 						>
 							<MenuItem value="Rental">Rental</MenuItem>
 							<MenuItem value="Sale">Sale</MenuItem>
+							<MenuItem value="PG">PG</MenuItem>
 						</Select>
 					</FormControl>
 
@@ -1498,7 +1515,7 @@ const Listing = () => {
 						title={errorMessage}
 						open={openError}
 						setOpen={setOpenError}
-					/> 	
+					/>
 					<BPrimary
 						title="Submit"
 						className="admin-property-form__submit-btn"

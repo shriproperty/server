@@ -49,6 +49,7 @@ const UpdatePendingListing = () => {
 		lobby: 0,
 		address: '',
 		location: '',
+		locality: '',
 		featured: false,
 		owner: '',
 		ownerContact: '',
@@ -209,7 +210,10 @@ const UpdatePendingListing = () => {
 		<section>
 			<Helmet>
 				<title>Update Pending Listing | Shri Property</title>
-				<link rel="canonical" href="https://shriproperty.com/account/pending-listings/" />
+				<link
+					rel="canonical"
+					href="https://shriproperty.com/account/pending-listings/"
+				/>
 				<meta
 					name="description"
 					content="Update your pending Listing"
@@ -256,6 +260,7 @@ const UpdatePendingListing = () => {
 							})
 						}
 					/>
+
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -270,6 +275,22 @@ const UpdatePendingListing = () => {
 							})
 						}
 					/>
+
+					<TextField
+						className="admin-property-form__input"
+						variant="outlined"
+						label="Locality"
+						value={property.locality}
+						required
+						fullWidth
+						onChange={e =>
+							setProperty({
+								...property,
+								locality: e.target.value,
+							})
+						}
+					/>
+
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -594,6 +615,7 @@ const UpdatePendingListing = () => {
 						>
 							<MenuItem value="Rental">Rental</MenuItem>
 							<MenuItem value="Sale">Sale</MenuItem>
+							<MenuItem value="PG">PG</MenuItem>
 						</Select>
 					</FormControl>
 
