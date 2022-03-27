@@ -8,6 +8,7 @@
 1. [ ] Implement logic for that field in listing controller - [listing.controller.js](./controllers/listing.controller.js)
 1. [ ] Add new text/dropdown field or update existing one in Admin Add property form - [Form.jsx](./client/src/components/pages/admin/property/form/Form.jsx)
 1. [ ] Add new text/dropdown field or update existing one in Admin Update property form - [Update.jsx](./client/src/components/pages/admin/property/update/Update.jsx)
+1. [ ] Add new text/dropdown field or update existing one in Listing Page - [Listing.jsx](./client/src/components/pages/listing/Listing.jsx)
 
 ---
 
