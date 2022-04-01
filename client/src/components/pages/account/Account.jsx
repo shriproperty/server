@@ -115,12 +115,13 @@ const Account = ({ setAuthFormSubmit }) => {
 											<img
 												src="/images/location.png"
 												alt="location"
-												className="pendingListing-location"
+												className="account-page__location"
 											/>
 										</a>
 									)}
 									{item.address}
 								</TableCell>
+
 								<TableCell className="contact-table__cell ">
 									{item.locality}
 								</TableCell>

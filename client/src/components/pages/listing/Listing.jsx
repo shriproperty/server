@@ -267,7 +267,6 @@ const Listing = ({ user }) => {
 					helperText={'In Percentage'}
 					variant="outlined"
 					label="Commission"
-					type="number"
 					required
 					fullWidth
 					onChange={e =>
