@@ -8,7 +8,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import './nav.scss';
 import { BPrimary } from '../../util/button/Button';
 
-const Nav = ({ isLoggedIn }) => {
+const Nav = ({ user }) => {
 	const navigate = useNavigate();
 
 	const [search, setSearch] = useState('');
@@ -53,11 +53,11 @@ const Nav = ({ isLoggedIn }) => {
 				</ul>
 
 				<div className="nav__btns">
-					<Link to={isLoggedIn ? '/account' : '/login'}>
+					<Link to={user.isLoggedIn ? '/account' : '/login'}>
 						<AccountCircleIcon />
 					</Link>
 
-					<Link to={isLoggedIn ? '/listing' : '/login'}>
+					<Link to={user.isLoggedIn ? '/listing' : '/login'}>
 						<BPrimary title="Add Listings" />
 					</Link>
 				</div>
@@ -100,7 +100,7 @@ const Nav = ({ isLoggedIn }) => {
 							</a>
 						</li>
 
-						{isLoggedIn ? (
+						{user.isLoggedIn ? (
 							<li>
 								<Link
 									onClick={() => setOpen(false)}

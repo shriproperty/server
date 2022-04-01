@@ -129,19 +129,19 @@ const App = () => {
 
 // created a different router to hide navbar in admin routes
 const UserRoutes = () => {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [user, setUser] = useState({ isLoggedIn: false, data: {} });
 	const [authFormSubmit, setAuthFormSubmit] = useState(false);
 
 	useEffect(() => {
 		get('/auth/is-logged-in').then(res => {
-			setIsLoggedIn(res.success);
+			setUser({ isLoggedIn: res.success, data: res.data });
 			setAuthFormSubmit(false);
 		});
 	}, [authFormSubmit]);
 
 	return (
 		<>
-			<Nav isLoggedIn={isLoggedIn} />
+			<Nav user={user} />
 			<Routes>
 				<Route
 					path="/"
@@ -173,10 +173,7 @@ const UserRoutes = () => {
 				/>
 				<Route path="/properties" element={<Properties />} />
 				<Route path="/properties/:id" element={<Property />} />
-				<Route
-					path="/listing"
-					element={<Listing isLoggedIn={isLoggedIn} />}
-				/>
+				<Route path="/listing" element={<Listing user={user} />} />
 				<Route path="/allimages/:id" element={<AllImages />} />
 
 				<Route

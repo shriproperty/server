@@ -3,7 +3,7 @@
 import User from '../models/user.model.js';
 import { genSalt, hash, compare } from 'bcrypt';
 import { validationResult } from 'express-validator';
-import { generateJWT, verifyJWT } from '../helpers/jwt.helper.js';
+import { generateJWT, verifyJWT, decodeJWT } from '../helpers/jwt.helper.js';
 import { httpOnlyCookie } from '../helpers/cookie.helper.js';
 import logger from '../helpers/logger.helper.js';
 
@@ -152,7 +152,7 @@ export const logout = (req, res) => {
 };
 
 /* ------------------------------ ANCHOR is logged in ------------------------------ */
-export const isLoggedIn = (req, res) => {
+export const isLoggedIn = async (req, res) => {
 	try {
 		const { token } = req.cookies;
 
@@ -166,10 +166,14 @@ export const isLoggedIn = (req, res) => {
 			});
 		}
 
+		const decodedId = await decodeJWT(token);
+
+		const user = await User.findById(decodedId.id);
+
 		res.status(200).json({
 			success: true,
 			message: 'User is logged in',
-			data: {},
+			data: user,
 		});
 	} catch (err) {
 		logger.error(err);

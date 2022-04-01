@@ -16,7 +16,7 @@ import get from '../../../api/get';
 import '../admin/property/form/form.scss';
 import { postFile } from '../../../api/post';
 
-const Listing = ({ isLoggedIn }) => {
+const Listing = ({ user }) => {
 	const navigate = useNavigate();
 	/* --------------------------------- ANCHOR States --------------------------------- */
 	const [property, setProperty] = useState({
@@ -77,7 +77,7 @@ const Listing = ({ isLoggedIn }) => {
 			.catch(err => {
 				navigate('/login');
 			});
-	}, [isLoggedIn]);
+	}, [user.isLoggedIn]);
 
 	const body = new FormData();
 
@@ -239,6 +239,7 @@ const Listing = ({ isLoggedIn }) => {
 					className="admin-property-form__input"
 					variant="outlined"
 					label="Owner Name"
+					value={user.data.name}
 					required
 					fullWidth
 					onChange={e =>
@@ -250,6 +251,7 @@ const Listing = ({ isLoggedIn }) => {
 					className="admin-property-form__input"
 					variant="outlined"
 					label="Owner Contact"
+					value={user.data.phone}
 					required
 					fullWidth
 					onChange={e =>
