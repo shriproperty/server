@@ -57,6 +57,7 @@ export const createProperty = async (req, res) => {
 			furnishingDetails,
 			facilities,
 			security,
+			maintenance,
 		} = req.body;
 
 		const parsedFacilities = [];
@@ -216,6 +217,16 @@ export const createProperty = async (req, res) => {
 			});
 		}
 
+		// validate security and maintenance
+		if (type === 'Sale' && (security || maintenance)) {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
+				message:
+					"You can't fill 'maintenance' and 'security' field if type is 'Sale'",
+			});
+		}
+
 		// ANCHOR Create Property
 
 		// upload files to aws s3
@@ -285,6 +296,7 @@ export const createProperty = async (req, res) => {
 			locality,
 			facilities: parsedFacilities,
 			security,
+			maintenance,
 			furnishingDetails: furnishingDetails
 				? JSON.parse(furnishingDetails)
 				: {},
@@ -385,6 +397,7 @@ export const update = async (req, res) => {
 			size,
 			type,
 			security,
+			maintenance,
 			category,
 			unit,
 			bedroom,
@@ -549,6 +562,16 @@ export const update = async (req, res) => {
 			});
 		}
 
+		// validate security and maintenance
+		if (type === 'Sale' && (security || maintenance)) {
+			deleteMultipleFilesFromDisk(req.files);
+			return res.status(400).json({
+				success: false,
+				message:
+					"You can't fill 'maintenance' and 'security' field if type is 'Sale'",
+			});
+		}
+
 		// ANCHOR Update Property
 		const propertyFromDB = await Property.findById(id);
 
@@ -594,6 +617,7 @@ export const update = async (req, res) => {
 				size,
 				type,
 				security,
+				maintenance,
 				category,
 				unit,
 				bedroom,

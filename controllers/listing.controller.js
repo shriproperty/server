@@ -27,6 +27,7 @@ export const addNewListing = async (req, res) => {
 			specialPrice,
 			type,
 			security,
+			maintenance,
 			category,
 			status,
 			size,
@@ -209,23 +210,13 @@ export const addNewListing = async (req, res) => {
 			});
 		}
 
-		// validate furnishing details
-		if (
-			/**
-			 * this will first parse the furnishing details to object
-			 *  and than push it's keys to an array and than check if its
-			 *  length is greater than 0 so that we can check if object is empty or not
-			 */
-			Object.keys(JSON.parse(furnishingDetails)).length > 0 &&
-			status !== 'Semifurnished' &&
-			status !== 'Furnished'
-		) {
+		// validate security and maintenance
+		if (type === 'Sale' && (security || maintenance)) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
 				message:
-					'Furnishing Details can only be filled when Status is either Semifurnished or Furnished',
-				data: {},
+					"You can't fill 'maintenance' and 'security' field if type is 'Sale'",
 			});
 		}
 
@@ -265,6 +256,7 @@ export const addNewListing = async (req, res) => {
 			specialPrice,
 			type,
 			security,
+			maintenance,
 			category,
 			status,
 			size,
@@ -311,7 +303,8 @@ export const addNewListing = async (req, res) => {
 		// send response
 		res.status(201).json({
 			success: true,
-			message: 'Listing Add successfully It will be reviewed approved in 24 hours',
+			message:
+				'Listing Add successfully It will be reviewed approved in 24 hours',
 			data: property,
 		});
 	} catch (err) {
@@ -386,6 +379,7 @@ export const update = async (req, res) => {
 			size,
 			type,
 			security,
+			maintenance,
 			category,
 			unit,
 			bedroom,
@@ -549,24 +543,13 @@ export const update = async (req, res) => {
 				data: {},
 			});
 		}
-
-		// validate furnishing details
-		if (
-			/**
-			 * this will first parse the furnishing details to object
-			 *  and than push it's keys to an array and than check if its
-			 *  length is greater than 0 so that we can check if object is empty or not
-			 */
-			Object.keys(JSON.parse(furnishingDetails)).length > 0 &&
-			status !== 'Semifurnished' &&
-			status !== 'Furnished'
-		) {
+		// validate security and maintenance
+		if (type === 'Sale' && (security || maintenance)) {
 			deleteMultipleFilesFromDisk(req.files);
 			return res.status(400).json({
 				success: false,
 				message:
-					'Furnishing Details can only be filled when Status is either Semifurnished or Furnished',
-				data: {},
+					"You can't fill 'maintenance' and 'security' field if type is 'Sale'",
 			});
 		}
 
@@ -615,6 +598,7 @@ export const update = async (req, res) => {
 				size,
 				type,
 				security,
+				maintenance,
 				category,
 				unit,
 				bedroom,

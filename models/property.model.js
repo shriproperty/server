@@ -15,6 +15,7 @@ const propertySchema = new mongoose.Schema({
 		default: 'Sale',
 	},
 	security: { type: String, required: false },
+	maintenance: { type: String, required: false },
 	category: {
 		type: String,
 		required: true,

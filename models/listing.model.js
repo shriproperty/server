@@ -14,6 +14,8 @@ const listingSchema = new mongoose.Schema({
 		enum: ['Rental', 'Sale', 'PG'],
 		default: 'Sale',
 	},
+	security: { type: String, required: false },
+	maintenance: { type: String, required: false },
 	category: {
 		type: String,
 		required: true,

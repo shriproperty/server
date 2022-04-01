@@ -31,6 +31,7 @@ const Listing = () => {
 		specialPrice: '',
 		type: '',
 		security: '',
+		maintenance: '',
 		category: '',
 		status: '',
 		size: '',
@@ -634,20 +635,36 @@ const Listing = () => {
 						</Select>
 					</FormControl>
 
-					{property.type === 'Rental' && (
-						<TextField
-							className="admin-property-form__input"
-							variant="outlined"
-							label="Security"
-							value={property.security}
-							onChange={e =>
-								setProperty({
-									...property,
-									security: e.target.value,
-								})
-							}
-						/>
-					)}
+					{property.type === 'Rental' ||
+						(property.type === 'PG' && (
+							<>
+								<TextField
+									className="admin-property-form__input"
+									variant="outlined"
+									label="Security"
+									value={property.security}
+									onChange={e =>
+										setProperty({
+											...property,
+											security: e.target.value,
+										})
+									}
+								/>
+
+								<TextField
+									className="admin-property-form__input"
+									variant="outlined"
+									label="Maintenance"
+									value={property.maintenance}
+									onChange={e =>
+										setProperty({
+											...property,
+											maintenance: e.target.value,
+										})
+									}
+								/>
+							</>
+						))}
 
 					<FormControl className="admin-property-form__select">
 						<InputLabel>category</InputLabel>

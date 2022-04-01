@@ -8,7 +8,7 @@ import './listing.scss';
 const Listing = () => {
 	return (
 		<section className="listing-section">
-			{/* Text continer */}
+			{/* Text container */}
 			<div className="listing-content">
 				<HPrimary
 					className="listing-content__head"
