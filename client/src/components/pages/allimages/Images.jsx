@@ -17,16 +17,15 @@ const Images = () => {
 		get(`/properties/single/${id}`)
 			.then(data => {
 				setResponse(data.data);
-				if (data.data.videos.length > 0)
-					setMainImgUrl({
-						type: 'video',
-						url: data.data.videos[0].url,
-					});
-				else
-					setMainImgUrl({
-						type: 'image',
-						url: data.data.images[0].url,
-					});
+				data.data.videos.length > 0
+					? setMainImgUrl({
+							type: 'video',
+							url: data.data.videos[0].url,
+					  })
+					: setMainImgUrl({
+							type: 'image',
+							url: data.data.images[0].url,
+					  });
 				setLoading(false);
 			})
 			.catch(() => {

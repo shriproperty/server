@@ -20,6 +20,7 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 	const [modal, setModal] = useState(false);
 	const [verifyOtpModel, setVerifyOtpModel] = useState(false);
 	const [response, setResponse] = useState({});
+	const [mainImage, setMainImage] = useState({ type: '', url: '' });
 	const [loading, setLoading] = useState(true);
 	const [btnLoading, setBtnLoading] = useState(false);
 	const [phone, setPhone] = useState('');
@@ -48,6 +49,16 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 		get(`/properties/single/${id}`)
 			.then(data => {
 				setResponse(data.data);
+
+				data.data.videos.length > 0
+					? setMainImage({
+							type: 'video',
+							url: data.data.videos[0].url,
+					  })
+					: setMainImage({
+							type: 'image',
+							url: data.data.images[0].url,
+					  });
 				setLoading(false);
 			})
 			.catch(() => {
@@ -106,6 +117,29 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 			setErrorVerifyModalMessage(verifyOtpResponse.message);
 			setErrorVerifyModalOpen(true);
 		}
+	};
+
+	/**
+	 * Update Main Image in image grid
+	 * @param {string} type type of main image - `video` or `image`
+	 */
+	const mainImageUpdater = type => {
+		return e => {
+			// update main image
+			setMainImage({ type: type, url: e.target.src });
+
+			if (mainImage.type === 'image') {
+				// if main image is image than simply update clicked image src
+				e.target.src = mainImage.url;
+			} else {
+				// if main image is video than hide the clicked image tag and show the sibling video tag
+				const videoTag = e.target.nextSibling;
+
+				e.target.classList.add('hidden');
+				videoTag.children[0].src = mainImage.url;
+				videoTag.classList.remove('hidden');
+			}
+		};
 	};
 
 	return (
@@ -214,47 +248,86 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 						{/* if there is no video than image will be shown */}
 						{response.videos.length > 0 ? (
 							<>
+								{/* item 1 */}
+								{mainImage.type === 'video' ? (
+									<video
+										controls
+										className="image-grid__image image-grid__image--1"
+									>
+										<source
+											src={mainImage.url}
+											type="video/mp4"
+										/>
+										there is no video :(
+									</video>
+								) : (
+									<img
+										src={mainImage.url}
+										alt="property"
+										className="image-grid__image image-grid__image--1"
+										onClick={mainImageUpdater('image')}
+									/>
+								)}
+
+								{/* item 2 */}
+								<img
+									src={response.images[0]?.url}
+									alt="property"
+									className="image-grid__image image-grid__image--2"
+									onClick={mainImageUpdater('image')}
+								/>
+
 								<video
 									controls
-									className="image-grid__image image-grid__image--1"
+									className="image-grid__image image-grid__image--2 hidden"
 								>
 									<source
-										src={response.videos[0]?.url}
+										src={mainImage.url}
 										type="video/mp4"
 									/>
 									there is no video :(
 								</video>
 
-								<img
-									src={response.images[0]?.url}
-									alt="property"
-									className="image-grid__image image-grid__image--2"
-								/>
-
+								{/* item 3 */}
 								<img
 									src={response.images[1]?.url}
 									alt="property"
 									className="image-grid__image image-grid__image--3"
+									onClick={mainImageUpdater('image')}
 								/>
+
+								<video
+									controls
+									className="image-grid__image image-grid__image--3 hidden"
+								>
+									<source
+										src={mainImage.url}
+										type="video/mp4"
+									/>
+									there is no video :(
+								</video>
 							</>
 						) : (
 							<>
 								<img
-									src={response.images[0]?.url}
+									src={mainImage.url}
 									alt="property"
 									className="image-grid__image image-grid__image--1"
+									onClick={mainImageUpdater('image')}
 								/>
 
 								<img
-									src={response.images[1]?.url}
+									src={response.images[1].url}
 									alt="property"
 									className="image-grid__image image-grid__image--2"
+									onClick={mainImageUpdater('image')}
 								/>
 
 								<img
-									src={response.images[2]?.url}
+									src={response.images[2].url}
 									alt="property"
 									className="image-grid__image image-grid__image--3"
+									onClick={mainImageUpdater('image')}
 								/>
 							</>
 						)}
@@ -733,7 +806,10 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 
 						<section className="amenities-section">
 							{response.facilities.map(facility => (
-								<div className="amenities-container">
+								<div
+									className="amenities-container"
+									key={facility.title}
+								>
 									<div>
 										<img
 											src={`/images/amenities/${facility.icon}`}
