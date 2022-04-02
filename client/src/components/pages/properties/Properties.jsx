@@ -15,6 +15,7 @@ import '../home/properties/properties.scss';
 
 const Properties = () => {
 	const [searchParams] = useSearchParams();
+
 	const searchQuery =
 		// this will check if search query is present only than convert it to lower case
 		searchParams.get('s') && searchParams.get('s').toLowerCase();

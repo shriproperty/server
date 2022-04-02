@@ -14,7 +14,7 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import StraightenIcon from '@mui/icons-material/Straighten';
 import { Helmet } from 'react-helmet-async';
 
-const Property = () => {
+const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const [modal, setModal] = useState(false);
@@ -34,7 +34,15 @@ const Property = () => {
 	useEffect(() => {
 		// Verify token
 		get('/temp-users/verify').catch(res => {
-			setModal(true);
+			if (!propertyOtpModelOpened) {
+				setTimeout(() => {
+					setModal(true);
+					setPropertyOtpModelOpened(true);
+					// 10 seconds
+				}, 10000);
+			} else if (propertyOtpModelOpened) {
+				setModal(true);
+			}
 		});
 
 		get(`/properties/single/${id}`)

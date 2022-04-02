@@ -131,6 +131,7 @@ const App = () => {
 const UserRoutes = () => {
 	const [user, setUser] = useState({ isLoggedIn: false, data: {} });
 	const [authFormSubmit, setAuthFormSubmit] = useState(false);
+	const [propertyOtpModelOpened, setPropertyOtpModelOpened] = useState(false);
 
 	useEffect(() => {
 		get('/auth/is-logged-in').then(res => {
@@ -172,7 +173,17 @@ const UserRoutes = () => {
 					}
 				/>
 				<Route path="/properties" element={<Properties />} />
-				<Route path="/properties/:id" element={<Property />} />
+				<Route
+					path="/properties/:id"
+					element={
+						<Property
+							propertyOtpModelOpened={propertyOtpModelOpened}
+							setPropertyOtpModelOpened={
+								setPropertyOtpModelOpened
+							}
+						/>
+					}
+				/>
 				<Route path="/listing" element={<Listing user={user} />} />
 				<Route path="/allimages/:id" element={<AllImages />} />
 
