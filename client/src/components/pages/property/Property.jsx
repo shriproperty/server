@@ -61,7 +61,7 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 					  });
 				setLoading(false);
 			})
-			.catch(() => {
+			.catch(err => {
 				navigate('/404');
 			});
 	}, [id]);
@@ -317,14 +317,14 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 								/>
 
 								<img
-									src={response.images[1].url}
+									src={response.images[1]?.url}
 									alt="property"
 									className="image-grid__image image-grid__image--2"
 									onClick={mainImageUpdater('image')}
 								/>
 
 								<img
-									src={response.images[2].url}
+									src={response.images[2]?.url}
 									alt="property"
 									className="image-grid__image image-grid__image--3"
 									onClick={mainImageUpdater('image')}
@@ -424,7 +424,7 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 								</div>
 
 								<div className="facilities-section_item">
-									<h3>Bathroom</h3>{' '}
+									<h3>Bathroom</h3>
 									<h3>{response.bathroom}</h3>
 								</div>
 
@@ -443,12 +443,7 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 								</div>
 
 								<div className="facilities-section_item">
-									<h3>Pooja Room</h3>
-									<h3>{response.poojaRoom}</h3>
-								</div>
-
-								<div className="facilities-section_item">
-									<h3>Balconies</h3>{' '}
+									<h3>Balconies</h3>
 									<h3>{response.balcony}</h3>
 								</div>
 
@@ -460,6 +455,11 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 								{(response.type === 'Sale' ||
 									response.type === 'Rental') && (
 									<>
+										<div className="facilities-section_item">
+											<h3>Pooja Room</h3>
+											<h3>{response.poojaRoom}</h3>
+										</div>
+
 										<div className="facilities-section_item">
 											<h3>Lobby</h3>
 											<h3>{response.lobby}</h3>
@@ -474,29 +474,36 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 											<h3>Dinning Room</h3>
 											<h3>{response.dinningRoom}</h3>
 										</div>
+
+										<div className="facilities-section_item">
+											<h3>Store Room</h3>
+											<h3>{response.store}</h3>
+										</div>
 									</>
 								)}
 
-								<div className="facilities-section_item">
-									<h3>Store Room</h3>{' '}
-									<h3>{response.store}</h3>
-								</div>
+								{response.type === 'Sale' && (
+									<>
+										<div className="facilities-section_item">
+											<h3>
+												{response.constructionStatus}
+											</h3>
+										</div>
 
-								<div className="facilities-section_item">
-									<h3>{response.constructionStatus}</h3>
-								</div>
+										<div className="facilities-section_item">
+											<h3>{response.purchaseType}</h3>
+										</div>
+										<div className="facilities-section_item">
+											<h3>Property age</h3>
+											<h3>{response.age}</h3>
+										</div>
 
-								<div className="facilities-section_item">
-									<h3>{response.purchaseType}</h3>
-								</div>
-								<div className="facilities-section_item">
-									<h3>Property age</h3>{' '}
-									<h3>{response.age}</h3>
-								</div>
-								<div className="facilities-section_item">
-									<h3>Possession</h3>{' '}
-									<h3>{response.possession}</h3>
-								</div>
+										<div className="facilities-section_item">
+											<h3>Possession</h3>
+											<h3>{response.possession}</h3>
+										</div>
+									</>
+								)}
 							</div>
 						</section>
 

@@ -471,10 +471,9 @@ const Form = () => {
 								})
 							}
 						/>
-						
 					</>
 				)}
-				{(property.type === 'Sale') && (
+				{property.type === 'Sale' && (
 					<>
 						<TextField
 							className="admin-property-form__input"
@@ -526,7 +525,7 @@ const Form = () => {
 					}
 				/>
 				{/* backend still required */}
-			
+
 				<TextField
 					className="admin-property-form__input"
 					variant="outlined"
@@ -644,42 +643,52 @@ const Form = () => {
 						<MenuItem value="South-West">South-West</MenuItem>
 					</Select>
 				</FormControl>
-				<FormControl className="admin-property-form__select">
-					<InputLabel>Purchase Type</InputLabel>
-					<Select
-						required
-						label="Purchase Type"
-						value={property.purchaseType}
-						onChange={e =>
-							setProperty({
-								...property,
-								purchaseType: e.target.value,
-							})
-						}
-					>
-						<MenuItem value="New Booking">New Booking</MenuItem>
-						<MenuItem value="Resale">Resale</MenuItem>
-					</Select>
-				</FormControl>
-				<FormControl className="admin-property-form__select">
-					<InputLabel>Construction Status</InputLabel>
-					<Select
-						required
-						label="Construction Status"
-						value={property.constructionStatus}
-						onChange={e =>
-							setProperty({
-								...property,
-								constructionStatus: e.target.value,
-							})
-						}
-					>
-						<MenuItem value="Under Construction">
-							Under Construction
-						</MenuItem>
-						<MenuItem value="Ready to Move">Ready to Move</MenuItem>
-					</Select>
-				</FormControl>
+
+				{property.type === 'Sale' && (
+					<>
+						<FormControl className="admin-property-form__select">
+							<InputLabel>Purchase Type</InputLabel>
+							<Select
+								required
+								label="Purchase Type"
+								value={property.purchaseType}
+								onChange={e =>
+									setProperty({
+										...property,
+										purchaseType: e.target.value,
+									})
+								}
+							>
+								<MenuItem value="New Booking">
+									New Booking
+								</MenuItem>
+								<MenuItem value="Resale">Resale</MenuItem>
+							</Select>
+						</FormControl>
+
+						<FormControl className="admin-property-form__select">
+							<InputLabel>Construction Status</InputLabel>
+							<Select
+								required
+								label="Construction Status"
+								value={property.constructionStatus}
+								onChange={e =>
+									setProperty({
+										...property,
+										constructionStatus: e.target.value,
+									})
+								}
+							>
+								<MenuItem value="Under Construction">
+									Under Construction
+								</MenuItem>
+								<MenuItem value="Ready to Move">
+									Ready to Move
+								</MenuItem>
+							</Select>
+						</FormControl>
+					</>
+				)}
 
 				<br />
 
