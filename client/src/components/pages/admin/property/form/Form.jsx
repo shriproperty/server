@@ -488,34 +488,33 @@ const Form = () => {
 					</Select>
 				</FormControl>
 
-				{property.type === 'Rental' ||
-					(property.type === 'PG' && (
-						<>
-							<TextField
-								className="admin-property-form__input"
-								variant="outlined"
-								label="Security"
-								onChange={e =>
-									setProperty({
-										...property,
-										security: e.target.value,
-									})
-								}
-							/>
+				{(property.type === 'Rental' || property.type === 'PG') && (
+					<>
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Security"
+							onChange={e =>
+								setProperty({
+									...property,
+									security: e.target.value,
+								})
+							}
+						/>
 
-							<TextField
-								className="admin-property-form__input"
-								variant="outlined"
-								label="Maintenance"
-								onChange={e =>
-									setProperty({
-										...property,
-										maintenance: e.target.value,
-									})
-								}
-							/>
-						</>
-					))}
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Maintenance"
+							onChange={e =>
+								setProperty({
+									...property,
+									maintenance: e.target.value,
+								})
+							}
+						/>
+					</>
+				)}
 
 				<FormControl className="admin-property-form__select">
 					<InputLabel>category</InputLabel>
