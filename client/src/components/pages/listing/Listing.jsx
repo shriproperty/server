@@ -74,6 +74,11 @@ const Listing = ({ user }) => {
 		get('/users/decode')
 			.then(res => {
 				setUserId(res.data.id);
+				setProperty({
+					...property,
+					owner: user.data.name,
+					ownerContact: user.data.phone,
+				});
 			})
 			.catch(err => {
 				navigate('/login');
@@ -240,7 +245,7 @@ const Listing = ({ user }) => {
 					className="admin-property-form__input"
 					variant="outlined"
 					label="Owner Name"
-					value={user.data.name}
+					value={property.owner}
 					required
 					fullWidth
 					onChange={e =>
@@ -252,7 +257,7 @@ const Listing = ({ user }) => {
 					className="admin-property-form__input"
 					variant="outlined"
 					label="Owner Contact"
-					value={user.data.phone}
+					value={property.ownerContact}
 					required
 					fullWidth
 					onChange={e =>
@@ -265,9 +270,9 @@ const Listing = ({ user }) => {
 
 				<TextField
 					className="admin-property-form__input"
-					helperText={'In Percentage'}
+					helperText="In Percentage"
 					variant="outlined"
-					label="Commission"
+					label="Website Commission"
 					required
 					fullWidth
 					onChange={e =>

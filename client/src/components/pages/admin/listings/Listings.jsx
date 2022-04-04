@@ -41,6 +41,10 @@ const Listings = () => {
 							</TableCell>
 
 							<TableCell className="contact-table__cell">
+								Type
+							</TableCell>
+
+							<TableCell className="contact-table__cell">
 								Address
 							</TableCell>
 
@@ -75,6 +79,10 @@ const Listings = () => {
 									>
 										{item.title}
 									</Link>
+								</TableCell>
+
+								<TableCell className="contact-table__cell">
+									{item.type}
 								</TableCell>
 
 								<TableCell className="contact-table__cell table_address">

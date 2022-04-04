@@ -118,6 +118,10 @@ const AdminPage = ({ submit, setSubmit }) => {
 							</TableCell>
 
 							<TableCell className="contact-table__cell">
+								Type
+							</TableCell>
+
+							<TableCell className="contact-table__cell">
 								Address
 							</TableCell>
 
@@ -169,6 +173,10 @@ const AdminPage = ({ submit, setSubmit }) => {
 
 								<TableCell className="contact-table__cell">
 									{item.title}
+								</TableCell>
+
+								<TableCell className="contact-table__cell">
+									{item.type}
 								</TableCell>
 
 								<TableCell className="contact-table__cell table_address">
