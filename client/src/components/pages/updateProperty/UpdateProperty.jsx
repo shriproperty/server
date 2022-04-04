@@ -565,6 +565,48 @@ const UpdateProperty = () => {
 									})
 								}
 							/>
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Store Room"
+								type="number"
+								value={property.store}
+								onChange={e =>
+									setProperty({
+										...property,
+										store: e.target.value,
+									})
+								}
+							/>
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Pooja Room"
+								type="number"
+								value={property.poojaRoom}
+								onChange={e =>
+									setProperty({
+										...property,
+										poojaRoom: e.target.value,
+									})
+								}
+							/>
+						</>
+					)}
+					{property.type === 'Sale' && (
+						<>
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Property Age"
+								value={property.age}
+								onChange={e =>
+									setProperty({
+										...property,
+										age: e.target.value,
+									})
+								}
+							/>
 						</>
 					)}
 					<TextField
@@ -581,29 +623,6 @@ const UpdateProperty = () => {
 						}
 					/>
 
-					<TextField
-						className="admin-property-form__input"
-						variant="outlined"
-						label="Store Room"
-						type="number"
-						value={property.store}
-						onChange={e =>
-							setProperty({ ...property, store: e.target.value })
-						}
-					/>
-					<TextField
-						className="admin-property-form__input"
-						variant="outlined"
-						label="Pooja Room"
-						type="number"
-						value={property.poojaRoom}
-						onChange={e =>
-							setProperty({
-								...property,
-								poojaRoom: e.target.value,
-							})
-						}
-					/>
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -644,15 +663,7 @@ const UpdateProperty = () => {
 						}
 					/>
 					{/* backend still required */}
-					<TextField
-						className="admin-property-form__input"
-						variant="outlined"
-						label="Property Age"
-						value={property.age}
-						onChange={e =>
-							setProperty({ ...property, age: e.target.value })
-						}
-					/>
+
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
