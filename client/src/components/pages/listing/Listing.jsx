@@ -421,25 +421,48 @@ const Listing = ({ user }) => {
 					}
 				/>
 
-				<TextField
-					className="admin-property-form__input"
-					variant="outlined"
-					label="Living Room"
-					type="number"
-					onChange={e =>
-						setProperty({ ...property, livingRoom: e.target.value })
-					}
-				/>
+				{(property.type === 'Rental' || property.type === 'Sale') && (
+					<>
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Living Room"
+							type="number"
+							onChange={e =>
+								setProperty({
+									...property,
+									livingRoom: e.target.value,
+								})
+							}
+						/>
 
-				<TextField
-					className="admin-property-form__input"
-					variant="outlined"
-					label="Lobby"
-					type="number"
-					onChange={e =>
-						setProperty({ ...property, lobby: e.target.value })
-					}
-				/>
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Lobby"
+							type="number"
+							onChange={e =>
+								setProperty({
+									...property,
+									lobby: e.target.value,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Dinning Room"
+							type="number"
+							onChange={e =>
+								setProperty({
+									...property,
+									dinningRoom: e.target.value,
+								})
+							}
+						/>
+					</>
+				)}
 
 				<TextField
 					className="admin-property-form__input"
@@ -448,19 +471,6 @@ const Listing = ({ user }) => {
 					type="number"
 					onChange={e =>
 						setProperty({ ...property, kitchen: e.target.value })
-					}
-				/>
-
-				<TextField
-					className="admin-property-form__input"
-					variant="outlined"
-					label="Dinning Room"
-					type="number"
-					onChange={e =>
-						setProperty({
-							...property,
-							dinningRoom: e.target.value,
-						})
 					}
 				/>
 

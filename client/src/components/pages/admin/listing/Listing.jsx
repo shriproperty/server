@@ -530,29 +530,52 @@ const Listing = () => {
 							})
 						}
 					/>
-					<TextField
-						className="admin-property-form__input"
-						variant="outlined"
-						label="Living Room"
-						type="number"
-						value={property.livingRoom}
-						onChange={e =>
-							setProperty({
-								...property,
-								livingRoom: e.target.value,
-							})
-						}
-					/>
-					<TextField
-						className="admin-property-form__input"
-						variant="outlined"
-						label="Lobby"
-						type="number"
-						value={property.lobby}
-						onChange={e =>
-							setProperty({ ...property, lobby: e.target.value })
-						}
-					/>
+					{(property.type === 'Rental' ||
+						property.type === 'Sale') && (
+						<>
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Living Room"
+								type="number"
+								value={property.livingRoom}
+								onChange={e =>
+									setProperty({
+										...property,
+										livingRoom: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Lobby"
+								type="number"
+								value={property.lobby}
+								onChange={e =>
+									setProperty({
+										...property,
+										lobby: e.target.value,
+									})
+								}
+							/>
+
+							<TextField
+								className="admin-property-form__input"
+								variant="outlined"
+								label="Dinning Room"
+								type="number"
+								value={property.dinningRoom}
+								onChange={e =>
+									setProperty({
+										...property,
+										dinningRoom: e.target.value,
+									})
+								}
+							/>
+						</>
+					)}
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
@@ -566,19 +589,7 @@ const Listing = () => {
 							})
 						}
 					/>
-					<TextField
-						className="admin-property-form__input"
-						variant="outlined"
-						label="Dinning Room"
-						type="number"
-						value={property.dinningRoom}
-						onChange={e =>
-							setProperty({
-								...property,
-								dinningRoom: e.target.value,
-							})
-						}
-					/>
+
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"

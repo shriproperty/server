@@ -10,7 +10,7 @@ const propertySchema = new mongoose.Schema({
 	specialPrice: { type: String, required: false },
 	type: {
 		type: String,
-		required: true,
+		required: false,
 		enum: ['Rental', 'Sale', 'PG'],
 		default: 'Sale',
 	},
@@ -18,7 +18,7 @@ const propertySchema = new mongoose.Schema({
 	maintenance: { type: String, required: false },
 	category: {
 		type: String,
-		required: true,
+		required: false,
 		enum: [
 			'Residential Apartment',
 			'Independent House/Villa',
@@ -34,17 +34,17 @@ const propertySchema = new mongoose.Schema({
 
 	status: {
 		type: String,
-		required: true,
+		required: false,
 		enum: ['Unfurnished', 'Semifurnished', 'Furnished'],
 		default: 'Unfurnished',
 	},
-	featured: { type: Boolean, required: true, default: false },
+	featured: { type: Boolean, required: false, default: false },
 
 	// other details
 	size: { type: String, required: true },
 	unit: {
 		type: String,
-		required: true,
+		required: false,
 		enum: [
 			'Sq. Ft.',
 			'Acre',
@@ -62,22 +62,22 @@ const propertySchema = new mongoose.Schema({
 		],
 	},
 
-	bedroom: { type: String, required: true, default: 0 },
-	bathroom: { type: String, required: true, default: 0 },
-	openParking: { type: String, required: true, default: 0 },
-	closeParking: { type: String, required: true, default: 0 },
-	kitchen: { type: String, required: true, default: 0 },
-	livingRoom: { type: String, required: true, default: 0 },
-	store: { type: String, required: true, default: 0 },
-	balcony: { type: String, required: true, default: 0 },
-	dinningRoom: { type: String, required: true, default: 0 },
-	floor: { type: String, required: true, default: 'Ground' },
-	poojaRoom: { type: String, required: true, default: 0 },
-	otherFeatures: { type: Array, required: true, default: [] },
-	lobby: { type: String, required: true, default: 0 },
+	bedroom: { type: String, required: false, default: 0 },
+	bathroom: { type: String, required: false, default: 0 },
+	openParking: { type: String, required: false, default: 0 },
+	closeParking: { type: String, required: false, default: 0 },
+	kitchen: { type: String, required: false, default: 0 },
+	livingRoom: { type: String, required: false, default: 0 },
+	store: { type: String, required: false, default: 0 },
+	balcony: { type: String, required: false, default: 0 },
+	dinningRoom: { type: String, required: false, default: 0 },
+	floor: { type: String, required: false, default: 'Ground' },
+	poojaRoom: { type: String, required: false, default: 0 },
+	otherFeatures: { type: Array, required: false, default: [] },
+	lobby: { type: String, required: false, default: 0 },
 	direction: {
 		type: String,
-		required: true,
+		required: false,
 		default: null,
 		enum: [
 			'North',
@@ -92,13 +92,13 @@ const propertySchema = new mongoose.Schema({
 	},
 	purchaseType: {
 		type: String,
-		required: true,
+		required: false,
 		enum: ['New Booking', 'Resale'],
 		default: 'New Booking',
 	},
 	constructionStatus: {
 		type: String,
-		required: true,
+		required: false,
 		enum: ['Under Construction', 'Ready to Move'],
 	},
 	// images
@@ -109,7 +109,7 @@ const propertySchema = new mongoose.Schema({
 	//location
 	address: { type: String, required: true },
 	location: { type: String, required: false, default: '' },
-	locality: { type: String, required: true, default: '' },
+	locality: { type: String, required: false, default: '' },
 
 	// owner/builder
 	owner: { type: String, required: true },

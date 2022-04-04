@@ -242,7 +242,7 @@ const Form = () => {
 				<TextField
 					className="admin-property-form__input"
 					variant="outlined"
-					label="Commission"
+					label="Website Commission"
 					required
 					fullWidth
 					onChange={e =>
@@ -399,26 +399,6 @@ const Form = () => {
 				<TextField
 					className="admin-property-form__input"
 					variant="outlined"
-					label="Living Room"
-					type="number"
-					onChange={e =>
-						setProperty({ ...property, livingRoom: e.target.value })
-					}
-				/>
-
-				<TextField
-					className="admin-property-form__input"
-					variant="outlined"
-					label="Lobby"
-					type="number"
-					onChange={e =>
-						setProperty({ ...property, lobby: e.target.value })
-					}
-				/>
-
-				<TextField
-					className="admin-property-form__input"
-					variant="outlined"
 					label="Kitchen"
 					type="number"
 					onChange={e =>
@@ -426,18 +406,48 @@ const Form = () => {
 					}
 				/>
 
-				<TextField
-					className="admin-property-form__input"
-					variant="outlined"
-					label="Dinning Room"
-					type="number"
-					onChange={e =>
-						setProperty({
-							...property,
-							dinningRoom: e.target.value,
-						})
-					}
-				/>
+				{(property.type === 'Rental' || property.type === 'Sale') && (
+					<>
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Living Room"
+							type="number"
+							onChange={e =>
+								setProperty({
+									...property,
+									livingRoom: e.target.value,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Lobby"
+							type="number"
+							onChange={e =>
+								setProperty({
+									...property,
+									lobby: e.target.value,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Dinning Room"
+							type="number"
+							onChange={e =>
+								setProperty({
+									...property,
+									dinningRoom: e.target.value,
+								})
+							}
+						/>
+					</>
+				)}
 
 				<TextField
 					className="admin-property-form__input"

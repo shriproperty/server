@@ -433,10 +433,6 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 								</div>
 
 								<div className="facilities-section_item">
-									<h3>Lobby</h3> <h3>{response.lobby}</h3>
-								</div>
-
-								<div className="facilities-section_item">
 									<h3>Open Parking</h3>
 									<h3>{response.openParking}</h3>
 								</div>
@@ -457,25 +453,39 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 								</div>
 
 								<div className="facilities-section_item">
-									<h3>Dinning Room</h3>
-									<h3>{response.dinningRoom}</h3>
-								</div>
-								<div className="facilities-section_item">
 									<h3>Floor</h3>
 									<h3>{response.floor}</h3>
 								</div>
 
-								<div className="facilities-section_item">
-									<h3>Living Room</h3>
-									<h3>{response.livingRoom}</h3>
-								</div>
+								{(response.type === 'Sale' ||
+									response.type === 'Rental') && (
+									<>
+										<div className="facilities-section_item">
+											<h3>Lobby</h3>
+											<h3>{response.lobby}</h3>
+										</div>
+
+										<div className="facilities-section_item">
+											<h3>Living Room</h3>
+											<h3>{response.livingRoom}</h3>
+										</div>
+
+										<div className="facilities-section_item">
+											<h3>Dinning Room</h3>
+											<h3>{response.dinningRoom}</h3>
+										</div>
+									</>
+								)}
+
 								<div className="facilities-section_item">
 									<h3>Store Room</h3>{' '}
 									<h3>{response.store}</h3>
 								</div>
+
 								<div className="facilities-section_item">
 									<h3>{response.constructionStatus}</h3>
 								</div>
+
 								<div className="facilities-section_item">
 									<h3>{response.purchaseType}</h3>
 								</div>
