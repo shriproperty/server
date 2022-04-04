@@ -10,7 +10,7 @@
 1.  -   [ ] Add new text/dropdown field or update existing one in Admin Update property form - [Update.jsx](./client/src/components/pages/admin/property/update/Update.jsx)
 1.  -   [ ] Add new text/dropdown field or update existing one in User Listing Page - [Listing.jsx](./client/src/components/pages/listing/Listing.jsx)
 1.  -   [ ] Add new text/dropdown field or update existing one in Admin Listing Page - [Listing.jsx](./client/src/components/pages/admin/listing/Listing.jsx)
-1.  -   [ ] Add new text/dropdown field or update existing one in User Update Listing Page - [UpdatePendingListing.jsx](./client/src/components/pages/updatePendingListing/UpdatePendingListing.jsx)
+1.  -   [ ] Add new text/dropdown field or update existing one in User Update Listing Page - [UpdatePendingListing.jsx](./client/src/components/pages/updatePendingListings/UpdatePendingListing.jsx)
 1.  -   [ ] Add new text/dropdown field or update existing one in User Update Property Page - [UpdateProperty.jsx](./client/src/components/pages/updateProperty/UpdateProperty.jsx)
 
 ---

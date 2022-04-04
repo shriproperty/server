@@ -284,6 +284,50 @@ const Form = () => {
 					}
 				/>
 
+				<FormControl className="admin-property-form__select">
+					<InputLabel>Type</InputLabel>
+					<Select
+						required
+						label="Type"
+						value={property.type}
+						onChange={e =>
+							setProperty({ ...property, type: e.target.value })
+						}
+					>
+						<MenuItem value="Rental">Rental</MenuItem>
+						<MenuItem value="Sale">Sale</MenuItem>
+						<MenuItem value="PG">PG</MenuItem>
+					</Select>
+				</FormControl>
+
+				{(property.type === 'Rental' || property.type === 'PG') && (
+					<>
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Security"
+							onChange={e =>
+								setProperty({
+									...property,
+									security: e.target.value,
+								})
+							}
+						/>
+
+						<TextField
+							className="admin-property-form__input"
+							variant="outlined"
+							label="Maintenance"
+							onChange={e =>
+								setProperty({
+									...property,
+									maintenance: e.target.value,
+								})
+							}
+						/>
+					</>
+				)}
+
 				<TextField
 					className="admin-property-form__input"
 					variant="outlined"
@@ -471,50 +515,6 @@ const Form = () => {
 				<br />
 
 				{/* -------------------------------- ANCHOR Drop Down -------------------------------  */}
-
-				<FormControl className="admin-property-form__select">
-					<InputLabel>Type</InputLabel>
-					<Select
-						required
-						label="Type"
-						value={property.type}
-						onChange={e =>
-							setProperty({ ...property, type: e.target.value })
-						}
-					>
-						<MenuItem value="Rental">Rental</MenuItem>
-						<MenuItem value="Sale">Sale</MenuItem>
-						<MenuItem value="PG">PG</MenuItem>
-					</Select>
-				</FormControl>
-
-				{(property.type === 'Rental' || property.type === 'PG') && (
-					<>
-						<TextField
-							className="admin-property-form__input"
-							variant="outlined"
-							label="Security"
-							onChange={e =>
-								setProperty({
-									...property,
-									security: e.target.value,
-								})
-							}
-						/>
-
-						<TextField
-							className="admin-property-form__input"
-							variant="outlined"
-							label="Maintenance"
-							onChange={e =>
-								setProperty({
-									...property,
-									maintenance: e.target.value,
-								})
-							}
-						/>
-					</>
-				)}
 
 				<FormControl className="admin-property-form__select">
 					<InputLabel>category</InputLabel>
