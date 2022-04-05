@@ -658,21 +658,9 @@ const UpdatePendingListing = () => {
 							})
 						}
 					/>
-					{/* backend still required */}
 
-					<TextField
-						className="admin-property-form__input"
-						variant="outlined"
-						label="Possession"
-						value={property.possession}
-						onChange={e =>
-							setProperty({
-								...property,
-								possession: e.target.value,
-							})
-						}
-					/>
 					<br />
+
 					{/* -------------------------------- ANCHOR Drop Down -------------------------------  */}
 
 					<FormControl className="admin-property-form__select">
@@ -787,6 +775,7 @@ const UpdatePendingListing = () => {
 									<MenuItem value="Resale">Resale</MenuItem>
 								</Select>
 							</FormControl>
+
 							<FormControl className="admin-property-form__select">
 								<InputLabel>Construction Status</InputLabel>
 								<Select
@@ -809,6 +798,50 @@ const UpdatePendingListing = () => {
 								</Select>
 							</FormControl>
 						</>
+					)}
+
+					{(property.type === 'Sale' ||
+						property.type === 'Rental') && (
+						<FormControl className="admin-property-form__select">
+							<InputLabel>Possession</InputLabel>
+							<Select
+								required
+								label="Possession"
+								value={property.possession}
+								onChange={e =>
+									setProperty({
+										...property,
+										possession: e.target.value,
+									})
+								}
+							>
+								<MenuItem value="Immediate">Immediate</MenuItem>
+
+								<MenuItem value="Between 1 Month">
+									Between 1 Month
+								</MenuItem>
+
+								<MenuItem value="Between 6 Months">
+									Between 6 Months
+								</MenuItem>
+
+								<MenuItem value="2023">2023</MenuItem>
+
+								<MenuItem value="2024">2024</MenuItem>
+
+								<MenuItem value="2025">2025</MenuItem>
+
+								<MenuItem value="2026">2026</MenuItem>
+
+								<MenuItem value="2027">2027</MenuItem>
+
+								<MenuItem value="2028">2028</MenuItem>
+
+								<MenuItem value="2029">2029</MenuItem>
+
+								<MenuItem value="2030">2030</MenuItem>
+							</Select>
+						</FormControl>
 					)}
 
 					{/*  --------------------------- ANCHOR Furnishing Details --------------------------- */}

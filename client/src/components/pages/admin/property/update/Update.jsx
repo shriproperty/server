@@ -629,18 +629,7 @@ const Update = () => {
 							setProperty({ ...property, age: e.target.value })
 						}
 					/>
-					<TextField
-						className="admin-property-form__input"
-						variant="outlined"
-						label="Possession"
-						value={property.possession}
-						onChange={e =>
-							setProperty({
-								...property,
-								possession: e.target.value,
-							})
-						}
-					/>
+
 					<br />
 					{/* -------------------------------- ANCHOR Drop Down -------------------------------  */}
 
@@ -750,44 +739,96 @@ const Update = () => {
 							<MenuItem value="South-West">South-West</MenuItem>
 						</Select>
 					</FormControl>
-					<FormControl className="admin-property-form__select">
-						<InputLabel>Purchase Type</InputLabel>
-						<Select
-							required
-							label="Purchase Type"
-							value={property.purchaseType}
-							onChange={e =>
-								setProperty({
-									...property,
-									purchaseType: e.target.value,
-								})
-							}
-						>
-							<MenuItem value="New Booking">New Booking</MenuItem>
-							<MenuItem value="Resale">Resale</MenuItem>
-						</Select>
-					</FormControl>
-					<FormControl className="admin-property-form__select">
-						<InputLabel>Construction Status</InputLabel>
-						<Select
-							required
-							label="Construction Status"
-							value={property.constructionStatus}
-							onChange={e =>
-								setProperty({
-									...property,
-									constructionStatus: e.target.value,
-								})
-							}
-						>
-							<MenuItem value="Under Construction">
-								Under Construction
-							</MenuItem>
-							<MenuItem value="Ready to Move">
-								Ready to Move
-							</MenuItem>
-						</Select>
-					</FormControl>
+
+					{property.type === 'Sale' && (
+						<>
+							<FormControl className="admin-property-form__select">
+								<InputLabel>Purchase Type</InputLabel>
+								<Select
+									required
+									label="Purchase Type"
+									value={property.purchaseType}
+									onChange={e =>
+										setProperty({
+											...property,
+											purchaseType: e.target.value,
+										})
+									}
+								>
+									<MenuItem value="New Booking">
+										New Booking
+									</MenuItem>
+									<MenuItem value="Resale">Resale</MenuItem>
+								</Select>
+							</FormControl>
+
+							<FormControl className="admin-property-form__select">
+								<InputLabel>Construction Status</InputLabel>
+								<Select
+									required
+									label="Construction Status"
+									value={property.constructionStatus}
+									onChange={e =>
+										setProperty({
+											...property,
+											constructionStatus: e.target.value,
+										})
+									}
+								>
+									<MenuItem value="Under Construction">
+										Under Construction
+									</MenuItem>
+									<MenuItem value="Ready to Move">
+										Ready to Move
+									</MenuItem>
+								</Select>
+							</FormControl>
+						</>
+					)}
+
+					{(property.type === 'Sale' ||
+						property.type === 'Rental') && (
+						<FormControl className="admin-property-form__select">
+							<InputLabel>Possession</InputLabel>
+							<Select
+								required
+								label="Possession"
+								value={property.possession}
+								onChange={e =>
+									setProperty({
+										...property,
+										possession: e.target.value,
+									})
+								}
+							>
+								<MenuItem value="Immediate">Immediate</MenuItem>
+
+								<MenuItem value="Between 1 Month">
+									Between 1 Month
+								</MenuItem>
+
+								<MenuItem value="Between 6 Months">
+									Between 6 Months
+								</MenuItem>
+
+								<MenuItem value="2023">2023</MenuItem>
+
+								<MenuItem value="2024">2024</MenuItem>
+
+								<MenuItem value="2025">2025</MenuItem>
+
+								<MenuItem value="2026">2026</MenuItem>
+
+								<MenuItem value="2027">2027</MenuItem>
+
+								<MenuItem value="2028">2028</MenuItem>
+
+								<MenuItem value="2029">2029</MenuItem>
+
+								<MenuItem value="2030">2030</MenuItem>
+							</Select>
+						</FormControl>
+					)}
 
 					{/*  --------------------------- ANCHOR Furnishing Details --------------------------- */}
 					{(property.status === 'Furnished' ||
