@@ -324,22 +324,9 @@ export const createProperty = async (req, res) => {
 /* --------------------------- SECTION get all properties --------------------------- */
 export const getAll = async (req, res) => {
 	try {
-		const { featured } = req.query;
-
-		// ANCHOR Get featured
-		if (featured) {
-			const featuredProperties = await Property.find({ featured: true });
-
-			return res.status(200).json({
-				success: true,
-				message: 'All Featured Properties fetched successfully',
-				data: featuredProperties,
-			});
-		}
-
 		// ANCHOR Get All
 
-		const properties = await Property.find();
+		const properties = await Property.find(req.query);
 
 		res.status(200).json({
 			success: true,

@@ -4,6 +4,11 @@
 		font-size: 2.5rem !important;
 	}
 
+	&__sub-heading {
+		margin: 2rem !important;
+		font-size: 2rem !important;
+	}
+
 	&__button {
 		margin: 0 2rem !important;
 	}
@@ -21,4 +26,15 @@
 .table_address {
 	display: flex !important;
 	align-items: center !important;
+}
+
+.filters {
+	display: flex;
+	align-items: center;
+}
+
+.filter-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
