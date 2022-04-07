@@ -93,13 +93,12 @@ const propertySchema = new mongoose.Schema({
 	purchaseType: {
 		type: String,
 		required: false,
-		enum: ['New Booking', 'Resale'],
 		default: 'New Booking',
 	},
 	constructionStatus: {
 		type: String,
 		required: false,
-		enum: ['Under Construction', 'Ready to Move'],
+		default: 'Ready to Move',
 	},
 	// images
 	images: { type: Array, required: false },
@@ -116,8 +115,9 @@ const propertySchema = new mongoose.Schema({
 	ownerContact: { type: String, required: true },
 	ownerId: { type: mongoose.SchemaTypes.ObjectId, required: false },
 	commission: { type: String, required: true },
+
 	age: { type: String, required: false },
-	possession: { type: String, required: false },
+	possession: { type: String, required: false, default: 'Immediate' },
 	furnishingDetails: {
 		type: Object,
 		required: false,
