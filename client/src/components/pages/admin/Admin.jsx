@@ -43,44 +43,6 @@ const AdminPage = ({ submit, setSubmit }) => {
 		category: '',
 		featured: '',
 	});
-	const marks = [
-		{
-			value: 10,
-			label: '< 10L',
-		},
-		{
-			value: 30,
-			label: '10L - 30L',
-		},
-		{
-			value: 60,
-			label: '30L - 60L',
-		},
-		{
-			value: 90,
-			label: '60L - 90L',
-		},
-		{
-			value: 120,
-			label: '90L - 1.2Cr',
-		},
-		{
-			value: 150,
-			label: '1.2Cr - 1.5Cr',
-		},
-		{
-			value: 180,
-			label: '1.5Cr - 1.8Cr',
-		},
-		{
-			value: 200,
-			label: '> 2Cr',
-		},
-	];
-
-	function valuetext(value) {
-		return `${value}`;
-	}
 
 	useEffect(() => {
 		setPropertyLoading(true);
@@ -90,7 +52,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 				filters.category && `category=${filters.category}`
 			}&${filters.featured && `featured=${filters.featured}`}`
 		).then(data => {
-			setResponse(data.data);
+			setResponse(data);
 			setPropertyLoading(false);
 			setSubmit(false);
 		});
@@ -273,25 +235,18 @@ const AdminPage = ({ submit, setSubmit }) => {
 								}
 							/>
 						</div>
-						<div className="filter-container">
-							<Box sx={{ width: 900 }}>
-								<Slider
-									aria-label="Always visible"
-									defaultValue={80}
-									getAriaValueText={valuetext}
-									step={15}
-									marks={marks}
-									valueLabelDisplay="on"
-								/>
-							</Box>
 
-							<BPrimary
-								title={<ClearIcon />}
-								onClick={() =>
-									setFilters({ ...filters, category: '' })
-								}
+						<Box sx={{ width: 900 }}>
+							<Slider
+								defaultValue={parseInt(response.maxPrice)}
+								step={500000}
+								valueLabelDisplay="auto"
+								getAriaValueText={value => value}
+								marks
+								min={parseInt(response.minPrice)}
+								max={parseInt(response.maxPrice)}
 							/>
-						</div>
+						</Box>
 					</div>
 
 					<Table className="admin-page__table">
@@ -340,7 +295,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 						</TableHead>
 
 						<TableBody>
-							{response.map(item => (
+							{response.data.map(item => (
 								<TableRow key={item._id}>
 									{/* Modal */}
 									<Modal

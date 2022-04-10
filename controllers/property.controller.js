@@ -338,6 +338,9 @@ export const getAll = async (req, res) => {
 
 		// maximum price that exists in db
 		const maxPrice = await Property.find().sort({ price: -1 }).limit(1);
+		const minPrice = await Property.find()
+			.sort({ price: +1 })
+			.limit(1);
 
 		let conditions = {};
 
@@ -390,6 +393,7 @@ export const getAll = async (req, res) => {
 			message: 'All properties fetched successfully',
 			data: properties,
 			maxPrice: maxPrice[0].price,
+			minPrice: minPrice[0].price,
 		});
 	} catch (err) {
 		logger.error(err);
