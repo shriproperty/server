@@ -10,6 +10,9 @@ import Loader from '../../util/loader/Loader';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
+
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
 import {
 	Table,
 	TableRow,
@@ -40,6 +43,44 @@ const AdminPage = ({ submit, setSubmit }) => {
 		category: '',
 		featured: '',
 	});
+	const marks = [
+		{
+			value: 10,
+			label: '< 10L',
+		},
+		{
+			value: 30,
+			label: '10L - 30L',
+		},
+		{
+			value: 60,
+			label: '30L - 60L',
+		},
+		{
+			value: 90,
+			label: '60L - 90L',
+		},
+		{
+			value: 120,
+			label: '90L - 1.2Cr',
+		},
+		{
+			value: 150,
+			label: '1.2Cr - 1.5Cr',
+		},
+		{
+			value: 180,
+			label: '1.5Cr - 1.8Cr',
+		},
+		{
+			value: 200,
+			label: '> 2Cr',
+		},
+	];
+
+	function valuetext(value) {
+		return `${value}`;
+	}
 
 	useEffect(() => {
 		setPropertyLoading(true);
@@ -205,17 +246,6 @@ const AdminPage = ({ submit, setSubmit }) => {
 									<MenuItem value="Residential Apartment">
 										Residential Apartment
 									</MenuItem>
-
-									<MenuItem value="Independent House/Villa">
-										Independent House/Villa
-									</MenuItem>
-
-									<MenuItem value="Plot">Plot</MenuItem>
-
-									<MenuItem value="Commercial Office">
-										Commercial Office
-									</MenuItem>
-
 									<MenuItem value="Commercial Office">
 										Commercial Plot
 									</MenuItem>
@@ -235,6 +265,25 @@ const AdminPage = ({ submit, setSubmit }) => {
 									<MenuItem value="Other">Other</MenuItem>
 								</Select>
 							</FormControl>
+
+							<BPrimary
+								title={<ClearIcon />}
+								onClick={() =>
+									setFilters({ ...filters, category: '' })
+								}
+							/>
+						</div>
+						<div className="filter-container">
+							<Box sx={{ width: 900 }}>
+								<Slider
+									aria-label="Always visible"
+									defaultValue={80}
+									getAriaValueText={valuetext}
+									step={15}
+									marks={marks}
+									valueLabelDisplay="on"
+								/>
+							</Box>
 
 							<BPrimary
 								title={<ClearIcon />}
