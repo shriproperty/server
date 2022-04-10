@@ -5,3 +5,4 @@ size and unit (input) eg: 100 Gaj
 floor (input)
 parking (input)
 Bedrooms
+bathroom

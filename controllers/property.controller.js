@@ -324,14 +324,72 @@ export const createProperty = async (req, res) => {
 /* --------------------------- SECTION get all properties --------------------------- */
 export const getAll = async (req, res) => {
 	try {
-		// ANCHOR Get All
+		const {
+			price,
+			featured,
+			type,
+			status,
+			category,
+			floor,
+			parking,
+			bedroom,
+			bathroom,
+		} = req.query;
 
-		const properties = await Property.find(req.query);
+		// maximum price that exists in db
+		const maxPrice = await Property.find().sort({ price: -1 }).limit(1);
+
+		let conditions = {};
+
+		// ANCHOR Conditions
+
+		if (featured && featured === 'true') {
+			conditions.featured = true;
+		}
+
+		if (price && price.split(',').length > 0) {
+			const min = price.split(',')[0];
+			const max = price.split(',')[1];
+
+			conditions.price = { $gte: min, $lte: max };
+		}
+
+		if (type) {
+			conditions.type = type;
+		}
+
+		if (status) {
+			conditions.status = status;
+		}
+
+		if (category) {
+			conditions.category = category;
+		}
+
+		if (floor) {
+			conditions.floor = floor;
+		}
+
+		if (parking) {
+			conditions.parking = parking;
+		}
+
+		if (bedroom) {
+			conditions.bedroom = bedroom;
+		}
+
+		if (bathroom) {
+			conditions.bathroom = bathroom;
+		}
+
+		// ANCHOR get properties from database
+		const properties = await Property.find(conditions);
 
 		res.status(200).json({
 			success: true,
 			message: 'All properties fetched successfully',
 			data: properties,
+			maxPrice: maxPrice[0].price,
 		});
 	} catch (err) {
 		logger.error(err);
