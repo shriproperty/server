@@ -229,7 +229,8 @@ const AdminPage = ({ submit, setSubmit }) => {
 				</div>
 
 				{response.maxPrice && (
-					<Box sx={{ width: 900 }}>
+					<Box sx={{ width: 900 }} className="filter-container">
+						<h1>Price</h1>
 						<Slider
 							defaultValue={parseInt(response.maxPrice)}
 							step={500000}
