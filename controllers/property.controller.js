@@ -325,6 +325,7 @@ export const createProperty = async (req, res) => {
 export const getAll = async (req, res) => {
 	try {
 		const {
+			title,
 			price,
 			featured,
 			type,
@@ -345,6 +346,12 @@ export const getAll = async (req, res) => {
 		let conditions = {};
 
 		// ANCHOR Conditions
+
+		if (title) {
+			conditions.title = {
+				$regex: new RegExp('^' + title.toLowerCase(), 'i'),
+			};
+		}
 
 		if (featured && featured === 'true') {
 			conditions.featured = true;

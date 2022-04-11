@@ -19,6 +19,7 @@ import {
 	TableBody,
 	TableCell,
 	TableHead,
+	TextField,
 } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -44,6 +45,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 		category: '',
 		featured: '',
 		price: '',
+		title: '',
 	});
 
 	useEffect(() => {
@@ -54,7 +56,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 				filters.category && `&category=${filters.category}`
 			}${filters.featured && `&featured=${filters.featured}`}${
 				filters.price && `&price=0,${filters.price}`
-			}`
+			}${filters.title && `&title=${filters.title}`}`
 		).then(data => {
 			setResponse(data);
 			setPropertyLoading(false);
@@ -112,6 +114,15 @@ const AdminPage = ({ submit, setSubmit }) => {
 			<Link to={`${process.env.REACT_APP_ADMIN_ROUTE}/users`}>
 				<BPrimary title="Users" className="admin-page__button" />
 			</Link>
+
+			<TextField
+				label="Search"
+				variant="outlined"
+				onKeyUp={e =>
+					e.key === 'Enter' &&
+					setFilters({ ...filters, title: e.target.value })
+				}
+			/>
 
 			<HPrimary title="All Properties" className="admin-page__heading" />
 
