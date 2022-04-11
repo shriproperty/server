@@ -37,20 +37,24 @@ const AdminPage = ({ submit, setSubmit }) => {
 	const [openError, setOpenError] = useState(false);
 	const [successMessage, setSuccessMessage] = useState('');
 	const [openSuccess, setOpenSuccess] = useState(false);
+	const [sliderValue, setSliderValue] = useState(0);
 
 	const [filters, setFilters] = useState({
 		type: '',
 		category: '',
 		featured: '',
+		price: '',
 	});
 
 	useEffect(() => {
 		setPropertyLoading(true);
 		// get request with filters
 		getRequest(
-			`/properties/all?${filters.type && `type=${filters.type}`}&${
-				filters.category && `category=${filters.category}`
-			}&${filters.featured && `featured=${filters.featured}`}`
+			`/properties/all?${filters.type && `type=${filters.type}`}${
+				filters.category && `&category=${filters.category}`
+			}${filters.featured && `&featured=${filters.featured}`}${
+				filters.price && `&price=0,${filters.price}`
+			}`
 		).then(data => {
 			setResponse(data);
 			setPropertyLoading(false);
@@ -58,6 +62,8 @@ const AdminPage = ({ submit, setSubmit }) => {
 		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [submit, filters]);
+
+	console.log(response);
 
 	const deleteHandler = id => {
 		return e => {
@@ -127,128 +133,128 @@ const AdminPage = ({ submit, setSubmit }) => {
 				className="admin-page__alert"
 			/>
 
+			<SSecondary title="Filters" className="admin-page__sub-heading" />
+
+			<div className="filters">
+				<div className="filter-container">
+					<FormControl className="admin-property-form__select">
+						<InputLabel>Featured</InputLabel>
+						<Select
+							required
+							label="Type"
+							value={filters.featured}
+							onChange={e =>
+								setFilters({
+									...filters,
+									featured: e.target.value,
+								})
+							}
+						>
+							<MenuItem value="true">True</MenuItem>
+							<MenuItem value="false">False</MenuItem>
+						</Select>
+					</FormControl>
+
+					<BPrimary
+						title={<ClearIcon />}
+						onClick={() => setFilters({ ...filters, featured: '' })}
+					/>
+				</div>
+
+				<div className="filter-container">
+					<FormControl className="admin-property-form__select">
+						<InputLabel>Type</InputLabel>
+						<Select
+							required
+							label="Type"
+							value={filters.type}
+							onChange={e =>
+								setFilters({
+									...filters,
+									type: e.target.value,
+								})
+							}
+						>
+							<MenuItem value="Rental">Rental</MenuItem>
+							<MenuItem value="Sale">Sale</MenuItem>
+							<MenuItem value="PG">PG</MenuItem>
+						</Select>
+					</FormControl>
+
+					<BPrimary
+						title={<ClearIcon />}
+						onClick={() => setFilters({ ...filters, type: '' })}
+					/>
+				</div>
+
+				<div className="filter-container">
+					<FormControl className="admin-property-form__select">
+						<InputLabel>category</InputLabel>
+						<Select
+							required
+							label="category"
+							value={filters.category}
+							onChange={e =>
+								setFilters({
+									...filters,
+									category: e.target.value,
+								})
+							}
+						>
+							<MenuItem value="Residential Apartment">
+								Residential Apartment
+							</MenuItem>
+							<MenuItem value="Commercial Office">
+								Commercial Plot
+							</MenuItem>
+
+							<MenuItem value="Serviced Apartments">
+								Serviced Apartments
+							</MenuItem>
+
+							<MenuItem value="1 RK/ Studio Apartment">
+								1 RK/ Studio Apartment
+							</MenuItem>
+
+							<MenuItem value="Independent/Builder Floor">
+								Independent/Builder Floor
+							</MenuItem>
+
+							<MenuItem value="Other">Other</MenuItem>
+						</Select>
+					</FormControl>
+
+					<BPrimary
+						title={<ClearIcon />}
+						onClick={() => setFilters({ ...filters, category: '' })}
+					/>
+				</div>
+
+				{response.maxPrice && (
+					<Box sx={{ width: 900 }}>
+						<Slider
+							defaultValue={parseInt(response.maxPrice)}
+							step={500000}
+							valueLabelDisplay="auto"
+							marks
+							min={parseInt(response.minPrice)}
+							max={parseInt(response.maxPrice)}
+							onChange={e => setSliderValue(e.target.value)}
+							onChangeCommitted={e =>
+								setFilters({
+									...filters,
+									price: sliderValue,
+								})
+							}
+						/>
+					</Box>
+				)}
+			</div>
+
 			{propertyLoading ? (
 				<Loader fullWidth />
 			) : (
 				<>
-					<SSecondary
-						title="Filters"
-						className="admin-page__sub-heading"
-					/>
-					<div className="filters">
-						<div className="filter-container">
-							<FormControl className="admin-property-form__select">
-								<InputLabel>Featured</InputLabel>
-								<Select
-									required
-									label="Type"
-									value={filters.featured}
-									onChange={e =>
-										setFilters({
-											...filters,
-											featured: e.target.value,
-										})
-									}
-								>
-									<MenuItem value="true">True</MenuItem>
-									<MenuItem value="false">False</MenuItem>
-								</Select>
-							</FormControl>
-
-							<BPrimary
-								title={<ClearIcon />}
-								onClick={() =>
-									setFilters({ ...filters, featured: '' })
-								}
-							/>
-						</div>
-
-						<div className="filter-container">
-							<FormControl className="admin-property-form__select">
-								<InputLabel>Type</InputLabel>
-								<Select
-									required
-									label="Type"
-									value={filters.type}
-									onChange={e =>
-										setFilters({
-											...filters,
-											type: e.target.value,
-										})
-									}
-								>
-									<MenuItem value="Rental">Rental</MenuItem>
-									<MenuItem value="Sale">Sale</MenuItem>
-									<MenuItem value="PG">PG</MenuItem>
-								</Select>
-							</FormControl>
-
-							<BPrimary
-								title={<ClearIcon />}
-								onClick={() =>
-									setFilters({ ...filters, type: '' })
-								}
-							/>
-						</div>
-
-						<div className="filter-container">
-							<FormControl className="admin-property-form__select">
-								<InputLabel>category</InputLabel>
-								<Select
-									required
-									label="category"
-									value={filters.category}
-									onChange={e =>
-										setFilters({
-											...filters,
-											category: e.target.value,
-										})
-									}
-								>
-									<MenuItem value="Residential Apartment">
-										Residential Apartment
-									</MenuItem>
-									<MenuItem value="Commercial Office">
-										Commercial Plot
-									</MenuItem>
-
-									<MenuItem value="Serviced Apartments">
-										Serviced Apartments
-									</MenuItem>
-
-									<MenuItem value="1 RK/ Studio Apartment">
-										1 RK/ Studio Apartment
-									</MenuItem>
-
-									<MenuItem value="Independent/Builder Floor">
-										Independent/Builder Floor
-									</MenuItem>
-
-									<MenuItem value="Other">Other</MenuItem>
-								</Select>
-							</FormControl>
-
-							<BPrimary
-								title={<ClearIcon />}
-								onClick={() =>
-									setFilters({ ...filters, category: '' })
-								}
-							/>
-						</div>
-
-						<Box sx={{ width: 900 }}>
-							<Slider
-								defaultValue={parseInt(response.maxPrice)}
-								step={500000}
-								valueLabelDisplay="auto"
-								getAriaValueText={value => value}
-								marks
-								min={parseInt(response.minPrice)}
-								max={parseInt(response.maxPrice)}
-							/>
-						</Box>
-					</div>
-
 					<Table className="admin-page__table">
 						<TableHead>
 							<TableRow>
