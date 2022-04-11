@@ -385,11 +385,8 @@ export const getAll = async (req, res) => {
 			conditions.bathroom = bathroom;
 		}
 
-		logger.info(conditions);
-
 		// ANCHOR get properties from database
 		const properties = await Property.find(conditions);
-		logger.info(properties)
 
 		res.status(200).json({
 			success: true,

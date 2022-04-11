@@ -63,8 +63,6 @@ const AdminPage = ({ submit, setSubmit }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [submit, filters]);
 
-	console.log(response);
-
 	const deleteHandler = id => {
 		return e => {
 			e.preventDefault();
