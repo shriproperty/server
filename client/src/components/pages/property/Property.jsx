@@ -70,6 +70,17 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 		e.preventDefault();
 		setBtnLoading(true);
 
+		// validate user
+		if (name.length < 3 || name.length > 20) {
+			setErrorModalMessage('name must be 3 - 20 characters');
+			return setErrorModalOpen(true);
+		}
+
+		if (phone.length !== 10) {
+			setErrorModalMessage('Phone should be 10 digits');
+			return setErrorModalOpen(true);
+		}
+
 		const sendOtpResponse = await post('/otp/send', {
 			email,
 		});
@@ -164,6 +175,7 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 					<TextField
 						label="Name"
 						variant="outlined"
+						required
 						className="model-container__input"
 						onChange={e => setName(e.target.value)}
 						fullWidth
@@ -172,6 +184,7 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 					<TextField
 						label="email"
 						type="email"
+						required
 						variant="outlined"
 						className="model-container__input"
 						onChange={e => setEmail(e.target.value)}
@@ -182,6 +195,7 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 						label="phone Number"
 						type="number"
 						variant="outlined"
+						required
 						className="model-container__input"
 						onChange={e => setPhone(e.target.value)}
 						fullWidth
