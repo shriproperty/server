@@ -1,7 +1,5 @@
-'use strict';
-
 import path from 'path';
-import express from 'express';
+import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import { config } from 'dotenv';
@@ -9,22 +7,25 @@ import { spawn } from 'child_process';
 import cron from 'node-cron';
 import compression from 'compression';
 import { unlink } from 'fs';
-import fileUpload from './middlewares/fileUpload.middleware.js';
+import fileUpload from './middlewares/fileUpload.middleware';
+import helmet from 'helmet';
 
 config();
 
-import apiAuth from './middlewares/apiAuth.middleware.js';
-import tempUserRouter from './routes/tempUser.routes.js';
-import contactRouter from './routes/contact.routes.js';
-import propertyRouter from './routes/property.routes.js';
-import otpRouter from './routes/otp.routes.js';
-import listingRouter from './routes/listing.routes.js';
-import authRouter from './routes/auth.routes.js';
-import userRouter from './routes/user.routes.js';
-import logger from './helpers/logger.helper.js';
-import { uploadFileToS3 } from './helpers/s3.helper.js';
+import apiAuth from './middlewares/apiAuth.middleware';
+import tempUserRouter from './routes/tempUser.routes';
+import contactRouter from './routes/contact.routes';
+import propertyRouter from './routes/property.routes';
+import otpRouter from './routes/otp.routes';
+import listingRouter from './routes/listing.routes';
+import authRouter from './routes/auth.routes';
+import userRouter from './routes/user.routes';
+import logger from './helpers/logger.helper';
+import { uploadFileToS3 } from './helpers/s3.helper';
 
 const app = express();
+
+const DB_URI = process.env.DB_URI as string;
 
 /* ------------------------------- ANCHOR middlewares ------------------------------ */
 app.use(express.json());
@@ -34,6 +35,7 @@ app.use(
 		level: 9,
 	})
 );
+app.use(helmet());
 app.use('/api', apiAuth);
 app.use('/api', fileUpload);
 
@@ -80,15 +82,15 @@ cron.schedule('0 0 * * *', () => backupDB());
 /* --------------------------------- ANCHOR server --------------------------------- */
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'));
-	app.get('*', (req, res) => {
+	app.get('*', (req: Request, res: Response) => {
 		res.sendFile(path.resolve('client', 'build', 'index.html'));
 	});
 }
 
 const PORT = process.env.PORT || 8000;
 
-mongoose.connect(process.env.DB_URI, () => {
-	app.listen(PORT, process.env.IP);
+mongoose.connect(DB_URI, () => {
+	app.listen(PORT);
 });
 
 export default app;

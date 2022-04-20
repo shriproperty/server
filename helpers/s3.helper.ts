@@ -1,5 +1,3 @@
-'use strict';
-
 /* eslint-disable sonarjs/no-unused-collection */
 
 import AWS from 'aws-sdk';
@@ -16,15 +14,20 @@ AWS.config.update({
 
 const s3 = new AWS.S3();
 
+const BUCKET = process.env.AWS_BUCKET_NAME as string;
+
 /**
- * @param {string} file file to be uploaded to s3
+ * @param {object} file file to be uploaded to s3
  * @return {Promise<object>} response from s3
  */
-export const uploadFileToS3 = file => {
+export const uploadFileToS3 = (file: {
+	path: string;
+	filename: string;
+}): Promise<object> => {
 	const fileStream = createReadStream(file.path);
 
 	const uploadParams = {
-		Bucket: process.env.AWS_BUCKET_NAME,
+		Bucket: BUCKET,
 		Body: fileStream,
 		Key: file.filename,
 	};
@@ -33,12 +36,12 @@ export const uploadFileToS3 = file => {
 };
 
 /**
- * @param {string} key key to be deleted from s3
- * @return {Promise<object>} response from s3
+ * This function will take file `key` as param and delete that file form S3
+ * @param {string}  key to be deleted from s3
  */
-export const deleteSingleFileFromS3 = key => {
+export const deleteSingleFileFromS3 = (key: string): Promise<object> => {
 	const params = {
-		Bucket: process.env.AWS_BUCKET_NAME,
+		Bucket: BUCKET,
 		Key: key,
 	};
 
@@ -52,7 +55,7 @@ export const deleteSingleFileFromS3 = key => {
  * deleteMultiple([...images, ...videos, ...documents]);
  * ```
  */
-export const deleteMultipleFilesFromS3 = async files => {
+export const deleteMultipleFilesFromS3 = async (files: { key: string }[]) => {
 	for (let file of files) {
 		await deleteSingleFileFromS3(file.key);
 	}

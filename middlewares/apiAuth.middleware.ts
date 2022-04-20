@@ -1,6 +1,6 @@
-'use strict';
+import { NextFunction, Request, Response } from 'express';
 
-const apiAuth = (req, res, next) => {
+const apiAuth = (req: Request, res: Response, next: NextFunction) => {
 	const apiKeyFromHeaders = req.headers['x-api-key'];
 
 	if (apiKeyFromHeaders !== process.env.API_KEY) {
