@@ -1,4 +1,4 @@
-import { getModelForClass, prop, pre } from '@typegoose/typegoose';
+import { getModelForClass, prop } from '@typegoose/typegoose';
 
 export class TempUser {
 	@prop({ required: true })

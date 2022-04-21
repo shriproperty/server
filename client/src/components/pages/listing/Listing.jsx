@@ -712,6 +712,14 @@ const Listing = ({ user }) => {
 								Between 1 Month
 							</MenuItem>
 
+							<MenuItem value="Between 2 Month">
+								Between 2 Month
+							</MenuItem>
+
+							<MenuItem value="Between 3 Month">
+								Between 3 Month
+							</MenuItem>
+
 							<MenuItem value="Between 6 Months">
 								Between 6 Months
 							</MenuItem>
