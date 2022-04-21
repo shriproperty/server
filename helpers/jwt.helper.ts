@@ -7,7 +7,7 @@ const JWT_SECRET = process.env.JWT_SECRET as string;
  */
 export const generateJWT = (
 	body: string | Buffer | object,
-	expire: string
+	expire?: string
 ): string => {
 	if (expire) {
 		return jwt.sign(body, JWT_SECRET, {

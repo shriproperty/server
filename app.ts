@@ -18,7 +18,7 @@ import tempUserRouter from './routes/tempUser.routes';
 // import propertyRouter from './routes/property.routes';
 // import otpRouter from './routes/otp.routes';
 // import listingRouter from './routes/listing.routes';
-// import authRouter from './routes/auth.routes';
+import authRouter from './routes/auth.routes';
 // import userRouter from './routes/user.routes';
 import logger from './helpers/logger.helper';
 import { uploadFileToS3 } from './helpers/s3.helper';
@@ -45,7 +45,7 @@ app.use('/api', tempUserRouter);
 // app.use('/api', propertyRouter);
 // app.use('/api', otpRouter);
 // app.use('/api', listingRouter);
-// app.use('/api', authRouter);
+app.use('/api', authRouter);
 // app.use('/api', userRouter);
 
 /* ---------------------------------- ANCHOR data base backup ---------------------------------- */

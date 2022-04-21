@@ -36,6 +36,7 @@
 		"zod-express-middleware": "^1.4.0"
 	},
 	"devDependencies": {
+		"@types/bcrypt": "^5.0.0",
 		"@types/busboy": "^1.5.0",
 		"@types/cookie-parser": "^1.4.2",
 		"@types/cors": "^2.8.12",

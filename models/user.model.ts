@@ -1,12 +1,23 @@
-import { prop, getModelForClass, Ref } from '@typegoose/typegoose';
+import { prop, getModelForClass, Ref, pre } from '@typegoose/typegoose';
+import { genSalt, hash } from 'bcrypt';
 import { Listing } from './listing.model';
 import { Property } from './property.model';
 
+@pre<User>('save', async function (next) {
+	if (this.isModified('password') || this.isNew) {
+		const salt = await genSalt(10);
+		const hashedPassword = await hash(this.password, salt);
+
+		this.password = hashedPassword;
+
+		return next();
+	}
+})
 export class User {
 	@prop({ required: true })
 	name: string;
 
-	@prop({ required: true })
+	@prop({ required: true, unique: true })
 	email: string;
 
 	@prop({ required: true })
@@ -15,10 +26,10 @@ export class User {
 	@prop({ required: true })
 	password: string;
 
-	@prop({ ref: () => Property, default: [] })
+	@prop({ required: true, ref: 'Property', default: [] })
 	properties: Ref<Property>[];
 
-	@prop({ ref: () => Listing, default: [] })
+	@prop({ required: true, ref: 'Listing', default: [] })
 	listings: Ref<Listing>[];
 }
 
