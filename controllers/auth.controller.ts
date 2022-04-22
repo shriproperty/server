@@ -18,6 +18,8 @@ export const signup = async (
 	try {
 		const { name, email, phone, password } = req.body;
 
+		// NOTE: Password will be hashed in user.model.ts pre() decorator
+
 		// create user
 		const newUser = await UserModel.create({
 			name,
@@ -147,6 +149,8 @@ export const resetPassword = async (
 
 		// check if user exists
 		const user = await UserModel.findOne({ email });
+
+		// NOTE: Password will be hashed in user.model.ts pre() decorator
 
 		if (!user) {
 			return res.status(StatusCodes.NOT_FOUND).json({
