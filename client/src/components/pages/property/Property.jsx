@@ -240,9 +240,9 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 					{/* /* ---------------------------- ANCHOR Image Grid --------------------------- */}
 					<section className="image-grid">
 						<div className="image-grid__btns">
-							<BPrimary title={response.category} />
-							<BPrimary title={response.status} />
-							<BPrimary title={response.type} />
+							<Link to={`/properties?s=${response.category}`}><BPrimary title={response.category} /></Link>
+							<Link to={`/properties?s=${response.status}`}><BPrimary title={response.status} /></Link>
+							<Link to={`/properties?s=${response.type}`}><BPrimary title={response.type} /></Link>
 						</div>
 
 						{/* if there is no video than image will be shown */}
