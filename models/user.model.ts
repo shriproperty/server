@@ -1,5 +1,5 @@
 import { prop, getModelForClass, Ref, pre } from '@typegoose/typegoose';
-import { genSalt, hash } from 'bcrypt';
+import { compare, genSalt, hash } from 'bcrypt';
 import { Listing } from './listing.model';
 import { Property } from './property.model';
 
@@ -15,22 +15,26 @@ import { Property } from './property.model';
 })
 export class User {
 	@prop({ required: true })
-	name: string;
+	public name: string;
 
 	@prop({ required: true, unique: true })
-	email: string;
+	public email: string;
 
 	@prop({ required: true })
-	phone: string;
+	public phone: string;
 
 	@prop({ required: true })
-	password: string;
+	public password: string;
 
 	@prop({ required: true, ref: 'Property', default: [] })
-	properties: Ref<Property>[];
+	public properties: Ref<Property>[];
 
 	@prop({ required: true, ref: 'Listing', default: [] })
-	listings: Ref<Listing>[];
+	public listings: Ref<Listing>[];
+
+	public async comparePassword(password: string): Promise<boolean> {
+		return compare(password, this.password);
+	}
 }
 
 export const UserModel = getModelForClass(User, {

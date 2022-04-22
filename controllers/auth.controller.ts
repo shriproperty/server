@@ -4,7 +4,7 @@ import { genSalt, hash, compare } from 'bcrypt';
 import { generateJWT, verifyJWT } from '../helpers/jwt.helper';
 import { httpOnlyCookie } from '../helpers/cookie.helper';
 import logger from '../helpers/logger.helper';
-import { SignupBody } from '../schemas/auth.schema';
+import { LoginBody, SignupBody } from '../schemas/auth.schema';
 import { StatusCodes } from 'http-status-codes';
 
 /* --------------------------------- ANCHOR Signup --------------------------------- */
@@ -57,64 +57,41 @@ export const signup = async (
 };
 
 // /* ---------------------------------- ANCHOR login --------------------------------- */
-// export const login = async (req, res) => {
-// 	try {
-// 		const { email, password } = req.body;
+export const login = async (req: Request<{}, {}, LoginBody>, res: Response) => {
+	try {
+		const { email, password } = req.body;
 
-// 		// validate body
-// 		const errors = validationResult(req).array();
+		// check if user exists
+		const user = await UserModel.findOne({ email });
 
-// 		if (errors.length > 0) {
-// 			return res.status(400).json({
-// 				success: false,
-// 				message: errors[0].msg,
-// 				data: {},
-// 			});
-// 		}
+		if (!user || !(await user.comparePassword(password))) {
+			return res.status(StatusCodes.UNAUTHORIZED).json({
+				success: false,
+				message: 'Please check email or password',
+				data: {},
+			});
+		}
 
-// 		// check if user exists
-// 		const user = await User.findOne({ email });
+		// generate jwt token
+		const token = generateJWT({ id: user._id });
 
-// 		if (!user) {
-// 			return res.status(404).json({
-// 				success: false,
-// 				message: 'User not found please check if your email is correct',
-// 				data: {},
-// 			});
-// 		}
+		httpOnlyCookie('token', token, res);
 
-// 		// check if password is correct
-// 		const isPasswordCorrect = await compare(password, user.password);
+		return res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'User logged in successfully',
+			data: user,
+		});
+	} catch (err) {
+		logger.error(err);
 
-// 		if (!isPasswordCorrect) {
-// 			return res.status(401).json({
-// 				success: false,
-// 				message: 'Password is incorrect',
-// 				data: {},
-// 			});
-// 		}
-
-// 		// generate jwt token
-// 		const token = generateJWT({ id: user._id });
-
-// 		return res
-// 			.status(200)
-// 			.cookie(httpOnlyCookie('token', token, res))
-// 			.json({
-// 				success: true,
-// 				message: 'User logged in successfully',
-// 				data: user,
-// 			});
-// 	} catch (err) {
-// 		logger.error(err);
-
-// 		res.status(500).json({
-// 			success: false,
-// 			message: 'Please check your email or password',
-// 			data: {},
-// 		});
-// 	}
-// };
+		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+			success: false,
+			message: 'Please check your email or password',
+			data: {},
+		});
+	}
+};
 
 // /* ---------------------------------- ANCHOR logout --------------------------------- */
 
