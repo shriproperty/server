@@ -19,9 +19,9 @@ export const generateJWT = (
 };
 
 /**
- * Verify jwt token
+ * takes `token` and verify and decode it
  */
-export const verifyJWT = (token: string) => {
+export const verifyJWT = (token: string): string | JwtPayload | null => {
 	try {
 		const verified = jwt.verify(token, JWT_SECRET);
 

@@ -104,39 +104,35 @@ export const logout = (req: Request, res: Response) => {
 };
 
 // /* ------------------------------ ANCHOR is logged in ------------------------------ */
-// export const isLoggedIn = async (req, res) => {
-// 	try {
-// 		const { token } = req.cookies;
+export const isLoggedIn = async (req: Request, res: Response) => {
+	try {
+		const { token } = req.cookies;
 
-// 		const isLoggedIn = verifyJWT(token);
+		const isLoggedIn = verifyJWT(token);
 
-// 		if (!isLoggedIn) {
-// 			return res.status(401).json({
-// 				success: false,
-// 				message: 'User is not logged in',
-// 				data: {},
-// 			});
-// 		}
+		if (!isLoggedIn) {
+			return res.status(StatusCodes.UNAUTHORIZED).json({
+				success: false,
+				message: 'User is not logged in',
+				data: {},
+			});
+		}
 
-// 		const decodedId = await decodeJWT(token);
+		res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'User is logged in',
+			data: {},
+		});
+	} catch (err) {
+		logger.error(err);
 
-// 		const user = await User.findById(decodedId.id);
-
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'User is logged in',
-// 			data: user,
-// 		});
-// 	} catch (err) {
-// 		logger.error(err);
-
-// 		res.status(401).json({
-// 			success: false,
-// 			message: 'User is not logged in',
-// 			data: {},
-// 		});
-// 	}
-// };
+		res.status(401).json({
+			success: false,
+			message: 'User is not logged in',
+			data: {},
+		});
+	}
+};
 
 // /* -------------------------- ANCHOR reset password ------------------------- */
 // export const resetPassword = async (req, res) => {
