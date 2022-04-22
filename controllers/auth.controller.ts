@@ -1,10 +1,9 @@
 import { Request, Response } from 'express';
 import { UserModel } from '../models/user.model';
-import { genSalt, hash, compare } from 'bcrypt';
 import { generateJWT, verifyJWT } from '../helpers/jwt.helper';
 import { httpOnlyCookie } from '../helpers/cookie.helper';
 import logger from '../helpers/logger.helper';
-import { LoginBody, SignupBody } from '../schemas/auth.schema';
+import { LoginBody, ResetPasswordBody, SignupBody } from '../schemas/auth.schema';
 import { StatusCodes } from 'http-status-codes';
 
 /* --------------------------------- ANCHOR Signup --------------------------------- */
@@ -135,55 +134,39 @@ export const isLoggedIn = async (req: Request, res: Response) => {
 };
 
 // /* -------------------------- ANCHOR reset password ------------------------- */
-// export const resetPassword = async (req, res) => {
-// 	try {
-// 		const { email, newPassword } = req.body;
+export const resetPassword = async (req: Request<{}, {}, ResetPasswordBody>, res: Response) => {
+	try {
+		const { email, newPassword } = req.body;
 
-// 		// validate body
-// 		const errors = validationResult(req).array();
+		// check if user exists
+		const user = await UserModel.findOne({ email });
 
-// 		if (errors.length > 0) {
-// 			return res.status(400).json({
-// 				success: false,
-// 				message: errors[0].msg,
-// 				data: {},
-// 			});
-// 		}
+		if (!user) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'User not found please check if your email is correct',
+				data: {},
+			});
+		}
 
-// 		// check if user exists
-// 		const user = await User.findOne({ email });
+		// update password
+		const updatedUser = await UserModel.findOneAndUpdate(
+			{ email },
+			{ password: newPassword },
+			{ new: true }
+		);
 
-// 		if (!user) {
-// 			return res.status(404).json({
-// 				success: false,
-// 				message: 'User not found please check if your email is correct',
-// 				data: {},
-// 			});
-// 		}
-
-// 		// hash password
-// 		const salt = await genSalt(10);
-
-// 		const hashedPassword = await hash(newPassword, salt);
-
-// 		// update password
-// 		const updatedUser = await User.findOneAndUpdate(
-// 			{ email },
-// 			{ password: hashedPassword },
-// 			{ new: true }
-// 		);
-
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'Password updated successfully',
-// 			data: updatedUser,
-// 		});
-// 	} catch (err) {
-// 		logger.error(err);
-// 		res.status(500).json({
-// 			success: false,
-// 			message: 'Internal Server Error',
-// 			data: {},
-// 		});
-// 	}
-// };
+		res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'Password updated successfully',
+			data: updatedUser,
+		});
+	} catch (err) {
+		logger.error(err);
+		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+			success: false,
+			message: 'Internal Server Error',
+			data: {},
+		});
+	}
+};

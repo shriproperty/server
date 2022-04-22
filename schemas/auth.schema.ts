@@ -33,3 +33,14 @@ export const loginSchema = {
 };
 
 export type LoginBody = TypeOf<typeof loginSchema.body>;
+
+export const resetPasswordSchema = {
+	body: object({
+		email: string({ required_error: 'email is required' }).email(),
+		newPassword: string({
+			required_error: 'new password field is required',
+		}),
+	}),
+};
+
+export type ResetPasswordBody = TypeOf<typeof resetPasswordSchema.body>;
