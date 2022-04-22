@@ -93,15 +93,15 @@ export const login = async (req: Request<{}, {}, LoginBody>, res: Response) => {
 	}
 };
 
-// /* ---------------------------------- ANCHOR logout --------------------------------- */
+/* ---------------------------------- ANCHOR logout --------------------------------- */
 
-// export const logout = (req, res) => {
-// 	res.clearCookie('token').status(200).json({
-// 		success: true,
-// 		message: 'User logged out successfully',
-// 		data: {},
-// 	});
-// };
+export const logout = (req: Request, res: Response) => {
+	res.clearCookie('token').status(StatusCodes.OK).json({
+		success: true,
+		message: 'User logged out successfully',
+		data: {},
+	});
+};
 
 // /* ------------------------------ ANCHOR is logged in ------------------------------ */
 // export const isLoggedIn = async (req, res) => {
