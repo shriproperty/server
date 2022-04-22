@@ -3,7 +3,11 @@ import { UserModel } from '../models/user.model';
 import { generateJWT, verifyJWT } from '../helpers/jwt.helper';
 import { httpOnlyCookie } from '../helpers/cookie.helper';
 import logger from '../helpers/logger.helper';
-import { LoginBody, ResetPasswordBody, SignupBody } from '../schemas/auth.schema';
+import {
+	LoginBody,
+	ResetPasswordBody,
+	SignupBody,
+} from '../schemas/auth.schema';
 import { StatusCodes } from 'http-status-codes';
 
 /* --------------------------------- ANCHOR Signup --------------------------------- */
@@ -133,8 +137,11 @@ export const isLoggedIn = async (req: Request, res: Response) => {
 	}
 };
 
-// /* -------------------------- ANCHOR reset password ------------------------- */
-export const resetPassword = async (req: Request<{}, {}, ResetPasswordBody>, res: Response) => {
+/* -------------------------- ANCHOR reset password ------------------------- */
+export const resetPassword = async (
+	req: Request<{}, {}, ResetPasswordBody>,
+	res: Response
+) => {
 	try {
 		const { email, newPassword } = req.body;
 
@@ -149,17 +156,14 @@ export const resetPassword = async (req: Request<{}, {}, ResetPasswordBody>, res
 			});
 		}
 
-		// update password
-		const updatedUser = await UserModel.findOneAndUpdate(
-			{ email },
-			{ password: newPassword },
-			{ new: true }
-		);
+		user.password = newPassword;
+
+		await user.save();
 
 		res.status(StatusCodes.OK).json({
 			success: true,
 			message: 'Password updated successfully',
-			data: updatedUser,
+			data: {},
 		});
 	} catch (err) {
 		logger.error(err);
