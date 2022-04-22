@@ -898,6 +898,7 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 												Exhaust
 											</h3>
 											<div className="amenities-section__number">
+												
 												{
 													response.furnishingDetails
 														.exhaust
