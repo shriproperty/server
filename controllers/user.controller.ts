@@ -2,6 +2,11 @@ import { verifyJWT } from '../helpers/jwt.helper';
 import { UserModel } from '../models/user.model';
 import logger from '../helpers/logger.helper';
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import {
+	GetSingleUserParams,
+	GetSingleUserQuery,
+} from '../schemas/user.schema';
 
 /* ---------------------------- SECTION get all users ---------------------------- */
 
@@ -9,7 +14,7 @@ export async function getAll(req: Request, res: Response) {
 	try {
 		const users = await UserModel.find({});
 
-		return res.status(200).json({
+		return res.status(StatusCodes.OK).json({
 			success: true,
 			message: 'All contacts fetched successfully',
 			data: users,
@@ -17,7 +22,7 @@ export async function getAll(req: Request, res: Response) {
 	} catch (err) {
 		logger.error(err);
 
-		return res.status(500).json({
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
 			success: false,
 			message: 'Internal Server Error',
 			data: {},
@@ -27,99 +32,64 @@ export async function getAll(req: Request, res: Response) {
 
 /* -------------------------------- !SECTION Get all users end -------------------------------- */
 
-// /* ------------------------- SECTION get single user ------------------------ */
+/* ------------------------- SECTION get single user ------------------------ */
 
-// export const getSingleUser = async (req, res) => {
-// 	try {
-// 		const { id } = req.params;
-// 		const { listings, properties } = req.query;
+export async function getSingleUser(
+	req: Request<GetSingleUserParams, {}, {}, GetSingleUserQuery>,
+	res: Response
+) {
+	try {
+		const { id } = req.params;
+		const { listings, properties } = req.query;
 
-// 		// ANCHOR populate both listings and properties
-// 		if (listings === 'true' && properties === 'true') {
-// 			const user = await User.findById(id)
-// 				.populate('listings')
-// 				.populate('properties');
+		let user;
 
-// 			if (!user) {
-// 				return res.status(404).json({
-// 					success: false,
-// 					message: 'User not found',
-// 					data: {},
-// 				});
-// 			}
+		// ANCHOR populate both listings and properties
+		if (listings && properties) {
+			user = await UserModel.findById(id)
+				.populate('listings')
+				.populate('properties');
+		} else if (listings) {
+			user = await UserModel.findById(id).populate('listings');
+		} else if (properties) {
+			user = await UserModel.findById(id).populate('properties');
+		} else {
+			user = await UserModel.findById(id);
+		}
 
-// 			return res.status(200).json({
-// 				success: true,
-// 				message: 'User fetched successfully',
-// 				data: user,
-// 			});
-// 		}
+		if (!user) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'User not found',
+				data: {},
+			});
+		}
 
-// 		// ANCHOR populate listings
-// 		if (listings === 'true') {
-// 			const user = await User.findById(id).populate('listings');
+		return res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'User fetched successfully',
+			data: user,
+		});
+	} catch (err: any) {
+		logger.error(err);
 
-// 			if (!user) {
-// 				return res.status(404).json({
-// 					success: false,
-// 					message: 'User not found',
-// 					data: {},
-// 				});
-// 			}
+		if (err.path === '_id') {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'User not found',
+				data: {},
+			});
+		}
 
-// 			return res.status(200).json({
-// 				success: true,
-// 				message: 'User fetched successfully',
-// 				data: user,
-// 			});
-// 		}
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+			success: false,
+			message: 'Internal server error',
+			data: {},
+		});
+	}
+}
 
-// 		// ANCHOR populate properties
-// 		if (properties === 'true') {
-// 			const user = await User.findById(id).populate('properties');
-
-// 			if (!user) {
-// 				return res.status(404).json({
-// 					success: false,
-// 					message: 'User not found',
-// 					data: {},
-// 				});
-// 			}
-
-// 			return res.status(200).json({
-// 				success: true,
-// 				message: 'User fetched successfully',
-// 				data: user,
-// 			});
-// 		}
-
-// 		// ANCHOR populate neither listings nor properties
-// 		const user = await User.findById(id);
-
-// 		if (!user) {
-// 			return res.status(404).json({
-// 				success: false,
-// 				message: 'User not found',
-// 				data: {},
-// 			});
-// 		}
-
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'User fetched successfully',
-// 			data: user,
-// 		});
-// 	} catch (err) {
-// 		logger.error(err);
-// 		res.status(500).json({
-// 			success: false,
-// 			message: 'Internal server error',
-// 			data: {},
-// 		});
-// 	}
-// };
-
-// /* -------------------------- !SECTION get single user end -------------------------- */
+/* -------------------------- !SECTION get single user end -------------------------- */
 
 // /* --------------------------------- SECTION decode --------------------------------- */
 // export const decode = async (req, res) => {

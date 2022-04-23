@@ -1,6 +1,6 @@
 import { prop, getModelForClass, Ref } from '@typegoose/typegoose';
 import { Facility, File } from '../types/interfaces.types';
-import { User } from './user.model';
+import mongoose from 'mongoose';
 
 export class Property {
 	@prop({ required: true })
@@ -159,8 +159,8 @@ export class Property {
 	@prop({ required: true })
 	public ownerContact: string;
 
-	@prop({ required: true, ref: () => User })
-	public ownerId: Ref<User>;
+	@prop({ required: true })
+	public ownerId: mongoose.Types.ObjectId;
 
 	@prop({ required: true })
 	public commission: string;

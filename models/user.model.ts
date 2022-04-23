@@ -26,10 +26,10 @@ export class User {
 	@prop({ required: true })
 	public password: string;
 
-	@prop({ required: true, ref: 'Property', default: [] })
+	@prop({ required: true, ref: () => Property, default: [] })
 	public properties: Ref<Property>[];
 
-	@prop({ required: true, ref: 'Listing', default: [] })
+	@prop({ required: true, ref: () => Listing, default: [] })
 	public listings: Ref<Listing>[];
 
 	public async comparePassword(password: string): Promise<boolean> {
