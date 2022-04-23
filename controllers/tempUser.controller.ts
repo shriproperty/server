@@ -13,10 +13,10 @@ import logger from '../helpers/logger.helper';
 import { StatusCodes } from 'http-status-codes';
 
 /* --------------------------------- ANCHOR create --------------------------------- */
-export const registerNewTempUser = async (
+export async function registerNewTempUser(
 	req: Request<{}, {}, RegisterNewBody>,
 	res: Response
-) => {
+) {
 	try {
 		const { name, email, phone } = req.body;
 
@@ -26,7 +26,7 @@ export const registerNewTempUser = async (
 
 		httpOnlyCookie('tempUserToken', token, res);
 
-		res.status(StatusCodes.CREATED).json({
+		return res.status(StatusCodes.CREATED).json({
 			success: true,
 			message: 'User created successfully',
 			data: user,
@@ -34,16 +34,16 @@ export const registerNewTempUser = async (
 	} catch (err) {
 		logger.error(err);
 
-		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
 			success: false,
 			message: 'Internal Server Error',
 			data: {},
 		});
 	}
-};
+}
 
 /* ------------------------------ ANCHOR get all users ----------------------------- */
-export const getAllTempUsers = async (req: Request, res: Response) => {
+export async function getAllTempUsers(req: Request, res: Response) {
 	try {
 		const users = await TempUserModel.find();
 
@@ -54,23 +54,23 @@ export const getAllTempUsers = async (req: Request, res: Response) => {
 		});
 	} catch (err) {
 		logger.error(err);
-		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
 			success: false,
 			message: 'Internal Server Error',
 			data: {},
 		});
 	}
-};
+}
 
 /* ------------------------------- ANCHOR update user calling status for admin ------------------------------ */
-export const updateTempUserCallingStatus = async (
+export async function updateTempUserCallingStatus(
 	req: Request<
 		UpdateTempUserCallingStatusParams,
 		{},
 		UpdateTempUserCallingStatusBody
 	>,
 	res: Response
-) => {
+) {
 	try {
 		const { id } = req.params;
 		const { callingStatus, callAgainDate, talkProgress } = req.body;
@@ -109,7 +109,7 @@ export const updateTempUserCallingStatus = async (
 			{ new: true }
 		);
 
-		res.status(StatusCodes.OK).json({
+		return res.status(StatusCodes.OK).json({
 			success: true,
 			message: 'User updated successfully',
 			data: updatedUser,
@@ -117,25 +117,25 @@ export const updateTempUserCallingStatus = async (
 	} catch (err) {
 		logger.error(err);
 
-		res.status(StatusCodes.NOT_FOUND).json({
+		return res.status(StatusCodes.NOT_FOUND).json({
 			success: false,
 			message: 'User not found invalid id',
 			data: {},
 		});
 	}
-};
+}
 
 /* --------------------------- ANCHOR delete user --------------------------- */
-export const deleteTempUser = async (
+export async function deleteTempUser(
 	req: Request<DeleteTempUserParams, {}, {}>,
 	res: Response
-) => {
+) {
 	try {
 		const { id } = req.params;
 
 		const deletedUser = await TempUserModel.findByIdAndDelete(id);
 
-		res.status(StatusCodes.OK).json({
+		return res.status(StatusCodes.OK).json({
 			success: true,
 			message: 'User deleted successfully',
 			data: deletedUser,
@@ -143,16 +143,16 @@ export const deleteTempUser = async (
 	} catch (err) {
 		logger.error(err);
 
-		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
 			success: false,
 			message: 'Internal Server Error',
 			data: {},
 		});
 	}
-};
+}
 
 /* ------------------------------- ANCHOR verify user ------------------------------ */
-export const verifyTempUser = (req: Request, res: Response) => {
+export function verifyTempUser(req: Request, res: Response) {
 	try {
 		const { tempUserToken, token } = req.cookies;
 
@@ -186,7 +186,7 @@ export const verifyTempUser = (req: Request, res: Response) => {
 			});
 		}
 
-		res.status(StatusCodes.OK).json({
+		return res.status(StatusCodes.OK).json({
 			success: true,
 			message: 'User verified successfully',
 			data: {},
@@ -194,10 +194,10 @@ export const verifyTempUser = (req: Request, res: Response) => {
 	} catch (err) {
 		logger.error(err);
 
-		res.status(StatusCodes.UNAUTHORIZED).json({
+		return res.status(StatusCodes.UNAUTHORIZED).json({
 			success: false,
 			message: 'Invalid token',
 			data: {},
 		});
 	}
-};
+}

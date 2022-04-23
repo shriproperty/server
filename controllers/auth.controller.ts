@@ -11,15 +11,11 @@ import {
 import { StatusCodes } from 'http-status-codes';
 
 /* --------------------------------- ANCHOR Signup --------------------------------- */
-export const signup = async (
-	req: Request<{}, {}, SignupBody>,
-	res: Response
-) => {
+export async function signup(req: Request<{}, {}, SignupBody>, res: Response) {
 	try {
 		const { name, email, phone, password } = req.body;
 
 		// NOTE: Password will be hashed in user.model.ts pre() decorator
-
 		// create user
 		const newUser = await UserModel.create({
 			name,
@@ -53,16 +49,16 @@ export const signup = async (
 			});
 		}
 
-		res.status(500).json({
+		return res.status(500).json({
 			success: false,
 			message: 'Internal Server Error',
 			data: {},
 		});
 	}
-};
+}
 
-// /* ---------------------------------- ANCHOR login --------------------------------- */
-export const login = async (req: Request<{}, {}, LoginBody>, res: Response) => {
+/* ---------------------------------- ANCHOR login --------------------------------- */
+export async function login(req: Request<{}, {}, LoginBody>, res: Response) {
 	try {
 		const { email, password } = req.body;
 
@@ -90,26 +86,27 @@ export const login = async (req: Request<{}, {}, LoginBody>, res: Response) => {
 	} catch (err) {
 		logger.error(err);
 
-		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
 			success: false,
 			message: 'Please check your email or password',
 			data: {},
 		});
 	}
-};
+}
 
 /* ---------------------------------- ANCHOR logout --------------------------------- */
 
-export const logout = (req: Request, res: Response) => {
-	res.clearCookie('token').status(StatusCodes.OK).json({
+export function logout(req: Request, res: Response) {
+	return res.clearCookie('token').status(StatusCodes.OK).json({
 		success: true,
 		message: 'User logged out successfully',
 		data: {},
 	});
-};
+}
 
 // /* ------------------------------ ANCHOR is logged in ------------------------------ */
-export const isLoggedIn = async (req: Request, res: Response) => {
+
+export async function isLoggedIn(req: Request, res: Response) {
 	try {
 		const { token } = req.cookies;
 
@@ -123,7 +120,7 @@ export const isLoggedIn = async (req: Request, res: Response) => {
 			});
 		}
 
-		res.status(StatusCodes.OK).json({
+		return res.status(StatusCodes.OK).json({
 			success: true,
 			message: 'User is logged in',
 			data: {},
@@ -131,19 +128,19 @@ export const isLoggedIn = async (req: Request, res: Response) => {
 	} catch (err) {
 		logger.error(err);
 
-		res.status(401).json({
+		return res.status(401).json({
 			success: false,
 			message: 'User is not logged in',
 			data: {},
 		});
 	}
-};
+}
 
 /* -------------------------- ANCHOR reset password ------------------------- */
-export const resetPassword = async (
+export async function resetPassword(
 	req: Request<{}, {}, ResetPasswordBody>,
 	res: Response
-) => {
+) {
 	try {
 		const { email, newPassword } = req.body;
 
@@ -151,7 +148,6 @@ export const resetPassword = async (
 		const user = await UserModel.findOne({ email });
 
 		// NOTE: Password will be hashed in user.model.ts pre() decorator
-
 		if (!user) {
 			return res.status(StatusCodes.NOT_FOUND).json({
 				success: false,
@@ -164,17 +160,17 @@ export const resetPassword = async (
 
 		await user.save();
 
-		res.status(StatusCodes.OK).json({
+		return res.status(StatusCodes.OK).json({
 			success: true,
 			message: 'Password updated successfully',
 			data: {},
 		});
 	} catch (err) {
 		logger.error(err);
-		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
 			success: false,
 			message: 'Internal Server Error',
 			data: {},
 		});
 	}
-};
+}
