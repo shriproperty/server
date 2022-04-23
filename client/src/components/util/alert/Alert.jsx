@@ -124,6 +124,6 @@ export const AWarning = ({ title, open, setOpen, className }) => {
 AWarning.propTypes = {
 	title: propTypes.string.isRequired,
 	open: propTypes.bool.isRequired,
-	setOpen: propTypes.func.isRequired,
+	setOpen: propTypes.func,
 	className: propTypes.string,
 };

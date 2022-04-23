@@ -11,7 +11,6 @@ import { BPrimary, BUpload } from '../../util/button/Button';
 import { ASuccess, AError } from '../../util/alert/Alert';
 import { CheckBox } from '../../util/input/Input';
 import DeleteIcon from '@mui/icons-material/Delete';
-import get from '../../../api/get';
 
 import '../admin/property/form/form.scss';
 import { postFile } from '../../../api/post';
@@ -48,8 +47,8 @@ const Listing = ({ user }) => {
 		location: '',
 		locality: '',
 		featured: false,
-		owner: '',
-		ownerContact: '',
+		owner: user.data.name,
+		ownerContact: user.data.phone,
 		commission: 0,
 		age: 0,
 		possession: '',
@@ -68,21 +67,11 @@ const Listing = ({ user }) => {
 	const [openError, setOpenError] = useState(false);
 	const [successMessage, setSuccessMessage] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
-	const [userId, setUserId] = useState('');
 
 	useEffect(() => {
-		get('/users/decode')
-			.then(res => {
-				setUserId(res.data.id);
-				setProperty({
-					...property,
-					owner: user.data.name,
-					ownerContact: user.data.phone,
-				});
-			})
-			.catch(err => {
-				navigate('/login');
-			});
+		if (user && !user.isLoggedIn) {
+			navigate('/login');
+		}
 	}, [user.isLoggedIn]);
 
 	const body = new FormData();
@@ -123,7 +112,7 @@ const Listing = ({ user }) => {
 		}
 
 		// append user id
-		body.append('userId', userId);
+		body.append('userId', user.data._id);
 
 		// append furnishing details to body
 

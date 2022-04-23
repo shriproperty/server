@@ -3,11 +3,7 @@ import { UserModel } from '../models/user.model';
 import { generateJWT, verifyJWT } from '../helpers/jwt.helper';
 import { httpOnlyCookie } from '../helpers/cookie.helper';
 import logger from '../helpers/logger.helper';
-import {
-	LoginBody,
-	ResetPasswordBody,
-	SignupBody,
-} from '../schemas/auth.schema';
+import { LoginBody, SignupBody } from '../schemas/auth.schema';
 import { StatusCodes } from 'http-status-codes';
 
 /* --------------------------------- ANCHOR Signup --------------------------------- */
@@ -49,7 +45,7 @@ export async function signup(req: Request<{}, {}, SignupBody>, res: Response) {
 			});
 		}
 
-		return res.status(500).json({
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
 			success: false,
 			message: 'Internal Server Error',
 			data: {},
@@ -120,56 +116,19 @@ export async function isLoggedIn(req: Request, res: Response) {
 			});
 		}
 
+		const user = await UserModel.findById(isLoggedIn.id);
+
 		return res.status(StatusCodes.OK).json({
 			success: true,
 			message: 'User is logged in',
-			data: {},
+			data: user,
 		});
 	} catch (err) {
 		logger.error(err);
 
-		return res.status(401).json({
+		return res.status(StatusCodes.UNAUTHORIZED).json({
 			success: false,
 			message: 'User is not logged in',
-			data: {},
-		});
-	}
-}
-
-/* -------------------------- ANCHOR reset password ------------------------- */
-export async function resetPassword(
-	req: Request<{}, {}, ResetPasswordBody>,
-	res: Response
-) {
-	try {
-		const { email, newPassword } = req.body;
-
-		// check if user exists
-		const user = await UserModel.findOne({ email });
-
-		// NOTE: Password will be hashed in user.model.ts pre() decorator
-		if (!user) {
-			return res.status(StatusCodes.NOT_FOUND).json({
-				success: false,
-				message: 'User not found please check if your email is correct',
-				data: {},
-			});
-		}
-
-		user.password = newPassword;
-
-		await user.save();
-
-		return res.status(StatusCodes.OK).json({
-			success: true,
-			message: 'Password updated successfully',
-			data: {},
-		});
-	} catch (err) {
-		logger.error(err);
-		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-			success: false,
-			message: 'Internal Server Error',
 			data: {},
 		});
 	}

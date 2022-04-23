@@ -81,7 +81,7 @@ const Login = ({ setAuthFormSubmit }) => {
 		// if otp is valid than create new user
 		if (verifyOtpResponse.success) {
 			const updatedUserPassword = await patchRequest(
-				'/auth/reset-password',
+				'/users/reset-password',
 				{
 					email,
 					newPassword,

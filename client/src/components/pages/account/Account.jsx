@@ -17,25 +17,21 @@ import {
 } from '@mui/material';
 import './account.scss';
 
-const Account = ({ setAuthFormSubmit }) => {
+const Account = ({ setAuthFormSubmit, user }) => {
 	const navigate = useNavigate();
 
 	const [response, setResponse] = useState([]);
 	const [propertyLoading, setPropertyLoading] = useState(true);
 
 	useEffect(() => {
-		get('/users/decode')
-			.then(res => {
-				get(`/users/single/${res.data.id}?properties=true`).then(
-					data => {
-						setResponse(data.data);
-						setPropertyLoading(false);
-					}
-				);
-			})
-			.catch(() => {
-				navigate('/login');
+		if (user.isLoggedIn) {
+			get(`/users/single/${user.data._id}?properties=true`).then(data => {
+				setResponse(data.data);
+				setPropertyLoading(false);
 			});
+		} else {
+			navigate('/login');
+		}
 	}, []);
 
 	const logoutHandler = () => {

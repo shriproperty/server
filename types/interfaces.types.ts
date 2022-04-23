@@ -7,3 +7,8 @@ export interface Facility {
 	title: string;
 	icon: string;
 }
+
+export interface JWT {
+	id: string;
+	iat: number;
+}

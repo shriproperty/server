@@ -7,6 +7,7 @@ import {
 	GetSingleUserParams,
 	GetSingleUserQuery,
 } from '../schemas/user.schema';
+import { ResetPasswordBody } from '../schemas/user.schema';
 
 /* ---------------------------- SECTION get all users ---------------------------- */
 
@@ -91,15 +92,43 @@ export async function getSingleUser(
 
 /* -------------------------- !SECTION get single user end -------------------------- */
 
-// /* --------------------------------- SECTION decode --------------------------------- */
-// export const decode = async (req, res) => {
-// 	const id = await decodeJWT(req.cookies.token);
+/* -------------------------- SECTION - reset password ------------------------- */
+export async function resetPassword(
+	req: Request<{}, {}, ResetPasswordBody>,
+	res: Response
+) {
+	try {
+		const { email, newPassword } = req.body;
 
-// 	res.status(200).json({
-// 		success: true,
-// 		message: 'User ID',
-// 		data: id,
-// 	});
-// };
+		// check if user exists
+		const user = await UserModel.findOne({ email });
 
-// /* ----------------------------- !SECTION decode ---------------------------- */
+		// NOTE: Password will be hashed in user.model.ts pre() decorator
+		if (!user) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'User not found please check if your email is correct',
+				data: {},
+			});
+		}
+
+		user.password = newPassword;
+
+		await user.save();
+
+		return res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'Password updated successfully',
+			data: {},
+		});
+	} catch (err) {
+		logger.error(err);
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+			success: false,
+			message: 'Internal Server Error',
+			data: {},
+		});
+	}
+}
+
+/* -------------------------------- !SECTION -------------------------------- */

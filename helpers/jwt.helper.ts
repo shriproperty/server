@@ -1,4 +1,5 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { JWT } from '../types/interfaces.types';
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
@@ -21,9 +22,9 @@ export const generateJWT = (
 /**
  * takes `token` and verify and decode it
  */
-export const verifyJWT = (token: string): string | JwtPayload | null => {
+export const verifyJWT = (token: string): JWT | null => {
 	try {
-		const verified = jwt.verify(token, JWT_SECRET);
+		const verified = jwt.verify(token, JWT_SECRET) as JWT;
 
 		return verified;
 	} catch (e) {

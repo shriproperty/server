@@ -16,23 +16,21 @@ import {
 import get from '../../../api/get';
 import './pendingListing.scss';
 
-const PendingListings = () => {
+const PendingListings = ({ user }) => {
 	const navigate = useNavigate();
 
 	const [response, setResponse] = useState('');
 	const [propertyLoading, setPropertyLoading] = useState(true);
 
 	useEffect(() => {
-		get('/users/decode')
-			.then(res => {
-				get(`/users/single/${res.data.id}?listings=true`).then(data => {
-					setResponse(data.data);
-					setPropertyLoading(false);
-				});
-			})
-			.catch(() => {
-				navigate('/login');
-			});
+		if (user && !user.isLoggedIn) {
+			navigate('/login');
+		}
+
+		get(`/users/single/${user.data._id}?listings=true`).then(data => {
+			setResponse(data.data);
+			setPropertyLoading(false);
+		});
 	}, []);
 
 	return (
