@@ -1,4 +1,3 @@
-import { verifyJWT } from '../helpers/jwt.helper';
 import { UserModel } from '../models/user.model';
 import logger from '../helpers/logger.helper';
 import { Request, Response } from 'express';

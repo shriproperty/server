@@ -14,7 +14,7 @@ config();
 
 import apiAuth from './middlewares/apiAuth.middleware';
 import tempUserRouter from './routes/tempUser.routes';
-// import contactRouter from './routes/contact.routes';
+import contactRouter from './routes/contact.routes';
 // import propertyRouter from './routes/property.routes';
 // import otpRouter from './routes/otp.routes';
 // import listingRouter from './routes/listing.routes';
@@ -41,7 +41,7 @@ app.use('/api', fileUpload);
 
 /* --------------------------------- ANCHOR routes --------------------------------- */
 app.use('/api', tempUserRouter);
-// app.use('/api', contactRouter);
+app.use('/api', contactRouter);
 // app.use('/api', propertyRouter);
 // app.use('/api', otpRouter);
 // app.use('/api', listingRouter);
