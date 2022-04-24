@@ -7,7 +7,7 @@ import { LoginBody, SignupBody } from '../schemas/auth.schema';
 import { StatusCodes } from 'http-status-codes';
 
 /* --------------------------------- ANCHOR Signup --------------------------------- */
-export async function signup(req: Request<{}, {}, SignupBody>, res: Response) {
+export async function signupHandler(req: Request<{}, {}, SignupBody>, res: Response) {
 	try {
 		const { name, email, phone, password } = req.body;
 
@@ -54,7 +54,7 @@ export async function signup(req: Request<{}, {}, SignupBody>, res: Response) {
 }
 
 /* ---------------------------------- ANCHOR login --------------------------------- */
-export async function login(req: Request<{}, {}, LoginBody>, res: Response) {
+export async function loginHandler(req: Request<{}, {}, LoginBody>, res: Response) {
 	try {
 		const { email, password } = req.body;
 
@@ -92,7 +92,7 @@ export async function login(req: Request<{}, {}, LoginBody>, res: Response) {
 
 /* ---------------------------------- ANCHOR logout --------------------------------- */
 
-export function logout(req: Request, res: Response) {
+export function logoutHandler(req: Request, res: Response) {
 	return res.clearCookie('token').status(StatusCodes.OK).json({
 		success: true,
 		message: 'User logged out successfully',
@@ -102,7 +102,7 @@ export function logout(req: Request, res: Response) {
 
 // /* ------------------------------ ANCHOR is logged in ------------------------------ */
 
-export async function isLoggedIn(req: Request, res: Response) {
+export async function isLoggedInHandler(req: Request, res: Response) {
 	try {
 		const { token } = req.cookies;
 

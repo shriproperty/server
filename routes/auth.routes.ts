@@ -1,18 +1,18 @@
 import { Router } from 'express';
 import { processRequestBody } from 'zod-express-middleware';
 import {
-	isLoggedIn,
-	login,
-	logout,
-	signup,
+	isLoggedInHandler,
+	loginHandler,
+	logoutHandler,
+	signupHandler,
 } from '../controllers/auth.controller';
 import { loginSchema, signupSchema } from '../schemas/auth.schema';
 
 const authRouter = Router();
 
-authRouter.post('/auth/signup', processRequestBody(signupSchema.body), signup);
-authRouter.post('/auth/login', processRequestBody(loginSchema.body), login);
-authRouter.get('/auth/is-logged-in', isLoggedIn);
-authRouter.get('/auth/logout', logout);
+authRouter.post('/auth/signup', processRequestBody(signupSchema.body), signupHandler);
+authRouter.post('/auth/login', processRequestBody(loginSchema.body), loginHandler);
+authRouter.get('/auth/is-logged-in', isLoggedInHandler);
+authRouter.get('/auth/logout', logoutHandler);
 
 export default authRouter;

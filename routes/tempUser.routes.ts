@@ -15,20 +15,20 @@ const tempUserRouter = Router();
 tempUserRouter.post(
 	'/temp-users/add',
 	processRequestBody(registerNewSchema.body),
-	tempUserController.registerNewTempUser
+	tempUserController.registerNewTempUserHandler
 );
-tempUserRouter.get('/temp-users/all', tempUserController.getAllTempUsers);
-tempUserRouter.get('/temp-users/verify', tempUserController.verifyTempUser);
+tempUserRouter.get('/temp-users/all', tempUserController.getAllTempUsersHandler);
+tempUserRouter.get('/temp-users/verify', tempUserController.verifyTempUserHandler);
 tempUserRouter.patch(
 	'/temp-users/update-calling-status/:id',
 	processRequestBody(updateTempUserCallingStatusSchema.body),
 	processRequestParams(updateTempUserCallingStatusSchema.params),
-	tempUserController.updateTempUserCallingStatus
+	tempUserController.updateTempUserCallingStatusHandler
 );
 tempUserRouter.delete(
 	'/temp-users/delete/:id',
 	processRequestParams(deleteTempUserSchema.params),
-	tempUserController.deleteTempUser
+	tempUserController.deleteTempUserHandler
 );
 
 export default tempUserRouter;

@@ -10,7 +10,7 @@ import { ResetPasswordBody } from '../schemas/user.schema';
 
 /* ---------------------------- SECTION get all users ---------------------------- */
 
-export async function getAll(req: Request, res: Response) {
+export async function getAllHandler(req: Request, res: Response) {
 	try {
 		const users = await UserModel.find({});
 
@@ -34,7 +34,7 @@ export async function getAll(req: Request, res: Response) {
 
 /* ------------------------- SECTION get single user ------------------------ */
 
-export async function getSingleUser(
+export async function getSingleUserHandler(
 	req: Request<GetSingleUserParams, {}, {}, GetSingleUserQuery>,
 	res: Response
 ) {
@@ -92,7 +92,7 @@ export async function getSingleUser(
 /* -------------------------- !SECTION get single user end -------------------------- */
 
 /* -------------------------- SECTION - reset password ------------------------- */
-export async function resetPassword(
+export async function resetPasswordHandler(
 	req: Request<{}, {}, ResetPasswordBody>,
 	res: Response
 ) {

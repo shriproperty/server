@@ -5,9 +5,9 @@ import {
 	processRequestQuery,
 } from 'zod-express-middleware';
 import {
-	getAll,
-	getSingleUser,
-	resetPassword,
+	getAllHandler,
+	getSingleUserHandler,
+	resetPasswordHandler,
 } from '../controllers/user.controller';
 import {
 	getSingleUserSchema,
@@ -16,17 +16,17 @@ import {
 
 const userRouter = Router();
 
-userRouter.get('/users/all', getAll);
+userRouter.get('/users/all', getAllHandler);
 userRouter.get(
 	'/users/single/:id',
 	processRequestParams(getSingleUserSchema.params),
 	processRequestQuery(getSingleUserSchema.query),
-	getSingleUser
+	getSingleUserHandler
 );
 userRouter.patch(
 	'/users/reset-password',
 	processRequestBody(resetPasswordSchema.body),
-	resetPassword
+	resetPasswordHandler
 );
 
 export default userRouter;

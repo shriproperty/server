@@ -13,7 +13,7 @@ import logger from '../helpers/logger.helper';
 import { StatusCodes } from 'http-status-codes';
 
 /* --------------------------------- ANCHOR create --------------------------------- */
-export async function registerNewTempUser(
+export async function registerNewTempUserHandler(
 	req: Request<{}, {}, RegisterNewBody>,
 	res: Response
 ) {
@@ -43,7 +43,7 @@ export async function registerNewTempUser(
 }
 
 /* ------------------------------ ANCHOR get all users ----------------------------- */
-export async function getAllTempUsers(req: Request, res: Response) {
+export async function getAllTempUsersHandler(req: Request, res: Response) {
 	try {
 		const users = await TempUserModel.find();
 
@@ -63,7 +63,7 @@ export async function getAllTempUsers(req: Request, res: Response) {
 }
 
 /* ------------------------------- ANCHOR update user calling status for admin ------------------------------ */
-export async function updateTempUserCallingStatus(
+export async function updateTempUserCallingStatusHandler(
 	req: Request<
 		UpdateTempUserCallingStatusParams,
 		{},
@@ -126,7 +126,7 @@ export async function updateTempUserCallingStatus(
 }
 
 /* --------------------------- ANCHOR delete user --------------------------- */
-export async function deleteTempUser(
+export async function deleteTempUserHandler(
 	req: Request<DeleteTempUserParams, {}, {}>,
 	res: Response
 ) {
@@ -152,7 +152,7 @@ export async function deleteTempUser(
 }
 
 /* ------------------------------- ANCHOR verify user ------------------------------ */
-export function verifyTempUser(req: Request, res: Response) {
+export function verifyTempUserHandler(req: Request, res: Response) {
 	try {
 		const { tempUserToken, token } = req.cookies;
 
