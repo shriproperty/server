@@ -1,5 +1,11 @@
 import { prop, getModelForClass } from '@typegoose/typegoose';
 
+enum Status {
+	Pending = 'Pending',
+	InProgress = 'In Progress',
+	Completed = 'Completed',
+}
+
 export class Contact {
 	@prop({ required: true })
 	name: string;
@@ -18,10 +24,10 @@ export class Contact {
 
 	@prop({
 		required: true,
-		enum: ['Pending', 'In Progress', 'Completed'],
+		enum: Status,
 		default: 'Pending',
 	})
-	status: string;
+	status: Status;
 }
 
 export const ContactModel = getModelForClass(Contact, {

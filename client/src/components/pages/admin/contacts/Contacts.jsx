@@ -50,7 +50,7 @@ const Users = () => {
 		return e => {
 			e.preventDefault();
 
-			patchRequest(`/contacts/update-status/${id}`, {
+			patchRequest(`/contacts/update/${id}`, {
 				status,
 			}).then(data => {
 				if (data.success !== true) {

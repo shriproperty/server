@@ -1,10 +1,17 @@
 import { Router } from 'express';
-import { processRequestBody } from 'zod-express-middleware';
+import {
+	processRequestBody,
+	processRequestParams,
+} from 'zod-express-middleware';
 import {
 	createNewContactHandler,
 	getAllContactsHandler,
+	updateContactStatus,
 } from '../controllers/contact.controller';
-import { createContactSchema } from '../schemas/contact.schema';
+import {
+	createContactSchema,
+	updateContactStatusSchema,
+} from '../schemas/contact.schema';
 
 const contactRouter = Router();
 
@@ -16,10 +23,12 @@ contactRouter.post(
 
 contactRouter.get('/contacts/all', getAllContactsHandler);
 
-// contactRouter.patch(
-// 	'/contacts/update-status/:id',
-// 	contactController.updateStatus
-// );
+contactRouter.patch(
+	'/contacts/update/:id',
+	processRequestParams(updateContactStatusSchema.params),
+	processRequestBody(updateContactStatusSchema.body),
+	updateContactStatus
+);
 
 // contactRouter.delete('/contacts/delete/:id', contactController.deleteContact);
 

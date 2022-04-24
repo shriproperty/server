@@ -22,3 +22,21 @@ export const createContactSchema = {
 };
 
 export type CreateContactBody = TypeOf<typeof createContactSchema.body>;
+
+export const updateContactStatusSchema = {
+	body: object({
+		status: string({ required_error: 'status is required' }),
+	}),
+
+	params: object({
+		id: string({ required_error: 'id is required' }),
+	}),
+};
+
+export type UpdateContactStatusBody = TypeOf<
+	typeof updateContactStatusSchema.body
+>;
+
+export type UpdateContactStatusParams = TypeOf<
+	typeof updateContactStatusSchema.params
+>;

@@ -2,7 +2,11 @@ import { ContactModel } from '../models/contact.model';
 import logger from '../helpers/logger.helper';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { CreateContactBody } from '../schemas/contact.schema';
+import {
+	CreateContactBody,
+	UpdateContactStatusBody,
+	UpdateContactStatusParams,
+} from '../schemas/contact.schema';
 
 /* ---------------------------------- ANCHOR create new ---------------------------------- */
 export async function createNewContactHandler(
@@ -36,7 +40,7 @@ export async function createNewContactHandler(
 			message,
 		});
 
-		res.status(StatusCodes.OK).json({
+		return res.status(StatusCodes.OK).json({
 			success: true,
 			message: 'Contact request submitted successfully',
 			data: newContact,
@@ -44,7 +48,7 @@ export async function createNewContactHandler(
 	} catch (err) {
 		logger.error(err);
 
-		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
 			success: false,
 			message: 'Internal Server Error',
 			data: {},
@@ -57,7 +61,7 @@ export async function getAllContactsHandler(req: Request, res: Response) {
 	try {
 		const contacts = await ContactModel.find();
 
-		res.status(StatusCodes.OK).json({
+		return res.status(StatusCodes.OK).json({
 			success: true,
 			message: 'All contacts fetched successfully',
 			data: contacts,
@@ -65,7 +69,7 @@ export async function getAllContactsHandler(req: Request, res: Response) {
 	} catch (err) {
 		logger.error(err);
 
-		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
 			success: false,
 			message: 'Internal Server Error',
 			data: {},
@@ -73,58 +77,48 @@ export async function getAllContactsHandler(req: Request, res: Response) {
 	}
 }
 
-// /* ------------------------------ ANCHOR update status ----------------------------- */
-// export const updateStatus = async (req, res) => {
-// 	try {
-// 		const { id } = req.params;
-// 		const { status } = req.body;
+/* ------------------------------ ANCHOR update status ----------------------------- */
+export async function updateContactStatus(
+	req: Request<UpdateContactStatusParams, {}, UpdateContactStatusBody>,
+	res: Response
+) {
+	try {
+		const { id } = req.params;
+		const { status } = req.body;
 
-// 		// validate user input
-// 		if (!status) {
-// 			return res.status(400).json({
-// 				success: false,
-// 				message: 'Please fill all fields',
-// 				data: {},
-// 			});
-// 		}
+		// update contact status
+		const updatedContact = await ContactModel.findByIdAndUpdate(
+			id,
+			{
+				status,
+			},
+			{ new: true, runValidators: true }
+		);
 
-// 		// check if status is valid
-// 		if (
-// 			status !== 'Pending' &&
-// 			status !== 'In Progress' &&
-// 			status !== 'Completed'
-// 		) {
-// 			return res.status(400).json({
-// 				success: false,
-// 				message: 'Invalid status',
-// 				data: {},
-// 			});
-// 		}
+		return res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'Contact status updated successfully',
+			data: updatedContact,
+		});
+	} catch (err: any) {
+		logger.error(err);
 
-// 		// update contact status
-// 		const updatedContact = await Contact.findByIdAndUpdate(
-// 			id,
-// 			{
-// 				status,
-// 			},
-// 			{ new: true }
-// 		);
+		if (err.errors.status.name === 'ValidatorError') {
+			return res.status(StatusCodes.NOT_ACCEPTABLE).json({
+				success: false,
+				message:
+					'Status can be one of the following: Pending, In Progress, Completed',
+				data: err,
+			});
+		}
 
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'Contact status updated successfully',
-// 			data: updatedContact,
-// 		});
-// 	} catch (err) {
-// 		logger.error(err);
-
-// 		res.status(404).json({
-// 			success: false,
-// 			message: 'Contact not found Invalid Id',
-// 			data: {},
-// 		});
-// 	}
-// };
+		return res.status(StatusCodes.NOT_FOUND).json({
+			success: false,
+			message: 'Contact not found Invalid Id',
+			data: {},
+		});
+	}
+}
 
 // /* ----------------------------- ANCHOR delete contact ---------------------------- */
 // export const deleteContact = async (req, res) => {
