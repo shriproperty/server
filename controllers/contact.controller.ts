@@ -5,7 +5,7 @@ import { StatusCodes } from 'http-status-codes';
 import { CreateContactBody } from '../schemas/contact.schema';
 
 /* ---------------------------------- ANCHOR create new ---------------------------------- */
-export async function createNew(
+export async function createNewContactHandler(
 	req: Request<{}, {}, CreateContactBody>,
 	res: Response
 ) {
@@ -52,26 +52,26 @@ export async function createNew(
 	}
 }
 
-// /* ---------------------------- ANCHOR get all contacts ---------------------------- */
-// export const getAll = async (req, res) => {
-// 	try {
-// 		const contacts = await Contact.find({});
+/* ---------------------------- ANCHOR get all contacts ---------------------------- */
+export async function getAllContactsHandler(req: Request, res: Response) {
+	try {
+		const contacts = await ContactModel.find();
 
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'All contacts fetched successfully',
-// 			data: contacts,
-// 		});
-// 	} catch (err) {
-// 		logger.error(err);
+		res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'All contacts fetched successfully',
+			data: contacts,
+		});
+	} catch (err) {
+		logger.error(err);
 
-// 		res.status(500).json({
-// 			success: false,
-// 			message: 'Internal Server Error',
-// 			data: {},
-// 		});
-// 	}
-// };
+		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+			success: false,
+			message: 'Internal Server Error',
+			data: {},
+		});
+	}
+}
 
 // /* ------------------------------ ANCHOR update status ----------------------------- */
 // export const updateStatus = async (req, res) => {
