@@ -23,6 +23,34 @@ const Form = () => {
 		e.preventDefault();
 		setLoading(true);
 
+		if (phone.length !== 10) {
+			setErrorMessage('Phone number must be 10 digits');
+			setOpenError(true);
+			setLoading(false);
+			return;
+		}
+
+		if (name.length < 3 || name.length > 30) {
+			setErrorMessage('Name must be between 3 and 30 characters');
+			setOpenError(true);
+			setLoading(false);
+			return;
+		}
+
+		if (subject.length > 200) {
+			setErrorMessage('Subject must be less than 200 characters');
+			setOpenError(true);
+			setLoading(false);
+			return;
+		}
+
+		if (message.length > 1000) {
+			setErrorMessage('Message must be less than 1000 characters');
+			setOpenError(true);
+			setLoading(false);
+			return;
+		}
+
 		post('/contacts/add', {
 			name,
 			email,
@@ -35,9 +63,6 @@ const Form = () => {
 			if (res.success === true) {
 				setSuccessMessage(res.message);
 				setOpenSuccess(true);
-			} else {
-				setErrorMessage(res.message);
-				setOpenError(true);
 			}
 		});
 	};
@@ -90,6 +115,8 @@ const Form = () => {
 						className="form-section__input"
 						label="Phone"
 						type="number"
+						min="10"
+						max="10"
 						onChange={e => setPhone(e.target.value)}
 						required
 						fullWidth

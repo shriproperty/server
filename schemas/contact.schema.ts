@@ -1,4 +1,4 @@
-import { object, string, number, TypeOf } from 'zod';
+import { object, string, TypeOf } from 'zod';
 
 export const createContactSchema = {
 	body: object({
@@ -10,10 +10,9 @@ export const createContactSchema = {
 			'please enter a valid email'
 		),
 
-		phone: number({ required_error: 'phone is required' }).min(
-			10,
-			'phone must be 10 digits long'
-		),
+		phone: string({ required_error: 'phone is required' })
+			.min(10, 'phone must be 10 digits long')
+			.max(10, 'phone must be 10 digits long'),
 
 		subject: string({ required_error: 'subject is required' }),
 
