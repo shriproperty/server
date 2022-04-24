@@ -1,26 +1,36 @@
-import nodemailer from 'nodemailer';
+import nodemailer, { SentMessageInfo } from 'nodemailer';
+import { config } from 'dotenv';
+
+config();
+
+const user = process.env.EMAIL_ID as string;
+const pass = process.env.EMAIL_PASSWORD as string;
 
 /**
  * Send Email using nodemailer
  * @param {string} to Email id to send email
  * @param {string} subject Subject of email
  * @param {string} text content of email
- * @return {Promise<object>} response from nodemailer
+ * @return sent message info
  */
-export const sendEmail = (to, subject, text) => {
+export function sendEmail(
+	to: string,
+	subject: string,
+	text: string
+): Promise<SentMessageInfo> {
 	const transporter = nodemailer.createTransport({
 		service: 'gmail',
 		rejectUnauthorized: true,
 		auth: {
-			user: process.env.EMAIL_ID,
-			pass: process.env.EMAIL_PASSWORD,
+			user: user,
+			pass: pass,
 		},
 	});
 
 	const mailOptions = {
 		from: {
 			name: 'Shri Property',
-			address: process.env.EMAIL_ID,
+			address: user,
 		},
 		to,
 		subject,
@@ -28,4 +38,4 @@ export const sendEmail = (to, subject, text) => {
 	};
 
 	return transporter.sendMail(mailOptions);
-};
+}

@@ -1,30 +1,19 @@
-'use strict';
-
-import Otp from '../models/otp.model.js';
-import { sendEmail } from '../helpers/email.helper.js';
-import { validationResult } from 'express-validator';
-import logger from '../helpers/logger.helper.js';
+import { Otp, OtpModel } from '../models/otp.model';
+import { sendEmail } from '../helpers/email.helper';
+import logger from '../helpers/logger.helper';
+import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 
 /* ------------------------------- ANCHOR send otp ------------------------------- */
-export const sendOtp = async (req, res) => {
+export async function sendOtpHandler(req: Request, res: Response) {
 	try {
 		const { email } = req.body;
 
-		const errors = validationResult(req).array();
-
-		if (errors.length > 0) {
-			return res.status(400).json({
-				success: false,
-				message: errors[0].msg,
-				data: {},
-			});
-		}
-
 		// get all otps which match same email and than delete them
-		const existingOtps = await Otp.find({ email });
+		const existingOtps = await OtpModel.find({ email });
 
 		if (existingOtps.length > 0) {
-			await Otp.deleteMany({ email });
+			await OtpModel.deleteMany({ email });
 		}
 
 		// generate otp
@@ -34,12 +23,12 @@ export const sendOtp = async (req, res) => {
 		await sendEmail(email, 'OTP for Shri Property', `Your OTP is: ${otp}`);
 
 		// save to db
-		const saveOtpToDB = await Otp.create({
+		const saveOtpToDB = await OtpModel.create({
 			email,
 			otp,
 		});
 
-		res.status(201).json({
+		return res.status(StatusCodes.CREATED).json({
 			success: true,
 			message: 'Otp sent successfully',
 			data: saveOtpToDB,
@@ -47,33 +36,23 @@ export const sendOtp = async (req, res) => {
 	} catch (err) {
 		logger.error(err);
 
-		res.status(500).json({
+		return res.status(StatusCodes.NOT_ACCEPTABLE).json({
 			success: false,
 			message: 'Please enter valid Email',
 			data: {},
 		});
 	}
-};
+}
 
 /* ------------------------------- ANCHOR verify otp ------------------------------- */
-export const verifyOtp = async (req, res) => {
+export async function verifyOtpHandler(req: Request, res: Response) {
 	try {
 		const { otp, email } = req.body;
 
-		const errors = validationResult(req).array();
+		const otpFromDB = await OtpModel.findOne({ email });
 
-		if (errors.length > 0) {
-			return res.status(400).json({
-				success: false,
-				message: errors[0].msg,
-				data: {},
-			});
-		}
-
-		const otpFromDB = await Otp.findOne({ email });
-
-		if (otpFromDB.otp !== otp) {
-			return res.status(400).json({
+		if (otpFromDB?.otp !== otp) {
+			return res.status(StatusCodes.BAD_REQUEST).json({
 				success: false,
 				message: 'Please enter valid otp',
 				data: {},
@@ -81,10 +60,9 @@ export const verifyOtp = async (req, res) => {
 		}
 
 		// delete otp from db
+		await OtpModel.deleteOne({ email });
 
-		await Otp.deleteOne({ email });
-
-		res.status(200).json({
+		return res.status(StatusCodes.OK).json({
 			success: true,
 			message: 'Otp verified successfully',
 			data: {},
@@ -92,10 +70,10 @@ export const verifyOtp = async (req, res) => {
 	} catch (err) {
 		logger.error(err);
 
-		res.status(400).json({
+		return res.status(StatusCodes.NOT_FOUND).json({
 			success: false,
 			message: 'Your OTP is expired',
 			data: {},
 		});
 	}
-};
+}
