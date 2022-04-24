@@ -5,6 +5,7 @@ import {
 } from 'zod-express-middleware';
 import {
 	createNewContactHandler,
+	deleteContactHandler,
 	getAllContactsHandler,
 	updateContactStatus,
 } from '../controllers/contact.controller';
@@ -30,6 +31,6 @@ contactRouter.patch(
 	updateContactStatus
 );
 
-// contactRouter.delete('/contacts/delete/:id', contactController.deleteContact);
+contactRouter.delete('/contacts/delete/:id', deleteContactHandler);
 
 export default contactRouter;

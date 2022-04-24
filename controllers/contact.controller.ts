@@ -120,25 +120,25 @@ export async function updateContactStatus(
 	}
 }
 
-// /* ----------------------------- ANCHOR delete contact ---------------------------- */
-// export const deleteContact = async (req, res) => {
-// 	try {
-// 		const { id } = req.params;
+/* ----------------------------- ANCHOR delete contact ---------------------------- */
+export async function deleteContactHandler(req: Request, res: Response) {
+	try {
+		const { id } = req.params;
 
-// 		const deletedContact = await Contact.findByIdAndDelete(id);
+		const deletedContact = await ContactModel.findByIdAndDelete(id);
 
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'Contact deleted successfully',
-// 			data: deletedContact,
-// 		});
-// 	} catch (err) {
-// 		logger.error(err);
+		return res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'Contact deleted successfully',
+			data: deletedContact,
+		});
+	} catch (err) {
+		logger.error(err);
 
-// 		res.status(404).json({
-// 			success: false,
-// 			message: 'Contact not found Invalid Id',
-// 			data: {},
-// 		});
-// 	}
-// };
+		return res.status(StatusCodes.NOT_FOUND).json({
+			success: false,
+			message: 'Contact not found Invalid Id',
+			data: {},
+		});
+	}
+}
