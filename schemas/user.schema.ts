@@ -1,25 +1,25 @@
-import { object, string, TypeOf } from 'zod';
+import { z } from 'zod';
 
 export const getSingleUserSchema = {
-	params: object({
-		id: string(),
+	params: z.object({
+		id: z.string(),
 	}),
-	query: object({
-		listings: string().optional(),
-		properties: string().optional(),
+	query: z.object({
+		listings: z.string().optional(),
+		properties: z.string().optional(),
 	}),
 };
 
-export type GetSingleUserParams = TypeOf<typeof getSingleUserSchema.params>;
-export type GetSingleUserQuery = TypeOf<typeof getSingleUserSchema.query>;
+export type GetSingleUserParams = z.TypeOf<typeof getSingleUserSchema.params>;
+export type GetSingleUserQuery = z.TypeOf<typeof getSingleUserSchema.query>;
 
 export const resetPasswordSchema = {
-	body: object({
-		email: string({ required_error: 'email is required' }).email(),
-		newPassword: string({
+	body: z.object({
+		email: z.string({ required_error: 'email is required' }).email(),
+		newPassword: z.string({
 			required_error: 'new password field is required',
 		}),
 	}),
 };
 
-export type ResetPasswordBody = TypeOf<typeof resetPasswordSchema.body>;
+export type ResetPasswordBody = z.TypeOf<typeof resetPasswordSchema.body>;

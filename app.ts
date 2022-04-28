@@ -7,7 +7,6 @@ import { spawn } from 'child_process';
 import cron from 'node-cron';
 import compression from 'compression';
 import { unlink } from 'fs';
-import fileUpload from './middlewares/fileUpload.middleware';
 import helmet from 'helmet';
 
 config();
@@ -15,7 +14,7 @@ config();
 import apiAuth from './middlewares/apiAuth.middleware';
 import tempUserRouter from './routes/tempUser.routes';
 import contactRouter from './routes/contact.routes';
-// import propertyRouter from './routes/property.routes';
+import propertyRouter from './routes/property.routes';
 import otpRouter from './routes/otp.routes';
 // import listingRouter from './routes/listing.routes';
 import authRouter from './routes/auth.routes';
@@ -37,12 +36,11 @@ app.use(
 );
 app.use(helmet());
 app.use('/api', apiAuth);
-app.use('/api', fileUpload);
 
 /* --------------------------------- ANCHOR routes --------------------------------- */
 app.use('/api', tempUserRouter);
 app.use('/api', contactRouter);
-// app.use('/api', propertyRouter);
+app.use('/api', propertyRouter);
 app.use('/api', otpRouter);
 // app.use('/api', listingRouter);
 app.use('/api', authRouter);

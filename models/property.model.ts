@@ -1,5 +1,4 @@
 import { prop, getModelForClass, Ref } from '@typegoose/typegoose';
-import { Facility, File } from '../types/interfaces.types';
 import mongoose from 'mongoose';
 
 export class Property {
@@ -64,7 +63,7 @@ export class Property {
 			'Bigha-Pucca',
 			'Bigha-Kachha',
 			'Biswa',
-			'Biswa–Pucca',
+			'Biswa-Pucca',
 			'Kanal',
 			'Killa',
 			'Kattha',
@@ -136,13 +135,13 @@ export class Property {
 	public constructionStatus: string;
 
 	@prop()
-	public images: File[];
+	public images: S3File[];
 
 	@prop()
-	public videos: File[];
+	public videos: S3File[];
 
 	@prop()
-	public documents: File[];
+	public documents: S3File[];
 
 	@prop({ required: true })
 	public address: string;
@@ -212,7 +211,7 @@ export class Property {
 			exhaust: 0,
 		},
 	})
-	public furnishingDetails: string;
+	public furnishingDetails: object;
 
 	@prop()
 	public facilities: Facility[];

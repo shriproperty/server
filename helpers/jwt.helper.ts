@@ -1,5 +1,4 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { JWT } from '../types/interfaces.types';
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
