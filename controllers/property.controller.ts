@@ -14,8 +14,27 @@ import {
 } from '../helpers/s3.helper';
 
 import { Request, Response } from 'express';
-import { CreatePropertyBody } from '../schemas/property.schema';
+import {
+	CreatePropertyBody,
+	GetAllPropertiesQuery,
+} from '../schemas/property.schema';
 import { StatusCodes } from 'http-status-codes';
+
+interface GetAllPropertiesConditions {
+	title?: any;
+	price?: {
+		$gte: number;
+		$lte: number;
+	};
+	featured?: boolean;
+	type?: string;
+	status?: string;
+	category?: string;
+	floor?: string;
+	parking?: string;
+	bedroom?: string;
+	bathroom?: string;
+}
 
 /* ----------------------------- SECTION create property ----------------------------- */
 export async function createPropertyHandler(
@@ -106,7 +125,7 @@ export async function createPropertyHandler(
 		});
 
 		// send response
-		res.status(StatusCodes.CREATED).json({
+		return res.status(StatusCodes.CREATED).json({
 			success: true,
 			message: 'Property created successfully',
 			data: property,
@@ -118,7 +137,7 @@ export async function createPropertyHandler(
 			deleteMultipleFilesFromDisk(req.files as MulterFile[]);
 		}
 
-		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
 			success: false,
 			message: 'Internal Server Error',
 			data: {},
@@ -129,95 +148,100 @@ export async function createPropertyHandler(
 /* -------------------------------- !SECTION Create Property End -------------------------------- */
 
 // /* --------------------------- SECTION get all properties --------------------------- */
-// export const getAll = async (req, res) => {
-// 	try {
-// 		const {
-// 			title,
-// 			price,
-// 			featured,
-// 			type,
-// 			status,
-// 			category,
-// 			floor,
-// 			parking,
-// 			bedroom,
-// 			bathroom,
-// 		} = req.query;
+export async function getAllPropertiesHandler(
+	req: Request<{}, {}, {}, GetAllPropertiesQuery>,
+	res: Response
+) {
+	try {
+		const {
+			title,
+			price,
+			featured,
+			type,
+			status,
+			category,
+			floor,
+			parking,
+			bedroom,
+			bathroom,
+		} = req.query;
 
-// 		// maximum price that exists in db
-// 		const maxPrice = await Property.find().sort({ price: -1 }).limit(1);
-// 		const minPrice = await Property.find()
-// 			.sort({ price: +1 })
-// 			.limit(1);
+		// minimum and maximum price that exists in db
+		const maxPrice = await PropertyModel.find()
+			.sort({ price: -1 })
+			.limit(1);
+		const minPrice = await PropertyModel.find()
+			.sort({ price: +1 })
+			.limit(1);
 
-// 		let conditions = {};
+		let conditions: GetAllPropertiesConditions = {};
 
-// 		// ANCHOR Conditions
+		// ANCHOR Conditions
+		if (title) {
+			conditions.title = {
+				$regex: new RegExp('^' + title.toLowerCase(), 'i'),
+			};
+		}
 
-// 		if (title) {
-// 			conditions.title = {
-// 				$regex: new RegExp('^' + title.toLowerCase(), 'i'),
-// 			};
-// 		}
+		if (featured && featured === 'true') {
+			conditions.featured = true;
+		}
 
-// 		if (featured && featured === 'true') {
-// 			conditions.featured = true;
-// 		}
+		if (price && price.split(',').length > 0) {
+			const min = price.split(',')[0];
+			const max = price.split(',')[1];
 
-// 		if (price && price.split(',').length > 0) {
-// 			const min = price.split(',')[0];
-// 			const max = price.split(',')[1];
+			conditions.price = { $gte: +min, $lte: +max };
+		}
 
-// 			conditions.price = { $gte: min, $lte: max };
-// 		}
+		if (type) {
+			conditions.type = type;
+		}
 
-// 		if (type) {
-// 			conditions.type = type;
-// 		}
+		if (status) {
+			conditions.status = status;
+		}
 
-// 		if (status) {
-// 			conditions.status = status;
-// 		}
+		if (category) {
+			conditions.category = category;
+		}
 
-// 		if (category) {
-// 			conditions.category = category;
-// 		}
+		if (floor) {
+			conditions.floor = floor;
+		}
 
-// 		if (floor) {
-// 			conditions.floor = floor;
-// 		}
+		if (parking) {
+			conditions.parking = parking;
+		}
 
-// 		if (parking) {
-// 			conditions.parking = parking;
-// 		}
+		if (bedroom) {
+			conditions.bedroom = bedroom;
+		}
 
-// 		if (bedroom) {
-// 			conditions.bedroom = bedroom;
-// 		}
+		if (bathroom) {
+			conditions.bathroom = bathroom;
+		}
 
-// 		if (bathroom) {
-// 			conditions.bathroom = bathroom;
-// 		}
+		// ANCHOR get properties from database
+		const properties = await PropertyModel.find(conditions);
 
-// 		// ANCHOR get properties from database
-// 		const properties = await Property.find(conditions);
+		return res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'All properties fetched successfully',
+			data: properties,
+			maxPrice: maxPrice[0].price,
+			minPrice: minPrice[0].price,
+		});
+	} catch (err) {
+		logger.error(err);
 
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'All properties fetched successfully',
-// 			data: properties,
-// 			maxPrice: maxPrice[0].price,
-// 			minPrice: minPrice[0].price,
-// 		});
-// 	} catch (err) {
-// 		logger.error(err);
-// 		res.status(500).json({
-// 			success: false,
-// 			message: 'Internal Server Error',
-// 			data: {},
-// 		});
-// 	}
-// };
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+			success: false,
+			message: 'Internal Server Error',
+			data: {},
+		});
+	}
+}
 
 // /* ------------------------------ !SECTION Get all property end ------------------------------ */
 

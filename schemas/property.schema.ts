@@ -106,3 +106,22 @@ export const createPropertySchema = {
 };
 
 export type CreatePropertyBody = z.TypeOf<typeof createPropertySchema.body>;
+
+export const getAllPropertiesSchema = {
+	query: z.object({
+		title: z.string().optional(),
+		price: z.string().optional(),
+		featured: z.string().optional(),
+		type: z.string().optional(),
+		status: z.string().optional(),
+		category: z.string().optional(),
+		floor: z.string().optional(),
+		parking: z.string().optional(),
+		bedroom: z.string().optional(),
+		bathroom: z.string().optional(),
+	}),
+};
+
+export type GetAllPropertiesQuery = z.TypeOf<
+	typeof getAllPropertiesSchema.query
+>;
