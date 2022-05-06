@@ -18,6 +18,8 @@ import {
 	CreatePropertyBody,
 	GetAllPropertiesQuery,
 	GetSinglePropertyParams,
+	UpdatePropertyBody,
+	UpdatePropertyParams,
 } from '../schemas/property.schema';
 import { StatusCodes } from 'http-status-codes';
 
@@ -249,7 +251,7 @@ export async function getAllPropertiesHandler(
 /* --------------------------- SECTION get single property -------------------------- */
 export async function getSinglePropertyHandler(
 	req: Request<GetSinglePropertyParams>,
-	res: Response	
+	res: Response
 ) {
 	try {
 		const { id } = req.params;
@@ -274,306 +276,141 @@ export async function getSinglePropertyHandler(
 
 /* -------------------- !SECTION get single property end -------------------- */
 
-// /* ----------------------------- SECTION update property ---------------------------- */
-// export const update = async (req, res) => {
-// 	try {
-// 		// ANCHOR get inputs
-// 		const { id } = req.params;
+/* ----------------------------- SECTION update property ---------------------------- */
+export async function updatePropertyHandler(
+	req: Request<UpdatePropertyParams, {}, UpdatePropertyBody>,
+	res: Response
+) {
+	try {
+		// ANCHOR get inputs
+		const { id } = req.params;
 
-// 		const {
-// 			title,
-// 			description,
-// 			address,
-// 			price,
-// 			specialPrice,
-// 			size,
-// 			type,
-// 			security,
-// 			maintenance,
-// 			category,
-// 			unit,
-// 			bedroom,
-// 			bathroom,
-// 			openParking,
-// 			closeParking,
-// 			kitchen,
-// 			livingRoom,
-// 			store,
-// 			balcony,
-// 			dinningRoom,
-// 			floor,
-// 			poojaRoom,
-// 			direction,
-// 			status,
-// 			featured,
-// 			otherFeatures,
-// 			lobby,
-// 			commission,
-// 			age,
-// 			possession,
-// 			purchaseType,
-// 			constructionStatus,
-// 			location,
-// 			locality,
-// 			furnishingDetails,
-// 			facilities,
-// 		} = req.body;
+		const parsedFacilities: Facility[] = [];
+		const images: S3File[] = [];
+		const videos: S3File[] = [];
+		const documents: S3File[] = [];
 
-// 		const images = [];
-// 		const videos = [];
-// 		const documents = [];
-// 		const parsedFacilities = [];
+		// ANCHOR Validate Inputs
 
-// 		// ANCHOR Validate Inputs
+		// ANCHOR Update Property
+		const propertyFromDB = await PropertyModel.findById(id);
 
-// 		// validate type
-// 		if (type !== 'Rental' && type !== 'Sale' && type !== 'PG') {
-// 			deleteMultipleFilesFromDisk(req.files);
-// 			return res.status(400).json({
-// 				success: false,
-// 				message: 'Type must be either Rental or Sale',
-// 				data: {},
-// 			});
-// 		}
+		if (!propertyFromDB) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'Invalid Id',
+				data: {},
+			});
+		}
 
-// 		// validate category
-// 		if (
-// 			category !== 'Residential Apartment' &&
-// 			category !== 'Independent House/Villa' &&
-// 			category !== 'Plot' &&
-// 			category !== 'Commercial Office' &&
-// 			category !== 'Commercial Plot' &&
-// 			category !== 'Serviced Apartments' &&
-// 			category !== '1 RK/ Studio Apartment' &&
-// 			category !== 'Independent/Builder Floor' &&
-// 			category !== 'Other'
-// 		) {
-// 			deleteMultipleFilesFromDisk(req.files);
-// 			return res.status(400).json({
-// 				success: false,
-// 				message:
-// 					'category can only be one of the following: Residential Apartment, Independent House/Villa, Plot, Commercial Office, Serviced Apartments, 1 RK/ Studio Apartment, Independent/Builder Floor, Other',
-// 				data: {},
-// 			});
-// 		}
+		if (req.files && req.files.length > 0) {
+			// upload files to aws s3
+			for (let file of req.files as MulterFile[]) {
+				const response = await uploadFileToS3(file);
 
-// 		// validate status
-// 		if (
-// 			status !== 'Unfurnished' &&
-// 			status !== 'Semifurnished' &&
-// 			status !== 'Furnished' &&
-// 			status !== null
-// 		) {
-// 			deleteMultipleFilesFromDisk(req.files);
-// 			return res.status(400).json({
-// 				success: false,
-// 				message:
-// 					'Status can only be one of the following: Unfurnished, Semifurnished, Furnished, null',
-// 				data: {},
-// 			});
-// 		}
+				const fileObject = {
+					url: response.Location,
+					key: response.Key,
+				};
 
-// 		if (
-// 			unit !== 'Sq. Ft.' &&
-// 			unit !== 'Acre' &&
-// 			unit !== 'Gaj' &&
-// 			unit !== 'Marla' &&
-// 			unit !== 'Bigha' &&
-// 			unit !== 'Bigha-Pucca' &&
-// 			unit !== 'Bigha-Kachha' &&
-// 			unit !== 'Biswa' &&
-// 			unit !== 'Biswa-Pucca' &&
-// 			unit !== 'Kanal' &&
-// 			unit !== 'Killa' &&
-// 			unit !== 'Kattha' &&
-// 			unit !== 'Ghumaon'
-// 		) {
-// 			deleteMultipleFilesFromDisk(req.files);
-// 			return res.status(400).json({
-// 				success: false,
-// 				message: 'Unit can only be "sq" or "marla"',
-// 			});
-// 		}
+				// push file paths to respective arrays
+				if (file.fieldname === 'images') {
+					images.push(fileObject);
+				} else if (file.fieldname === 'videos') {
+					videos.push(fileObject);
+				} else if (file.fieldname === 'documents') {
+					documents.push(fileObject);
+				}
 
-// 		// validate featured
-// 		if (featured !== 'true' && featured !== 'false') {
-// 			deleteMultipleFilesFromDisk(req.files);
-// 			return res.status(400).json({
-// 				success: false,
-// 				message: 'Featured can only be true or false',
-// 			});
-// 		}
+				// delete files from uploads folder
+				deleteSingleFileFromDisk(file.path);
+			}
+		}
 
-// 		// validate direction
-// 		if (
-// 			direction !== 'North' &&
-// 			direction !== 'South' &&
-// 			direction !== 'East' &&
-// 			direction !== 'West' &&
-// 			direction !== 'North-East' &&
-// 			direction !== 'North-West' &&
-// 			direction !== 'South-East' &&
-// 			direction !== 'South-West'
-// 		) {
-// 			deleteMultipleFilesFromDisk(req.files);
-// 			return res.status(400).json({
-// 				success: false,
-// 				message:
-// 					'Direction can only be one of the following: North, South, East, West, North-East, North-West, South-East, South-West',
-// 				data: {},
-// 			});
-// 		}
+		if (req.body.facilities && req.body.facilities.length > 0) {
+			req.body.facilities.forEach(facility =>
+				parsedFacilities.push(JSON.parse(facility))
+			);
+		}
 
-// 		// validate purchase type
-// 		if (
-// 			purchaseType &&
-// 			purchaseType !== 'New Booking' &&
-// 			purchaseType !== 'Resale'
-// 		) {
-// 			deleteMultipleFilesFromDisk(req.files);
-// 			return res.status(400).json({
-// 				success: false,
-// 				message:
-// 					"Purchase Type can only be either 'New Booking' or 'Resale'",
-// 				data: {},
-// 			});
-// 		}
+		// ANCHOR  update property
+		const updatedProperty = await PropertyModel.findByIdAndUpdate(
+			id,
+			{
+				title: req.body.title,
+				description: req.body.description,
+				address: req.body.address,
+				price: req.body.price,
+				specialPrice: req.body.specialPrice,
+				size: req.body.size,
+				type: req.body.type,
+				security: req.body.security,
+				maintenance: req.body.maintenance,
+				category: req.body.category,
+				unit: req.body.unit,
+				bedroom: req.body.bedroom,
+				bathroom: req.body.bathroom,
+				openParking: req.body.openParking,
+				closeParking: req.body.closeParking,
+				kitchen: req.body.kitchen,
+				livingRoom: req.body.livingRoom,
+				store: req.body.store,
+				balcony: req.body.balcony,
+				dinningRoom: req.body.dinningRoom,
+				floor: req.body.floor,
+				poojaRoom: req.body.poojaRoom,
+				direction: req.body.direction,
+				status: req.body.status,
+				featured: req.body.featured,
+				otherFeatures: req.body.otherFeatures,
+				lobby: req.body.lobby,
+				age: req.body.age,
+				commission: req.body.commission,
+				possession: req.body.possession,
+				purchaseType: req.body.purchaseType,
+				constructionStatus: req.body.constructionStatus,
+				location: req.body.location,
+				locality: req.body.locality,
+				facilities: parsedFacilities,
+				furnishingDetails: req.body.furnishingDetails
+					? JSON.parse(req.body.furnishingDetails)
+					: {},
+				images:
+					images.length > 0
+						? [...propertyFromDB.images, ...images]
+						: propertyFromDB.images,
+				videos:
+					videos.length > 0
+						? [...propertyFromDB.videos, ...videos]
+						: propertyFromDB.videos,
+				documents:
+					documents.length > 0
+						? [...propertyFromDB.documents, ...documents]
+						: propertyFromDB.documents,
+			},
+			{ new: true }
+		);
 
-// 		// validate construction status
-// 		if (
-// 			constructionStatus &&
-// 			constructionStatus !== 'Under Construction' &&
-// 			constructionStatus !== 'Ready to Move'
-// 		) {
-// 			deleteMultipleFilesFromDisk(req.files);
-// 			return res.status(400).json({
-// 				success: false,
-// 				message:
-// 					"Construction Status can only be either 'Under Construction' or 'Ready to Move'",
-// 				data: {},
-// 			});
-// 		}
+		// send response
+		res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'Property updated successfully',
+			data: updatedProperty,
+		});
+	} catch (err) {
+		logger.error(err);
 
-// 		// validate security and maintenance
-// 		if (type === 'Sale' && (security || maintenance)) {
-// 			deleteMultipleFilesFromDisk(req.files);
-// 			return res.status(400).json({
-// 				success: false,
-// 				message:
-// 					"You can't fill 'maintenance' and 'security' field if type is 'Sale'",
-// 			});
-// 		}
+		deleteMultipleFilesFromDisk(req.files as MulterFile[]);
 
-// 		// ANCHOR Update Property
-// 		const propertyFromDB = await Property.findById(id);
+		res.status(StatusCodes.NOT_FOUND).json({
+			success: false,
+			message: 'Invalid Id',
+			data: {},
+		});
+	}
+}
 
-// 		if (req.files.length > 0) {
-// 			// upload files to aws s3
-// 			for (let file of req.files) {
-// 				const response = await uploadFileToS3(file);
-
-// 				const fileObject = {
-// 					url: response.Location,
-// 					key: response.Key,
-// 				};
-
-// 				// push file paths to respective arrays
-// 				if (file.fieldname === 'images') {
-// 					images.push(fileObject);
-// 				} else if (file.fieldname === 'videos') {
-// 					videos.push(fileObject);
-// 				} else if (file.fieldname === 'documents') {
-// 					documents.push(fileObject);
-// 				}
-
-// 				// delete files from uploads folder
-// 				deleteSingleFileFromDisk(file.path);
-// 			}
-// 		}
-
-// 		if (facilities && facilities.length > 0) {
-// 			facilities.forEach(facility =>
-// 				parsedFacilities.push(JSON.parse(facility))
-// 			);
-// 		}
-
-// 		// ANCHOR  update property
-// 		const updatedProperty = await Property.findByIdAndUpdate(
-// 			id,
-// 			{
-// 				title,
-// 				description,
-// 				address,
-// 				price,
-// 				specialPrice,
-// 				size,
-// 				type,
-// 				security,
-// 				maintenance,
-// 				category,
-// 				unit,
-// 				bedroom,
-// 				bathroom,
-// 				openParking,
-// 				closeParking,
-// 				kitchen,
-// 				livingRoom,
-// 				store,
-// 				balcony,
-// 				dinningRoom,
-// 				floor,
-// 				poojaRoom,
-// 				direction,
-// 				status,
-// 				featured,
-// 				otherFeatures,
-// 				lobby,
-// 				age,
-// 				commission,
-// 				possession,
-// 				purchaseType,
-// 				constructionStatus,
-// 				location,
-// 				locality,
-// 				facilities: parsedFacilities,
-// 				furnishingDetails: furnishingDetails
-// 					? JSON.parse(furnishingDetails)
-// 					: {},
-// 				images:
-// 					images.length > 0
-// 						? [...propertyFromDB.images, ...images]
-// 						: propertyFromDB.images,
-// 				videos:
-// 					videos.length > 0
-// 						? [...propertyFromDB.videos, ...videos]
-// 						: propertyFromDB.videos,
-// 				documents:
-// 					documents.length > 0
-// 						? [...propertyFromDB.documents, ...documents]
-// 						: propertyFromDB.documents,
-// 			},
-// 			{ new: true }
-// 		);
-
-// 		// send response
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'Property updated successfully',
-// 			data: updatedProperty,
-// 		});
-// 	} catch (err) {
-// 		logger.error(err);
-// 		deleteMultipleFilesFromDisk(req.files);
-
-// 		res.status(400).json({
-// 			success: false,
-// 			message: 'Invalid Id',
-// 			data: {},
-// 		});
-// 	}
-// };
-
-// /* ---------------------- !SECTION update property end ---------------------- */
+/* ---------------------- !SECTION update property end ---------------------- */
 
 // /* ----------------------------- SECTION delete property ---------------------------- */
 // export const deleteProperty = async (req, res) => {
