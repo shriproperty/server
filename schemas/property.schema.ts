@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { getSingleUserSchema } from './user.schema';
 
 const TYPES = ['Sale', 'Rental', 'PG'] as const;
 
@@ -124,4 +125,14 @@ export const getAllPropertiesSchema = {
 
 export type GetAllPropertiesQuery = z.TypeOf<
 	typeof getAllPropertiesSchema.query
+>;
+
+export const getSinglePropertySchema = {
+	params: z.object({
+		id: z.string({ required_error: 'id is required' }),
+	}),
+};
+
+export type GetSinglePropertyParams = z.TypeOf<
+	typeof getSingleUserSchema.params
 >;

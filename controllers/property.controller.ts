@@ -17,6 +17,7 @@ import { Request, Response } from 'express';
 import {
 	CreatePropertyBody,
 	GetAllPropertiesQuery,
+	GetSinglePropertyParams,
 } from '../schemas/property.schema';
 import { StatusCodes } from 'http-status-codes';
 
@@ -243,31 +244,35 @@ export async function getAllPropertiesHandler(
 	}
 }
 
-// /* ------------------------------ !SECTION Get all property end ------------------------------ */
+/* ------------------------------ !SECTION Get all property end ------------------------------ */
 
-// /* --------------------------- SECTION get single property -------------------------- */
-// export const getSingle = async (req, res) => {
-// 	try {
-// 		const { id } = req.params;
+/* --------------------------- SECTION get single property -------------------------- */
+export async function getSinglePropertyHandler(
+	req: Request<GetSinglePropertyParams>,
+	res: Response	
+) {
+	try {
+		const { id } = req.params;
 
-// 		const property = await Property.findById(id);
+		const property = await PropertyModel.findById(id);
 
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'Property fetched successfully',
-// 			data: property,
-// 		});
-// 	} catch (err) {
-// 		logger.error(err);
-// 		res.status(400).json({
-// 			success: false,
-// 			message: 'Invalid Id',
-// 			data: {},
-// 		});
-// 	}
-// };
+		res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'Property fetched successfully',
+			data: property,
+		});
+	} catch (err) {
+		logger.error(err);
 
-// /* -------------------- !SECTION get single property end -------------------- */
+		res.status(StatusCodes.BAD_REQUEST).json({
+			success: false,
+			message: 'Invalid Id',
+			data: {},
+		});
+	}
+}
+
+/* -------------------- !SECTION get single property end -------------------- */
 
 // /* ----------------------------- SECTION update property ---------------------------- */
 // export const update = async (req, res) => {

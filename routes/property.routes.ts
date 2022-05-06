@@ -1,9 +1,22 @@
 import { Router } from 'express';
-import { processRequestBody } from 'zod-express-middleware';
 
-import { createPropertyHandler } from '../controllers/property.controller';
+import {
+	processRequestBody,
+	processRequestQuery,
+} from 'zod-express-middleware';
+
+import {
+	createPropertyHandler,
+	getAllPropertiesHandler,
+	getSinglePropertyHandler,
+} from '../controllers/property.controller';
+
 import fileUpload from '../middlewares/fileUpload.middleware';
-import { createPropertySchema } from '../schemas/property.schema';
+
+import {
+	createPropertySchema,
+	getAllPropertiesSchema,
+} from '../schemas/property.schema';
 
 const propertyRouter = Router();
 
@@ -13,8 +26,14 @@ propertyRouter.post(
 	fileUpload,
 	createPropertyHandler
 );
-// propertyRouter.get('/properties/all', propertyController.getAll);
-// propertyRouter.get('/properties/single/:id', propertyController.getSingle);
+
+propertyRouter.get(
+	'/properties/all',
+	processRequestQuery(getAllPropertiesSchema.query),
+	getAllPropertiesHandler
+);
+
+propertyRouter.get('/properties/single/:id', getSinglePropertyHandler);
 // propertyRouter.patch('/properties/update/:id', propertyController.update);
 // propertyRouter.put(
 // 	'/properties/move-property-to-listings/:id',
