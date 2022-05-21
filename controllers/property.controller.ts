@@ -1,7 +1,8 @@
-import { PropertyModel } from '../models/property.model';
+import { PropertyModel, Property } from '../models/property.model';
 import { ListingModel } from '../models/listing.model';
 import logger from '../helpers/logger.helper';
 import { UserModel } from '../models/user.model';
+import { z } from 'zod';
 
 import {
 	deleteMultipleFilesFromDisk,
@@ -16,10 +17,13 @@ import {
 import { Request, Response } from 'express';
 import {
 	CreatePropertyBody,
+	createPropertySchema,
+	DeletePropertyParams,
 	GetAllPropertiesQuery,
 	GetSinglePropertyParams,
 	UpdatePropertyBody,
 	UpdatePropertyParams,
+	updatePropertySchema,
 } from '../schemas/property.schema';
 import { StatusCodes } from 'http-status-codes';
 
@@ -49,6 +53,8 @@ export async function createPropertyHandler(
 		const images: S3File[] = [];
 		const documents: S3File[] = [];
 		const videos: S3File[] = [];
+
+		createPropertySchema.body.parse(req.body);
 
 		// ANCHOR Create Property
 		// upload files to aws s3
@@ -138,6 +144,14 @@ export async function createPropertyHandler(
 
 		if (err) {
 			deleteMultipleFilesFromDisk(req.files as MulterFile[]);
+		}
+
+		if (err instanceof z.ZodError) {
+			return res.status(StatusCodes.BAD_REQUEST).json({
+				success: false,
+				message: err.flatten(),
+				data: {},
+			});
 		}
 
 		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -232,8 +246,8 @@ export async function getAllPropertiesHandler(
 			success: true,
 			message: 'All properties fetched successfully',
 			data: properties,
-			maxPrice: maxPrice[0].price,
-			minPrice: minPrice[0].price,
+			maxPrice: maxPrice.length > 0 ? maxPrice[0].price : 100,
+			minPrice: minPrice.length > 0 ? minPrice[0].price : 0,
 		});
 	} catch (err) {
 		logger.error(err);
@@ -290,7 +304,8 @@ export async function updatePropertyHandler(
 		const videos: S3File[] = [];
 		const documents: S3File[] = [];
 
-		// ANCHOR Validate Inputs
+		updatePropertySchema.body.parse(req.body);
+		updatePropertySchema.params.parse(req.params)
 
 		// ANCHOR Update Property
 		const propertyFromDB = await PropertyModel.findById(id);
@@ -400,7 +415,17 @@ export async function updatePropertyHandler(
 	} catch (err) {
 		logger.error(err);
 
-		deleteMultipleFilesFromDisk(req.files as MulterFile[]);
+		if (err) {
+			deleteMultipleFilesFromDisk(req.files as MulterFile[]);
+		}
+
+		if (err instanceof z.ZodError) {
+			return res.status(StatusCodes.BAD_REQUEST).json({
+				success: false,
+				message: err.flatten(),
+				data: {},
+			});
+		}
 
 		res.status(StatusCodes.NOT_FOUND).json({
 			success: false,
@@ -412,54 +437,71 @@ export async function updatePropertyHandler(
 
 /* ---------------------- !SECTION update property end ---------------------- */
 
-// /* ----------------------------- SECTION delete property ---------------------------- */
-// export const deleteProperty = async (req, res) => {
-// 	try {
-// 		const { id } = req.params;
+/* ----------------------------- SECTION delete property ---------------------------- */
+export async function deletePropertyHandler(
+	req: Request<DeletePropertyParams>,
+	res: Response
+) {
+	try {
+		const { id } = req.params;
 
-// 		const property = await Property.findById(id);
+		const property = await PropertyModel.findById(id);
 
-// 		const filesArray = [
-// 			...property.images,
-// 			...property.documents,
-// 			...property.videos,
-// 		];
+		if (!property) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'Invalid Id',
+				data: {},
+			});
+		}
 
-// 		// delete files from s3
-// 		await deleteMultipleFilesFromS3(filesArray);
+		const filesArray = [
+			...property.images,
+			...property.documents,
+			...property.videos,
+		];
 
-// 		// delete property from user
-// 		if (property.ownerId) {
-// 			const user = await User.findById(property.ownerId.toString());
+		// delete files from s3
 
-// 			const newPropertyList = user.properties.filter(prop => {
-// 				return prop.toString() !== property._id.toString();
-// 			});
+		await deleteMultipleFilesFromS3(filesArray);
 
-// 			await User.findByIdAndUpdate(user._id, {
-// 				properties: newPropertyList,
-// 			});
-// 		}
+		// get property owner from database
+		if (property.ownerId) {
+			const user = (await UserModel.findById(
+				property.ownerId.toString()
+			)) as User;
 
-// 		// delete property from DB
-// 		const deletedProperty = await Property.findByIdAndDelete(id);
+			const newPropertyList = user.properties.filter(prop => {
+				if (prop) {
+					return prop.toString() !== property._id.toString();
+				}
+			});
 
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'Property deleted successfully',
-// 			data: deletedProperty,
-// 		});
-// 	} catch (err) {
-// 		logger.error(err);
-// 		res.status(404).json({
-// 			success: false,
-// 			message: 'Invalid Id',
-// 			data: {},
-// 		});
-// 	}
-// };
+			await UserModel.findByIdAndUpdate(user._id, {
+				properties: newPropertyList,
+			});
+		}
 
-// /* -------------------------------- !SECTION delete property end -------------------------------- */
+		// delete property from DB
+		const deletedProperty = await PropertyModel.findByIdAndDelete(id);
+
+		return res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'Property deleted successfully',
+			data: deletedProperty,
+		});
+	} catch (err) {
+		logger.error(err);
+
+		return res.status(StatusCodes.NOT_FOUND).json({
+			success: false,
+			message: 'Invalid Id',
+			data: {},
+		});
+	}
+}
+
+/* -------------------------------- !SECTION delete property end -------------------------------- */
 
 // /* -------------------------- SECTION delete specific File -------------------------- */
 // export const deleteFile = async (req, res) => {

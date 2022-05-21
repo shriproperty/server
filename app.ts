@@ -28,6 +28,7 @@ const DB_URI = process.env.DB_URI as string;
 
 /* ------------------------------- ANCHOR middlewares ------------------------------ */
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
 	compression({

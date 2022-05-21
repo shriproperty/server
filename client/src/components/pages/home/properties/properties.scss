@@ -3,11 +3,13 @@
 
 .properties-section {
 	@include section-padding;
+
 	display: flex;
 	background-color: $color-background;
 	padding-top: 2rem !important;
 	padding-bottom: 5rem !important;
-	// margin-bottom: 6rem;
+	flex-direction: column;
+
 	&__headings {
 		display: flex;
 		flex-direction: column;

@@ -90,7 +90,7 @@ export const createPropertySchema = {
 		address: z.string({ required_error: 'address is required' }),
 		owner: z.string({ required_error: 'owner is required' }),
 		ownerContact: z.string({ required_error: 'ownerContact is required' }),
-		ownerId: z.string({ required_error: 'ownerId is required' }),
+		ownerId: z.string().optional(),
 		lobby: z.string().optional(),
 		commission: z.string({ required_error: 'commonArea is required' }),
 		age: z.string().optional(),
@@ -187,3 +187,11 @@ export const updatePropertySchema = {
 
 export type UpdatePropertyBody = z.TypeOf<typeof updatePropertySchema.body>;
 export type UpdatePropertyParams = z.TypeOf<typeof updatePropertySchema.params>;
+
+export const deletePropertySchema = {
+	params: z.object({
+		id: z.string({ required_error: 'id is required' }),
+	}),
+};
+
+export type DeletePropertyParams = z.TypeOf<typeof deletePropertySchema.params>;

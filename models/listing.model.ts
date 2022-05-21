@@ -158,7 +158,7 @@ export class Listing {
 	@prop({ required: true })
 	public ownerContact: string;
 
-	@prop({ required: true })
+	@prop()
 	public ownerId: mongoose.Types.ObjectId;
 
 	@prop({ required: true })

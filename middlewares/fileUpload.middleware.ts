@@ -3,6 +3,7 @@
 
 import multer, { FileFilterCallback } from 'multer';
 import { NextFunction, Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 
 type DestinationCallback = (error: Error | null, destination: string) => void;
 type FileNameCallback = (error: Error | null, filename: string) => void;
@@ -45,7 +46,7 @@ const fileUpload = (req: Request, res: Response, next: NextFunction) => {
 	upload.any()(req, res, err => {
 		// send error if file type is incorrect
 		if (err) {
-			return res.status(400).json({
+			return res.status(StatusCodes.BAD_REQUEST).json({
 				success: false,
 				message:
 					'You can only upload .png, .jpg, .jpeg, .pdf and .mp4 files',

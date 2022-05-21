@@ -8,6 +8,7 @@ import {
 
 import {
 	createPropertyHandler,
+	deletePropertyHandler,
 	getAllPropertiesHandler,
 	getSinglePropertyHandler,
 	updatePropertyHandler,
@@ -17,6 +18,7 @@ import fileUpload from '../middlewares/fileUpload.middleware';
 
 import {
 	createPropertySchema,
+	deletePropertySchema,
 	getAllPropertiesSchema,
 	getSinglePropertySchema,
 	updatePropertySchema,
@@ -24,12 +26,7 @@ import {
 
 const propertyRouter = Router();
 
-propertyRouter.post(
-	'/properties/add',
-	processRequestBody(createPropertySchema.body),
-	fileUpload,
-	createPropertyHandler
-);
+propertyRouter.post('/properties/add', fileUpload, createPropertyHandler);
 
 propertyRouter.get(
 	'/properties/all',
@@ -45,8 +42,6 @@ propertyRouter.get(
 
 propertyRouter.patch(
 	'/properties/update/:id',
-	processRequestBody(updatePropertySchema.body),
-	processRequestParams(updatePropertySchema.params),
 	fileUpload,
 	updatePropertyHandler
 );
@@ -55,10 +50,11 @@ propertyRouter.patch(
 // 	'/properties/move-property-to-listings/:id',
 // 	propertyController.movePropertyToListings
 // );
-// propertyRouter.delete(
-// 	'/properties/delete/:id',
-// 	propertyController.deleteProperty
-// );
+propertyRouter.delete(
+	'/properties/delete/:id',
+	processRequestParams(deletePropertySchema.params),
+	deletePropertyHandler
+);
 // propertyRouter.delete(
 // 	'/properties/delete-file/:id/:type/:key',
 // 	propertyController.deleteFile
