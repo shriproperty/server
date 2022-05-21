@@ -207,3 +207,13 @@ export const deleteSpecificFileFromPropertySchema = {
 export type DeleteSpecificFileFromPropertyParams = z.TypeOf<
 	typeof deleteSpecificFileFromPropertySchema.params
 >;
+
+export const movePropertyToListingsSchema = {
+	params: z.object({
+		id: z.string({ required_error: 'id is required' }),
+	}),
+};
+
+export type MovePropertyToListingsParams = z.TypeOf<
+	typeof movePropertyToListingsSchema.params
+>;

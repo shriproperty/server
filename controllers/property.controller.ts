@@ -1,4 +1,4 @@
-import { PropertyModel, Property } from '../models/property.model';
+import { PropertyModel } from '../models/property.model';
 import { ListingModel } from '../models/listing.model';
 import logger from '../helpers/logger.helper';
 import { UserModel } from '../models/user.model';
@@ -22,6 +22,7 @@ import {
 	DeleteSpecificFileFromPropertyParams,
 	GetAllPropertiesQuery,
 	GetSinglePropertyParams,
+	MovePropertyToListingsParams,
 	UpdatePropertyBody,
 	UpdatePropertyParams,
 	updatePropertySchema,
@@ -580,62 +581,75 @@ export async function deleteSpecificFileFromPropertyHandler(
 	}
 }
 
-// /* -------------------------------- !SECTION delete file end -------------------------------- */
+/* -------------------------------- !SECTION delete file end -------------------------------- */
 
-// /* --------------------------------- SECTION move property to listings to approve them -------------------------------- */
-// export const movePropertyToListings = async (req, res) => {
-// 	try {
-// 		const { id } = req.params;
+/* --------------------------------- SECTION move property to listings to approve them -------------------------------- */
+export async function movePropertyToListingsHandler(
+	req: Request<MovePropertyToListingsParams>,
+	res: Response
+) {
+	try {
+		const { id } = req.params;
 
-// 		// get property from db
-// 		const property = await Property.findById(id);
+		// get property from db
+		const property = await PropertyModel.findById(id);
 
-// 		const userId = property.ownerId.toString();
+		if (!property) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'Invalid Id',
+				data: {},
+			});
+		}
 
-// 		// push listing to user's pending listings
+		const userId = property.ownerId.toString();
 
-// 		const newPropertyObject = {};
+		// push listing to user's pending listings
+		const newPropertyObject = { ...property };
 
-// 		/**
-// 		 * create property object with loop so that we don't have to write all
-// 		 *  properties while creating property in Property.create() function
-// 		 */
-// 		for (let key in property) {
-// 			if (key !== '_id' && key !== '__v') {
-// 				newPropertyObject[key] = property[key];
-// 			}
-// 		}
+		delete newPropertyObject._id;
+		delete newPropertyObject.__v;
 
-// 		// create new property from listing
-// 		const newListing = await Listing.create(newPropertyObject);
+		// create new property from listing
+		const newListing = await ListingModel.create(newPropertyObject);
 
-// 		const user = await User.findById(userId);
+		const user = await UserModel.findById(userId);
 
-// 		const newProperties = user.properties.filter(
-// 			property => property._id.toString() !== id
-// 		);
+		if (!user) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'User Not Found',
+				data: {},
+			});
+		}
 
-// 		await User.findByIdAndUpdate(userId, {
-// 			listings: [...user.listings, newListing],
-// 			properties: newProperties,
-// 		});
+		const newProperties = user.properties.filter(prop => {
+			if (prop) {
+				return prop.toString() !== id;
+			}
+		});
 
-// 		// delete listing from db
-// 		await Property.findByIdAndDelete(id);
+		await UserModel.findByIdAndUpdate(userId, {
+			listings: [...user.listings, newListing],
+			properties: newProperties,
+		});
 
-// 		// send response
-// 		res.status(201).json({
-// 			success: true,
-// 			message: 'Property approved successfully',
-// 			data: newListing,
-// 		});
-// 	} catch (err) {
-// 		res.status(500).json({
-// 			success: false,
-// 			message: 'Internal server error',
-// 			data: {},
-// 		});
-// 	}
-// };
+		// delete listing from db
+		await PropertyModel.findByIdAndDelete(id);
 
-// /* -------------------------------- !SECTION -------------------------------- */
+		// send response
+		res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'Property moved to listings',
+			data: newListing,
+		});
+	} catch (err) {
+		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+			success: false,
+			message: 'Internal server error',
+			data: {},
+		});
+	}
+}
+
+/* -------------------------------- !SECTION -------------------------------- */

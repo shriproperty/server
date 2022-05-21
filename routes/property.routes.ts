@@ -12,6 +12,7 @@ import {
 	deleteSpecificFileFromPropertyHandler,
 	getAllPropertiesHandler,
 	getSinglePropertyHandler,
+	movePropertyToListingsHandler,
 	updatePropertyHandler,
 } from '../controllers/property.controller';
 
@@ -23,6 +24,7 @@ import {
 	deleteSpecificFileFromPropertySchema,
 	getAllPropertiesSchema,
 	getSinglePropertySchema,
+	movePropertyToListingsSchema,
 	updatePropertySchema,
 } from '../schemas/property.schema';
 
@@ -48,10 +50,6 @@ propertyRouter.patch(
 	updatePropertyHandler
 );
 
-// propertyRouter.put(
-// 	'/properties/move-property-to-listings/:id',
-// 	propertyController.movePropertyToListings
-// );
 propertyRouter.delete(
 	'/properties/delete/:id',
 	processRequestParams(deletePropertySchema.params),
@@ -61,6 +59,12 @@ propertyRouter.delete(
 	'/properties/delete-file/:id/:type/:key',
 	processRequestParams(deleteSpecificFileFromPropertySchema.params),
 	deleteSpecificFileFromPropertyHandler
+);
+
+propertyRouter.put(
+	'/properties/move-property-to-listings/:id',
+	processRequestParams(movePropertyToListingsSchema.params),
+	movePropertyToListingsHandler
 );
 
 export default propertyRouter;
