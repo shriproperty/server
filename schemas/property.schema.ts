@@ -195,3 +195,15 @@ export const deletePropertySchema = {
 };
 
 export type DeletePropertyParams = z.TypeOf<typeof deletePropertySchema.params>;
+
+export const deleteSpecificFileFromPropertySchema = {
+	params: z.object({
+		key: z.string({ required_error: 'key is required' }),
+		id: z.string({ required_error: 'id is required' }),
+		type: z.string({ required_error: 'type is required' }),
+	}),
+};
+
+export type DeleteSpecificFileFromPropertyParams = z.TypeOf<
+	typeof deleteSpecificFileFromPropertySchema.params
+>;

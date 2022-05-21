@@ -19,6 +19,7 @@ import {
 	CreatePropertyBody,
 	createPropertySchema,
 	DeletePropertyParams,
+	DeleteSpecificFileFromPropertyParams,
 	GetAllPropertiesQuery,
 	GetSinglePropertyParams,
 	UpdatePropertyBody,
@@ -305,7 +306,7 @@ export async function updatePropertyHandler(
 		const documents: S3File[] = [];
 
 		updatePropertySchema.body.parse(req.body);
-		updatePropertySchema.params.parse(req.params)
+		updatePropertySchema.params.parse(req.params);
 
 		// ANCHOR Update Property
 		const propertyFromDB = await PropertyModel.findById(id);
@@ -503,57 +504,81 @@ export async function deletePropertyHandler(
 
 /* -------------------------------- !SECTION delete property end -------------------------------- */
 
-// /* -------------------------- SECTION delete specific File -------------------------- */
-// export const deleteFile = async (req, res) => {
-// 	try {
-// 		const { key, id, type } = req.params;
+/* -------------------------- SECTION delete specific File -------------------------- */
+export async function deleteSpecificFileFromPropertyHandler(
+	req: Request<DeleteSpecificFileFromPropertyParams>,
+	res: Response
+) {
+	try {
+		const { key, id, type } = req.params;
 
-// 		const property = await Property.findById(id);
+		const property = await PropertyModel.findById(id);
 
-// 		// delete files from property
-// 		if (type === 'images') {
-// 			const removedImage = property.images.filter(
-// 				image => image.key !== key
-// 			);
+		if (!property) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'Invalid Id',
+				data: {},
+			});
+		}
 
-// 			await Property.findByIdAndUpdate(
-// 				id,
-// 				{
-// 					images: removedImage,
-// 				},
-// 				{ new: true }
-// 			);
-// 		} else if (type === 'videos') {
-// 			const removedVideo = property.videos.filter(
-// 				video => video.key !== key
-// 			);
+		// delete files from property
+		if (type === 'images') {
+			const newImagesArray = property.images.filter(
+				image => image.key !== key
+			);
 
-// 			await Property.findByIdAndUpdate(
-// 				id,
-// 				{
-// 					videos: removedVideo,
-// 				},
-// 				{ new: true }
-// 			);
-// 		}
+			await PropertyModel.findByIdAndUpdate(
+				id,
+				{
+					images: newImagesArray,
+				},
+				{ new: true }
+			);
+		} else if (type === 'videos') {
+			const newVideosArray = property.videos.filter(
+				video => video.key !== key
+			);
 
-// 		// delete file from aws s3
-// 		await deleteSingleFileFromS3(key);
+			await PropertyModel.findByIdAndUpdate(
+				id,
+				{
+					videos: newVideosArray,
+				},
+				{ new: true }
+			);
+		} else if (type === 'documents') {
+			const newDocumentsArray = property.documents.filter(
+				document => document.key !== key
+			);
 
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'File deleted successfully',
-// 			data: {},
-// 		});
-// 	} catch (err) {
-// 		logger.error(err);
-// 		res.status(400).json({
-// 			success: false,
-// 			message: 'Invalid key',
-// 			data: {},
-// 		});
-// 	}
-// };
+			await PropertyModel.findByIdAndUpdate(
+				id,
+				{
+					documents: newDocumentsArray,
+				},
+				{ new: true }
+			);
+		}
+
+		// delete file from aws s3
+		await deleteSingleFileFromS3(key);
+
+		res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'File deleted successfully',
+			data: {},
+		});
+	} catch (err) {
+		logger.error(err);
+
+		res.status(StatusCodes.NOT_FOUND).json({
+			success: false,
+			message: 'Invalid key',
+			data: {},
+		});
+	}
+}
 
 // /* -------------------------------- !SECTION delete file end -------------------------------- */
 

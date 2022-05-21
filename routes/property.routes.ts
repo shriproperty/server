@@ -9,6 +9,7 @@ import {
 import {
 	createPropertyHandler,
 	deletePropertyHandler,
+	deleteSpecificFileFromPropertyHandler,
 	getAllPropertiesHandler,
 	getSinglePropertyHandler,
 	updatePropertyHandler,
@@ -19,6 +20,7 @@ import fileUpload from '../middlewares/fileUpload.middleware';
 import {
 	createPropertySchema,
 	deletePropertySchema,
+	deleteSpecificFileFromPropertySchema,
 	getAllPropertiesSchema,
 	getSinglePropertySchema,
 	updatePropertySchema,
@@ -55,9 +57,10 @@ propertyRouter.delete(
 	processRequestParams(deletePropertySchema.params),
 	deletePropertyHandler
 );
-// propertyRouter.delete(
-// 	'/properties/delete-file/:id/:type/:key',
-// 	propertyController.deleteFile
-// );
+propertyRouter.delete(
+	'/properties/delete-file/:id/:type/:key',
+	processRequestParams(deleteSpecificFileFromPropertySchema.params),
+	deleteSpecificFileFromPropertyHandler
+);
 
 export default propertyRouter;
