@@ -8,6 +8,7 @@ import cron from 'node-cron';
 import compression from 'compression';
 import { unlink } from 'fs';
 import helmet from 'helmet';
+import deserializeUser from './middlewares/deserializeUser.middleware';
 
 config();
 
@@ -16,7 +17,7 @@ import tempUserRouter from './routes/tempUser.routes';
 import contactRouter from './routes/contact.routes';
 import propertyRouter from './routes/property.routes';
 import otpRouter from './routes/otp.routes';
-// import listingRouter from './routes/listing.routes';
+import listingRouter from './routes/listing.routes';
 import authRouter from './routes/auth.routes';
 import userRouter from './routes/user.routes';
 import logger from './helpers/logger.helper';
@@ -37,13 +38,14 @@ app.use(
 );
 app.use(helmet());
 app.use('/api', apiAuth);
+app.use('/api', deserializeUser);
 
 /* --------------------------------- ANCHOR routes --------------------------------- */
 app.use('/api', tempUserRouter);
 app.use('/api', contactRouter);
 app.use('/api', propertyRouter);
 app.use('/api', otpRouter);
-// app.use('/api', listingRouter);
+app.use('/api', listingRouter);
 app.use('/api', authRouter);
 app.use('/api', userRouter);
 

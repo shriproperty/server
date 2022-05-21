@@ -114,8 +114,6 @@ export async function createPropertyHandler(
 			address: req.body.address,
 			owner: req.body.owner,
 			ownerContact: req.body.ownerContact,
-			ownerId: req.body.ownerId,
-
 			lobby: req.body.lobby,
 			commission: req.body.commission,
 			age: req.body.age,

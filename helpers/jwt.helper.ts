@@ -1,4 +1,8 @@
+import { config } from 'dotenv';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import logger from '../helpers/logger.helper';
+
+config();
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
@@ -27,6 +31,8 @@ export const verifyJWT = (token: string): JWT | null => {
 
 		return verified;
 	} catch (e) {
+		logger.error(e);
+
 		return null;
 	}
 };

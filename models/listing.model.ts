@@ -211,7 +211,7 @@ export class Listing {
 			exhaust: 0,
 		},
 	})
-	public furnishingDetails: string;
+	public furnishingDetails: object;
 
 	@prop()
 	public facilities: Facility[];
