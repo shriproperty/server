@@ -129,7 +129,7 @@ export async function createListingHandler(
 		});
 
 		// send response
-		res.status(StatusCodes.CREATED).json({
+		return res.status(StatusCodes.CREATED).json({
 			success: true,
 			message:
 				'Listing Add successfully It will be reviewed approved in 24 hours',
@@ -150,7 +150,7 @@ export async function createListingHandler(
 			});
 		}
 
-		res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
 			success: false,
 			message: 'Internal Server Error',
 			data: {},
@@ -160,26 +160,28 @@ export async function createListingHandler(
 
 /* -------------------------------- !SECTION Create Property End -------------------------------- */
 
-// /* --------------------------- SECTION get all properties --------------------------- */
-// export const getAll = async (req, res) => {
-// 	try {
-// 		const properties = await Listing.find();
+/* --------------------------- SECTION get all properties --------------------------- */
+export async function getAllListingsHandler(req: Request, res: Response) {
+	try {
+		const properties = await ListingModel.find();
 
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'All properties fetched successfully',
-// 			data: properties,
-// 		});
-// 	} catch (err) {
-// 		res.status(500).json({
-// 			success: false,
-// 			message: 'Internal Server Error',
-// 			data: {},
-// 		});
-// 	}
-// };
+		return res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'All properties fetched successfully',
+			data: properties,
+		});
+	} catch (err) {
+		logger.error(err);
 
-// /* --------------------------- !SECTION get all property end -------------------------- */
+		return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+			success: false,
+			message: 'Internal Server Error',
+			data: {},
+		});
+	}
+}
+
+/* --------------------------- !SECTION get all property end -------------------------- */
 
 // /* --------------------------- SECTION get single property -------------------------- */
 // export const getSingle = async (req, res) => {
