@@ -19,6 +19,7 @@ import { Request, Response } from 'express';
 import {
 	CreateListingBody,
 	createListingSchema,
+	DeleteListingParams,
 	GetSingleListingParams,
 	UpdateListingBody,
 	UpdateListingParams,
@@ -371,52 +372,74 @@ export async function updateListingHandler(
 
 /* ---------------------- !SECTION update property end ---------------------- */
 
-// /* ----------------------------- SECTION delete property ---------------------------- */
-// export const deleteListing = async (req, res) => {
-// 	try {
-// 		const { id } = req.params;
+/* ----------------------------- SECTION delete property ---------------------------- */
+export async function deleteListingHandler(
+	req: Request<DeleteListingParams>,
+	res: Response
+) {
+	try {
+		const { id } = req.params;
 
-// 		const listing = await Listing.findById(id);
+		const listing = await ListingModel.findById(id);
 
-// 		const filesArray = [
-// 			...listing.images,
-// 			...listing.documents,
-// 			...listing.videos,
-// 		];
+		if (!listing) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'listing not found please check id',
+				data: {},
+			});
+		}
 
-// 		// delete files from s3
-// 		await deleteMultipleFilesFromS3(filesArray);
+		// get user from db
+		const user = await UserModel.findById(listing.ownerId.toString());
 
-// 		// delete listing from user
-// 		const user = await User.findById(listing.ownerId.toString());
+		if (!user) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'user not found',
+				data: {},
+			});
+		}
 
-// 		const newListingArray = user.listings.filter(
-// 			listing => listing.toString() !== id
-// 		);
+		const filesArray = [
+			...listing.images,
+			...listing.documents,
+			...listing.videos,
+		];
 
-// 		await User.findByIdAndUpdate(user._id, {
-// 			listings: newListingArray,
-// 		});
+		// delete files from s3
+		await deleteMultipleFilesFromS3(filesArray);
 
-// 		// delete property from DB
-// 		const deletedListing = await Listing.findByIdAndDelete(id);
+		// delete listing from user
+		const newListingArray = user.listings.filter(listing => {
+			if (listing) return listing.toString() !== id;
+		});
 
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'Property deleted successfully',
-// 			data: deletedListing,
-// 		});
-// 	} catch (err) {
-// 		logger.error(err);
-// 		res.status(404).json({
-// 			success: false,
-// 			message: 'Invalid Id',
-// 			data: {},
-// 		});
-// 	}
-// };
+		user.listings = newListingArray;
 
-// /* ----------------------------- !SECTION delete property end ---------------------------- */
+		// save updated user
+		user.save();
+
+		// delete property from DB
+		listing.delete();
+
+		return res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'Property deleted successfully',
+			data: {},
+		});
+	} catch (err) {
+		logger.error(err);
+
+		res.status(StatusCodes.NOT_FOUND).json({
+			success: false,
+			message: 'Invalid Id',
+			data: {},
+		});
+	}
+}
+
+/* ----------------------------- !SECTION delete property end ---------------------------- */
 
 // /* ----------------------------- SECTION approve listing ---------------------------- */
 // export const approveListing = async (req, res) => {

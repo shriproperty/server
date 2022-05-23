@@ -8,7 +8,11 @@ import { verifyJWT } from '../helpers/jwt.helper';
  * and attach it to the req.locals
  */
 function deserializeUser(req: Request, res: Response, next: NextFunction) {
-	const decoded = verifyJWT(req.cookies.token);
+	let decoded;
+
+	if (req.cookies.token) {
+		decoded = verifyJWT(req.cookies.token);
+	}
 
 	if (!decoded) return next();
 

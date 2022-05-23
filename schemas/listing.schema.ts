@@ -164,3 +164,11 @@ export const updateListingSchema = {
 
 export type UpdateListingBody = z.TypeOf<typeof updateListingSchema.body>;
 export type UpdateListingParams = z.TypeOf<typeof updateListingSchema.params>;
+
+export const deleteListingSchema = {
+	params: z.object({
+		id: z.string({ required_error: 'id is required' }),
+	}),
+};
+
+export type DeleteListingParams = z.TypeOf<typeof deleteListingSchema.params>;
