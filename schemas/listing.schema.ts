@@ -115,3 +115,52 @@ export const getSingleListingSchema = {
 export type GetSingleListingParams = z.TypeOf<
 	typeof getSingleListingSchema.params
 >;
+
+export const updateListingSchema = {
+	body: z.object({
+		title: z.string().optional(),
+		description: z.string().optional(),
+		price: z.string().optional(),
+		specialPrice: z.string().optional(),
+		type: z.enum(TYPES).optional(),
+		category: z.enum(CATEGORIES).optional(),
+		status: z.enum(STATUS).optional(),
+		size: z.string().optional(),
+		unit: z.enum(UNITS).optional(),
+		bedroom: z.string().optional(),
+		bathroom: z.string().optional(),
+		openParking: z.string().optional(),
+		closeParking: z.string().optional(),
+		livingRoom: z.string().optional(),
+		dinningRoom: z.string().optional(),
+		store: z.string().optional(),
+		poojaRoom: z.string().optional(),
+		balcony: z.string().optional(),
+		floor: z.string().optional(),
+		direction: z.enum(DIRECTIONS).optional(),
+		kitchen: z.string().optional(),
+		otherFeatures: z.array(z.string()).optional(),
+		address: z.string().optional(),
+		owner: z.string().optional(),
+		ownerContact: z.string().optional(),
+		lobby: z.string().optional(),
+		commission: z.string().optional(),
+		age: z.string().optional(),
+		possession: z.enum(POSSESSION).optional(),
+		purchaseType: z.enum(PURCHASE_TYPE).optional(),
+		constructionStatus: z.enum(CONSTRUCTION_STATUS).optional(),
+		location: z.string().optional(),
+		locality: z.string().optional(),
+		furnishingDetails: z.string().optional(),
+		facilities: z.array(z.string()).optional(),
+		security: z.string().optional(),
+		maintenance: z.string().optional(),
+	}),
+
+	params: z.object({
+		id: z.string({ required_error: 'id is required' }),
+	}),
+};
+
+export type UpdateListingBody = z.TypeOf<typeof updateListingSchema.body>;
+export type UpdateListingParams = z.TypeOf<typeof updateListingSchema.params>;

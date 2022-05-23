@@ -164,7 +164,6 @@ export const updatePropertySchema = {
 		address: z.string().optional(),
 		owner: z.string().optional(),
 		ownerContact: z.string().optional(),
-		ownerId: z.string().optional(),
 		lobby: z.string().optional(),
 		commission: z.string().optional(),
 		age: z.string().optional(),

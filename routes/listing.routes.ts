@@ -4,6 +4,7 @@ import {
 	createListingHandler,
 	getAllListingsHandler,
 	getSingleListingHandler,
+	updateListingHandler,
 } from '../controllers/listing.controller';
 import fileUpload from '../middlewares/fileUpload.middleware';
 import requireLoggedIn from '../middlewares/requireLoggedIn.middleware';
@@ -18,12 +19,14 @@ listingRouter.post(
 	createListingHandler
 );
 listingRouter.get('/listings/all', getAllListingsHandler);
+
 listingRouter.get(
 	'/listings/single/:id',
 	processRequestParams(getSingleListingSchema.params),
 	getSingleListingHandler
 );
-// listingRouter.patch('/listings/update/:id', listingController.update);
+
+listingRouter.patch('/listings/update/:id', fileUpload, updateListingHandler);
 // listingRouter.delete('/listings/delete/:id', listingController.deleteListing);
 // listingRouter.put('/listings/approve/:id', listingController.approveListing);
 // listingRouter.delete(
