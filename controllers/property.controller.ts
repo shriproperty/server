@@ -527,37 +527,25 @@ export async function deleteSpecificFileFromPropertyHandler(
 				image => image.key !== key
 			);
 
-			await PropertyModel.findByIdAndUpdate(
-				id,
-				{
-					images: newImagesArray,
-				},
-				{ new: true }
-			);
+			property.images = newImagesArray;
+
+			property.save();
 		} else if (type === 'videos') {
 			const newVideosArray = property.videos.filter(
 				video => video.key !== key
 			);
 
-			await PropertyModel.findByIdAndUpdate(
-				id,
-				{
-					videos: newVideosArray,
-				},
-				{ new: true }
-			);
+			property.videos = newVideosArray;
+
+			property.save();
 		} else if (type === 'documents') {
 			const newDocumentsArray = property.documents.filter(
 				document => document.key !== key
 			);
 
-			await PropertyModel.findByIdAndUpdate(
-				id,
-				{
-					documents: newDocumentsArray,
-				},
-				{ new: true }
-			);
+			property.documents = newDocumentsArray;
+
+			property.save();
 		}
 
 		// delete file from aws s3

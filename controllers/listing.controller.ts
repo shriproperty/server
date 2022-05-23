@@ -21,6 +21,7 @@ import {
 	CreateListingBody,
 	createListingSchema,
 	DeleteListingParams,
+	DeleteSpecificFileFromListingParams,
 	GetSingleListingParams,
 	UpdateListingBody,
 	UpdateListingParams,
@@ -515,56 +516,68 @@ export async function approveListingHandler(
 
 /* -------------------------------- !SECTION approve listing end -------------------------------- */
 
-// /* -------------------------- SECTION delete specific File -------------------------- */
-// export const deleteFile = async (req, res) => {
-// 	try {
-// 		const { key, id, type } = req.params;
+/* -------------------------- SECTION delete specific File -------------------------- */
+export async function deleteSpecificFileFromListingHandler(
+	req: Request<DeleteSpecificFileFromListingParams>,
+	res: Response
+) {
+	try {
+		const { key, id, type } = req.params;
 
-// 		const property = await Listing.findById(id);
+		const listing = await ListingModel.findById(id);
 
-// 		// delete files from property
-// 		if (type === 'images') {
-// 			const removedImage = property.images.filter(
-// 				image => image.key !== key
-// 			);
+		if (!listing) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'listing not found',
+				data: {},
+			});
+		}
 
-// 			await Listing.findByIdAndUpdate(
-// 				id,
-// 				{
-// 					images: removedImage,
-// 				},
-// 				{ new: true }
-// 			);
-// 		} else if (type === 'videos') {
-// 			const removedVideo = property.videos.filter(
-// 				video => video.key !== key
-// 			);
+		// delete files from listing
+		if (type === 'images') {
+			const newImagesArray = listing.images.filter(
+				image => image.key !== key
+			);
 
-// 			await Listing.findByIdAndUpdate(
-// 				id,
-// 				{
-// 					videos: removedVideo,
-// 				},
-// 				{ new: true }
-// 			);
-// 		}
+			listing.images = newImagesArray;
 
-// 		// delete file from aws s3
-// 		await deleteSingleFileFromS3(key);
+			listing.save();
+		} else if (type === 'videos') {
+			const newVideosArray = listing.videos.filter(
+				video => video.key !== key
+			);
 
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'File deleted successfully',
-// 			data: {},
-// 		});
-// 	} catch (err) {
-// 		logger.error(err);
-// 		res.status(400).json({
-// 			success: false,
-// 			message: 'Invalid key',
-// 			data: {},
-// 		});
-// 	}
-// };
+			listing.videos = newVideosArray;
 
-// /* -------------------------------- !SECTION delete file end -------------------------------- */
+			listing.save();
+		} else if (type === 'documents') {
+			const newDocumentsArray = listing.documents.filter(
+				document => document.key !== key
+			);
+
+			listing.documents = newDocumentsArray;
+
+			listing.save();
+		}
+
+		// delete file from aws s3
+		await deleteSingleFileFromS3(key);
+
+		return res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'File deleted successfully',
+			data: {},
+		});
+	} catch (err) {
+		logger.error(err);
+
+		return res.status(StatusCodes.NOT_FOUND).json({
+			success: false,
+			message: 'Invalid key',
+			data: {},
+		});
+	}
+}
+
+/* -------------------------------- !SECTION delete file end -------------------------------- */

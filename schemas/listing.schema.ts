@@ -180,3 +180,15 @@ export const approveListingSchema = {
 };
 
 export type ApproveListingParams = z.TypeOf<typeof approveListingSchema.params>;
+
+export const deleteSpecificFileFromListingSchema = {
+	params: z.object({
+		key: z.string({ required_error: 'key is required' }),
+		id: z.string({ required_error: 'id is required' }),
+		type: z.string({ required_error: 'type is required' }),
+	}),
+};
+
+export type DeleteSpecificFileFromListingParams = z.TypeOf<
+	typeof deleteSpecificFileFromListingSchema.params
+>;
