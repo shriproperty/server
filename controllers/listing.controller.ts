@@ -17,6 +17,7 @@ import {
 
 import { Request, Response } from 'express';
 import {
+	ApproveListingParams,
 	CreateListingBody,
 	createListingSchema,
 	DeleteListingParams,
@@ -431,7 +432,7 @@ export async function deleteListingHandler(
 	} catch (err) {
 		logger.error(err);
 
-		res.status(StatusCodes.NOT_FOUND).json({
+		return res.status(StatusCodes.NOT_FOUND).json({
 			success: false,
 			message: 'Invalid Id',
 			data: {},
@@ -441,64 +442,78 @@ export async function deleteListingHandler(
 
 /* ----------------------------- !SECTION delete property end ---------------------------- */
 
-// /* ----------------------------- SECTION approve listing ---------------------------- */
-// export const approveListing = async (req, res) => {
-// 	try {
-// 		const { id } = req.params;
+/* ----------------------------- SECTION approve listing ---------------------------- */
+export async function approveListingHandler(
+	req: Request<ApproveListingParams>,
+	res: Response
+) {
+	try {
+		const { id } = req.params;
 
-// 		// get listing from db
-// 		const listing = await Listing.findById(id);
+		// get listing from db
+		const listing = await ListingModel.findById(id);
 
-// 		const userId = listing.ownerId.toString();
+		if (!listing) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'listing not found',
+				data: {},
+			});
+		}
 
-// 		// push listing to user's approved listings
+		const userId = listing.ownerId.toString();
 
-// 		const newPropertyObject = {};
+		const user = await UserModel.findById(userId);
 
-// 		/**
-// 		 * create property object with loop so that we don't have to write all
-// 		 *  properties while creating property in Property.create() function
-// 		 */
-// 		for (let key in listing) {
-// 			if (key !== '_id' && key !== '__v') {
-// 				newPropertyObject[key] = listing[key];
-// 			}
-// 		}
+		if (!user) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'user not found check id',
+				data: {},
+			});
+		}
 
-// 		// create new property from listing
-// 		const newProperty = await Property.create(newPropertyObject);
+		// push listing to user's approved listings
+		const newListingObject = { ...listing.toObject() };
 
-// 		const user = await User.findById(userId);
+		delete listing._id;
+		delete listing.__v;
 
-// 		const newListings = user.listings.filter(
-// 			listing => listing._id.toString() !== id
-// 		);
+		// create new property from listing
+		const newProperty = await PropertyModel.create(newListingObject);
 
-// 		await User.findByIdAndUpdate(userId, {
-// 			listings: newListings,
-// 			properties: [...user.properties, newProperty],
-// 		});
+		const newListings = user.listings.filter(listing => {
+			if (listing) {
+				return listing.toString() !== id;
+			}
+		});
 
-// 		// delete listing from db
-// 		await Listing.findByIdAndDelete(id);
+		await UserModel.findByIdAndUpdate(userId, {
+			listings: newListings,
+			properties: [...user.properties, newProperty],
+		});
 
-// 		// send response
-// 		res.status(201).json({
-// 			success: true,
-// 			message: 'Property approved successfully',
-// 			data: newProperty,
-// 		});
-// 	} catch (err) {
-// 		logger.error(err);
-// 		res.status(404).json({
-// 			success: false,
-// 			message: 'Invalid Id',
-// 			data: {},
-// 		});
-// 	}
-// };
+		// delete listing from db
+		listing.delete();
 
-// /* -------------------------------- !SECTION approve listing end -------------------------------- */
+		// send response
+		return res.status(StatusCodes.CREATED).json({
+			success: true,
+			message: 'Listing approved successfully',
+			data: newProperty,
+		});
+	} catch (err) {
+		logger.error(err);
+
+		return res.status(StatusCodes.NOT_FOUND).json({
+			success: false,
+			message: 'Invalid Id',
+			data: {},
+		});
+	}
+}
+
+/* -------------------------------- !SECTION approve listing end -------------------------------- */
 
 // /* -------------------------- SECTION delete specific File -------------------------- */
 // export const deleteFile = async (req, res) => {

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { processRequestParams } from 'zod-express-middleware';
 import {
+	approveListingHandler,
 	createListingHandler,
 	deleteListingHandler,
 	getAllListingsHandler,
@@ -38,7 +39,8 @@ listingRouter.delete(
 	processRequestParams(deleteListingSchema.params),
 	deleteListingHandler
 );
-// listingRouter.put('/listings/approve/:id', listingController.approveListing);
+
+listingRouter.put('/listings/approve/:id', approveListingHandler);
 // listingRouter.delete(
 // 	'/listings/delete-file/:id/:type/:key',
 // 	listingController.deleteFile

@@ -172,3 +172,11 @@ export const deleteListingSchema = {
 };
 
 export type DeleteListingParams = z.TypeOf<typeof deleteListingSchema.params>;
+
+export const approveListingSchema = {
+	params: z.object({
+		id: z.string({ required_error: 'id is required' }),
+	}),
+};
+
+export type ApproveListingParams = z.TypeOf<typeof approveListingSchema.params>;

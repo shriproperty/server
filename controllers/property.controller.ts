@@ -602,15 +602,6 @@ export async function movePropertyToListingsHandler(
 
 		const userId = property.ownerId.toString();
 
-		// push listing to user's pending listings
-		const newPropertyObject = { ...property };
-
-		delete newPropertyObject._id;
-		delete newPropertyObject.__v;
-
-		// create new property from listing
-		const newListing = await ListingModel.create(newPropertyObject);
-
 		const user = await UserModel.findById(userId);
 
 		if (!user) {
@@ -620,6 +611,15 @@ export async function movePropertyToListingsHandler(
 				data: {},
 			});
 		}
+
+		// push listing to user's pending listings
+		const newPropertyObject = { ...property.toObject() };
+
+		delete newPropertyObject._id;
+		delete newPropertyObject.__v;
+
+		// create new property from listing
+		const newListing = await ListingModel.create(newPropertyObject);
 
 		const newProperties = user.properties.filter(prop => {
 			if (prop) {
