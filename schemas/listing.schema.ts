@@ -105,3 +105,13 @@ export const createListingSchema = {
 };
 
 export type CreateListingBody = z.TypeOf<typeof createListingSchema.body>;
+
+export const getSingleListingSchema = {
+	params: z.object({
+		id: z.string({ required_error: 'id is required' }),
+	}),
+};
+
+export type GetSingleListingParams = z.TypeOf<
+	typeof getSingleListingSchema.params
+>;

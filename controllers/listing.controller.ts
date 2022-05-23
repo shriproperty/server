@@ -19,6 +19,7 @@ import { Request, Response } from 'express';
 import {
 	CreateListingBody,
 	createListingSchema,
+	GetSingleListingParams,
 } from '../schemas/listing.schema';
 import { StatusCodes } from 'http-status-codes';
 
@@ -183,26 +184,38 @@ export async function getAllListingsHandler(req: Request, res: Response) {
 
 /* --------------------------- !SECTION get all property end -------------------------- */
 
-// /* --------------------------- SECTION get single property -------------------------- */
-// export const getSingle = async (req, res) => {
-// 	try {
-// 		const { id } = req.params;
+/* --------------------------- SECTION get single property -------------------------- */
+export async function getSingleListingHandler(
+	req: Request<GetSingleListingParams>,
+	res: Response
+) {
+	try {
+		const { id } = req.params;
 
-// 		const property = await Listing.findById(id);
+		const property = await ListingModel.findById(id);
 
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'Property fetched successfully',
-// 			data: property,
-// 		});
-// 	} catch (err) {
-// 		res.status(400).json({
-// 			success: false,
-// 			message: 'Invalid Id',
-// 			data: {},
-// 		});
-// 	}
-// };
+		if (!property) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'Property not found',
+				data: {},
+			});
+		}
+
+		return res.status(StatusCodes.OK).json({
+			success: true,
+			message: 'Property fetched successfully',
+			data: property,
+		});
+	} catch (err) {
+		logger.error(err);
+		return res.status(StatusCodes.NOT_FOUND).json({
+			success: false,
+			message: 'Invalid Id',
+			data: {},
+		});
+	}
+}
 
 // /* --------------------------- !SECTION get single end -------------------------- */
 
