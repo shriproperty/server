@@ -20,9 +20,10 @@ const BUCKET = process.env.AWS_BUCKET_NAME as string;
  * @param {object} file file to be uploaded to s3
  * @return {Promise<object>} response from s3
  */
-export function uploadFileToS3(
-	file: MulterFile
-): Promise<S3FileUploadResponse> {
+export function uploadFileToS3(file: {
+	path: string;
+	filename: string;
+}): Promise<S3FileUploadResponse> {
 	const fileStream = createReadStream(file.path);
 
 	const uploadParams = {

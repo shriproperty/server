@@ -7,7 +7,10 @@ import { LoginBody, SignupBody } from '../schemas/auth.schema';
 import { StatusCodes } from 'http-status-codes';
 
 /* --------------------------------- ANCHOR Signup --------------------------------- */
-export async function signupHandler(req: Request<{}, {}, SignupBody>, res: Response) {
+export async function signupHandler(
+	req: Request<{}, {}, SignupBody>,
+	res: Response
+) {
 	try {
 		const { name, email, phone, password } = req.body;
 
@@ -30,9 +33,7 @@ export async function signupHandler(req: Request<{}, {}, SignupBody>, res: Respo
 		return res.status(StatusCodes.CREATED).json({
 			success: true,
 			message: 'User created successfully',
-			data: {
-				user: newUser,
-			},
+			data: newUser,
 		});
 	} catch (err: any) {
 		logger.error(err);
@@ -54,7 +55,10 @@ export async function signupHandler(req: Request<{}, {}, SignupBody>, res: Respo
 }
 
 /* ---------------------------------- ANCHOR login --------------------------------- */
-export async function loginHandler(req: Request<{}, {}, LoginBody>, res: Response) {
+export async function loginHandler(
+	req: Request<{}, {}, LoginBody>,
+	res: Response
+) {
 	try {
 		const { email, password } = req.body;
 
