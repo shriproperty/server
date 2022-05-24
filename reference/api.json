@@ -1,0 +1,387 @@
+{
+  "openapi": "3.1.0",
+  "x-stoplight": {
+    "id": "swpq36lvn99zu"
+  },
+  "info": {
+    "title": "Shri Property API Docs",
+    "version": "1.0",
+    "description": "",
+    "summary": "API docs for shri property backend"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/api",
+      "description": "Local Host"
+    },
+    {
+      "url": "https://shriproperty.com/api",
+      "description": "Hosted"
+    }
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "summary": "Signup User",
+        "operationId": "post-auth-signup",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "phone": {
+                          "type": "string"
+                        },
+                        "password": {
+                          "type": "string"
+                        },
+                        "properties": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {}
+                          }
+                        },
+                        "listings": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {}
+                          }
+                        },
+                        "_id": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "__v": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "message": "User created successfully",
+                      "data": {
+                        "name": "ayush",
+                        "email": "arpitchugh.jdb.ac@gmail.com",
+                        "phone": "9501852700",
+                        "password": "$2b$10$a825ZH9wE31cFitXVqpOy.YZEl4BlsCi6QvqNgtrmRCyPEPvPxnlC",
+                        "properties": [],
+                        "listings": [],
+                        "_id": "628c7ce50c2b78b16ad6e81a",
+                        "createdAt": "2022-05-24T06:36:21.542Z",
+                        "updatedAt": "2022-05-24T06:36:21.542Z",
+                        "__v": 0
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "message": "User created successfully",
+                      "data": {
+                        "name": "ayush",
+                        "email": "arpitchugh.jdb.ac@gmail.com",
+                        "phone": "9501852700",
+                        "password": "$2b$10$a825ZH9wE31cFitXVqpOy.YZEl4BlsCi6QvqNgtrmRCyPEPvPxnlC",
+                        "properties": [],
+                        "listings": [],
+                        "_id": "628c7ce50c2b78b16ad6e81a",
+                        "createdAt": "2022-05-24T06:36:21.542Z",
+                        "updatedAt": "2022-05-24T06:36:21.542Z",
+                        "__v": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid User Input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "errors": {
+                        "type": "object",
+                        "properties": {
+                          "issues": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "code": {
+                                  "type": "string"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "path": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": [
+                      {
+                        "type": "Body",
+                        "errors": {
+                          "issues": [
+                            {
+                              "code": "custom",
+                              "message": "Password and confirm password do not match",
+                              "path": [
+                                "cpassword"
+                              ]
+                            }
+                          ],
+                          "name": "ZodError"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "type": "Body",
+                        "errors": {
+                          "issues": [
+                            {
+                              "code": "custom",
+                              "message": "Password and confirm password do not match",
+                              "path": [
+                                "cpassword"
+                              ]
+                            }
+                          ],
+                          "name": "ZodError"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "User exists with same email or phone",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "message": "user already exists",
+                      "data": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "message": "user already exists",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "create user in database",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 20,
+                    "example": "Ram"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "youremail@example.com"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "9501852700",
+                    "minLength": 10,
+                    "maxLength": 10
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 4,
+                    "maxLength": 30,
+                    "example": "somestrongpassword"
+                  },
+                  "cpassword": {
+                    "type": "string",
+                    "minLength": 4,
+                    "maxLength": 30,
+                    "example": "somestrongpassword"
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "name": "Ram",
+                    "email": "youremail@example.com",
+                    "phone": "9501852700",
+                    "password": "somestrongpassword",
+                    "cpassword": "somestrongpassword"
+                  }
+                }
+              }
+            }
+          },
+          "description": "request body should contain all required details of user"
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "title": "User",
+        "type": "object",
+        "description": "",
+        "examples": [
+          {
+            "id": 142,
+            "firstName": "Alice",
+            "lastName": "Smith",
+            "email": "alice.smith@gmail.com",
+            "dateOfBirth": "1997-10-31",
+            "emailVerified": true,
+            "signUpDate": "2019-08-24"
+          }
+        ],
+        "x-internal": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "name of user"
+          },
+          "email": {
+            "type": "string",
+            "description": "email of user"
+          },
+          "phone": {
+            "type": "string",
+            "description": "phone number of user"
+          },
+          "password": {
+            "type": "string",
+            "description": "password in hashed form"
+          },
+          "properties": {
+            "type": "array",
+            "description": "this is array of properties id created by user",
+            "items": {
+              "type": "string"
+            }
+          },
+          "listings": {
+            "type": "array",
+            "description": "this is array of listigs id created by user",
+            "items": {
+              "type": "string"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "automatically added by database",
+            "format": "date"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "automatically added by database",
+            "format": "date"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "phone",
+          "password",
+          "properties",
+          "listings"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "x-api-key": {
+        "name": "API Key",
+        "type": "apiKey",
+        "in": "header",
+        "description": ""
+      }
+    }
+  }
+}
