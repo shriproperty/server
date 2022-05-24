@@ -309,7 +309,7 @@
     "/auth/login": {
       "post": {
         "summary": "",
-        "operationId": "post-auth-login",
+        "operationId": "Login",
         "responses": {
           "200": {
             "description": "User successfully logged in",
