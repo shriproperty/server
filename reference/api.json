@@ -308,7 +308,7 @@
     },
     "/auth/login": {
       "post": {
-        "summary": "",
+        "summary": "Login User",
         "operationId": "Login",
         "responses": {
           "200": {
@@ -486,6 +486,54 @@
           },
           "description": ""
         }
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "summary": "Logout User",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "User Logged out successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "message": "User logged out successfully",
+                      "data": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "message": "User logged out successfully",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "Logout User",
+        "description": "User will be logged out and cookie will be deleted"
       }
     }
   },
