@@ -466,10 +466,12 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "format": "email"
+                    "format": "email",
+                    "example": "ayushchugh2006@gmail.com"
                   },
                   "password": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Ayush@250"
                   }
                 },
                 "required": [
