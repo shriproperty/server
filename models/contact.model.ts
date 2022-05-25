@@ -27,7 +27,7 @@ export class Contact {
 		enum: Status,
 		default: 'Pending',
 	})
-	status: Status;
+	status: string;
 }
 
 export const ContactModel = getModelForClass(Contact, {
