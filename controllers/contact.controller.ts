@@ -86,19 +86,25 @@ export async function updateContactStatus(
 		const { id } = req.params;
 		const { status } = req.body;
 
+		const contact = await ContactModel.findById(id);
+
+		if (!contact) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'contact not found',
+				data: {},
+			});
+		}
+
+		contact.status = status;
+
 		// update contact status
-		const updatedContact = await ContactModel.findByIdAndUpdate(
-			id,
-			{
-				status,
-			},
-			{ new: true, runValidators: true }
-		);
+		contact.save();
 
 		return res.status(StatusCodes.OK).json({
 			success: true,
 			message: 'Contact status updated successfully',
-			data: updatedContact,
+			data: contact,
 		});
 	} catch (err: any) {
 		logger.error(err);

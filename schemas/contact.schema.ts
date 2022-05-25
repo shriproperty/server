@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+const STATUS = ['Pending', 'In Progress', 'Completed'] as const;
+
 export const createContactSchema = {
 	body: z.object({
 		name: z
@@ -26,7 +28,7 @@ export type CreateContactBody = z.TypeOf<typeof createContactSchema.body>;
 
 export const updateContactStatusSchema = {
 	body: z.object({
-		status: z.string({ required_error: 'status is required' }),
+		status: z.enum(STATUS),
 	}),
 
 	params: z.object({
