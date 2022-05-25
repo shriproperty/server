@@ -842,6 +842,549 @@
         "description": "This will get all users from database"
       },
       "parameters": []
+    },
+    "/users/single/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string",
+            "example": "62617e06c75e2f219779b61c"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "User ID"
+        }
+      ],
+      "get": {
+        "summary": "Get Single User With ID",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Without any query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "phone": {
+                          "type": "string"
+                        },
+                        "password": {
+                          "type": "string"
+                        },
+                        "properties": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {}
+                          }
+                        },
+                        "listings": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "_id": {
+                                "type": "string"
+                              },
+                              "title": {
+                                "type": "string"
+                              },
+                              "description": {
+                                "type": "string"
+                              },
+                              "price": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "type": "string"
+                              },
+                              "category": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "string"
+                              },
+                              "featured": {
+                                "type": "boolean"
+                              },
+                              "size": {
+                                "type": "string"
+                              },
+                              "unit": {
+                                "type": "string"
+                              },
+                              "otherFeatured": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {}
+                                }
+                              },
+                              "direction": {
+                                "type": "string"
+                              },
+                              "purchaseType": {
+                                "type": "string"
+                              },
+                              "constructionStatus": {
+                                "type": "string"
+                              },
+                              "images": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {}
+                                }
+                              },
+                              "videos": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {}
+                                }
+                              },
+                              "documents": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {}
+                                }
+                              },
+                              "address": {
+                                "type": "string"
+                              },
+                              "locality": {
+                                "type": "string"
+                              },
+                              "owner": {
+                                "type": "string"
+                              },
+                              "ownerContact": {
+                                "type": "string"
+                              },
+                              "ownerId": {
+                                "type": "string"
+                              },
+                              "commission": {
+                                "type": "string"
+                              },
+                              "possession": {
+                                "type": "string"
+                              },
+                              "furnishingDetails": {
+                                "type": "object",
+                                "properties": {
+                                  "ac": {
+                                    "type": "integer"
+                                  },
+                                  "stove": {
+                                    "type": "integer"
+                                  },
+                                  "modularKitchen": {
+                                    "type": "integer"
+                                  },
+                                  "fans": {
+                                    "type": "integer"
+                                  },
+                                  "fridge": {
+                                    "type": "integer"
+                                  },
+                                  "light": {
+                                    "type": "integer"
+                                  },
+                                  "beds": {
+                                    "type": "integer"
+                                  },
+                                  "microwave": {
+                                    "type": "integer"
+                                  },
+                                  "dinningTable": {
+                                    "type": "integer"
+                                  },
+                                  "tv": {
+                                    "type": "integer"
+                                  },
+                                  "dressingTable": {
+                                    "type": "integer"
+                                  },
+                                  "tvWallPanel": {
+                                    "type": "integer"
+                                  },
+                                  "wardrobe": {
+                                    "type": "integer"
+                                  },
+                                  "washingMachine": {
+                                    "type": "integer"
+                                  },
+                                  "geyser": {
+                                    "type": "integer"
+                                  },
+                                  "curtains": {
+                                    "type": "integer"
+                                  },
+                                  "sofa": {
+                                    "type": "integer"
+                                  },
+                                  "waterPurifier": {
+                                    "type": "integer"
+                                  },
+                                  "exhaust": {
+                                    "type": "integer"
+                                  }
+                                }
+                              },
+                              "facilities": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {}
+                                }
+                              },
+                              "sold": {
+                                "type": "boolean"
+                              },
+                              "updatedAt": {
+                                "type": "string"
+                              },
+                              "createdAt": {
+                                "type": "string"
+                              },
+                              "__v": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "__v": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "message": "User fetched successfully",
+                      "data": {
+                        "_id": "62617e06c75e2f219779b61c",
+                        "name": "ayush",
+                        "email": "ayushchugh2006@gmail.com",
+                        "phone": "9501852700",
+                        "password": "$2b$10$xOwpYtUBiKVM4ndFtBeoLezRK.Qce8/6WzlQVzvE31EJk/mADpfE2",
+                        "properties": [],
+                        "listings": [
+                          {
+                            "_id": "628b6966eb91684889443fe4",
+                            "title": "test1",
+                            "description": "test 1",
+                            "price": "10000",
+                            "type": "Rental",
+                            "category": "Plot",
+                            "status": "Unfurnished",
+                            "featured": false,
+                            "size": "10",
+                            "unit": "Acre",
+                            "otherFeatured": [],
+                            "direction": "East",
+                            "purchaseType": "Resale",
+                            "constructionStatus": "Ready to Move",
+                            "images": [],
+                            "videos": [],
+                            "documents": [],
+                            "address": "sector 70",
+                            "locality": "sector 70",
+                            "owner": "Ayush",
+                            "ownerContact": "9501852700",
+                            "ownerId": "62617e06c75e2f219779b61c",
+                            "commission": "10%",
+                            "possession": "Immediate",
+                            "furnishingDetails": {
+                              "ac": 0,
+                              "stove": 0,
+                              "modularKitchen": 0,
+                              "fans": 0,
+                              "fridge": 0,
+                              "light": 0,
+                              "beds": 0,
+                              "microwave": 0,
+                              "dinningTable": 0,
+                              "tv": 0,
+                              "dressingTable": 0,
+                              "tvWallPanel": 0,
+                              "wardrobe": 0,
+                              "washingMachine": 0,
+                              "geyser": 0,
+                              "curtains": 0,
+                              "sofa": 0,
+                              "waterPurifier": 0,
+                              "exhaust": 0
+                            },
+                            "facilities": [],
+                            "sold": false,
+                            "updatedAt": "2022-05-23T10:39:55.173Z",
+                            "createdAt": "2022-05-23T10:39:55.173Z",
+                            "__v": 0
+                          }
+                        ],
+                        "createdAt": "2022-04-21T15:53:42.506Z",
+                        "updatedAt": "2022-05-23T11:00:55.056Z",
+                        "__v": 1
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "without any query": {
+                    "value": {
+                      "success": true,
+                      "message": "User fetched successfully",
+                      "data": {
+                        "_id": "62617e06c75e2f219779b61c",
+                        "name": "ayush",
+                        "email": "ayushchugh2006@gmail.com",
+                        "phone": "9501852700",
+                        "password": "$2b$10$xOwpYtUBiKVM4ndFtBeoLezRK.Qce8/6WzlQVzvE31EJk/mADpfE2",
+                        "properties": [],
+                        "listings": [
+                          "628b6966eb91684889443fe4"
+                        ],
+                        "createdAt": "2022-04-21T15:53:42.506Z",
+                        "updatedAt": "2022-05-23T11:00:55.056Z",
+                        "__v": 1
+                      }
+                    }
+                  },
+                  "with listings query": {
+                    "value": {
+                      "success": true,
+                      "message": "User fetched successfully",
+                      "data": {
+                        "_id": "62617e06c75e2f219779b61c",
+                        "name": "ayush",
+                        "email": "ayushchugh2006@gmail.com",
+                        "phone": "9501852700",
+                        "password": "$2b$10$xOwpYtUBiKVM4ndFtBeoLezRK.Qce8/6WzlQVzvE31EJk/mADpfE2",
+                        "properties": [],
+                        "listings": [
+                          {
+                            "_id": "628b6966eb91684889443fe4",
+                            "title": "test1",
+                            "description": "test 1",
+                            "price": "10000",
+                            "type": "Rental",
+                            "category": "Plot",
+                            "status": "Unfurnished",
+                            "featured": false,
+                            "size": "10",
+                            "unit": "Acre",
+                            "otherFeatured": [],
+                            "direction": "East",
+                            "purchaseType": "Resale",
+                            "constructionStatus": "Ready to Move",
+                            "images": [],
+                            "videos": [],
+                            "documents": [],
+                            "address": "sector 70",
+                            "locality": "sector 70",
+                            "owner": "Ayush",
+                            "ownerContact": "9501852700",
+                            "ownerId": "62617e06c75e2f219779b61c",
+                            "commission": "10%",
+                            "possession": "Immediate",
+                            "furnishingDetails": {
+                              "ac": 0,
+                              "stove": 0,
+                              "modularKitchen": 0,
+                              "fans": 0,
+                              "fridge": 0,
+                              "light": 0,
+                              "beds": 0,
+                              "microwave": 0,
+                              "dinningTable": 0,
+                              "tv": 0,
+                              "dressingTable": 0,
+                              "tvWallPanel": 0,
+                              "wardrobe": 0,
+                              "washingMachine": 0,
+                              "geyser": 0,
+                              "curtains": 0,
+                              "sofa": 0,
+                              "waterPurifier": 0,
+                              "exhaust": 0
+                            },
+                            "facilities": [],
+                            "sold": false,
+                            "updatedAt": "2022-05-23T10:39:55.173Z",
+                            "createdAt": "2022-05-23T10:39:55.173Z",
+                            "__v": 0
+                          }
+                        ],
+                        "createdAt": "2022-04-21T15:53:42.506Z",
+                        "updatedAt": "2022-05-23T11:00:55.056Z",
+                        "__v": 1
+                      }
+                    }
+                  },
+                  "with properties query": {
+                    "value": {
+                      "success": true,
+                      "message": "User fetched successfully",
+                      "data": {
+                        "_id": "62617e06c75e2f219779b61c",
+                        "name": "ayush",
+                        "email": "ayushchugh2006@gmail.com",
+                        "phone": "9501852700",
+                        "password": "$2b$10$xOwpYtUBiKVM4ndFtBeoLezRK.Qce8/6WzlQVzvE31EJk/mADpfE2",
+                        "properties": [
+                          {
+                            "_id": "628b6966eb91684889443fe4",
+                            "title": "test1",
+                            "description": "test 1",
+                            "price": "10000",
+                            "type": "Rental",
+                            "category": "Plot",
+                            "status": "Unfurnished",
+                            "featured": false,
+                            "size": "10",
+                            "unit": "Acre",
+                            "otherFeatured": [],
+                            "direction": "East",
+                            "purchaseType": "Resale",
+                            "constructionStatus": "Ready to Move",
+                            "images": [],
+                            "videos": [],
+                            "documents": [],
+                            "address": "sector 70",
+                            "locality": "sector 70",
+                            "owner": "Ayush",
+                            "ownerContact": "9501852700",
+                            "ownerId": "62617e06c75e2f219779b61c",
+                            "commission": "10%",
+                            "possession": "Immediate",
+                            "furnishingDetails": {
+                              "ac": 0,
+                              "stove": 0,
+                              "modularKitchen": 0,
+                              "fans": 0,
+                              "fridge": 0,
+                              "light": 0,
+                              "beds": 0,
+                              "microwave": 0,
+                              "dinningTable": 0,
+                              "tv": 0,
+                              "dressingTable": 0,
+                              "tvWallPanel": 0,
+                              "wardrobe": 0,
+                              "washingMachine": 0,
+                              "geyser": 0,
+                              "curtains": 0,
+                              "sofa": 0,
+                              "waterPurifier": 0,
+                              "exhaust": 0
+                            },
+                            "facilities": [],
+                            "sold": false,
+                            "updatedAt": "2022-05-23T10:39:55.173Z",
+                            "createdAt": "2022-05-23T10:39:55.173Z",
+                            "__v": 0
+                          }
+                        ],
+                        "listings": [],
+                        "createdAt": "2022-04-21T15:53:42.506Z",
+                        "updatedAt": "2022-05-25T08:36:42.847Z",
+                        "__v": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "message": "User not found",
+                      "data": {}
+                    }
+                  },
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "message": "User not found",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "Get User With ID",
+        "description": "Get Single User by ID passed in param",
+        "parameters": [
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "listings",
+            "description": "If true than it will populate listings array with all the listings added by user"
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "properties",
+            "description": "If true than it will populate listings array with all the properties created by user"
+          }
+        ]
+      }
     }
   },
   "components": {
