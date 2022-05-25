@@ -133,6 +133,14 @@ export async function deleteContactHandler(req: Request, res: Response) {
 
 		const deletedContact = await ContactModel.findByIdAndDelete(id);
 
+		if (!deletedContact) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'contact not found',
+				data: {},
+			});
+		}
+
 		return res.status(StatusCodes.OK).json({
 			success: true,
 			message: 'Contact deleted successfully',
