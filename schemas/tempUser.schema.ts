@@ -23,10 +23,6 @@ export const registerNewSchema = {
 			})
 			.min(10, 'phone should be 10 digits long remove +91 if added')
 			.max(10, 'phone must be 10 digits long remove +91 if added'),
-
-		callingStatus: z.string().optional(),
-		callAgainDate: z.string().optional(),
-		talkProgress: z.string().optional(),
 	}),
 };
 
