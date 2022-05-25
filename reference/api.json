@@ -1709,7 +1709,192 @@
               }
             }
           }
-        }
+        },
+        "tags": [
+          "ContactUS"
+        ]
+      }
+    },
+    "/contacts/all": {
+      "get": {
+        "summary": "Get All Contacts",
+        "responses": {
+          "200": {
+            "description": "All Contacts fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "phone": {
+                            "type": "string"
+                          },
+                          "subject": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          },
+                          "__v": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "message": "All contacts fetched successfully",
+                      "data": [
+                        {
+                          "_id": "626418c9240706dfe5ac4cd3",
+                          "name": "Ayush Chugh",
+                          "email": "ayushchugh2006@gmail.com",
+                          "phone": "9501852700",
+                          "subject": "this is for testing",
+                          "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum",
+                          "status": "Pending",
+                          "createdAt": "2022-04-23T15:18:33.396Z",
+                          "updatedAt": "2022-04-23T15:18:33.396Z",
+                          "__v": 0
+                        },
+                        {
+                          "_id": "626418e05c67f11ca2367e39",
+                          "name": "Ayush Chugh",
+                          "email": "ayushchugh2006@gmail.com",
+                          "phone": "9501852700",
+                          "subject": "this is for testing",
+                          "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum",
+                          "status": "Pending",
+                          "createdAt": "2022-04-23T15:18:56.540Z",
+                          "updatedAt": "2022-04-23T15:18:56.540Z",
+                          "__v": 0
+                        },
+                        {
+                          "_id": "62652bd7c46c7455e2b6cb06",
+                          "name": "Ayush Chugh 1",
+                          "email": "ayushchugh2006@gmail.com",
+                          "phone": "9501852700",
+                          "subject": "this is for testing",
+                          "message": "this is for testings",
+                          "status": "Pending",
+                          "createdAt": "2022-04-24T10:52:07.460Z",
+                          "updatedAt": "2022-04-24T10:52:07.460Z",
+                          "__v": 0
+                        },
+                        {
+                          "_id": "628e0a2df7cc74ae3fbfe85b",
+                          "name": "Ayush Chugh",
+                          "email": "ayushchugh2006@gmail.com",
+                          "phone": "9501852700",
+                          "subject": "this is for testing",
+                          "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum",
+                          "status": "Pending",
+                          "createdAt": "2022-05-25T10:51:25.969Z",
+                          "updatedAt": "2022-05-25T10:51:25.969Z",
+                          "__v": 0
+                        }
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "message": "All contacts fetched successfully",
+                      "data": [
+                        {
+                          "_id": "626418c9240706dfe5ac4cd3",
+                          "name": "Ayush Chugh",
+                          "email": "ayushchugh2006@gmail.com",
+                          "phone": "9501852700",
+                          "subject": "this is for testing",
+                          "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum",
+                          "status": "Pending",
+                          "createdAt": "2022-04-23T15:18:33.396Z",
+                          "updatedAt": "2022-04-23T15:18:33.396Z",
+                          "__v": 0
+                        },
+                        {
+                          "_id": "626418e05c67f11ca2367e39",
+                          "name": "Ayush Chugh",
+                          "email": "ayushchugh2006@gmail.com",
+                          "phone": "9501852700",
+                          "subject": "this is for testing",
+                          "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum",
+                          "status": "Pending",
+                          "createdAt": "2022-04-23T15:18:56.540Z",
+                          "updatedAt": "2022-04-23T15:18:56.540Z",
+                          "__v": 0
+                        },
+                        {
+                          "_id": "62652bd7c46c7455e2b6cb06",
+                          "name": "Ayush Chugh 1",
+                          "email": "ayushchugh2006@gmail.com",
+                          "phone": "9501852700",
+                          "subject": "this is for testing",
+                          "message": "this is for testings",
+                          "status": "Pending",
+                          "createdAt": "2022-04-24T10:52:07.460Z",
+                          "updatedAt": "2022-04-24T10:52:07.460Z",
+                          "__v": 0
+                        },
+                        {
+                          "_id": "628e0a2df7cc74ae3fbfe85b",
+                          "name": "Ayush Chugh",
+                          "email": "ayushchugh2006@gmail.com",
+                          "phone": "9501852700",
+                          "subject": "this is for testing",
+                          "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum",
+                          "status": "Pending",
+                          "createdAt": "2022-05-25T10:51:25.969Z",
+                          "updatedAt": "2022-05-25T10:51:25.969Z",
+                          "__v": 0
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "Get All Contacts",
+        "tags": [
+          "ContactUS"
+        ],
+        "description": "This request will get all contacts in DB"
       }
     }
   },
