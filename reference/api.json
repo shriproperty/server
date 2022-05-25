@@ -2083,6 +2083,157 @@
           "ContactUS"
         ]
       }
+    },
+    "/contacts/delete/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "delete": {
+        "summary": "Delete Contact",
+        "operationId": "delete-contacts-delete-id",
+        "responses": {
+          "200": {
+            "description": "Contact Deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "phone": {
+                          "type": "string"
+                        },
+                        "subject": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "__v": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "message": "Contact deleted successfully",
+                      "data": {
+                        "_id": "626418c9240706dfe5ac4cd3",
+                        "name": "Ayush Chugh",
+                        "email": "ayushchugh2006@gmail.com",
+                        "phone": "9501852700",
+                        "subject": "this is for testing",
+                        "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum",
+                        "status": "Pending",
+                        "createdAt": "2022-04-23T15:18:33.396Z",
+                        "updatedAt": "2022-04-23T15:18:33.396Z",
+                        "__v": 0
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "message": "Contact deleted successfully",
+                      "data": {
+                        "_id": "626418c9240706dfe5ac4cd3",
+                        "name": "Ayush Chugh",
+                        "email": "ayushchugh2006@gmail.com",
+                        "phone": "9501852700",
+                        "subject": "this is for testing",
+                        "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum",
+                        "status": "Pending",
+                        "createdAt": "2022-04-23T15:18:33.396Z",
+                        "updatedAt": "2022-04-23T15:18:33.396Z",
+                        "__v": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contact Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "message": "contact not found",
+                      "data": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "message": "contact not found",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "ContactUS"
+        ],
+        "description": "This will Delete Contact from DB"
+      }
     }
   },
   "components": {
