@@ -858,7 +858,9 @@
       ],
       "get": {
         "summary": "Get Single User With ID",
-        "tags": [],
+        "tags": [
+          "Users"
+        ],
         "responses": {
           "200": {
             "description": "Without any query",
