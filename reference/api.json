@@ -4,7 +4,7 @@
     "id": "swpq36lvn99zu"
   },
   "info": {
-    "title": "Shri Property API Docs",
+    "title": "Shri Property Website API",
     "version": "1.0",
     "description": "",
     "summary": "API docs for shri property backend"
@@ -1387,6 +1387,133 @@
           }
         ]
       }
+    },
+    "/users/reset-password": {
+      "patch": {
+        "summary": "",
+        "operationId": "Reset Password",
+        "responses": {
+          "200": {
+            "description": "If User Password is successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "message": "Password updated successfully",
+                      "data": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "message": "Password updated successfully",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "If User is not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "message": "User not found please check if your email is correct",
+                      "data": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "message": "User not found please check if your email is correct",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Reset User Password",
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "x-examples": {
+                  "example-1": {
+                    "email": "ayushchugh2006@gmail.com",
+                    "newPassword": "Ayush@250"
+                  }
+                },
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "ayushchugh2006@gmail.com"
+                  },
+                  "newPassword": {
+                    "type": "string",
+                    "example": "somepassword"
+                  }
+                },
+                "required": [
+                  "email",
+                  "newPassword"
+                ]
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "email": "ayushchugh2006@gmail.com",
+                    "newPassword": "Ayush@250"
+                  }
+                }
+              }
+            }
+          },
+          "description": ""
+        }
+      }
     }
   },
   "components": {
@@ -1460,12 +1587,16 @@
       }
     },
     "securitySchemes": {
-      "x-api-key": {
-        "name": "API Key",
+      "API Key": {
+        "name": "x-api-key",
         "type": "apiKey",
-        "in": "header",
-        "description": ""
+        "in": "header"
       }
     }
-  }
+  },
+  "security": [
+    {
+      "API Key": []
+    }
+  ]
 }
