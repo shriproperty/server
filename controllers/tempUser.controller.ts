@@ -80,10 +80,10 @@ export async function updateTempUserCallingStatusHandler(
 			callingStatus === 'Call Again' &&
 			(!callAgainDate || !talkProgress)
 		) {
-			return res.status(StatusCodes.BAD_GATEWAY).json({
+			return res.status(StatusCodes.BAD_REQUEST).json({
 				success: false,
 				message:
-					'"callAgainDate", "talkProgress" are required for "Call Again"',
+					'`callAgainDate`, `talkProgress` are required for `Call Again`',
 				data: {},
 			});
 		}
@@ -93,7 +93,7 @@ export async function updateTempUserCallingStatusHandler(
 			return res.status(StatusCodes.BAD_REQUEST).json({
 				success: false,
 				message:
-					'You can only assign "callAgainDate", "talkProgress" when calling status is "Call Again"',
+					'You can only assign `callAgainDate`, `talkProgress` when calling status is `Call Again`',
 				data: {},
 			});
 		}
@@ -108,6 +108,14 @@ export async function updateTempUserCallingStatusHandler(
 			},
 			{ new: true }
 		);
+
+		if (!updatedUser) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'No User Found',
+				data: {},
+			});
+		}
 
 		return res.status(StatusCodes.OK).json({
 			success: true,
