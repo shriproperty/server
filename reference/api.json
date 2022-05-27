@@ -2315,6 +2315,44 @@
                 }
               }
             }
+          },
+          "406": {
+            "description": "Invalid Email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "message": "Please enter valid Email",
+                      "data": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "message": "Please enter valid Email",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "description": "This will take `email` in body and than send a random OTP on it",
