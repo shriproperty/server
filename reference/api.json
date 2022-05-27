@@ -3265,8 +3265,10 @@
     },
     "/temp-users/all": {
       "get": {
-        "summary": "Your GET endpoint",
-        "tags": [],
+        "summary": "Get All Temp Users",
+        "tags": [
+          "Temp Users"
+        ],
         "responses": {
           "200": {
             "description": "All Temp users fetched successfully",
@@ -3399,6 +3401,94 @@
         },
         "operationId": "get-temp-users-all",
         "description": "This will fetch all temp users"
+      }
+    },
+    "/temp-users/verify": {
+      "get": {
+        "summary": "Verify Temp User",
+        "tags": [
+          "Temp Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "User Verified",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "message": "User verified successfully",
+                      "data": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "message": "User verified successfully",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User Is Not Verified",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "message": "User verified successfully",
+                      "data": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "message": "Invalid token",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-temp-users-verify",
+        "description": "Verify Temp user from tempUser cookie"
       }
     }
   },
