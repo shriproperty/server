@@ -143,6 +143,14 @@ export async function deleteTempUserHandler(
 
 		const deletedUser = await TempUserModel.findByIdAndDelete(id);
 
+		if (!deletedUser) {
+			return res.status(StatusCodes.NOT_FOUND).json({
+				success: false,
+				message: 'User Not Found',
+				data: {},
+			});
+		}
+
 		return res.status(StatusCodes.OK).json({
 			success: true,
 			message: 'User deleted successfully',
