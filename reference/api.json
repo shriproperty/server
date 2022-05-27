@@ -3262,6 +3262,144 @@
           "description": ""
         }
       }
+    },
+    "/temp-users/all": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "All Temp users fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "phone": {
+                            "type": "string"
+                          },
+                          "callingStatus": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          },
+                          "__v": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "message": "Users retrieved successfully",
+                      "data": [
+                        {
+                          "_id": "62616e4bba790d0b5aa3228f",
+                          "name": "test",
+                          "email": "test@gmail.com",
+                          "phone": "9501852700",
+                          "callingStatus": "Pending",
+                          "createdAt": "2022-04-21T14:46:35.085Z",
+                          "updatedAt": "2022-04-21T14:46:35.085Z",
+                          "__v": 0
+                        },
+                        {
+                          "_id": "629052d81d1568adf030643c",
+                          "name": "test",
+                          "email": "test@gmail.com",
+                          "phone": "9501852700",
+                          "callingStatus": "Pending",
+                          "createdAt": "2022-05-27T04:26:00.355Z",
+                          "updatedAt": "2022-05-27T04:26:00.355Z",
+                          "__v": 0
+                        },
+                        {
+                          "_id": "629052e51d1568adf030643e",
+                          "name": "Ayush Chugh",
+                          "email": "ayushchugh2006@gmail.com",
+                          "phone": "9501852700",
+                          "callingStatus": "Pending",
+                          "createdAt": "2022-05-27T04:26:13.652Z",
+                          "updatedAt": "2022-05-27T04:26:13.652Z",
+                          "__v": 0
+                        }
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "message": "Users retrieved successfully",
+                      "data": [
+                        {
+                          "_id": "62616e4bba790d0b5aa3228f",
+                          "name": "test",
+                          "email": "test@gmail.com",
+                          "phone": "9501852700",
+                          "callingStatus": "Pending",
+                          "createdAt": "2022-04-21T14:46:35.085Z",
+                          "updatedAt": "2022-04-21T14:46:35.085Z",
+                          "__v": 0
+                        },
+                        {
+                          "_id": "629052d81d1568adf030643c",
+                          "name": "test",
+                          "email": "test@gmail.com",
+                          "phone": "9501852700",
+                          "callingStatus": "Pending",
+                          "createdAt": "2022-05-27T04:26:00.355Z",
+                          "updatedAt": "2022-05-27T04:26:00.355Z",
+                          "__v": 0
+                        },
+                        {
+                          "_id": "629052e51d1568adf030643e",
+                          "name": "Ayush Chugh",
+                          "email": "ayushchugh2006@gmail.com",
+                          "phone": "9501852700",
+                          "callingStatus": "Pending",
+                          "createdAt": "2022-05-27T04:26:13.652Z",
+                          "updatedAt": "2022-05-27T04:26:13.652Z",
+                          "__v": 0
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-temp-users-all",
+        "description": "This will fetch all temp users"
+      }
     }
   },
   "components": {
