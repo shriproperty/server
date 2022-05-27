@@ -3214,9 +3214,6 @@
             }
           }
         },
-        "tags": [
-          "Temp User"
-        ],
         "description": "This will create a new temp user in database",
         "requestBody": {
           "content": {
@@ -3260,7 +3257,10 @@
             }
           },
           "description": ""
-        }
+        },
+        "tags": [
+          "Temp Users"
+        ]
       }
     },
     "/temp-users/all": {
@@ -3512,7 +3512,87 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {}
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "phone": {
+                          "type": "string"
+                        },
+                        "callingStatus": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "__v": {
+                          "type": "integer"
+                        },
+                        "callAgainDate": {
+                          "type": "string"
+                        },
+                        "talkProgress": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "message": "User updated successfully",
+                      "data": {
+                        "_id": "62616e4bba790d0b5aa3228f",
+                        "name": "test",
+                        "email": "test@gmail.com",
+                        "phone": "9501852700",
+                        "callingStatus": "Call Again",
+                        "createdAt": "2022-04-21T14:46:35.085Z",
+                        "updatedAt": "2022-05-27T08:00:28.005Z",
+                        "__v": 0,
+                        "callAgainDate": "2022-01-18T00:00:00.000Z",
+                        "talkProgress": "some thing"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "message": "User updated successfully",
+                      "data": {
+                        "_id": "62616e4bba790d0b5aa3228f",
+                        "name": "test",
+                        "email": "test@gmail.com",
+                        "phone": "9501852700",
+                        "callingStatus": "Call Again",
+                        "createdAt": "2022-04-21T14:46:35.085Z",
+                        "updatedAt": "2022-05-27T08:00:28.005Z",
+                        "__v": 0,
+                        "callAgainDate": "2022-01-18T00:00:00.000Z",
+                        "talkProgress": "some thing"
+                      }
+                    }
+                  }
                 }
               }
             }
