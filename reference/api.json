@@ -2234,78 +2234,124 @@
         ],
         "description": "This will Delete Contact from DB"
       }
+    },
+    "/otp/send": {
+      "post": {
+        "summary": "Send OTP",
+        "operationId": "send otp",
+        "responses": {
+          "200": {
+            "description": "OTP Sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string"
+                        },
+                        "otp": {
+                          "type": "string"
+                        },
+                        "expireAt": {
+                          "type": "string"
+                        },
+                        "_id": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "__v": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "message": "Otp sent successfully",
+                      "data": {
+                        "email": "ayushchugh2006@gmail.com",
+                        "otp": "2367",
+                        "expireAt": "2022-05-26T11:50:21.574Z",
+                        "_id": "628f6aa0980c184f05943093",
+                        "createdAt": "2022-05-26T11:55:12.786Z",
+                        "updatedAt": "2022-05-26T11:55:12.786Z",
+                        "__v": 0
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "message": "Otp sent successfully",
+                      "data": {
+                        "email": "ayushchugh2006@gmail.com",
+                        "otp": "2367",
+                        "expireAt": "2022-05-26T11:50:21.574Z",
+                        "_id": "628f6aa0980c184f05943093",
+                        "createdAt": "2022-05-26T11:55:12.786Z",
+                        "updatedAt": "2022-05-26T11:55:12.786Z",
+                        "__v": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "This will take `email` in body and than send a random OTP on it",
+        "tags": [
+          "OTP"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "x-examples": {
+                  "example-1": {
+                    "email": "ayushchugh2006@gmail.com"
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "email": "ayushchugh2006@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
-    "schemas": {
-      "User": {
-        "title": "User",
-        "type": "object",
-        "description": "",
-        "examples": [
-          {
-            "id": 142,
-            "firstName": "Alice",
-            "lastName": "Smith",
-            "email": "alice.smith@gmail.com",
-            "dateOfBirth": "1997-10-31",
-            "emailVerified": true,
-            "signUpDate": "2019-08-24"
-          }
-        ],
-        "x-internal": false,
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "name of user"
-          },
-          "email": {
-            "type": "string",
-            "description": "email of user"
-          },
-          "phone": {
-            "type": "string",
-            "description": "phone number of user"
-          },
-          "password": {
-            "type": "string",
-            "description": "password in hashed form"
-          },
-          "properties": {
-            "type": "array",
-            "description": "this is array of properties id created by user",
-            "items": {
-              "type": "string"
-            }
-          },
-          "listings": {
-            "type": "array",
-            "description": "this is array of listigs id created by user",
-            "items": {
-              "type": "string"
-            }
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "automatically added by database",
-            "format": "date"
-          },
-          "updatedAt": {
-            "type": "string",
-            "description": "automatically added by database",
-            "format": "date"
-          }
-        },
-        "required": [
-          "name",
-          "email",
-          "phone",
-          "password",
-          "properties",
-          "listings"
-        ]
-      }
-    },
+    "schemas": {},
     "securitySchemes": {
       "API Key": {
         "name": "x-api-key",
