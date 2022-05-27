@@ -3490,6 +3490,183 @@
         "operationId": "get-temp-users-verify",
         "description": "Verify Temp user from tempUser cookie"
       }
+    },
+    "/temp-users/update-calling-status/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "patch": {
+        "summary": "Update Calling Status",
+        "operationId": "patch-temp-users-update-calling-status-id",
+        "responses": {
+          "200": {
+            "description": "Calling Status Updated Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid User Input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "message": "\"callAgainDate\", \"talkProgress\" are required for \"Call Again\"",
+                      "data": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "if status is `Call Again` but there is no `callAgainDate` or `talkProgress`": {
+                    "value": {
+                      "success": false,
+                      "message": "`callAgainDate`, `talkProgress` are required for `Call Again`",
+                      "data": {}
+                    }
+                  },
+                  "If status is not `Call Again` but there is `CallAgainDate` or `talkProgress`": {
+                    "value": {
+                      "success": false,
+                      "message": "You can only assign `callAgainDate`, `talkProgress` when calling status is `Call Again`",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "message": "No User Found",
+                      "data": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "message": "No User Found",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Temp Users"
+        ],
+        "description": "This will update calling status",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "x-examples": {
+                  "example-1": {
+                    "callingStatus": "Call Again",
+                    "callAgainDate": "2022-01-18T00:00:00.000Z",
+                    "talkProgress": "some thing"
+                  }
+                },
+                "properties": {
+                  "callingStatus": {
+                    "type": "string",
+                    "enum": [
+                      "Pending",
+                      "Rejected",
+                      "Call Again",
+                      "Done"
+                    ]
+                  },
+                  "callAgainDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "talkProgress": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "callingStatus"
+                ]
+              },
+              "examples": {
+                "With Calling Status `Pending`": {
+                  "value": {
+                    "callingStatus": "Pending"
+                  }
+                },
+                "With Calling Status `Done`": {
+                  "value": {
+                    "callingStatus": "Done"
+                  }
+                },
+                "With Calling Status `Rejected`": {
+                  "value": {
+                    "callingStatus": "Rejected"
+                  }
+                },
+                "With Calling Status `Call Again`": {
+                  "value": {
+                    "callingStatus": "Call Again",
+                    "callAgainDate": "2022-01-18T00:00:00.000Z",
+                    "talkProgress": "some thing"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
