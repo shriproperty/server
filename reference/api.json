@@ -3747,6 +3747,157 @@
           }
         }
       }
+    },
+    "/temp-users/delete/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "delete": {
+        "summary": "Delete Temp User",
+        "operationId": "delete-temp-users-delete-id",
+        "responses": {
+          "200": {
+            "description": "User Delete Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "phone": {
+                          "type": "string"
+                        },
+                        "callingStatus": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "__v": {
+                          "type": "integer"
+                        },
+                        "callAgainDate": {
+                          "type": "string"
+                        },
+                        "talkProgress": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "message": "User deleted successfully",
+                      "data": {
+                        "_id": "62616e4bba790d0b5aa3228f",
+                        "name": "test",
+                        "email": "test@gmail.com",
+                        "phone": "9501852700",
+                        "callingStatus": "Call Again",
+                        "createdAt": "2022-04-21T14:46:35.085Z",
+                        "updatedAt": "2022-05-27T08:00:28.005Z",
+                        "__v": 0,
+                        "callAgainDate": "2022-01-18T00:00:00.000Z",
+                        "talkProgress": "some thing"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "message": "User deleted successfully",
+                      "data": {
+                        "_id": "62616e4bba790d0b5aa3228f",
+                        "name": "test",
+                        "email": "test@gmail.com",
+                        "phone": "9501852700",
+                        "callingStatus": "Call Again",
+                        "createdAt": "2022-04-21T14:46:35.085Z",
+                        "updatedAt": "2022-05-27T08:00:28.005Z",
+                        "__v": 0,
+                        "callAgainDate": "2022-01-18T00:00:00.000Z",
+                        "talkProgress": "some thing"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": false,
+                      "message": "User Not Found",
+                      "data": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "message": "User Not Found",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Temp Users"
+        ],
+        "description": "this will delete temp user"
+      }
     }
   },
   "components": {
