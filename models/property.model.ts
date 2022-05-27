@@ -53,7 +53,6 @@ export class Property {
 	public size: string;
 
 	@prop({
-		required: true,
 		enum: [
 			'Sq. Ft.',
 			'Acre',
