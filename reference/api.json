@@ -417,6 +417,97 @@
               }
             }
           },
+          "400": {
+            "description": "Invalid Body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "errors": {
+                        "type": "object",
+                        "properties": {
+                          "issues": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "validation": {
+                                  "type": "string"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "path": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": [
+                      {
+                        "type": "Body",
+                        "errors": {
+                          "issues": [
+                            {
+                              "validation": "email",
+                              "code": "invalid_string",
+                              "message": "please enter a valid email",
+                              "path": [
+                                "email"
+                              ]
+                            }
+                          ],
+                          "name": "ZodError"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "type": "Body",
+                        "errors": {
+                          "issues": [
+                            {
+                              "validation": "email",
+                              "code": "invalid_string",
+                              "message": "please enter a valid email",
+                              "path": [
+                                "email"
+                              ]
+                            }
+                          ],
+                          "name": "ZodError"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
           "401": {
             "description": "email or password is not correct",
             "content": {
@@ -1431,6 +1522,97 @@
               }
             }
           },
+          "400": {
+            "description": "Invalid User Input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "errors": {
+                        "type": "object",
+                        "properties": {
+                          "issues": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "validation": {
+                                  "type": "string"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "path": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": [
+                      {
+                        "type": "Body",
+                        "errors": {
+                          "issues": [
+                            {
+                              "validation": "email",
+                              "code": "invalid_string",
+                              "message": "please enter a valid email",
+                              "path": [
+                                "email"
+                              ]
+                            }
+                          ],
+                          "name": "ZodError"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "type": "Body",
+                        "errors": {
+                          "issues": [
+                            {
+                              "validation": "email",
+                              "code": "invalid_string",
+                              "message": "please enter a valid email",
+                              "path": [
+                                "email"
+                              ]
+                            }
+                          ],
+                          "name": "ZodError"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
           "404": {
             "description": "If User is not found",
             "content": {
@@ -1606,6 +1788,97 @@
                         "__v": 0
                       }
                     }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid User Input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "errors": {
+                        "type": "object",
+                        "properties": {
+                          "issues": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "validation": {
+                                  "type": "string"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "path": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": [
+                      {
+                        "type": "Body",
+                        "errors": {
+                          "issues": [
+                            {
+                              "validation": "email",
+                              "code": "invalid_string",
+                              "message": "please enter a valid email",
+                              "path": [
+                                "email"
+                              ]
+                            }
+                          ],
+                          "name": "ZodError"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "type": "Body",
+                        "errors": {
+                          "issues": [
+                            {
+                              "validation": "email",
+                              "code": "invalid_string",
+                              "message": "please enter a valid email",
+                              "path": [
+                                "email"
+                              ]
+                            }
+                          ],
+                          "name": "ZodError"
+                        }
+                      }
+                    ]
                   }
                 }
               }
@@ -2004,6 +2277,108 @@
               }
             }
           },
+          "400": {
+            "description": "Invalid User Input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "errors": {
+                        "type": "object",
+                        "properties": {
+                          "issues": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "code": {
+                                  "type": "string"
+                                },
+                                "options": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "path": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "message": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": [
+                      {
+                        "type": "Body",
+                        "errors": {
+                          "issues": [
+                            {
+                              "code": "invalid_enum_value",
+                              "options": [
+                                "Pending",
+                                "In Progress",
+                                "Completed"
+                              ],
+                              "path": [
+                                "status"
+                              ],
+                              "message": "Invalid enum value. Expected 'Pending' | 'In Progress' | 'Completed'"
+                            }
+                          ],
+                          "name": "ZodError"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "type": "Body",
+                        "errors": {
+                          "issues": [
+                            {
+                              "code": "invalid_enum_value",
+                              "options": [
+                                "Pending",
+                                "In Progress",
+                                "Completed"
+                              ],
+                              "path": [
+                                "status"
+                              ],
+                              "message": "Invalid enum value. Expected 'Pending' | 'In Progress' | 'Completed'"
+                            }
+                          ],
+                          "name": "ZodError"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
           "404": {
             "description": "Contact Not Found",
             "content": {
@@ -2043,7 +2418,7 @@
             }
           }
         },
-        "description": "this will update contact statu",
+        "description": "this will update contact status",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2316,6 +2691,97 @@
               }
             }
           },
+          "400": {
+            "description": "Invalid User Input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "errors": {
+                        "type": "object",
+                        "properties": {
+                          "issues": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "validation": {
+                                  "type": "string"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "path": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": [
+                      {
+                        "type": "Body",
+                        "errors": {
+                          "issues": [
+                            {
+                              "validation": "email",
+                              "code": "invalid_string",
+                              "message": "please enter a valid email",
+                              "path": [
+                                "email"
+                              ]
+                            }
+                          ],
+                          "name": "ZodError"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "type": "Body",
+                        "errors": {
+                          "issues": [
+                            {
+                              "validation": "email",
+                              "code": "invalid_string",
+                              "message": "please enter a valid email",
+                              "path": [
+                                "email"
+                              ]
+                            }
+                          ],
+                          "name": "ZodError"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
           "406": {
             "description": "Invalid Email",
             "content": {
@@ -2431,7 +2897,7 @@
             }
           },
           "400": {
-            "description": "OTP was incorrect",
+            "description": "Invalid OTP",
             "content": {
               "application/json": {
                 "schema": {
@@ -2457,12 +2923,32 @@
                   }
                 },
                 "examples": {
-                  "example-1": {
+                  "Invalid OTP": {
                     "value": {
                       "success": false,
                       "message": "Please enter valid otp",
                       "data": {}
                     }
+                  },
+                  "Invalid User Input": {
+                    "value": [
+                      {
+                        "type": "Body",
+                        "errors": {
+                          "issues": [
+                            {
+                              "validation": "email",
+                              "code": "invalid_string",
+                              "message": "please enter a valid email",
+                              "path": [
+                                "email"
+                              ]
+                            }
+                          ],
+                          "name": "ZodError"
+                        }
+                      }
+                    ]
                   }
                 }
               }
@@ -2548,6 +3034,233 @@
           }
         },
         "x-internal": false
+      }
+    },
+    "/temp-users/add": {
+      "post": {
+        "summary": "Create New Temp User",
+        "operationId": "post-temp-users-add",
+        "responses": {
+          "201": {
+            "description": "Temp User Created Successfully. this will set a tempUser cookie",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "phone": {
+                          "type": "string"
+                        },
+                        "callingStatus": {
+                          "type": "string"
+                        },
+                        "_id": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "__v": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "message": "User created successfully",
+                      "data": {
+                        "name": "Ayush Chugh",
+                        "email": "ayushchugh2006@gmail.com",
+                        "phone": "9501852700",
+                        "callingStatus": "Pending",
+                        "_id": "629052e51d1568adf030643e",
+                        "createdAt": "2022-05-27T04:26:13.652Z",
+                        "updatedAt": "2022-05-27T04:26:13.652Z",
+                        "__v": 0
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "message": "User created successfully",
+                      "data": {
+                        "name": "Ayush Chugh",
+                        "email": "ayushchugh2006@gmail.com",
+                        "phone": "9501852700",
+                        "callingStatus": "Pending",
+                        "_id": "629052e51d1568adf030643e",
+                        "createdAt": "2022-05-27T04:26:13.652Z",
+                        "updatedAt": "2022-05-27T04:26:13.652Z",
+                        "__v": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Body Input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "errors": {
+                        "type": "object",
+                        "properties": {
+                          "issues": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "validation": {
+                                  "type": "string"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "path": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": [
+                      {
+                        "type": "Body",
+                        "errors": {
+                          "issues": [
+                            {
+                              "validation": "email",
+                              "code": "invalid_string",
+                              "message": "please enter a valid email",
+                              "path": [
+                                "email"
+                              ]
+                            }
+                          ],
+                          "name": "ZodError"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "type": "Body",
+                        "errors": {
+                          "issues": [
+                            {
+                              "validation": "email",
+                              "code": "invalid_string",
+                              "message": "please enter a valid email",
+                              "path": [
+                                "email"
+                              ]
+                            }
+                          ],
+                          "name": "ZodError"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Temp User"
+        ],
+        "description": "This will create a new temp user in database",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "x-examples": {
+                  "example-1": {
+                    "name": "test",
+                    "email": "test@gmail.com",
+                    "phone": "9501852700"
+                  }
+                },
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "phone": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "phone"
+                ]
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "name": "Ayush Chugh",
+                    "email": "ayushchugh2006@gmail.com",
+                    "phone": "9501852700"
+                  }
+                }
+              }
+            }
+          },
+          "description": ""
+        }
       }
     }
   },
