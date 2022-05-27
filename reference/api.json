@@ -3898,6 +3898,592 @@
         ],
         "description": "this will delete temp user"
       }
+    },
+    "/properties/add": {
+      "post": {
+        "summary": "Create New Property",
+        "operationId": "post-properties-add",
+        "responses": {
+          "201": {
+            "description": "Property Created Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "price": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "featured": {
+                          "type": "boolean"
+                        },
+                        "size": {
+                          "type": "string"
+                        },
+                        "unit": {
+                          "type": "string"
+                        },
+                        "otherFeatured": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {}
+                          }
+                        },
+                        "direction": {
+                          "type": "string"
+                        },
+                        "purchaseType": {
+                          "type": "string"
+                        },
+                        "constructionStatus": {
+                          "type": "string"
+                        },
+                        "images": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string"
+                              },
+                              "key": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "videos": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {}
+                          }
+                        },
+                        "documents": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {}
+                          }
+                        },
+                        "address": {
+                          "type": "string"
+                        },
+                        "locality": {
+                          "type": "string"
+                        },
+                        "owner": {
+                          "type": "string"
+                        },
+                        "ownerContact": {
+                          "type": "string"
+                        },
+                        "commission": {
+                          "type": "string"
+                        },
+                        "possession": {
+                          "type": "string"
+                        },
+                        "facilities": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {}
+                          }
+                        },
+                        "sold": {
+                          "type": "boolean"
+                        },
+                        "_id": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "__v": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  },
+                  "x-examples": {
+                    "example-1": {
+                      "success": true,
+                      "message": "Property created successfully",
+                      "data": {
+                        "title": "test1",
+                        "description": "test 1",
+                        "price": "10000",
+                        "type": "Rental",
+                        "category": "Plot",
+                        "status": "Unfurnished",
+                        "featured": true,
+                        "size": "10",
+                        "unit": "Acre",
+                        "otherFeatured": [],
+                        "direction": "East",
+                        "purchaseType": "Resale",
+                        "constructionStatus": "Ready to Move",
+                        "images": [
+                          {
+                            "url": "https://shriproperty.s3.ap-south-1.amazonaws.com/1653639186110-a.jpg",
+                            "key": "1653639186110-a.jpg"
+                          },
+                          {
+                            "url": "https://shriproperty.s3.ap-south-1.amazonaws.com/1653639186145-b.jpg",
+                            "key": "1653639186145-b.jpg"
+                          },
+                          {
+                            "url": "https://shriproperty.s3.ap-south-1.amazonaws.com/1653639186160-c.jpg",
+                            "key": "1653639186160-c.jpg"
+                          }
+                        ],
+                        "videos": [],
+                        "documents": [],
+                        "address": "sector 70",
+                        "locality": "sector 70",
+                        "owner": "Ayush",
+                        "ownerContact": "9501852700",
+                        "commission": "10%",
+                        "possession": "Immediate",
+                        "facilities": [],
+                        "sold": false,
+                        "_id": "6290881428194fb6e4489355",
+                        "createdAt": "2022-05-27T08:13:08.437Z",
+                        "updatedAt": "2022-05-27T08:13:08.437Z",
+                        "__v": 0
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "message": "Property created successfully",
+                      "data": {
+                        "title": "test1",
+                        "description": "test 1",
+                        "price": "10000",
+                        "type": "Rental",
+                        "category": "Plot",
+                        "status": "Unfurnished",
+                        "featured": true,
+                        "size": "10",
+                        "unit": "Acre",
+                        "otherFeatured": [],
+                        "direction": "East",
+                        "purchaseType": "Resale",
+                        "constructionStatus": "Ready to Move",
+                        "images": [
+                          {
+                            "url": "https://shriproperty.s3.ap-south-1.amazonaws.com/1653639186110-a.jpg",
+                            "key": "1653639186110-a.jpg"
+                          },
+                          {
+                            "url": "https://shriproperty.s3.ap-south-1.amazonaws.com/1653639186145-b.jpg",
+                            "key": "1653639186145-b.jpg"
+                          },
+                          {
+                            "url": "https://shriproperty.s3.ap-south-1.amazonaws.com/1653639186160-c.jpg",
+                            "key": "1653639186160-c.jpg"
+                          }
+                        ],
+                        "videos": [],
+                        "documents": [],
+                        "address": "sector 70",
+                        "locality": "sector 70",
+                        "owner": "Ayush",
+                        "ownerContact": "9501852700",
+                        "commission": "10%",
+                        "possession": "Immediate",
+                        "facilities": [],
+                        "sold": false,
+                        "_id": "6290881428194fb6e4489355",
+                        "createdAt": "2022-05-27T08:13:08.437Z",
+                        "updatedAt": "2022-05-27T08:13:08.437Z",
+                        "__v": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "If input is invalid zod error will be thrown"
+          }
+        },
+        "description": "this will create new property",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "string"
+                  },
+                  "specialPrice": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "Rental",
+                      "Sale",
+                      "PG"
+                    ],
+                    "default": "Sale"
+                  },
+                  "category": {
+                    "type": "string",
+                    "enum": [
+                      "Residential Apartment",
+                      "Independent House/Villa",
+                      "Plot",
+                      "Commercial Office",
+                      "Serviced Apartments",
+                      "1 RK/ Studio Apartment",
+                      "Independent/Builder Floor",
+                      "Other"
+                    ],
+                    "default": "Independent/Builder Floor"
+                  },
+                  "security": {
+                    "type": "string"
+                  },
+                  "maintenance": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "Unfurnished",
+                      "Semifurnished",
+                      "Furnished"
+                    ]
+                  },
+                  "featured": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "size": {
+                    "type": "string"
+                  },
+                  "unit": {
+                    "type": "string",
+                    "enum": [
+                      "Sq. Ft.",
+                      "Acre",
+                      "Gaj",
+                      "Marla",
+                      "Bigha",
+                      "Bigha-Pucca",
+                      "Bigha-Kachha",
+                      "Biswa",
+                      "Biswa-Pucca",
+                      "Kanal",
+                      "Killa",
+                      "Kattha",
+                      "Ghumaon"
+                    ]
+                  },
+                  "bedroom": {
+                    "type": "string"
+                  },
+                  "bathroom": {
+                    "type": "string"
+                  },
+                  "kitchen": {
+                    "type": "string"
+                  },
+                  "openParking": {
+                    "type": "string"
+                  },
+                  "closeParking": {
+                    "type": "string"
+                  },
+                  "livingRoom": {
+                    "type": "string"
+                  },
+                  "balcony": {
+                    "type": "string"
+                  },
+                  "dinningRoom": {
+                    "type": "string"
+                  },
+                  "floor": {
+                    "type": "string"
+                  },
+                  "poojaRoom": {
+                    "type": "string"
+                  },
+                  "otherFeatured": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "lobby": {
+                    "type": "string"
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "North",
+                      "South",
+                      "East",
+                      "West",
+                      "North-East",
+                      "North-West",
+                      "South-East",
+                      "South-West"
+                    ]
+                  },
+                  "purchaseType": {
+                    "type": "string",
+                    "enum": [
+                      "New Booking",
+                      "Resale"
+                    ],
+                    "default": "New Booking"
+                  },
+                  "constructionStatus": {
+                    "type": "string",
+                    "enum": [
+                      "Ready to Move",
+                      "Under Construction"
+                    ],
+                    "default": "Ready to Move"
+                  },
+                  "images": {
+                    "type": "array",
+                    "description": "files",
+                    "items": {}
+                  },
+                  "videos": {
+                    "type": "array",
+                    "description": "files",
+                    "items": {}
+                  },
+                  "documents": {
+                    "type": "array",
+                    "description": "files",
+                    "items": {}
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "locality": {
+                    "type": "string"
+                  },
+                  "owner": {
+                    "type": "string"
+                  },
+                  "ownerContact": {
+                    "type": "string"
+                  },
+                  "ownerId": {
+                    "type": "string"
+                  },
+                  "commission": {
+                    "type": "string"
+                  },
+                  "age": {
+                    "type": "string"
+                  },
+                  "possession": {
+                    "type": "string",
+                    "enum": [
+                      "Immediate",
+                      "Between 1 Month",
+                      "Between 2 Month",
+                      "Between 3 Month",
+                      "Between 6 Months",
+                      "2023",
+                      "2024",
+                      "2025",
+                      "2026",
+                      "2027",
+                      "2028",
+                      "2029",
+                      "2030"
+                    ]
+                  },
+                  "furnishingDetails": {
+                    "type": "object",
+                    "properties": {
+                      "ac": {
+                        "type": "number"
+                      },
+                      "stove": {
+                        "type": "number"
+                      },
+                      "modularKitchen": {
+                        "type": "number"
+                      },
+                      "fans": {
+                        "type": "number"
+                      },
+                      "fridge": {
+                        "type": "number"
+                      },
+                      "light": {
+                        "type": "number"
+                      },
+                      "beds": {
+                        "type": "number"
+                      },
+                      "microwave": {
+                        "type": "number"
+                      },
+                      "dinningTable": {
+                        "type": "number"
+                      },
+                      "tv": {
+                        "type": "number"
+                      },
+                      "dressingTable": {
+                        "type": "number"
+                      },
+                      "tvWallPanel": {
+                        "type": "number"
+                      },
+                      "wardrobe": {
+                        "type": "number"
+                      },
+                      "washingMachine": {
+                        "type": "number"
+                      },
+                      "geyser": {
+                        "type": "number"
+                      },
+                      "curtains": {
+                        "type": "number"
+                      },
+                      "sofa": {
+                        "type": "number"
+                      },
+                      "waterPurifier": {
+                        "type": "number"
+                      },
+                      "exhaust": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "ac",
+                      "stove",
+                      "modularKitchen",
+                      "fans",
+                      "fridge",
+                      "light",
+                      "beds",
+                      "microwave",
+                      "dinningTable",
+                      "tv",
+                      "dressingTable",
+                      "tvWallPanel",
+                      "wardrobe",
+                      "washingMachine",
+                      "geyser",
+                      "curtains",
+                      "sofa",
+                      "waterPurifier",
+                      "exhaust"
+                    ]
+                  },
+                  "facilities": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "string"
+                        },
+                        "icon": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "title",
+                        "icon"
+                      ]
+                    }
+                  },
+                  "sold": {
+                    "type": "boolean",
+                    "default": false
+                  }
+                },
+                "required": [
+                  "title",
+                  "description",
+                  "price",
+                  "type",
+                  "category",
+                  "status",
+                  "featured",
+                  "address",
+                  "locality",
+                  "owner",
+                  "ownerContact",
+                  "commission",
+                  "possession"
+                ]
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Property"
+        ]
+      }
     }
   },
   "components": {
