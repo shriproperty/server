@@ -30,10 +30,10 @@ import {
 import { StatusCodes } from 'http-status-codes';
 
 /* ----------------------------- SECTION add new listing ---------------------------- */
-export async function createListingHandler(
+export const createListingHandler = async (
 	req: Request<{}, {}, CreateListingBody>,
 	res: Response
-) {
+) => {
 	try {
 		// ANCHOR Get Inputs
 
@@ -163,12 +163,12 @@ export async function createListingHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* -------------------------------- !SECTION Create Property End -------------------------------- */
 
 /* --------------------------- SECTION get all properties --------------------------- */
-export async function getAllListingsHandler(req: Request, res: Response) {
+export const getAllListingsHandler = async (req: Request, res: Response) => {
 	try {
 		const properties = await ListingModel.find();
 
@@ -186,15 +186,15 @@ export async function getAllListingsHandler(req: Request, res: Response) {
 			data: {},
 		});
 	}
-}
+};
 
 /* --------------------------- !SECTION get all property end -------------------------- */
 
 /* --------------------------- SECTION get single property -------------------------- */
-export async function getSingleListingHandler(
+export const getSingleListingHandler = async (
 	req: Request<GetSingleListingParams>,
 	res: Response
-) {
+) => {
 	try {
 		const { id } = req.params;
 
@@ -221,15 +221,15 @@ export async function getSingleListingHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* --------------------------- !SECTION get single end -------------------------- */
 
 /* ----------------------------- SECTION update listing ---------------------------- */
-export async function updateListingHandler(
+export const updateListingHandler = async (
 	req: Request<UpdateListingParams, {}, UpdateListingBody>,
 	res: Response
-) {
+) => {
 	try {
 		// ANCHOR get inputs
 		const { id } = req.params;
@@ -370,15 +370,15 @@ export async function updateListingHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* ---------------------- !SECTION update property end ---------------------- */
 
 /* ----------------------------- SECTION delete property ---------------------------- */
-export async function deleteListingHandler(
+export const deleteListingHandler = async (
 	req: Request<DeleteListingParams>,
 	res: Response
-) {
+) => {
 	try {
 		const { id } = req.params;
 
@@ -439,15 +439,15 @@ export async function deleteListingHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* ----------------------------- !SECTION delete property end ---------------------------- */
 
 /* ----------------------------- SECTION approve listing ---------------------------- */
-export async function approveListingHandler(
+export const approveListingHandler = async (
 	req: Request<ApproveListingParams>,
 	res: Response
-) {
+) => {
 	try {
 		const { id } = req.params;
 
@@ -512,15 +512,15 @@ export async function approveListingHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* -------------------------------- !SECTION approve listing end -------------------------------- */
 
 /* -------------------------- SECTION delete specific File -------------------------- */
-export async function deleteSpecificFileFromListingHandler(
+export const deleteSpecificFileFromListingHandler = async (
 	req: Request<DeleteSpecificFileFromListingParams>,
 	res: Response
-) {
+) => {
 	try {
 		const { key, id, type } = req.params;
 
@@ -578,6 +578,6 @@ export async function deleteSpecificFileFromListingHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* -------------------------------- !SECTION delete file end -------------------------------- */

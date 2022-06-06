@@ -10,7 +10,7 @@ import { ResetPasswordBody } from '../schemas/user.schema';
 
 /* ---------------------------- SECTION get all users ---------------------------- */
 
-export async function getAllHandler(req: Request, res: Response) {
+export const getAllHandler = async (req: Request, res: Response) => {
 	try {
 		const users = await UserModel.find({});
 
@@ -28,16 +28,16 @@ export async function getAllHandler(req: Request, res: Response) {
 			data: {},
 		});
 	}
-}
+};
 
 /* -------------------------------- !SECTION Get all users end -------------------------------- */
 
 /* ------------------------- SECTION get single user ------------------------ */
 
-export async function getSingleUserHandler(
+export const getSingleUserHandler = async (
 	req: Request<GetSingleUserParams, {}, {}, GetSingleUserQuery>,
 	res: Response
-) {
+) => {
 	try {
 		const { id } = req.params;
 		const { listings, properties } = req.query;
@@ -87,15 +87,15 @@ export async function getSingleUserHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* -------------------------- !SECTION get single user end -------------------------- */
 
 /* -------------------------- SECTION - reset password ------------------------- */
-export async function resetPasswordHandler(
+export const resetPasswordHandler = async (
 	req: Request<{}, {}, ResetPasswordBody>,
 	res: Response
-) {
+) => {
 	try {
 		const { email, newPassword } = req.body;
 
@@ -128,6 +128,6 @@ export async function resetPasswordHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* -------------------------------- !SECTION -------------------------------- */

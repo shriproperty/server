@@ -7,10 +7,10 @@ import { LoginBody, SignupBody } from '../schemas/auth.schema';
 import { StatusCodes } from 'http-status-codes';
 
 /* --------------------------------- ANCHOR Signup --------------------------------- */
-export async function signupHandler(
+export const signupHandler = async (
 	req: Request<{}, {}, SignupBody>,
 	res: Response
-) {
+) => {
 	try {
 		const { name, email, phone, password } = req.body;
 
@@ -52,13 +52,13 @@ export async function signupHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* ---------------------------------- ANCHOR login --------------------------------- */
-export async function loginHandler(
+export const loginHandler = async (
 	req: Request<{}, {}, LoginBody>,
 	res: Response
-) {
+) => {
 	try {
 		const { email, password } = req.body;
 
@@ -92,21 +92,20 @@ export async function loginHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* ---------------------------------- ANCHOR logout --------------------------------- */
 
-export function logoutHandler(req: Request, res: Response) {
-	return res.clearCookie('token').status(StatusCodes.OK).json({
+export const logoutHandler = (req: Request, res: Response) =>
+	res.clearCookie('token').status(StatusCodes.OK).json({
 		success: true,
 		message: 'User logged out successfully',
 		data: {},
 	});
-}
 
 // /* ------------------------------ ANCHOR is logged in ------------------------------ */
 
-export async function isLoggedInHandler(req: Request, res: Response) {
+export const isLoggedInHandler = async (req: Request, res: Response) => {
 	try {
 		const { token } = req.cookies;
 
@@ -136,4 +135,4 @@ export async function isLoggedInHandler(req: Request, res: Response) {
 			data: {},
 		});
 	}
-}
+};

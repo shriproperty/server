@@ -13,10 +13,10 @@ import logger from '../helpers/logger.helper';
 import { StatusCodes } from 'http-status-codes';
 
 /* --------------------------------- ANCHOR create --------------------------------- */
-export async function registerNewTempUserHandler(
+export const registerNewTempUserHandler = async (
 	req: Request<{}, {}, RegisterNewBody>,
 	res: Response
-) {
+) => {
 	try {
 		const { name, email, phone } = req.body;
 
@@ -40,10 +40,10 @@ export async function registerNewTempUserHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* ------------------------------ ANCHOR get all users ----------------------------- */
-export async function getAllTempUsersHandler(req: Request, res: Response) {
+export const getAllTempUsersHandler = async (req: Request, res: Response) => {
 	try {
 		const users = await TempUserModel.find();
 
@@ -60,17 +60,17 @@ export async function getAllTempUsersHandler(req: Request, res: Response) {
 			data: {},
 		});
 	}
-}
+};
 
 /* ------------------------------- ANCHOR update user calling status for admin ------------------------------ */
-export async function updateTempUserCallingStatusHandler(
+export const updateTempUserCallingStatusHandler = async (
 	req: Request<
 		UpdateTempUserCallingStatusParams,
 		{},
 		UpdateTempUserCallingStatusBody
 	>,
 	res: Response
-) {
+) => {
 	try {
 		const { id } = req.params;
 		const { callingStatus, callAgainDate, talkProgress } = req.body;
@@ -131,13 +131,13 @@ export async function updateTempUserCallingStatusHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* --------------------------- ANCHOR delete user --------------------------- */
-export async function deleteTempUserHandler(
+export const deleteTempUserHandler = async (
 	req: Request<DeleteTempUserParams, {}, {}>,
 	res: Response
-) {
+) => {
 	try {
 		const { id } = req.params;
 
@@ -165,10 +165,10 @@ export async function deleteTempUserHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* ------------------------------- ANCHOR verify user ------------------------------ */
-export function verifyTempUserHandler(req: Request, res: Response) {
+export const verifyTempUserHandler = (req: Request, res: Response) => {
 	try {
 		const { tempUserToken, token } = req.cookies;
 
@@ -216,4 +216,4 @@ export function verifyTempUserHandler(req: Request, res: Response) {
 			data: {},
 		});
 	}
-}
+};

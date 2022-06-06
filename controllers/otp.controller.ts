@@ -5,7 +5,7 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
 /* ------------------------------- ANCHOR send otp ------------------------------- */
-export async function sendOtpHandler(req: Request, res: Response) {
+export const sendOtpHandler = async (req: Request, res: Response) => {
 	try {
 		const { email } = req.body;
 
@@ -42,10 +42,10 @@ export async function sendOtpHandler(req: Request, res: Response) {
 			data: {},
 		});
 	}
-}
+};
 
 /* ------------------------------- ANCHOR verify otp ------------------------------- */
-export async function verifyOtpHandler(req: Request, res: Response) {
+export const verifyOtpHandler = async (req: Request, res: Response) => {
 	try {
 		const { otp, email } = req.body;
 
@@ -76,4 +76,4 @@ export async function verifyOtpHandler(req: Request, res: Response) {
 			data: {},
 		});
 	}
-}
+};

@@ -46,10 +46,10 @@ interface GetAllPropertiesConditions {
 }
 
 /* ----------------------------- SECTION create property ----------------------------- */
-export async function createPropertyHandler(
+export const createPropertyHandler = async (
 	req: Request<{}, {}, CreatePropertyBody>,
 	res: Response
-) {
+) => {
 	try {
 		const parsedFacilities: Facility[] = [];
 		const images: S3File[] = [];
@@ -160,15 +160,15 @@ export async function createPropertyHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* -------------------------------- !SECTION Create Property End -------------------------------- */
 
 // /* --------------------------- SECTION get all properties --------------------------- */
-export async function getAllPropertiesHandler(
+export const getAllPropertiesHandler = async (
 	req: Request<{}, {}, {}, GetAllPropertiesQuery>,
 	res: Response
-) {
+) => {
 	try {
 		const {
 			title,
@@ -258,15 +258,15 @@ export async function getAllPropertiesHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* ------------------------------ !SECTION Get all property end ------------------------------ */
 
 /* --------------------------- SECTION get single property -------------------------- */
-export async function getSinglePropertyHandler(
+export const getSinglePropertyHandler = async (
 	req: Request<GetSinglePropertyParams>,
 	res: Response
-) {
+) => {
 	try {
 		const { id } = req.params;
 
@@ -286,15 +286,15 @@ export async function getSinglePropertyHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* -------------------- !SECTION get single property end -------------------- */
 
 /* ----------------------------- SECTION update property ---------------------------- */
-export async function updatePropertyHandler(
+export const updatePropertyHandler = async (
 	req: Request<UpdatePropertyParams, {}, UpdatePropertyBody>,
 	res: Response
-) {
+) => {
 	try {
 		// ANCHOR get inputs
 		const { id } = req.params;
@@ -433,15 +433,15 @@ export async function updatePropertyHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* ---------------------- !SECTION update property end ---------------------- */
 
 /* ----------------------------- SECTION delete property ---------------------------- */
-export async function deletePropertyHandler(
+export const deletePropertyHandler = async (
 	req: Request<DeletePropertyParams>,
 	res: Response
-) {
+) => {
 	try {
 		const { id } = req.params;
 
@@ -499,15 +499,15 @@ export async function deletePropertyHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* -------------------------------- !SECTION delete property end -------------------------------- */
 
 /* -------------------------- SECTION delete specific File -------------------------- */
-export async function deleteSpecificFileFromPropertyHandler(
+export const deleteSpecificFileFromPropertyHandler = async (
 	req: Request<DeleteSpecificFileFromPropertyParams>,
 	res: Response
-) {
+) => {
 	try {
 		const { key, id, type } = req.params;
 
@@ -565,15 +565,15 @@ export async function deleteSpecificFileFromPropertyHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* -------------------------------- !SECTION delete file end -------------------------------- */
 
 /* --------------------------------- SECTION move property to listings to approve them -------------------------------- */
-export async function movePropertyToListingsHandler(
+export const movePropertyToListingsHandler = async (
 	req: Request<MovePropertyToListingsParams>,
 	res: Response
-) {
+) => {
 	try {
 		const { id } = req.params;
 
@@ -636,6 +636,6 @@ export async function movePropertyToListingsHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* -------------------------------- !SECTION -------------------------------- */

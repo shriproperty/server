@@ -9,10 +9,10 @@ import {
 } from '../schemas/contact.schema';
 
 /* ---------------------------------- ANCHOR create new ---------------------------------- */
-export async function createNewContactHandler(
+export const createNewContactHandler = async (
 	req: Request<{}, {}, CreateContactBody>,
 	res: Response
-) {
+) => {
 	try {
 		// get input from user
 		const { subject, name, email, phone, message } = req.body;
@@ -54,10 +54,10 @@ export async function createNewContactHandler(
 			data: {},
 		});
 	}
-}
+};
 
 /* ---------------------------- ANCHOR get all contacts ---------------------------- */
-export async function getAllContactsHandler(req: Request, res: Response) {
+export const getAllContactsHandler = async (req: Request, res: Response) => {
 	try {
 		const contacts = await ContactModel.find();
 
@@ -75,13 +75,13 @@ export async function getAllContactsHandler(req: Request, res: Response) {
 			data: {},
 		});
 	}
-}
+};
 
 /* ------------------------------ ANCHOR update status ----------------------------- */
-export async function updateContactStatus(
+export const updateContactStatus = async (
 	req: Request<UpdateContactStatusParams, {}, UpdateContactStatusBody>,
 	res: Response
-) {
+) => {
 	try {
 		const { id } = req.params;
 		const { status } = req.body;
@@ -124,10 +124,10 @@ export async function updateContactStatus(
 			data: {},
 		});
 	}
-}
+};
 
 /* ----------------------------- ANCHOR delete contact ---------------------------- */
-export async function deleteContactHandler(req: Request, res: Response) {
+export const deleteContactHandler = async (req: Request, res: Response) => {
 	try {
 		const { id } = req.params;
 
@@ -155,4 +155,4 @@ export async function deleteContactHandler(req: Request, res: Response) {
 			data: {},
 		});
 	}
-}
+};
