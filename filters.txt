@@ -1,8 +1,0 @@
-type (dropdown)
-status (dropdown)
-category (dropdown)
-size and unit (input) eg: 100 Gaj
-floor (input)
-parking (input)
-Bedrooms
-bathroom

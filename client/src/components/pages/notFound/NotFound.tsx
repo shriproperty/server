@@ -1,17 +1,21 @@
-import propTypes from 'prop-types';
 import { HPrimary } from '../../util/typography/Typography';
 import { Helmet } from 'react-helmet-async';
 import './notFound.scss';
+import { FC } from 'react';
+
+interface NotFoundProps {
+	comingSoon?: boolean;
+}
 
 /**
  * Not Found component
- * @param {boolean} comingSoon if `true` then show coming soon image
- * @return {JSX.Element} Component
+ * if `comingSoon` prop is `true` than coming soon image will be
+ * shown instead of 404
  */
-const NotFound = ({ comingSoon }) => {
+const NotFound: FC<NotFoundProps> = props => {
 	return (
 		<section className="notFound-section">
-			{comingSoon ? (
+			{props.comingSoon ? (
 				<>
 					<img
 						src="/images/illustrations/coming-soon.svg"
@@ -50,10 +54,6 @@ const NotFound = ({ comingSoon }) => {
 			)}
 		</section>
 	);
-};
-
-NotFound.propTypes = {
-	comingSoon: propTypes.bool,
 };
 
 export default NotFound;

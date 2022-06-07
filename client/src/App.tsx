@@ -16,52 +16,53 @@ import AddProperty from './components/pages/admin/property/form/Form';
 
 const Account = lazy(() => import('./components/pages/account/Account'));
 
-const TempUsers = lazy(() =>
-	import('./components/pages/admin/tempUsers/TempUsers')
+const TempUsers = lazy(
+	() => import('./components/pages/admin/tempUsers/TempUsers')
 );
-const UserUpdateProperty = lazy(() =>
-	import('./components/pages/updateProperty/UpdateProperty')
+const UserUpdateProperty = lazy(
+	() => import('./components/pages/updateProperty/UpdateProperty')
 );
 const NotFound = lazy(() => import('./components/pages/notFound/NotFound'));
-const Listings = lazy(() =>
-	import('./components/pages/admin/listings/Listings')
+const Listings = lazy(
+	() => import('./components/pages/admin/listings/Listings')
 );
-const AdminListing = lazy(() =>
-	import('./components/pages/admin/listing/Listing')
+const AdminListing = lazy(
+	() => import('./components/pages/admin/listing/Listing')
 );
 const Signup = lazy(() => import('./components/pages/signup/Signup'));
 const Login = lazy(() => import('./components/pages/login/Login'));
 const Form = lazy(() => import('./components/pages/home/form/Form'));
 const Users = lazy(() => import('./components/pages/admin/users/Users'));
 const User = lazy(() => import('./components/pages/admin/user/User'));
-const PendingListings = lazy(() =>
-	import('./components/pages/pendingListings/PendingListings')
+const PendingListings = lazy(
+	() => import('./components/pages/pendingListings/PendingListings')
 );
-const UpdatePendingListing = lazy(() =>
-	import('./components/pages/updatePendingListings/UpdatePendingListing')
+const UpdatePendingListing = lazy(
+	() =>
+		import('./components/pages/updatePendingListings/UpdatePendingListing')
 );
 
 const Admin = lazy(() => import('./components/pages/admin/Admin'));
-const UpdateProperty = lazy(() =>
-	import('./components/pages/admin/property/update/Update')
+const UpdateProperty = lazy(
+	() => import('./components/pages/admin/property/update/Update')
 );
 const Listing = lazy(() => import('./components/pages/listing/Listing'));
 const Nav = lazy(() => import('./components/layout/nav/Nav'));
 const Footer = lazy(() => import('./components/layout/footer/Footer'));
 
-const Properties = lazy(() =>
-	import('./components/pages/properties/Properties')
+const Properties = lazy(
+	() => import('./components/pages/properties/Properties')
 );
 const AllImages = lazy(() => import('./components/pages/allimages/Images'));
 const Hero = lazy(() => import('./components/pages/home/hero/Hero'));
-const PropertiesSection = lazy(() =>
-	import('./components/pages/home/properties/Properties')
+const PropertiesSection = lazy(
+	() => import('./components/pages/home/properties/Properties')
 );
-const Category = lazy(() =>
-	import('./components/pages/home/category/Category')
+const Category = lazy(
+	() => import('./components/pages/home/category/Category')
 );
-const ListingSection = lazy(() =>
-	import('./components/pages/home/listing/Listing')
+const ListingSection = lazy(
+	() => import('./components/pages/home/listing/Listing')
 );
 
 const Property = lazy(() => import('./components/pages/property/Property'));
@@ -134,7 +135,7 @@ const UserRoutes = () => {
 	const [propertyOtpModelOpened, setPropertyOtpModelOpened] = useState(false);
 
 	useEffect(() => {
-		get('/auth/is-logged-in').then(res => {
+		get('/auth/is-logged-in').then((res: any) => {
 			setUser({ isLoggedIn: res.success, data: res.data });
 			setAuthFormSubmit(false);
 		});
@@ -172,6 +173,7 @@ const UserRoutes = () => {
 						</main>
 					}
 				/>
+
 				<Route path="/properties" element={<Properties />} />
 				<Route
 					path="/properties/:id"
