@@ -18,6 +18,21 @@ declare global {
 		key: string;
 	}
 
+	interface User {
+		isLoggedIn: boolean;
+		data?:
+			| {
+					_id: string;
+					name: string;
+					email: string;
+					phone: string;
+					password: string;
+					properties: string[];
+					listings: string[];
+			  }
+			| {};
+	}
+
 	interface FurnishingDetails {
 		ac: number;
 		stove: number;

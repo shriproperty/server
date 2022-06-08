@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, lazy, Suspense, FC } from 'react';
 import {
 	BrowserRouter as Router,
 	Routes,
@@ -13,6 +13,8 @@ import './app.scss';
 
 import Contacts from './components/pages/admin/contacts/Contacts';
 import AddProperty from './components/pages/admin/property/form/Form';
+
+import { UserContext } from './helpers/Context';
 
 const Account = lazy(() => import('./components/pages/account/Account'));
 
@@ -67,7 +69,7 @@ const ListingSection = lazy(
 
 const Property = lazy(() => import('./components/pages/property/Property'));
 
-const App = () => {
+const App: FC = () => {
 	const [submit, setSubmit] = useState(false);
 
 	return (
@@ -129,21 +131,32 @@ const App = () => {
 };
 
 // created a different router to hide navbar in admin routes
-const UserRoutes = () => {
-	const [user, setUser] = useState({ isLoggedIn: false, data: {} });
+const UserRoutes: FC = () => {
+	const [user, setUser] = useState<User>({
+		isLoggedIn: false,
+		data: {},
+	});
 	const [authFormSubmit, setAuthFormSubmit] = useState(false);
 	const [propertyOtpModelOpened, setPropertyOtpModelOpened] = useState(false);
 
 	useEffect(() => {
-		get('/auth/is-logged-in').then((res: any) => {
-			setUser({ isLoggedIn: res.success, data: res.data });
-			setAuthFormSubmit(false);
-		});
+		get('/auth/is-logged-in')
+			.then((res: any) => {
+				setUser({ isLoggedIn: res.success, data: res.data });
+				console.log('submit');
+				setAuthFormSubmit(false);
+			})
+			.catch(() => {
+				setUser({ isLoggedIn: false, data: {} });
+				setAuthFormSubmit(false);
+			});
 	}, [authFormSubmit]);
 
 	return (
-		<>
-			<Nav user={user} />
+		<UserContext.Provider
+			value={{ isLoggedIn: user.isLoggedIn, data: user.data }}
+		>
+			<Nav />
 			<Routes>
 				<Route
 					path="/"
@@ -224,7 +237,7 @@ const UserRoutes = () => {
 				<Route path="*" element={<Navigate replace to="/404" />} />
 			</Routes>
 			<Footer />
-		</>
+		</UserContext.Provider>
 	);
 };
 

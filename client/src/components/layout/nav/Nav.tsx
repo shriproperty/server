@@ -1,18 +1,23 @@
-import { useState } from 'react';
+import { useState, useContext, FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Search from '@mui/icons-material/Search';
 import { Drawer } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { UserContext } from '../../../helpers/Context';
 
 import './nav.scss';
 import { BPrimary } from '../../util/button/Button';
 
-const Nav = ({ user }) => {
+const Nav: FC = () => {
 	const navigate = useNavigate();
 
 	const [search, setSearch] = useState('');
 	const [open, setOpen] = useState(false);
+
+	const user = useContext(UserContext);
+
+	console.log(user);
 
 	return (
 		<header>
