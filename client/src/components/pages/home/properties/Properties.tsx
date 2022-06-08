@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import { BPrimary } from '../../../util/button/Button';
@@ -16,12 +16,12 @@ import MapIcon from '@mui/icons-material/Map';
 import './properties.scss';
 import Loader from '../../../util/loader/Loader';
 
-const Properties = () => {
-	const [response, setResponse] = useState([]);
+const Properties: FC = () => {
+	const [response, setResponse] = useState<Property[]>([]);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		get('/properties/all?featured=true').then(data => {
+		get('/properties/all?featured=true').then((data: any) => {
 			setResponse(data.data);
 			setLoading(false);
 		});
