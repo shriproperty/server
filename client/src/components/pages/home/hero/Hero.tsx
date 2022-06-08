@@ -1,9 +1,10 @@
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { BPrimary } from '../../../util/button/Button';
 
 import './hero.scss';
 
-const Hero = () => {
+const Hero: FC = () => {
 	return (
 		<section className="hero-section">
 			<div className="hero-section__heading">
