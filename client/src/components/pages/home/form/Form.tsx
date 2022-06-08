@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, FormEvent, FormEventHandler, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { BPrimary } from '../../../util/button/Button';
 import { HPrimary } from '../../../util/typography/Typography';
@@ -7,64 +7,71 @@ import { post } from '../../../../api/post';
 
 import './form.scss';
 
-const Form = () => {
-	const [name, setName] = useState('');
-	const [email, setEmail] = useState('');
-	const [phone, setPhone] = useState('');
-	const [subject, setSubject] = useState('');
-	const [message, setMessage] = useState('');
+const Form: FC = () => {
+	const [formData, setFormData] = useState({
+		name: '',
+		email: '',
+		phone: '',
+		subject: '',
+		message: '',
+	});
 	const [successMessage, setSuccessMessage] = useState('');
 	const [openSuccess, setOpenSuccess] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
 	const [openError, setOpenError] = useState(false);
 	const [loading, setLoading] = useState(false);
 
-	const submitHandler = e => {
+	const submitHandler: FormEventHandler = async (e: FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
 
-		if (phone.length !== 10) {
+		if (formData.phone.length !== 10) {
 			setErrorMessage('Phone number must be 10 digits');
 			setOpenError(true);
 			setLoading(false);
 			return;
 		}
 
-		if (name.length < 3 || name.length > 30) {
+		if (formData.name.length < 3 || formData.name.length > 30) {
 			setErrorMessage('Name must be between 3 and 30 characters');
 			setOpenError(true);
 			setLoading(false);
 			return;
 		}
 
-		if (subject.length > 200) {
+		if (formData.subject.length > 200) {
 			setErrorMessage('Subject must be less than 200 characters');
 			setOpenError(true);
 			setLoading(false);
 			return;
 		}
 
-		if (message.length > 1000) {
+		if (formData.message.length > 1000) {
 			setErrorMessage('Message must be less than 1000 characters');
 			setOpenError(true);
 			setLoading(false);
 			return;
 		}
 
-		post('/contacts/add', {
-			name,
-			email,
-			phone,
-			subject,
-			message,
-		}).then(res => {
-			setLoading(false);
+		const res = (await post('/contacts/add', formData)) as ApiResponse;
 
-			if (res.success === true) {
-				setSuccessMessage(res.message);
-				setOpenSuccess(true);
-			}
-		});
+		setLoading(false);
+
+		if (res.success === true) {
+			setSuccessMessage(res.message);
+			setOpenSuccess(true);
+
+			setFormData({
+				name: '',
+				email: '',
+				phone: '',
+				subject: '',
+				message: '',
+			});
+		} else {
+			setErrorMessage(res.message);
+			setOpenError(true);
+		}
 	};
 
 	return (
@@ -98,7 +105,10 @@ const Form = () => {
 						className="form-section__input"
 						label="Name"
 						variant="outlined"
-						onChange={e => setName(e.target.value)}
+						onChange={e =>
+							setFormData({ ...formData, name: e.target.value })
+						}
+						value={formData.name}
 						required
 						fullWidth
 					/>
@@ -106,7 +116,10 @@ const Form = () => {
 					<TextField
 						className="form-section__input"
 						label="Email"
-						onChange={e => setEmail(e.target.value)}
+						onChange={e =>
+							setFormData({ ...formData, email: e.target.value })
+						}
+						value={formData.email}
 						required
 						fullWidth
 					/>
@@ -115,9 +128,10 @@ const Form = () => {
 						className="form-section__input"
 						label="Phone"
 						type="number"
-						min="10"
-						max="10"
-						onChange={e => setPhone(e.target.value)}
+						onChange={e =>
+							setFormData({ ...formData, phone: e.target.value })
+						}
+						value={formData.phone}
 						required
 						fullWidth
 					/>
@@ -125,7 +139,13 @@ const Form = () => {
 					<TextField
 						className="form-section__input"
 						label="Subject"
-						onChange={e => setSubject(e.target.value)}
+						onChange={e =>
+							setFormData({
+								...formData,
+								subject: e.target.value,
+							})
+						}
+						value={formData.subject}
 						required
 						fullWidth
 					/>
@@ -134,7 +154,13 @@ const Form = () => {
 						label="Message"
 						className="form-section__input"
 						rows={10}
-						onChange={e => setMessage(e.target.value)}
+						onChange={e =>
+							setFormData({
+								...formData,
+								message: e.target.value,
+							})
+						}
+						value={formData.message}
 						required
 						fullWidth
 						multiline
