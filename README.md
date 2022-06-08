@@ -11,7 +11,7 @@ Shri Property is committed to delivering a high level of expertise, customer ser
 
 ## Tech Stack
 
-**Client:** React, Mui, Sass
+**Client:** React, Mui, Sass, Typescript
 
 **Server:** Node, Typescript, Express, Zod, Mongodb
 
