@@ -1,9 +1,10 @@
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { BPrimary } from '../../../util/button/Button';
 import { HPrimary } from '../../../util/typography/Typography';
 import './category.scss';
 
-const Category = () => {
+const Category: FC = () => {
 	return (
 		<section className="category-section">
 			<div className="category-section__headings">
