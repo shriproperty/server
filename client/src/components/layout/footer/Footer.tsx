@@ -3,8 +3,9 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
+import { FC } from 'react';
 
-const Footer = () => {
+const Footer: FC = () => {
 	return (
 		<footer>
 			<div className="footer-content">
