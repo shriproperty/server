@@ -4,8 +4,9 @@ import { HPrimary } from '../../../util/typography/Typography';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 import './listing.scss';
+import { FC } from 'react';
 
-const Listing = () => {
+const Listing: FC = () => {
 	return (
 		<section className="listing-section">
 			{/* Text container */}
@@ -21,7 +22,7 @@ const Listing = () => {
 					</div>
 					<div className="listing-content__point">
 						<CheckCircleIcon />
-						<h3>Get Listing Published</h3>
+						<h3>Get Listing Published For Free</h3>
 					</div>
 					<div className="listing-content__point">
 						<CheckCircleIcon />
