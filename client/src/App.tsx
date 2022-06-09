@@ -141,8 +141,6 @@ const UserRoutes: FC = () => {
 	const [propertyOtpModelOpened, setPropertyOtpModelOpened] = useState(false);
 
 	useEffect(() => {
-		console.log('run');
-
 		get('/auth/is-logged-in')
 			.then((res: any) => {
 				setUser({
