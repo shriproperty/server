@@ -14,7 +14,7 @@ import './app.scss';
 import Contacts from './components/pages/admin/contacts/Contacts';
 import AddProperty from './components/pages/admin/property/form/Form';
 
-import { UserContext } from './helpers/Context';
+import { UserContext, AuthFormSubmitContext } from './helpers/Context';
 
 const Account = lazy(() => import('./components/pages/account/Account'));
 
@@ -132,7 +132,8 @@ const App: FC = () => {
 
 // created a different router to hide navbar in admin routes
 const UserRoutes: FC = () => {
-	const [user, setUser] = useState<User>({
+	const [user, setUser] = useState<LoggedInUser | LoggedOutUser>({
+		loaded: false,
 		isLoggedIn: false,
 		data: {},
 	});
@@ -140,104 +141,109 @@ const UserRoutes: FC = () => {
 	const [propertyOtpModelOpened, setPropertyOtpModelOpened] = useState(false);
 
 	useEffect(() => {
+		console.log('run');
+
 		get('/auth/is-logged-in')
 			.then((res: any) => {
-				setUser({ isLoggedIn: res.success, data: res.data });
-				console.log('submit');
+				setUser({
+					loaded: true,
+					isLoggedIn: res.success,
+					data: res.data,
+				});
 				setAuthFormSubmit(false);
 			})
 			.catch(() => {
-				setUser({ isLoggedIn: false, data: {} });
+				setUser({ loaded: true, isLoggedIn: false, data: {} });
 				setAuthFormSubmit(false);
 			});
 	}, [authFormSubmit]);
 
 	return (
-		<UserContext.Provider
-			value={{ isLoggedIn: user.isLoggedIn, data: user.data }}
+		<AuthFormSubmitContext.Provider
+			value={{ authFormSubmit, setAuthFormSubmit }}
 		>
-			<Nav />
-			<Routes>
-				<Route
-					path="/"
-					element={
-						<main>
-							<Helmet>
-								<title>
-									Shri Property | live in your dreams
-								</title>
-								<link
-									rel="canonical"
-									href="https://shriproperty.com"
-								/>
-								<meta
-									name="description"
-									content="Shri Property is committed to delivering a high level of
-						expertise, customer service, and attention to detail to
-						sales of real estate, and rental
-						properties."
-								/>
-							</Helmet>
-							<Hero />
-							<PropertiesSection />
-							<Category />
-							<ListingSection />
-							<Form />
-						</main>
-					}
-				/>
-
-				<Route path="/properties" element={<Properties />} />
-				<Route
-					path="/properties/:id"
-					element={
-						<Property
-							propertyOtpModelOpened={propertyOtpModelOpened}
-							setPropertyOtpModelOpened={
-								setPropertyOtpModelOpened
-							}
-						/>
-					}
-				/>
-				<Route path="/listing" element={<Listing user={user} />} />
-				<Route path="/allimages/:id" element={<AllImages />} />
-
-				<Route
-					path="/signup"
-					element={<Signup setAuthFormSubmit={setAuthFormSubmit} />}
-				/>
-
-				<Route
-					path="/login"
-					element={<Login setAuthFormSubmit={setAuthFormSubmit} />}
-				/>
-
-				<Route
-					path="/account"
-					element={
-						<Account
-							setAuthFormSubmit={setAuthFormSubmit}
-							user={user}
-						/>
-					}
-				/>
-				<Route
-					path="/account/pending-listings"
-					element={<PendingListings user={user} />}
-				/>
-				<Route
-					path="/property/update/:id"
-					element={<UserUpdateProperty />}
-				/>
-				<Route
-					path="/account/pending-listings/:id"
-					element={<UpdatePendingListing />}
-				/>
-				<Route path="/404" element={<NotFound />} />
-				<Route path="*" element={<Navigate replace to="/404" />} />
-			</Routes>
-			<Footer />
-		</UserContext.Provider>
+			<UserContext.Provider
+				value={{
+					loaded: user.loaded,
+					isLoggedIn: user.isLoggedIn,
+					data: user.data,
+				}}
+			>
+				<Nav />
+				<Routes>
+					<Route
+						path="/"
+						element={
+							<main>
+								<Helmet>
+									<title>
+										Shri Property | live in your dreams
+									</title>
+									<link
+										rel="canonical"
+										href="https://shriproperty.com"
+									/>
+									<meta
+										name="description"
+										content="Shri Property is committed to delivering a high level of
+								expertise, customer service, and attention to detail to
+								sales of real estate, and rental
+								properties."
+									/>
+								</Helmet>
+								<Hero />
+								<PropertiesSection />
+								<Category />
+								<ListingSection />
+								<Form />
+							</main>
+						}
+					/>
+					<Route path="/properties" element={<Properties />} />
+					<Route
+						path="/properties/:id"
+						element={
+							<Property
+								propertyOtpModelOpened={propertyOtpModelOpened}
+								setPropertyOtpModelOpened={
+									setPropertyOtpModelOpened
+								}
+							/>
+						}
+					/>
+					<Route path="/listing" element={<Listing user={user} />} />
+					<Route path="/allimages/:id" element={<AllImages />} />
+					<Route
+						path="/signup"
+						element={
+							<Signup setAuthFormSubmit={setAuthFormSubmit} />
+						}
+					/>
+					<Route
+						path="/login"
+						element={
+							<Login setAuthFormSubmit={setAuthFormSubmit} />
+						}
+					/>
+					<Route path="/account" element={<Account />} />
+					<Route
+						path="/account/pending-listings"
+						element={<PendingListings user={user} />}
+					/>
+					<Route
+						path="/property/update/:id"
+						element={<UserUpdateProperty />}
+					/>
+					<Route
+						path="/account/pending-listings/:id"
+						element={<UpdatePendingListing />}
+					/>
+					<Route path="/404" element={<NotFound />} />
+					<Route path="*" element={<Navigate replace to="/404" />} />
+				</Routes>
+				<Footer />
+			</UserContext.Provider>
+		</AuthFormSubmitContext.Provider>
 	);
 };
 

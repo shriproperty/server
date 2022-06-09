@@ -7,7 +7,6 @@ import { unlink } from 'fs';
 export function deleteSingleFileFromDisk(path: string): string {
 	unlink(path, err => {
 		if (err) {
-			console.log(err);
 			throw err;
 		}
 	});

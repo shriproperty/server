@@ -5,7 +5,7 @@ import './button.scss';
 import { FC } from 'react';
 
 interface BPrimaryProps {
-	title: string;
+	title: string | JSX.Element;
 	className?: string;
 	type?: ButtonTypes;
 	loading?: boolean;

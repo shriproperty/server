@@ -17,7 +17,6 @@ const Nav: FC = () => {
 
 	const user = useContext(UserContext);
 
-	console.log(user);
 
 	return (
 		<header>

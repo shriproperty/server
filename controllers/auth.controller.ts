@@ -119,7 +119,9 @@ export const isLoggedInHandler = async (req: Request, res: Response) => {
 			});
 		}
 
-		const user = await UserModel.findById(isLoggedIn.id);
+		const user = await UserModel.findById(isLoggedIn.id)
+			.populate('properties')
+			.populate('listings');
 
 		return res.status(StatusCodes.OK).json({
 			success: true,

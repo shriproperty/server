@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC, useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import get from '../../../api/get';
 import { Link, useNavigate } from 'react-router-dom';
 import { BPrimary } from '../../util/button/Button';
 import { HPrimary } from '../../util/typography/Typography';
 import { AWarning } from '../../util/alert/Alert';
-import Loader from '../../util/loader/Loader';
 import EditIcon from '@mui/icons-material/Edit';
 import {
 	Table,
@@ -15,23 +14,22 @@ import {
 	TableCell,
 	TableHead,
 } from '@mui/material';
+import { UserContext, AuthFormSubmitContext } from '../../../helpers/Context';
 import './account.scss';
 
-const Account = ({ setAuthFormSubmit, user }) => {
+const Account: FC = () => {
 	const navigate = useNavigate();
-
-	const [response, setResponse] = useState([]);
-	const [propertyLoading, setPropertyLoading] = useState(true);
+	const user = useContext(UserContext) as LoggedInUser;
+	const { setAuthFormSubmit } = useContext(AuthFormSubmitContext);
+	const [openWarning, setOpenWarning] = useState(false);
 
 	useEffect(() => {
-		if (user.isLoggedIn) {
-			get(`/users/single/${user.data._id}?properties=true`).then(data => {
-				setResponse(data.data);
-				setPropertyLoading(false);
-			});
-		} else {
-			navigate('/login');
+		if (user.loaded && !user.isLoggedIn) {
+			return navigate('/login');
 		}
+
+		if (user.isLoggedIn === true && user.data.properties.length <= 0)
+			setOpenWarning(true);
 	}, []);
 
 	const logoutHandler = () => {
@@ -63,9 +61,7 @@ const Account = ({ setAuthFormSubmit, user }) => {
 			</div>
 			<h1 className="listing-heading">Approved Listing</h1>
 
-			{propertyLoading ? (
-				<Loader fullScreen />
-			) : response.properties.length > 0 ? (
+			{user.isLoggedIn && user.data.properties.length > 0 ? (
 				<Table className="admin-page__table">
 					<TableHead>
 						<TableRow>
@@ -95,13 +91,17 @@ const Account = ({ setAuthFormSubmit, user }) => {
 					</TableHead>
 
 					<TableBody>
-						{response.properties.map(item => (
+						{user.data.properties.map(item => (
 							<TableRow key={item._id}>
 								<TableCell className="contact-table__cell">
 									{item.title}
 								</TableCell>
 
-								<TableCell className="contact-table__cell table_address">
+								<TableCell
+									className={`contact-table__cell ${
+										item.location && 'table_address'
+									}`}
+								>
 									{item.location && (
 										<a
 											href={item.location}
@@ -140,7 +140,11 @@ const Account = ({ setAuthFormSubmit, user }) => {
 					</TableBody>
 				</Table>
 			) : (
-				<AWarning title="No Approved Properties" open={true} />
+				<AWarning
+					title="No Approved Properties"
+					open={openWarning}
+					setOpen={setOpenWarning}
+				/>
 			)}
 		</main>
 	);
