@@ -19,8 +19,10 @@ export function sendEmail(
 	text: string
 ): Promise<SentMessageInfo> {
 	const transporter = nodemailer.createTransport({
-		service: 'gmail',
-		rejectUnauthorized: true,
+		host: 'smtp.gmail.com',
+		port: 587,
+		secure: false,
+		requireTLS: true,
 		auth: {
 			user: user,
 			pass: pass,
