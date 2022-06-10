@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext, FC, FormEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { TextField } from '@mui/material';
@@ -6,15 +6,17 @@ import { post } from '../../../api/post';
 import { patchRequest } from '../../../api/patch';
 import { BPrimary } from '../../util/button/Button';
 import { SPrimary } from '../../util/typography/Typography';
-import { AError } from '../../../components/util/alert/Alert';
+import { AError } from '../../util/alert/Alert';
 import Modal from '../../util/modal/Modal';
+import { AuthFormSubmitContext } from '../../../helpers/Context';
 
 import './login.scss';
 
-const Login = ({ setAuthFormSubmit }) => {
+const Login: FC = () => {
 	const navigate = useNavigate();
+	const { setAuthFormSubmit } = useContext(AuthFormSubmitContext);
 
-	const [email, setEmail] = useState('');
+	const [email, setEmail] = useState('youremail@example.com');
 	const [password, setPassword] = useState('');
 	const [newPassword, setNewPassword] = useState('');
 	const [errorOpen, setErrorOpen] = useState(false);
@@ -28,15 +30,15 @@ const Login = ({ setAuthFormSubmit }) => {
 	const [errorVerifyModalMessage, setErrorVerifyModalMessage] = useState('');
 	const [otp, setOtp] = useState('');
 
-	const submitHandler = async e => {
+	const submitHandler = async (e: FormEvent) => {
 		e.preventDefault();
 
 		setBtnLoading(true);
 
-		const res = await post('/auth/login', {
+		const res = (await post('/auth/login', {
 			email,
 			password,
-		});
+		})) as ApiResponse;
 
 		setBtnLoading(false);
 
@@ -49,13 +51,13 @@ const Login = ({ setAuthFormSubmit }) => {
 		}
 	};
 
-	const sendOtpHandler = async e => {
+	const sendOtpHandler = async (e: FormEvent) => {
 		e.preventDefault();
 		setBtnLoading(true);
 
-		const sendOtpResponse = await post('/otp/send', {
+		const sendOtpResponse = (await post('/otp/send', {
 			email,
-		});
+		})) as ApiResponse;
 
 		setBtnLoading(false);
 
@@ -68,25 +70,25 @@ const Login = ({ setAuthFormSubmit }) => {
 		}
 	};
 
-	const verifyOtpHandler = async e => {
+	const verifyOtpHandler = async (e: FormEvent) => {
 		e.preventDefault();
 		setBtnLoading(true);
 
-		const verifyOtpResponse = await post('/otp/verify', {
+		const verifyOtpResponse = (await post('/otp/verify', {
 			email,
 			otp,
-		});
+		})) as ApiResponse;
 
 		setBtnLoading(false);
 		// if otp is valid than create new user
 		if (verifyOtpResponse.success) {
-			const updatedUserPassword = await patchRequest(
+			const updatedUserPassword = (await patchRequest(
 				'/users/reset-password',
 				{
 					email,
 					newPassword,
 				}
-			);
+			)) as ApiResponse;
 
 			// if user is created successfully than save token and hide modal
 			if (updatedUserPassword.success) {
@@ -200,6 +202,7 @@ const Login = ({ setAuthFormSubmit }) => {
 						label="Email"
 						variant="outlined"
 						type="email"
+						value={email}
 						onChange={e => setEmail(e.target.value)}
 						fullWidth
 						required

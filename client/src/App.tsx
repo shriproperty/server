@@ -213,12 +213,7 @@ const UserRoutes: FC = () => {
 					<Route path="/listing" element={<Listing user={user} />} />
 					<Route path="/allimages/:id" element={<AllImages />} />
 					<Route path="/signup" element={<Signup />} />
-					<Route
-						path="/login"
-						element={
-							<Login setAuthFormSubmit={setAuthFormSubmit} />
-						}
-					/>
+					<Route path="/login" element={<Login />} />
 					<Route path="/account" element={<Account />} />
 					<Route
 						path="/account/pending-listings"
