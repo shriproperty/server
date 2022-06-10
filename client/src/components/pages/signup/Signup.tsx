@@ -1,23 +1,27 @@
-import { useState } from 'react';
+import { useState, useContext, FC, FormEvent, ChangeEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import { BPrimary } from '../../util/button/Button';
 import { post } from '../../../api/post';
 import { SPrimary } from '../../util/typography/Typography';
-import { AError } from '../../../components/util/alert/Alert';
+import { AError } from '../../util/alert/Alert';
 import Modal from '../../util/modal/Modal';
+import { AuthFormSubmitContext } from '../../../helpers/Context';
 
 import './signup.scss';
 import { Helmet } from 'react-helmet-async';
 
-const Signup = ({ setAuthFormSubmit }) => {
+const Signup: FC = () => {
 	const navigate = useNavigate();
+	const { setAuthFormSubmit } = useContext(AuthFormSubmitContext);
 
-	const [name, setName] = useState('');
-	const [email, setEmail] = useState('');
-	const [phone, setPhone] = useState('');
-	const [password, setPassword] = useState('');
-	const [cpassword, setCpassword] = useState('');
+	const [user, setUser] = useState({
+		name: 'Your Name',
+		email: 'example@gmail.com',
+		phone: '123456789',
+		password: '',
+		cpassword: '',
+	});
 
 	const [errorOpen, setErrorOpen] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
@@ -27,19 +31,19 @@ const Signup = ({ setAuthFormSubmit }) => {
 	const [otp, setOtp] = useState('');
 	const [btnLoading, setBtnLoading] = useState(false);
 
-	const sendOtpHandler = async e => {
+	const sendOtpHandler = async (e: FormEvent) => {
 		e.preventDefault();
 
-		if (password !== cpassword) {
+		if (user.password !== user.cpassword) {
 			setErrorMessage('Password and Confirm Password does not match');
 			return setErrorOpen(true);
 		}
 
 		setBtnLoading(true);
 
-		const res = await post('/otp/send', {
-			email,
-		});
+		const res = (await post('/otp/send', {
+			email: user.email,
+		})) as ApiResponse;
 
 		setBtnLoading(false);
 
@@ -50,22 +54,16 @@ const Signup = ({ setAuthFormSubmit }) => {
 		}
 	};
 
-	const verifyOtpHandler = async e => {
+	const verifyOtpHandler = async (e: FormEvent) => {
 		e.preventDefault();
 
-		const res = await post('/otp/verify', {
-			email,
+		const res = (await post('/otp/verify', {
+			email: user.email,
 			otp,
-		});
+		})) as ApiResponse;
 
 		if (res.success) {
-			const signupRes = await post('/auth/signup', {
-				name,
-				email,
-				phone,
-				password,
-				cpassword,
-			});
+			const signupRes = (await post('/auth/signup', user)) as ApiResponse;
 			setAuthFormSubmit(true);
 
 			if (signupRes.success) navigate('/');
@@ -142,7 +140,10 @@ const Signup = ({ setAuthFormSubmit }) => {
 						className="signup-section__input"
 						label="Name"
 						variant="outlined"
-						onChange={e => setName(e.target.value)}
+						value={user.name}
+						onChange={(e: ChangeEvent<HTMLInputElement>) =>
+							setUser({ ...user, name: e.target.value })
+						}
 						fullWidth
 						required
 					/>
@@ -152,7 +153,10 @@ const Signup = ({ setAuthFormSubmit }) => {
 						label="Email"
 						variant="outlined"
 						type="email"
-						onChange={e => setEmail(e.target.value)}
+						value={user.email}
+						onChange={(e: ChangeEvent<HTMLInputElement>) =>
+							setUser({ ...user, email: e.target.value })
+						}
 						fullWidth
 						required
 					/>
@@ -162,7 +166,10 @@ const Signup = ({ setAuthFormSubmit }) => {
 						label="Phone"
 						variant="outlined"
 						type="number"
-						onChange={e => setPhone(e.target.value)}
+						value={user.phone}
+						onChange={(e: ChangeEvent<HTMLInputElement>) =>
+							setUser({ ...user, phone: e.target.value })
+						}
 						fullWidth
 						required
 					/>
@@ -172,7 +179,10 @@ const Signup = ({ setAuthFormSubmit }) => {
 						label="Password"
 						variant="outlined"
 						type="password"
-						onChange={e => setPassword(e.target.value)}
+						value={user.password}
+						onChange={(e: ChangeEvent<HTMLInputElement>) =>
+							setUser({ ...user, password: e.target.value })
+						}
 						fullWidth
 						required
 					/>
@@ -182,7 +192,10 @@ const Signup = ({ setAuthFormSubmit }) => {
 						label="Confirm Password"
 						variant="outlined"
 						type="password"
-						onChange={e => setCpassword(e.target.value)}
+						value={user.cpassword}
+						onChange={(e: ChangeEvent<HTMLInputElement>) =>
+							setUser({ ...user, cpassword: e.target.value })
+						}
 						fullWidth
 						required
 					/>

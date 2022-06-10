@@ -209,14 +209,10 @@ const UserRoutes: FC = () => {
 							/>
 						}
 					/>
+
 					<Route path="/listing" element={<Listing user={user} />} />
 					<Route path="/allimages/:id" element={<AllImages />} />
-					<Route
-						path="/signup"
-						element={
-							<Signup setAuthFormSubmit={setAuthFormSubmit} />
-						}
-					/>
+					<Route path="/signup" element={<Signup />} />
 					<Route
 						path="/login"
 						element={
