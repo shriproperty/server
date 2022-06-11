@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext, FC, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import TextField from '@mui/material/TextField';
@@ -11,14 +11,17 @@ import { BPrimary, BUpload } from '../../util/button/Button';
 import { ASuccess, AError } from '../../util/alert/Alert';
 import { CheckBox } from '../../util/input/Input';
 import DeleteIcon from '@mui/icons-material/Delete';
-
-import '../admin/property/form/form.scss';
+import { UserContext } from '../../../helpers/Context';
 import { postFile } from '../../../api/post';
 
-const Listing = ({ user }) => {
+import '../admin/property/form/form.scss';
+
+const Listing: FC = () => {
 	const navigate = useNavigate();
+	const user = useContext(UserContext) as LoggedInUser;
+
 	/* --------------------------------- ANCHOR States --------------------------------- */
-	const [property, setProperty] = useState({
+	const [property, setProperty] = useState<any>({
 		title: '',
 		description: '',
 		price: '',
@@ -55,12 +58,34 @@ const Listing = ({ user }) => {
 		purchaseType: '',
 		constructionStatus: '',
 	});
-	const [otherFeatures, setOtherFeatures] = useState([]);
-	const [furnishingDetails, setFurnishingDetails] = useState({});
-	const [facilities, setFacilities] = useState([]);
-	const [images, setImages] = useState([]);
-	const [videos, setVideos] = useState([]);
-	const [documents, setDocuments] = useState([]);
+	const [otherFeatures, setOtherFeatures] = useState<string[]>([]);
+	const [furnishingDetails, setFurnishingDetails] =
+		useState<FurnishingDetails>({
+			ac: 0,
+			stove: 0,
+			modularKitchen: 0,
+			fans: 0,
+			fridge: 0,
+			light: 0,
+			beds: 0,
+			microwave: 0,
+			dinningTable: 0,
+			tv: 0,
+			dressingTable: 0,
+			tvWallPanel: 0,
+			wardrobe: 0,
+			washingMachine: 0,
+			geyser: 0,
+			curtains: 0,
+			sofa: 0,
+			waterPurifier: 0,
+			exhaust: 0,
+		});
+
+	const [facilities, setFacilities] = useState<string[]>([]);
+	const [images, setImages] = useState<any[]>([]);
+	const [videos, setVideos] = useState<any[]>([]);
+	const [documents, setDocuments] = useState<any[]>([]);
 
 	const [loading, setLoading] = useState(false);
 	const [openSuccess, setOpenSuccess] = useState(false);
@@ -77,7 +102,7 @@ const Listing = ({ user }) => {
 	const body = new FormData();
 
 	// submit handler
-	const submitHandler = e => {
+	const submitHandler = (e: FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
 
@@ -122,7 +147,7 @@ const Listing = ({ user }) => {
 		);
 
 		// post to server
-		postFile('/listings/add', body).then(data => {
+		postFile('/listings/add', body).then((data: any) => {
 			setLoading(false);
 
 			if (data.success) {
@@ -141,20 +166,19 @@ const Listing = ({ user }) => {
 	 * @param {boolean} checked If checkbox is checked: `true` or unchecked: `false`
 	 * @param {string} title The title of the facility
 	 * @param {string} icon Icon which will be used for facility should be same as icon name in file system
-	 * @return {Function} Function used by onChange event of checkbox
 	 */
-	const checkboxHandler = (checked, title, icon) => {
-		if (checked && !facilities.includes({ title, icon })) {
-			setFacilities(prevState => [
-				...prevState,
+	const checkboxHandler = (checked: boolean, title: string, icon: string) => {
+		if (checked && !facilities.includes(JSON.stringify({ title, icon }))) {
+			setFacilities([
+				...facilities,
 				JSON.stringify({
 					title,
 					icon,
 				}),
 			]);
 		} else {
-			setFacilities(prevState =>
-				prevState.filter(item => JSON.parse(item).title !== title)
+			setFacilities(
+				facilities.filter(item => JSON.parse(item).title !== title)
 			);
 		}
 	};
@@ -748,10 +772,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="AC"
 							type="number"
+							value={furnishingDetails.ac}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									ac: e.target.value ? e.target.value : 0,
+									ac: +e.target.value,
 								})
 							}
 						/>
@@ -761,10 +786,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="stove"
 							type="number"
+							value={furnishingDetails.stove}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									stove: e.target.value ? e.target.value : 0,
+									stove: +e.target.value,
 								})
 							}
 						/>
@@ -774,12 +800,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="Modular Kitchen"
 							type="number"
+							value={furnishingDetails.modularKitchen}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									modularKitchen: e.target.value
-										? e.target.value
-										: 0,
+									modularKitchen: +e.target.value,
 								})
 							}
 						/>
@@ -789,10 +814,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="Fans"
 							type="number"
+							value={furnishingDetails.fans}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									fans: e.target.value ? e.target.value : 0,
+									fans: +e.target.value,
 								})
 							}
 						/>
@@ -802,10 +828,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="Fridge/Refrigerator"
 							type="number"
+							value={furnishingDetails.fridge}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									fridge: e.target.value ? e.target.value : 0,
+									fridge: +e.target.value,
 								})
 							}
 						/>
@@ -815,10 +842,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="Light"
 							type="number"
+							value={furnishingDetails.light}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									light: e.target.value ? e.target.value : 0,
+									light: +e.target.value,
 								})
 							}
 						/>
@@ -828,10 +856,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="Bed"
 							type="number"
+							value={furnishingDetails.beds}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									beds: e.target.value ? e.target.value : 0,
+									beds: +e.target.value,
 								})
 							}
 						/>
@@ -841,12 +870,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="microwave"
 							type="number"
+							value={furnishingDetails.microwave}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									microwave: e.target.value
-										? e.target.value
-										: 0,
+									microwave: +e.target.value,
 								})
 							}
 						/>
@@ -856,12 +884,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="dinning table"
 							type="number"
+							value={furnishingDetails.dinningTable}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									dinningTable: e.target.value
-										? e.target.value
-										: 0,
+									dinningTable: +e.target.value,
 								})
 							}
 						/>
@@ -871,10 +898,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="TV"
 							type="number"
+							value={furnishingDetails.tv}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									tv: e.target.value ? e.target.value : 0,
+									tv: +e.target.value,
 								})
 							}
 						/>
@@ -884,12 +912,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="Dressing Table"
 							type="number"
+							value={furnishingDetails.dressingTable}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									dressingTable: e.target.value
-										? e.target.value
-										: 0,
+									dressingTable: +e.target.value,
 								})
 							}
 						/>
@@ -899,12 +926,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="TV Wall Panel"
 							type="number"
+							value={furnishingDetails.tvWallPanel}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									tvWallPanel: e.target.value
-										? e.target.value
-										: 0,
+									tvWallPanel: +e.target.value,
 								})
 							}
 						/>
@@ -914,12 +940,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="wardrobe"
 							type="number"
+							value={furnishingDetails.wardrobe}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									wardrobe: e.target.value
-										? e.target.value
-										: 0,
+									wardrobe: +e.target.value,
 								})
 							}
 						/>
@@ -929,12 +954,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="washing machine"
 							type="number"
+							value={furnishingDetails.washingMachine}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									washingMachine: e.target.value
-										? e.target.value
-										: 0,
+									washingMachine: +e.target.value,
 								})
 							}
 						/>
@@ -944,10 +968,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="Geyser"
 							type="number"
+							value={furnishingDetails.geyser}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									geyser: e.target.value ? e.target.value : 0,
+									geyser: +e.target.value,
 								})
 							}
 						/>
@@ -957,12 +982,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="Curtains"
 							type="number"
+							value={furnishingDetails.curtains}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									curtains: e.target.value
-										? e.target.value
-										: 0,
+									curtains: +e.target.value,
 								})
 							}
 						/>
@@ -972,10 +996,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="Sofa"
 							type="number"
+							value={furnishingDetails.sofa}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									sofa: e.target.value ? e.target.value : 0,
+									sofa: +e.target.value,
 								})
 							}
 						/>
@@ -985,12 +1010,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="water purifier"
 							type="number"
+							value={furnishingDetails.waterPurifier}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									waterPurifier: e.target.value
-										? e.target.value
-										: 0,
+									waterPurifier: +e.target.value,
 								})
 							}
 						/>
@@ -1000,12 +1024,11 @@ const Listing = ({ user }) => {
 							variant="outlined"
 							label="Exhaust"
 							type="number"
+							value={furnishingDetails.exhaust}
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									exhaust: e.target.value
-										? e.target.value
-										: 0,
+									exhaust: +e.target.value,
 								})
 							}
 						/>
@@ -1243,7 +1266,9 @@ const Listing = ({ user }) => {
 				<BUpload
 					title="Image"
 					className="admin-property-form__upload-btn"
-					onChange={e => setImages([...images, ...e.target.files])}
+					onChange={(e: any) =>
+						setImages([...images, ...e.target.files])
+					}
 					accept="image/*"
 				/>
 
@@ -1283,7 +1308,9 @@ const Listing = ({ user }) => {
 				<BUpload
 					title="Videos"
 					className="admin-property-form__upload-btn"
-					onChange={e => setVideos([...videos, ...e.target.files])}
+					onChange={(e: any) =>
+						setVideos([...videos, ...e.target.files])
+					}
 					accept="video/*"
 				/>
 
@@ -1329,7 +1356,7 @@ const Listing = ({ user }) => {
 				<BUpload
 					title="Documents"
 					className="admin-property-form__upload-btn"
-					onChange={e =>
+					onChange={(e: any) =>
 						setDocuments([...documents, ...e.target.files])
 					}
 					accept="application/pdf"

@@ -210,7 +210,7 @@ const UserRoutes: FC = () => {
 						}
 					/>
 
-					<Route path="/listing" element={<Listing user={user} />} />
+					<Route path="/listing" element={<Listing />} />
 					<Route path="/allimages/:id" element={<AllImages />} />
 					<Route path="/signup" element={<Signup />} />
 					<Route path="/login" element={<Login />} />
