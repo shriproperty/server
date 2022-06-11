@@ -1,25 +1,31 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import TextField from '@mui/material/TextField';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC, FormEvent } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { BPrimary } from '../../../components/util/button/Button';
+import { BPrimary } from '../../util/button/Button';
 import get from '../../../api/get';
 import { post } from '../../../api/post';
 import './property.scss';
 import { HPrimary, SPrimary } from '../../util/typography/Typography';
-import { AError } from '../../../components/util/alert/Alert';
+import { AError } from '../../util/alert/Alert';
 import Loader from '../../util/loader/Loader';
 import Modal from '../../util/modal/Modal';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import StraightenIcon from '@mui/icons-material/Straighten';
 import { Helmet } from 'react-helmet-async';
+import { fakeProperty } from '../../../helpers/fakeData';
 
-const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
+interface PropertyProps {
+	propertyOtpModelOpened: boolean;
+	setPropertyOtpModelOpened(otpModelOpenState: boolean): any;
+}
+
+const Property: FC<PropertyProps> = props => {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const [modal, setModal] = useState(false);
 	const [verifyOtpModel, setVerifyOtpModel] = useState(false);
-	const [response, setResponse] = useState({});
+	const [response, setResponse] = useState<Property>(fakeProperty);
 	const [mainImage, setMainImage] = useState({ type: '', url: '' });
 	const [loading, setLoading] = useState(true);
 	const [btnLoading, setBtnLoading] = useState(false);
@@ -34,20 +40,20 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 
 	useEffect(() => {
 		// Verify token
-		get('/temp-users/verify').catch(res => {
-			if (!propertyOtpModelOpened) {
+		get('/temp-users/verify').catch(err => {
+			if (!props.propertyOtpModelOpened) {
 				setTimeout(() => {
 					setModal(true);
-					setPropertyOtpModelOpened(true);
+					props.setPropertyOtpModelOpened(true);
 					// 10 seconds
 				}, 10000);
-			} else if (propertyOtpModelOpened) {
+			} else if (props.propertyOtpModelOpened) {
 				setModal(true);
 			}
 		});
 
 		get(`/properties/single/${id}`)
-			.then(data => {
+			.then((data: any) => {
 				setResponse(data.data);
 
 				data.data.videos.length > 0
@@ -66,7 +72,7 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 			});
 	}, [id]);
 
-	const sendOtpHandler = async e => {
+	const sendOtpHandler = async (e: FormEvent) => {
 		e.preventDefault();
 		setBtnLoading(true);
 
@@ -81,9 +87,9 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 			return setErrorModalOpen(true);
 		}
 
-		const sendOtpResponse = await post('/otp/send', {
+		const sendOtpResponse = (await post('/otp/send', {
 			email,
-		});
+		})) as ApiResponse;
 
 		setBtnLoading(false);
 
@@ -96,23 +102,23 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 		}
 	};
 
-	const verifyOtpHandler = async e => {
+	const verifyOtpHandler = async (e: FormEvent) => {
 		e.preventDefault();
 		setBtnLoading(true);
 
-		const verifyOtpResponse = await post('/otp/verify', {
+		const verifyOtpResponse = (await post('/otp/verify', {
 			email,
 			otp,
-		});
+		})) as ApiResponse;
 
 		setBtnLoading(false);
 		// if otp is valid than create new user
 		if (verifyOtpResponse.success) {
-			const newUserResponse = await post('/temp-users/add', {
+			const newUserResponse = (await post('/temp-users/add', {
 				name,
 				email,
 				phone,
-			});
+			})) as ApiResponse;
 
 			// if user is created successfully than save token and hide modal
 			if (newUserResponse.success) {
@@ -128,29 +134,6 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 			setErrorVerifyModalMessage(verifyOtpResponse.message);
 			setErrorVerifyModalOpen(true);
 		}
-	};
-
-	/**
-	 * Update Main Image in image grid
-	 * @param {string} type type of main image - `video` or `image`
-	 */
-	const mainImageUpdater = type => {
-		return e => {
-			// update main image
-			setMainImage({ type: type, url: e.target.src });
-
-			if (mainImage.type === 'image') {
-				// if main image is image than simply update clicked image src
-				e.target.src = mainImage.url;
-			} else {
-				// if main image is video than hide the clicked image tag and show the sibling video tag
-				const videoTag = e.target.nextSibling;
-
-				e.target.classList.add('hidden');
-				videoTag.children[0].src = mainImage.url;
-				videoTag.classList.remove('hidden');
-			}
-		};
 	};
 
 	return (
@@ -285,16 +268,14 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 										src={mainImage.url}
 										alt="property"
 										className="image-grid__image image-grid__image--1"
-										onClick={mainImageUpdater('image')}
 									/>
 								)}
 
 								{/* item 2 */}
 								<img
-									src={response.images[0]?.url}
+									src={response.images[0].url}
 									alt="property"
 									className="image-grid__image image-grid__image--2"
-									onClick={mainImageUpdater('image')}
 								/>
 
 								<video
@@ -310,10 +291,9 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 
 								{/* item 3 */}
 								<img
-									src={response.images[1]?.url}
+									src={response.images[1].url}
 									alt="property"
 									className="image-grid__image image-grid__image--3"
-									onClick={mainImageUpdater('image')}
 								/>
 
 								<video
@@ -333,21 +313,18 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 									src={mainImage.url}
 									alt="property"
 									className="image-grid__image image-grid__image--1"
-									onClick={mainImageUpdater('image')}
 								/>
 
 								<img
-									src={response.images[1]?.url}
+									src={response.images[1].url}
 									alt="property"
 									className="image-grid__image image-grid__image--2"
-									onClick={mainImageUpdater('image')}
 								/>
 
 								<img
-									src={response.images[2]?.url}
+									src={response.images[2].url}
 									alt="property"
 									className="image-grid__image image-grid__image--3"
-									onClick={mainImageUpdater('image')}
 								/>
 							</>
 						)}
@@ -383,7 +360,7 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 									</div>
 									<h3
 										className={
-											response.specialPrice !== '' &&
+											response.specialPrice &&
 											'line-through'
 										}
 									>
@@ -391,11 +368,11 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 									</h3>
 
 									<h3 className="special-price">
-										₹ {response.specialPrice}
+										{`₹ ${response.specialPrice}`}
 									</h3>
 								</div>
 
-								{response.security > 0 && (
+								{response.security && (
 									<div className="pricing-section_item space">
 										<div className="sell-icon">
 											<LocalOfferIcon />
@@ -408,7 +385,7 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 									</div>
 								)}
 
-								{response.maintenance > 0 && (
+								{response.maintenance && (
 									<div className="pricing-section_item space">
 										<div className="sell-icon">
 											<LocalOfferIcon />
@@ -439,43 +416,43 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 								Configuration
 							</h1>
 							<div className="facilities-section__facilities">
-								{response.bedroom > 0 && (
+								{response.bedroom && (
 									<div className="facilities-section_item">
-										<h3>Bedroom</h3>{' '}
+										<h3>Bedroom</h3>
 										<h3>{response.bedroom}</h3>
 									</div>
 								)}
-								{response.bathroom > 0 && (
+								{response.bathroom && (
 									<div className="facilities-section_item">
 										<h3>Bathroom</h3>
 										<h3>{response.bathroom}</h3>
 									</div>
 								)}
-								{response.kitchen > 0 && (
+								{response.kitchen && (
 									<div className="facilities-section_item">
-										<h3>Kitchen</h3>{' '}
+										<h3>Kitchen</h3>
 										<h3>{response.kitchen}</h3>
 									</div>
 								)}
-								{response.openParking > 0 && (
+								{response.openParking && (
 									<div className="facilities-section_item">
 										<h3>Open Parking</h3>
 										<h3>{response.openParking}</h3>
 									</div>
 								)}
-								{response.closeParking > 0 && (
+								{response.closeParking && (
 									<div className="facilities-section_item">
 										<h3>Covered Parking</h3>
 										<h3>{response.closeParking}</h3>
 									</div>
 								)}
-								{response.balcony > 0 && (
+								{response.balcony && (
 									<div className="facilities-section_item">
 										<h3>Balconies</h3>
 										<h3>{response.balcony}</h3>
 									</div>
 								)}
-								{response.floor > 0 && (
+								{response.floor && (
 									<div className="facilities-section_item">
 										<h3>Floor</h3>
 										<h3>{response.floor}</h3>
@@ -484,31 +461,31 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 								{(response.type === 'Sale' ||
 									response.type === 'Rental') && (
 									<>
-										{response.poojaRoom > 0 && (
+										{response.poojaRoom && (
 											<div className="facilities-section_item">
 												<h3>Pooja Room</h3>
 												<h3>{response.poojaRoom}</h3>
 											</div>
 										)}
-										{response.lobby > 0 && (
+										{response.lobby && (
 											<div className="facilities-section_item">
 												<h3>Lobby</h3>
 												<h3>{response.lobby}</h3>
 											</div>
 										)}
-										{response.livingRoom > 0 && (
+										{response.livingRoom && (
 											<div className="facilities-section_item">
 												<h3>Living Room</h3>
 												<h3>{response.livingRoom}</h3>
 											</div>
 										)}
-										{response.dinningRoom > 0 && (
+										{response.dinningRoom && (
 											<div className="facilities-section_item">
 												<h3>Dinning Room</h3>
 												<h3>{response.dinningRoom}</h3>
 											</div>
 										)}
-										{response.dinningRoom > 0 && (
+										{response.dinningRoom && (
 											<div className="facilities-section_item">
 												<h3>Store Room</h3>
 												<h3>{response.store}</h3>
@@ -518,7 +495,7 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 								)}
 								{response.type === 'Sale' && (
 									<>
-										{response.constructionStatus > 0 && (
+										{response.constructionStatus && (
 											<div className="facilities-section_item">
 												<h3>
 													{
@@ -841,7 +818,7 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 											</div>
 										</div>
 									)}
-									{response.furnishingDetails.Curtains >
+									{response.furnishingDetails.curtains >
 										0 && (
 										<div className="amenities-container">
 											<div>
@@ -912,7 +889,6 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 												Exhaust
 											</h3>
 											<div className="amenities-section__number">
-												
 												{
 													response.furnishingDetails
 														.exhaust
@@ -925,49 +901,52 @@ const Property = ({ propertyOtpModelOpened, setPropertyOtpModelOpened }) => {
 						)}
 
 						{/* ------------------------------- ANCHOR Facilities ------------------------------- */}
-						<h1 className="amenities-section__heading">
-							Facilities
-						</h1>
 
 						<section className="amenities-section">
-							{response.facilities.map(facility => (
-								<div
-									className="amenities-container"
-									key={facility.title}
-								>
-									<div>
-										<img
-											src={`/images/amenities/${facility.icon}`}
-											alt={facility.title}
-										/>
+							<h1 className="amenities-section__heading">
+								Facilities
+							</h1>
+
+							{response.facilities &&
+								response.facilities.map(facility => (
+									<div
+										className="amenities-container"
+										key={facility.title}
+									>
+										<div>
+											<img
+												src={`/images/amenities/${facility.icon}`}
+												alt={facility.title}
+											/>
+										</div>
+										<h3 className="amenities-section__name">
+											{facility.title}
+										</h3>
 									</div>
-									<h3 className="amenities-section__name">
-										{facility.title}
-									</h3>
-								</div>
-							))}
+								))}
 						</section>
 
 						{/* /* --------------------------------- ANCHOR Other Features ---------------------------------  */}
 
-						{response?.otherFeatures.length > 0 && (
-							<section className="other-facilities-section">
-								<h1>Other Features</h1>
+						{response.otherFeatures &&
+							response.otherFeatures.length > 0 && (
+								<section className="other-facilities-section">
+									<h1>Other Features</h1>
 
-								<ul>
-									{response.otherFeatures.map(feature => (
-										<li key={feature}>{feature}</li>
-									))}
-								</ul>
-							</section>
-						)}
+									<ul>
+										{response.otherFeatures.map(feature => (
+											<li key={feature}>{feature}</li>
+										))}
+									</ul>
+								</section>
+							)}
 
 						<section className="description-section">
 							<h1>About</h1>
 							<p>{response.description}</p>
 						</section>
 
-						{response?.documents.map((doc, i) => (
+						{response.documents.map((doc, i) => (
 							<a href={doc.url} className="link" key={doc.key}>
 								Download pdf {i + 1}
 							</a>

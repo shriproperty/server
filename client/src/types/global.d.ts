@@ -111,7 +111,7 @@ declare global {
 		dinningRoom: string;
 		floor: string;
 		poojaRoom: string;
-		otherFeatured: string[];
+		otherFeatures: string[];
 		lobby: string;
 		direction:
 			| 'North'
@@ -132,7 +132,7 @@ declare global {
 		locality: string;
 		owner: string;
 		ownerContact: string;
-		ownerId: string | undefined;
+		ownerId?: string;
 		commission: string;
 		age: string;
 		possession:
@@ -199,7 +199,7 @@ declare global {
 		dinningRoom: string;
 		floor: string;
 		poojaRoom: string;
-		otherFeatured: string[];
+		otherFeatures: string[];
 		lobby: string;
 		direction:
 			| 'North'

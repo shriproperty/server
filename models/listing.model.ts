@@ -106,7 +106,7 @@ export class Listing {
 	public poojaRoom: string;
 
 	@prop()
-	public otherFeatured: string[];
+	public otherFeatures: string[];
 
 	@prop()
 	public lobby: string;

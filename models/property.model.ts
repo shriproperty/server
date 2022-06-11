@@ -105,7 +105,7 @@ export class Property {
 	public poojaRoom: string;
 
 	@prop()
-	public otherFeatured: string[];
+	public otherFeatures: string[];
 
 	@prop()
 	public lobby: string;
@@ -133,13 +133,13 @@ export class Property {
 	})
 	public constructionStatus: string;
 
-	@prop()
+	@prop({ default: [] })
 	public images: S3File[];
 
-	@prop()
+	@prop({ default: [] })
 	public videos: S3File[];
 
-	@prop()
+	@prop({ default: [] })
 	public documents: S3File[];
 
 	@prop({ required: true })
@@ -212,7 +212,7 @@ export class Property {
 	})
 	public furnishingDetails: object;
 
-	@prop()
+	@prop({ default: [] })
 	public facilities: Facility[];
 
 	@prop({ default: false })
