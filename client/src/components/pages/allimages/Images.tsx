@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 import get from '../../../api/get';
 import Loader from '../../util/loader/Loader';
 import './images.scss';
+import { fakeProperty } from '../../../helpers/fakeData';
 
-const Images = () => {
+const Images: FC = () => {
 	const { id } = useParams();
-	const [response, setResponse] = useState({});
+	const [response, setResponse] = useState<Property>(fakeProperty);
 	const [loading, setLoading] = useState(true);
 	const [mainImgUrl, setMainImgUrl] = useState({ type: '', url: '' });
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		get(`/properties/single/${id}`)
-			.then(data => {
+			.then((data: any) => {
 				setResponse(data.data);
 				data.data.videos.length > 0
 					? setMainImgUrl({
@@ -80,7 +81,7 @@ const Images = () => {
 									onClick={e =>
 										setMainImgUrl({
 											type: 'video',
-											url: e.target.children[0].src,
+											url: video.url,
 										})
 									}
 								>
@@ -97,7 +98,7 @@ const Images = () => {
 									onClick={e =>
 										setMainImgUrl({
 											type: 'image',
-											url: e.target.src,
+											url: image.url,
 										})
 									}
 								/>
