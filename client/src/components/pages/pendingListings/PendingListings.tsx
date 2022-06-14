@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext, FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { BPrimary } from '../../util/button/Button';
@@ -13,24 +13,22 @@ import {
 	TableCell,
 	TableHead,
 } from '@mui/material';
-import get from '../../../api/get';
+import { UserContext } from '../../../helpers/Context';
 import './pendingListing.scss';
 
-const PendingListings = ({ user }) => {
+const PendingListings: FC = () => {
 	const navigate = useNavigate();
+	const user = useContext(UserContext) as LoggedInUser;
 
-	const [response, setResponse] = useState('');
 	const [propertyLoading, setPropertyLoading] = useState(true);
+	const [warningOpen, setWarningOpen] = useState(true);
 
 	useEffect(() => {
 		if (user && !user.isLoggedIn) {
 			navigate('/login');
 		}
 
-		get(`/users/single/${user.data._id}?listings=true`).then(data => {
-			setResponse(data.data);
-			setPropertyLoading(false);
-		});
+		setPropertyLoading(false);
 	}, []);
 
 	return (
@@ -49,7 +47,7 @@ const PendingListings = ({ user }) => {
 
 			{propertyLoading ? (
 				<Loader fullScreen />
-			) : response.listings.length > 0 ? (
+			) : user.data.listings.length > 0 ? (
 				<Table className="admin-page__table">
 					<TableHead>
 						<TableRow>
@@ -79,13 +77,17 @@ const PendingListings = ({ user }) => {
 					</TableHead>
 
 					<TableBody>
-						{response.listings.map(item => (
+						{user.data.listings.map(item => (
 							<TableRow key={item._id}>
 								<TableCell className="contact-table__cell">
 									{item.title}
 								</TableCell>
 
-								<TableCell className="contact-table__cell table_address">
+								<TableCell
+									className={`contact-table__cell ${
+										item.location && 'table_address'
+									} `}
+								>
 									{item.location && (
 										<a
 											href={item.location}
@@ -126,7 +128,11 @@ const PendingListings = ({ user }) => {
 					</TableBody>
 				</Table>
 			) : (
-				<AWarning title="No Pending Listings" open={true} />
+				<AWarning
+					title="No Pending Listings"
+					open={warningOpen}
+					setOpen={setWarningOpen}
+				/>
 			)}
 		</main>
 	);

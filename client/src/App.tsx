@@ -217,7 +217,7 @@ const UserRoutes: FC = () => {
 					<Route path="/account" element={<Account />} />
 					<Route
 						path="/account/pending-listings"
-						element={<PendingListings user={user} />}
+						element={<PendingListings />}
 					/>
 					<Route
 						path="/property/update/:id"
