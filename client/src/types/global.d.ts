@@ -19,6 +19,8 @@ declare global {
 	}
 
 	interface LoggedInUser {
+		update: boolean;
+		setUpdate(updateState: boolean): any;
 		loaded: boolean;
 		isLoggedIn: boolean;
 		data: {
@@ -71,35 +73,14 @@ declare global {
 		description: string;
 		price: string;
 		specialPrice: string;
-		type: 'Rental' | 'Sale' | 'PG';
-		category:
-			| 'Residential Apartment'
-			| 'Independent House/Villa'
-			| 'Plot'
-			| 'Commercial Office'
-			| 'Serviced Apartments'
-			| '1 RK/ Studio Apartment'
-			| 'Independent/Builder Floor'
-			| 'Other';
+		type: string;
+		category: string;
 		security: string;
 		maintenance: string;
-		status: 'Unfurnished' | 'Semifurnished' | 'Furnished';
+		status: string;
 		featured: boolean;
 		size: string;
-		unit:
-			| 'Sq. Ft.'
-			| 'Acre'
-			| 'Gaj'
-			| 'Marla'
-			| 'Bigha'
-			| 'Bigha-Pucca'
-			| 'Bigha-Kachha'
-			| 'Biswa'
-			| 'Biswa-Pucca'
-			| 'Kanal'
-			| 'Killa'
-			| 'Kattha'
-			| 'Ghumaon';
+		unit: string;
 		bedroom: string;
 		bathroom: string;
 		kitchen: string;
@@ -113,17 +94,9 @@ declare global {
 		poojaRoom: string;
 		otherFeatures: string[];
 		lobby: string;
-		direction:
-			| 'North'
-			| 'South'
-			| 'East'
-			| 'West'
-			| 'North-East'
-			| 'North-West'
-			| 'South-East'
-			| 'South-West';
-		purchaseType: 'New Booking' | 'Resale';
-		constructionStatus: 'Ready to Move' | 'Under Construction';
+		direction: string;
+		purchaseType: string;
+		constructionStatus: string;
 		images: S3File[];
 		videos: S3File[];
 		documents: S3File[];
@@ -135,20 +108,7 @@ declare global {
 		ownerId?: string;
 		commission: string;
 		age: string;
-		possession:
-			| 'Immediate'
-			| 'Between 1 Month'
-			| 'Between 2 Month'
-			| 'Between 3 Month'
-			| 'Between 6 Month'
-			| '2023'
-			| '2024'
-			| '2025'
-			| '2026'
-			| '2027'
-			| '2028'
-			| '2029'
-			| '2030';
+		possession: string;
 		furnishingDetails: FurnishingDetails;
 		facilities: Facility[];
 		sold: boolean;
@@ -159,35 +119,14 @@ declare global {
 		description: string;
 		price: string;
 		specialPrice: string;
-		type: 'Rental' | 'Sale' | 'PG';
-		category:
-			| 'Residential Apartment'
-			| 'Independent House/Villa'
-			| 'Plot'
-			| 'Commercial Office'
-			| 'Serviced Apartments'
-			| '1 RK/ Studio Apartment'
-			| 'Independent/Builder Floor'
-			| 'Other';
+		type: string;
+		category: string;
 		security: string;
 		maintenance: string;
-		status: 'Unfurnished' | 'Semifurnished' | 'Furnished';
+		status: string;
 		featured: boolean;
 		size: string;
-		unit:
-			| 'Sq. Ft.'
-			| 'Acre'
-			| 'Gaj'
-			| 'Marla'
-			| 'Bigha'
-			| 'Bigha-Pucca'
-			| 'Bigha-Kachha'
-			| 'Biswa'
-			| 'Biswa-Pucca'
-			| 'Kanal'
-			| 'Killa'
-			| 'Kattha'
-			| 'Ghumaon';
+		unit: string;
 		bedroom: string;
 		bathroom: string;
 		kitchen: string;
@@ -201,17 +140,9 @@ declare global {
 		poojaRoom: string;
 		otherFeatures: string[];
 		lobby: string;
-		direction:
-			| 'North'
-			| 'South'
-			| 'East'
-			| 'West'
-			| 'North-East'
-			| 'North-West'
-			| 'South-East'
-			| 'South-West';
-		purchaseType: 'New Booking' | 'Resale';
-		constructionStatus: 'Ready to Move' | 'Under Construction';
+		direction: string;
+		purchaseType: string;
+		constructionStatus: string;
 		images: S3File[];
 		videos: S3File[];
 		documents: S3File[];
@@ -223,20 +154,7 @@ declare global {
 		ownerId: string | undefined;
 		commission: string;
 		age: string;
-		possession:
-			| 'Immediate'
-			| 'Between 1 Month'
-			| 'Between 2 Month'
-			| 'Between 3 Month'
-			| 'Between 6 Month'
-			| '2023'
-			| '2024'
-			| '2025'
-			| '2026'
-			| '2027'
-			| '2028'
-			| '2029'
-			| '2030';
+		possession: string;
 		furnishingDetails: FurnishingDetails;
 		facilities: Facility[];
 		sold: boolean;

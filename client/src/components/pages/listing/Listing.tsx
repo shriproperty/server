@@ -15,72 +15,17 @@ import { UserContext } from '../../../helpers/Context';
 import { postFile } from '../../../api/post';
 
 import '../admin/property/form/form.scss';
+import { fakeFurnishingDetails, fakeProperty } from '../../../helpers/fakeData';
 
 const Listing: FC = () => {
 	const navigate = useNavigate();
 	const user = useContext(UserContext) as LoggedInUser;
 
 	/* --------------------------------- ANCHOR States --------------------------------- */
-	const [property, setProperty] = useState<any>({
-		title: '',
-		description: '',
-		price: '',
-		specialPrice: '',
-		type: '',
-		security: '',
-		maintenance: '',
-		category: '',
-		status: '',
-		size: '',
-		unit: '',
-		bedroom: 0,
-		bathroom: 0,
-		openParking: 0,
-		closeParking: 0,
-		livingRoom: 0,
-		dinningRoom: 0,
-		store: 0,
-		poojaRoom: 0,
-		balcony: 0,
-		floor: '',
-		direction: '',
-		kitchen: 0,
-		lobby: 0,
-		address: '',
-		location: '',
-		locality: '',
-		featured: false,
-		owner: user.data.name,
-		ownerContact: user.data.phone,
-		commission: 0,
-		age: 0,
-		possession: '',
-		purchaseType: '',
-		constructionStatus: '',
-	});
+	const [property, setProperty] = useState<any>(fakeProperty);
 	const [otherFeatures, setOtherFeatures] = useState<string[]>([]);
 	const [furnishingDetails, setFurnishingDetails] =
-		useState<FurnishingDetails>({
-			ac: 0,
-			stove: 0,
-			modularKitchen: 0,
-			fans: 0,
-			fridge: 0,
-			light: 0,
-			beds: 0,
-			microwave: 0,
-			dinningTable: 0,
-			tv: 0,
-			dressingTable: 0,
-			tvWallPanel: 0,
-			wardrobe: 0,
-			washingMachine: 0,
-			geyser: 0,
-			curtains: 0,
-			sofa: 0,
-			waterPurifier: 0,
-			exhaust: 0,
-		});
+		useState<FurnishingDetails>(fakeFurnishingDetails);
 
 	const [facilities, setFacilities] = useState<string[]>([]);
 	const [images, setImages] = useState<any[]>([]);
@@ -163,9 +108,12 @@ const Listing: FC = () => {
 	/* --------------------------------- ANCHOR Checkbox handler --------------------------------- */
 	/**
 	 * Checkbox handler
-	 * @param {boolean} checked If checkbox is checked: `true` or unchecked: `false`
-	 * @param {string} title The title of the facility
-	 * @param {string} icon Icon which will be used for facility should be same as icon name in file system
+	 *
+	 * `checked` If checkbox is checked: `true` or unchecked: `false`
+	 *
+	 * `title` The title of the facility
+	 *
+	 * `icon` Icon which will be used for facility should be same as icon name in file system
 	 */
 	const checkboxHandler = (checked: boolean, title: string, icon: string) => {
 		if (checked && !facilities.includes(JSON.stringify({ title, icon }))) {

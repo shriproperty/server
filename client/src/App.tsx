@@ -139,6 +139,7 @@ const UserRoutes: FC = () => {
 	});
 	const [authFormSubmit, setAuthFormSubmit] = useState(false);
 	const [propertyOtpModelOpened, setPropertyOtpModelOpened] = useState(false);
+	const [userUpdated, setUserUpdated] = useState(false);
 
 	useEffect(() => {
 		get('/auth/is-logged-in')
@@ -149,12 +150,14 @@ const UserRoutes: FC = () => {
 					data: res.data,
 				});
 				setAuthFormSubmit(false);
+				setUserUpdated(false);
 			})
 			.catch(() => {
 				setUser({ loaded: true, isLoggedIn: false, data: {} });
 				setAuthFormSubmit(false);
+				setUserUpdated(false);
 			});
-	}, [authFormSubmit]);
+	}, [authFormSubmit, userUpdated]);
 
 	return (
 		<AuthFormSubmitContext.Provider
@@ -162,6 +165,8 @@ const UserRoutes: FC = () => {
 		>
 			<UserContext.Provider
 				value={{
+					update: userUpdated,
+					setUpdate: setUserUpdated,
 					loaded: user.loaded,
 					isLoggedIn: user.isLoggedIn,
 					data: user.data,

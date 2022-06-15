@@ -7,6 +7,7 @@ import {
 	getAllListingsHandler,
 	getSingleListingHandler,
 	updateListingHandler,
+	deleteSpecificFileFromListingHandler
 } from '../controllers/listing.controller';
 import fileUpload from '../middlewares/fileUpload.middleware';
 import requireLoggedIn from '../middlewares/requireLoggedIn.middleware';
@@ -41,9 +42,10 @@ listingRouter.delete(
 );
 
 listingRouter.put('/listings/approve/:id', approveListingHandler);
-// listingRouter.delete(
-// 	'/listings/delete-file/:id/:type/:key',
-// 	listingController.deleteFile
-// );
+
+listingRouter.delete(
+	'/listings/delete-file/:id/:type/:key',
+	deleteSpecificFileFromListingHandler
+);
 
 export default listingRouter;

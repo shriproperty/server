@@ -1,5 +1,12 @@
 /* eslint-disable array-callback-return */
-import { useState, useEffect } from 'react';
+import {
+	useState,
+	useEffect,
+	useContext,
+	FC,
+	FormEvent,
+	ChangeEvent,
+} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
@@ -12,60 +19,31 @@ import Loader from '../../util/loader/Loader';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { patchFile } from '../../../api/patch';
-import get from '../../../api/get';
 import deleteRequest from '../../../api/delete';
 import { CheckBox } from '../../util/input/Input';
 import { Helmet } from 'react-helmet-async';
+import { UserContext } from '../../../helpers/Context';
+import { fakeFurnishingDetails, fakeListing } from '../../../helpers/fakeData';
 
 //NOTE Sass is coming from form.scss file in ../form folder
 
-const UpdatePendingListing = () => {
+const UpdatePendingListing: FC = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const user = useContext(UserContext) as LoggedInUser;
+
 	/* --------------------------------- ANCHOR States --------------------------------- */
-	const [property, setProperty] = useState({
-		title: '',
-		description: '',
-		price: '',
-		specialPrice: '',
-		type: '',
-		security: '',
-		maintenance: '',
-		category: '',
-		status: '',
-		size: '',
-		unit: '',
-		bedroom: 0,
-		bathroom: 0,
-		openParking: 0,
-		closeParking: 0,
-		livingRoom: 0,
-		dinningRoom: 0,
-		store: 0,
-		poojaRoom: 0,
-		balcony: 0,
-		floor: '',
-		direction: '',
-		kitchen: 0,
-		lobby: 0,
-		address: '',
-		location: '',
-		locality: '',
-		featured: false,
-		owner: '',
-		ownerContact: '',
-		commission: 0,
-		age: 0,
-		possession: '',
-		purchaseType: '',
-		constructionStatus: '',
-	});
-	const [otherFeatures, setOtherFeatures] = useState([]);
-	const [furnishingDetails, setFurnishingDetails] = useState({});
-	const [facilities, setFacilities] = useState([]);
-	const [images, setImages] = useState([]);
-	const [videos, setVideos] = useState([]);
-	const [documents, setDocuments] = useState([]);
+
+	const [listing, setListing] = useState<any>(fakeListing);
+	const [otherFeatures, setOtherFeatures] = useState<
+		Listing['otherFeatures']
+	>([]);
+	const [furnishingDetails, setFurnishingDetails] =
+		useState<FurnishingDetails>(fakeFurnishingDetails);
+	const [facilities, setFacilities] = useState<string[]>([]);
+	const [images, setImages] = useState<any[]>([]);
+	const [videos, setVideos] = useState<any[]>([]);
+	const [documents, setDocuments] = useState<any[]>([]);
 
 	const [openSuccess, setOpenSuccess] = useState(false);
 	const [openError, setOpenError] = useState(false);
@@ -73,46 +51,54 @@ const UpdatePendingListing = () => {
 	const [errorMessage, setErrorMessage] = useState('');
 
 	const [loading, setLoading] = useState(false);
-	const [deleteFile, setDeleteFile] = useState(false);
 	const [loadingPage, setLoadingPage] = useState(true);
 
 	/* ------------------------------- ANCHOR Use Effect ------------------------------- */
 	useEffect(() => {
-		get(`/listings/single/${id}`)
-			.then(res => {
-				setProperty(res.data);
-				setOtherFeatures(res.data.otherFeatures);
-				setFurnishingDetails(res.data.furnishingDetails);
-				res.data.facilities.forEach(fac => {
+		if (user.loaded) {
+			const listingFromUser = user.data.listings.find(
+				listing => listing._id === id
+			);
+
+			if (!listingFromUser) {
+				navigate('/404');
+			}
+
+			if (listingFromUser) {
+				setListing(listingFromUser);
+				setOtherFeatures(listingFromUser?.otherFeatures);
+				setFurnishingDetails(listingFromUser?.furnishingDetails);
+
+				listingFromUser.facilities.forEach(facility =>
 					setFacilities(prevState => [
 						...prevState,
-						JSON.stringify(fac),
-					]);
-				});
+						JSON.stringify(facility),
+					])
+				);
+
 				setLoadingPage(false);
-				setDeleteFile(false);
-			})
-			.catch(err => {
-				navigate('/404');
-			});
+			}
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [id, deleteFile]);
+	}, [id, user.loaded, user.update]);
 
 	const body = new FormData();
 
 	/* -------------------------- ANCHOR submit handler ------------------------- */
-	const submitHandler = e => {
+	const submitHandler = (e: FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
 
 		// append data to body to send
-		for (const key in property) {
+		for (let key in listing) {
 			if (
+				key !== '_id' &&
+				key !== '__v' &&
 				key !== 'otherFeatures' &&
 				key !== 'facilities' &&
 				key !== 'furnishingDetails'
 			) {
-				body.append(key, property[key]);
+				body.append(key, listing[key]);
 			}
 		}
 
@@ -143,11 +129,14 @@ const UpdatePendingListing = () => {
 
 		//  append Facilities to body
 		for (let facility in facilities) {
-			body.append('facilities', facilities[facility]);
+			body.append(
+				'facilities',
+				facilities[facility] as unknown as string
+			);
 		}
 
 		// post to server
-		patchFile(`/listings/update/${id}`, body).then(data => {
+		patchFile(`/listings/update/${id}`, body).then((data: any) => {
 			setLoading(false);
 
 			if (data.success) {
@@ -161,11 +150,15 @@ const UpdatePendingListing = () => {
 		});
 	};
 
-	const deleteFileHandler = (id, type, key) => {
-		return e => {
+	const deleteFileHandler = (
+		id: string,
+		type: 'images' | 'videos',
+		key: string
+	) => {
+		return (e: FormEvent) => {
 			deleteRequest(`/listings/delete-file/${id}/${type}/${key}`).then(
 				data => {
-					setDeleteFile(true);
+					user.setUpdate(true);
 				}
 			);
 		};
@@ -174,13 +167,15 @@ const UpdatePendingListing = () => {
 	/* --------------------------------- ANCHOR Checkbox handler --------------------------------- */
 	/**
 	 * Checkbox handler
-	 * @param {boolean} checked If checkbox is checked: `true` or unchecked: `false`
-	 * @param {string} title The title of the facility
-	 * @param {string} icon Icon which will be used for facility should be same as icon name in file system
-	 * @return {Function} Function used by onChange event of checkbox
+	 *
+	 * `checked` If checkbox is checked: `true` or unchecked: `false`
+	 *
+	 * `title` The title of the facility
+	 *
+	 * `icon` Icon which will be used for facility should be same as icon name in file system
 	 */
-	const checkboxHandler = (checked, title, icon) => {
-		if (checked && !facilities.includes({ title, icon })) {
+	const checkboxHandler = (checked: boolean, title: string, icon: string) => {
+		if (checked && !facilities.includes(JSON.stringify({ title, icon }))) {
 			setFacilities(prevState => [
 				...prevState,
 				JSON.stringify({
@@ -195,17 +190,18 @@ const UpdatePendingListing = () => {
 		}
 	};
 
-	/* ---------------------------- ANCHOR Facility Checker ---------------------------- */
 	/**
 	 * Check if an facility exists in the facilities array
-	 * @param {string} title The title of the facility
-	 * @return {boolean} `true` if the facility exists, `false` otherwise
+	 *
+	 * `title` The title of the facility
 	 */
-	const facilityChecker = title => {
+	const facilityChecker = (title: string) => {
 		return facilities.some(
 			facility => JSON.parse(facility).title === title
 		);
 	};
+
+	/* ---------------------------- ANCHOR Facility Checker ---------------------------- */
 
 	return (
 		<section>
@@ -239,24 +235,24 @@ const UpdatePendingListing = () => {
 						className="admin-property-form__input"
 						variant="outlined"
 						label="Title"
-						value={property.title}
+						value={listing.title}
 						fullWidth
 						required
 						onChange={e =>
-							setProperty({ ...property, title: e.target.value })
+							setListing({ ...listing, title: e.target.value })
 						}
 					/>
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
 						label="Description"
-						value={property.description}
+						value={listing.description}
 						fullWidth
 						required
 						multiline
 						onChange={e =>
-							setProperty({
-								...property,
+							setListing({
+								...listing,
 								description: e.target.value,
 							})
 						}
@@ -266,12 +262,12 @@ const UpdatePendingListing = () => {
 						className="admin-property-form__input"
 						variant="outlined"
 						label="Address"
-						value={property.address}
+						value={listing.address}
 						required
 						fullWidth
 						onChange={e =>
-							setProperty({
-								...property,
+							setListing({
+								...listing,
 								address: e.target.value,
 							})
 						}
@@ -281,12 +277,12 @@ const UpdatePendingListing = () => {
 						className="admin-property-form__input"
 						variant="outlined"
 						label="Locality"
-						value={property.locality}
+						value={listing.locality}
 						required
 						fullWidth
 						onChange={e =>
-							setProperty({
-								...property,
+							setListing({
+								...listing,
 								locality: e.target.value,
 							})
 						}
@@ -296,12 +292,12 @@ const UpdatePendingListing = () => {
 						className="admin-property-form__input"
 						variant="outlined"
 						label="Location"
-						value={property.location}
+						value={listing.location}
 						helperText="Paste google maps url here"
 						fullWidth
 						onChange={e =>
-							setProperty({
-								...property,
+							setListing({
+								...listing,
 								location: e.target.value,
 							})
 						}
@@ -310,23 +306,23 @@ const UpdatePendingListing = () => {
 						className="admin-property-form__input"
 						variant="outlined"
 						label="Owner"
-						value={property.owner}
+						value={listing.owner}
 						required
 						fullWidth
 						onChange={e =>
-							setProperty({ ...property, owner: e.target.value })
+							setListing({ ...listing, owner: e.target.value })
 						}
 					/>
 					<TextField
 						className="admin-property-form__input"
 						variant="outlined"
 						label="Commission"
-						value={property.commission}
+						value={listing.commission}
 						required
 						fullWidth
 						onChange={e =>
-							setProperty({
-								...property,
+							setListing({
+								...listing,
 								commission: e.target.value,
 							})
 						}
@@ -335,12 +331,12 @@ const UpdatePendingListing = () => {
 						className="admin-property-form__input"
 						variant="outlined"
 						label="Owner Contact"
-						value={property.ownerContact}
+						value={listing.ownerContact}
 						required
 						fullWidth
 						onChange={e =>
-							setProperty({
-								...property,
+							setListing({
+								...listing,
 								ownerContact: e.target.value,
 							})
 						}
@@ -362,10 +358,10 @@ const UpdatePendingListing = () => {
 						variant="outlined"
 						label="Price"
 						type="number"
-						value={property.price}
+						value={listing.price}
 						required
 						onChange={e =>
-							setProperty({ ...property, price: e.target.value })
+							setListing({ ...listing, price: e.target.value })
 						}
 					/>
 					<TextField
@@ -373,10 +369,10 @@ const UpdatePendingListing = () => {
 						variant="outlined"
 						label="Special Price"
 						type="number"
-						value={property.specialPrice}
+						value={listing.specialPrice}
 						onChange={e =>
-							setProperty({
-								...property,
+							setListing({
+								...listing,
 								specialPrice: e.target.value,
 							})
 						}
@@ -387,10 +383,10 @@ const UpdatePendingListing = () => {
 						<Select
 							required
 							label="Type"
-							value={property.type}
+							value={listing.type}
 							onChange={e =>
-								setProperty({
-									...property,
+								setListing({
+									...listing,
 									type: e.target.value,
 								})
 							}
@@ -401,16 +397,16 @@ const UpdatePendingListing = () => {
 						</Select>
 					</FormControl>
 
-					{(property.type === 'Rental' || property.type === 'PG') && (
+					{(listing.type === 'Rental' || listing.type === 'PG') && (
 						<>
 							<TextField
 								className="admin-property-form__input"
 								variant="outlined"
 								label="Security"
-								value={property.security}
+								value={listing.security}
 								onChange={e =>
-									setProperty({
-										...property,
+									setListing({
+										...listing,
 										security: e.target.value,
 									})
 								}
@@ -420,10 +416,10 @@ const UpdatePendingListing = () => {
 								className="admin-property-form__input"
 								variant="outlined"
 								label="Maintenance"
-								value={property.maintenance}
+								value={listing.maintenance}
 								onChange={e =>
-									setProperty({
-										...property,
+									setListing({
+										...listing,
 										maintenance: e.target.value,
 									})
 								}
@@ -436,10 +432,10 @@ const UpdatePendingListing = () => {
 						variant="outlined"
 						label="Size"
 						type="number"
-						value={property.size}
+						value={listing.size}
 						required
 						onChange={e =>
-							setProperty({ ...property, size: e.target.value })
+							setListing({ ...listing, size: e.target.value })
 						}
 					/>
 					<FormControl className="admin-property-form__select">
@@ -447,10 +443,10 @@ const UpdatePendingListing = () => {
 						<Select
 							required
 							label="Unit"
-							value={property.unit}
+							value={listing.unit}
 							onChange={e =>
-								setProperty({
-									...property,
+								setListing({
+									...listing,
 									unit: e.target.value,
 								})
 							}
@@ -484,9 +480,9 @@ const UpdatePendingListing = () => {
 						className="admin-property-form__input"
 						variant="outlined"
 						label="Floor"
-						value={property.floor}
+						value={listing.floor}
 						onChange={e =>
-							setProperty({ ...property, floor: e.target.value })
+							setListing({ ...listing, floor: e.target.value })
 						}
 					/>
 					<TextField
@@ -494,10 +490,10 @@ const UpdatePendingListing = () => {
 						variant="outlined"
 						label="Bedrooms"
 						type="number"
-						value={property.bedroom}
+						value={listing.bedroom}
 						onChange={e =>
-							setProperty({
-								...property,
+							setListing({
+								...listing,
 								bedroom: e.target.value,
 							})
 						}
@@ -507,26 +503,25 @@ const UpdatePendingListing = () => {
 						variant="outlined"
 						label="Bathroom"
 						type="number"
-						value={property.bathroom}
+						value={listing.bathroom}
 						onChange={e =>
-							setProperty({
-								...property,
+							setListing({
+								...listing,
 								bathroom: e.target.value,
 							})
 						}
 					/>
-					{(property.type === 'Rental' ||
-						property.type === 'Sale') && (
+					{(listing.type === 'Rental' || listing.type === 'Sale') && (
 						<>
 							<TextField
 								className="admin-property-form__input"
 								variant="outlined"
 								label="Living Room"
 								type="number"
-								value={property.livingRoom}
+								value={listing.livingRoom}
 								onChange={e =>
-									setProperty({
-										...property,
+									setListing({
+										...listing,
 										livingRoom: e.target.value,
 									})
 								}
@@ -537,10 +532,10 @@ const UpdatePendingListing = () => {
 								variant="outlined"
 								label="Lobby"
 								type="number"
-								value={property.lobby}
+								value={listing.lobby}
 								onChange={e =>
-									setProperty({
-										...property,
+									setListing({
+										...listing,
 										lobby: e.target.value,
 									})
 								}
@@ -551,10 +546,10 @@ const UpdatePendingListing = () => {
 								variant="outlined"
 								label="Dinning Room"
 								type="number"
-								value={property.dinningRoom}
+								value={listing.dinningRoom}
 								onChange={e =>
-									setProperty({
-										...property,
+									setListing({
+										...listing,
 										dinningRoom: e.target.value,
 									})
 								}
@@ -564,10 +559,10 @@ const UpdatePendingListing = () => {
 								variant="outlined"
 								label="Store Room"
 								type="number"
-								value={property.store}
+								value={listing.store}
 								onChange={e =>
-									setProperty({
-										...property,
+									setListing({
+										...listing,
 										store: e.target.value,
 									})
 								}
@@ -577,10 +572,10 @@ const UpdatePendingListing = () => {
 								variant="outlined"
 								label="Pooja Room"
 								type="number"
-								value={property.poojaRoom}
+								value={listing.poojaRoom}
 								onChange={e =>
-									setProperty({
-										...property,
+									setListing({
+										...listing,
 										poojaRoom: e.target.value,
 									})
 								}
@@ -588,16 +583,16 @@ const UpdatePendingListing = () => {
 						</>
 					)}
 
-					{property.type === 'Sale' && (
+					{listing.type === 'Sale' && (
 						<>
 							<TextField
 								className="admin-property-form__input"
 								variant="outlined"
 								label="Property Age"
-								value={property.age}
+								value={listing.age}
 								onChange={e =>
-									setProperty({
-										...property,
+									setListing({
+										...listing,
 										age: e.target.value,
 									})
 								}
@@ -610,10 +605,10 @@ const UpdatePendingListing = () => {
 						variant="outlined"
 						label="Kitchen"
 						type="number"
-						value={property.kitchen}
+						value={listing.kitchen}
 						onChange={e =>
-							setProperty({
-								...property,
+							setListing({
+								...listing,
 								kitchen: e.target.value,
 							})
 						}
@@ -624,10 +619,10 @@ const UpdatePendingListing = () => {
 						variant="outlined"
 						label="Open Parking"
 						type="number"
-						value={property.openParking}
+						value={listing.openParking}
 						onChange={e =>
-							setProperty({
-								...property,
+							setListing({
+								...listing,
 								openParking: e.target.value,
 							})
 						}
@@ -637,10 +632,10 @@ const UpdatePendingListing = () => {
 						variant="outlined"
 						label="Covered Parking"
 						type="number"
-						value={property.closeParking}
+						value={listing.closeParking}
 						onChange={e =>
-							setProperty({
-								...property,
+							setListing({
+								...listing,
 								closeParking: e.target.value,
 							})
 						}
@@ -650,10 +645,10 @@ const UpdatePendingListing = () => {
 						variant="outlined"
 						label="Balcony"
 						type="number"
-						value={property.balcony}
+						value={listing.balcony}
 						onChange={e =>
-							setProperty({
-								...property,
+							setListing({
+								...listing,
 								balcony: e.target.value,
 							})
 						}
@@ -668,10 +663,10 @@ const UpdatePendingListing = () => {
 						<Select
 							required
 							label="category"
-							value={property.category}
+							value={listing.category}
 							onChange={e =>
-								setProperty({
-									...property,
+								setListing({
+									...listing,
 									category: e.target.value,
 								})
 							}
@@ -714,10 +709,10 @@ const UpdatePendingListing = () => {
 						<Select
 							required
 							label="Status"
-							value={property.status}
+							value={listing.status}
 							onChange={e =>
-								setProperty({
-									...property,
+								setListing({
+									...listing,
 									status: e.target.value,
 								})
 							}
@@ -735,10 +730,10 @@ const UpdatePendingListing = () => {
 						<Select
 							required
 							label="Direction"
-							value={property.direction}
+							value={listing.direction}
 							onChange={e =>
-								setProperty({
-									...property,
+								setListing({
+									...listing,
 									direction: e.target.value,
 								})
 							}
@@ -754,17 +749,17 @@ const UpdatePendingListing = () => {
 						</Select>
 					</FormControl>
 
-					{property.type === 'Sale' && (
+					{listing.type === 'Sale' && (
 						<>
 							<FormControl className="admin-property-form__select">
 								<InputLabel>Purchase Type</InputLabel>
 								<Select
 									required
 									label="Purchase Type"
-									value={property.purchaseType}
+									value={listing.purchaseType}
 									onChange={e =>
-										setProperty({
-											...property,
+										setListing({
+											...listing,
 											purchaseType: e.target.value,
 										})
 									}
@@ -781,10 +776,10 @@ const UpdatePendingListing = () => {
 								<Select
 									required
 									label="Construction Status"
-									value={property.constructionStatus}
+									value={listing.constructionStatus}
 									onChange={e =>
-										setProperty({
-											...property,
+										setListing({
+											...listing,
 											constructionStatus: e.target.value,
 										})
 									}
@@ -800,61 +795,60 @@ const UpdatePendingListing = () => {
 						</>
 					)}
 
-					{(property.type === 'Sale' ||
-						property.type === 'Rental') && (
+					{(listing.type === 'Sale' || listing.type === 'Rental') && (
 						<FormControl className="admin-property-form__select">
 							<InputLabel>Possession</InputLabel>
 							<Select
 								required
 								label="Possession"
-								value={property.possession}
+								value={listing.possession}
 								onChange={e =>
-									setProperty({
-										...property,
+									setListing({
+										...listing,
 										possession: e.target.value,
 									})
 								}
 							>
 								<MenuItem value="Immediate">Immediate</MenuItem>
 
-							<MenuItem value="Between 1 Month">
-								Between 1 Month
-							</MenuItem>
+								<MenuItem value="Between 1 Month">
+									Between 1 Month
+								</MenuItem>
 
-							<MenuItem value="Between 2 Month">
-								Between 2 Month
-							</MenuItem>
+								<MenuItem value="Between 2 Month">
+									Between 2 Month
+								</MenuItem>
 
-							<MenuItem value="Between 3 Month">
-								Between 3 Month
-							</MenuItem>
+								<MenuItem value="Between 3 Month">
+									Between 3 Month
+								</MenuItem>
 
-							<MenuItem value="Between 6 Months">
-								Between 6 Months
-							</MenuItem>
+								<MenuItem value="Between 6 Months">
+									Between 6 Months
+								</MenuItem>
 
-							<MenuItem value="2023">2023</MenuItem>
+								<MenuItem value="2023">2023</MenuItem>
 
-							<MenuItem value="2024">2024</MenuItem>
+								<MenuItem value="2024">2024</MenuItem>
 
-							<MenuItem value="2025">2025</MenuItem>
+								<MenuItem value="2025">2025</MenuItem>
 
-							<MenuItem value="2026">2026</MenuItem>
+								<MenuItem value="2026">2026</MenuItem>
 
-							<MenuItem value="2027">2027</MenuItem>
+								<MenuItem value="2027">2027</MenuItem>
 
-							<MenuItem value="2028">2028</MenuItem>
+								<MenuItem value="2028">2028</MenuItem>
 
-							<MenuItem value="2029">2029</MenuItem>
+								<MenuItem value="2029">2029</MenuItem>
 
-							<MenuItem value="2030">2030</MenuItem>
+								<MenuItem value="2030">2030</MenuItem>
 							</Select>
 						</FormControl>
 					)}
 
 					{/*  --------------------------- ANCHOR Furnishing Details --------------------------- */}
-					{(property.status === 'Furnished' ||
-						property.status === 'Semifurnished') && (
+					{(listing.status === 'Furnished' ||
+						listing.status === 'Semifurnished') && (
 						<>
 							<h1>
 								Add Furnishing Details (Add amount of things
@@ -870,7 +864,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										ac: e.target.value,
+										ac: +e.target.value,
 									})
 								}
 							/>
@@ -884,7 +878,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										stove: e.target.value,
+										stove: +e.target.value,
 									})
 								}
 							/>
@@ -898,7 +892,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										modularKitchen: e.target.value,
+										modularKitchen: +e.target.value,
 									})
 								}
 							/>
@@ -912,7 +906,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										fans: e.target.value,
+										fans: +e.target.value,
 									})
 								}
 							/>
@@ -926,7 +920,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										fridge: e.target.value,
+										fridge: +e.target.value,
 									})
 								}
 							/>
@@ -940,7 +934,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										light: e.target.value,
+										light: +e.target.value,
 									})
 								}
 							/>
@@ -954,7 +948,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										beds: e.target.value,
+										beds: +e.target.value,
 									})
 								}
 							/>
@@ -968,7 +962,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										microwave: e.target.value,
+										microwave: +e.target.value,
 									})
 								}
 							/>
@@ -982,7 +976,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										dinningTable: e.target.value,
+										dinningTable: +e.target.value,
 									})
 								}
 							/>
@@ -996,7 +990,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										tv: e.target.value,
+										tv: +e.target.value,
 									})
 								}
 							/>
@@ -1010,9 +1004,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										dressingTable: e.target.value
-											? e.target.value
-											: 0,
+										dressingTable: +e.target.value,
 									})
 								}
 							/>
@@ -1026,9 +1018,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										tvWallPanel: e.target.value
-											? e.target.value
-											: 0,
+										tvWallPanel: +e.target.value,
 									})
 								}
 							/>
@@ -1042,7 +1032,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										wardrobe: e.target.value,
+										wardrobe: +e.target.value,
 									})
 								}
 							/>
@@ -1056,7 +1046,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										washingMachine: e.target.value,
+										washingMachine: +e.target.value,
 									})
 								}
 							/>
@@ -1070,7 +1060,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										geyser: e.target.value,
+										geyser: +e.target.value,
 									})
 								}
 							/>
@@ -1084,7 +1074,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										curtains: e.target.value,
+										curtains: +e.target.value,
 									})
 								}
 							/>
@@ -1098,7 +1088,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										sofa: e.target.value,
+										sofa: +e.target.value,
 									})
 								}
 							/>
@@ -1112,7 +1102,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										waterPurifier: e.target.value,
+										waterPurifier: +e.target.value,
 									})
 								}
 							/>
@@ -1126,7 +1116,7 @@ const UpdatePendingListing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										exhaust: e.target.value,
+										exhaust: +e.target.value,
 									})
 								}
 							/>
@@ -1391,8 +1381,8 @@ const UpdatePendingListing = () => {
 					{/*   ----------------------------- ANCHOR Upload Buttons ----------------------------- */}
 
 					<h1>Images</h1>
-					{property.images.length > 0 ? (
-						property.images.map(img => (
+					{listing.images.length > 0 ? (
+						listing.images.map((img: S3File) => (
 							<div
 								className="admin-property-form__preview-container"
 								key={img.key}
@@ -1404,8 +1394,9 @@ const UpdatePendingListing = () => {
 								/>
 								<BPrimary
 									title={<DeleteIcon />}
+									type="button"
 									onClick={deleteFileHandler(
-										property._id,
+										listing._id,
 										'images',
 										img.key
 									)}
@@ -1416,8 +1407,8 @@ const UpdatePendingListing = () => {
 						<h1>there are no images</h1>
 					)}
 					<h1>Videos</h1>
-					{property.videos.length > 0 ? (
-						property.videos.map(vid => (
+					{listing.videos.length > 0 ? (
+						listing.videos.map((vid: S3File) => (
 							<div
 								className="admin-property-form__preview-container"
 								key={vid.key}
@@ -1434,8 +1425,9 @@ const UpdatePendingListing = () => {
 
 								<BPrimary
 									title={<DeleteIcon />}
+									type="button"
 									onClick={deleteFileHandler(
-										property._id,
+										listing._id,
 										'videos',
 										vid.key
 									)}
@@ -1446,10 +1438,11 @@ const UpdatePendingListing = () => {
 						<h1>there are no Videos</h1>
 					)}
 					<br />
+
 					<BUpload
 						title="Image"
 						className="admin-property-form__upload-btn"
-						onChange={e =>
+						onChange={(e: any) =>
 							setImages([...images, ...e.target.files])
 						}
 						accept="image/*"
@@ -1485,7 +1478,7 @@ const UpdatePendingListing = () => {
 					<BUpload
 						title="Videos"
 						className="admin-property-form__upload-btn"
-						onChange={e =>
+						onChange={(e: any) =>
 							setVideos([...videos, ...e.target.files])
 						}
 						accept="video/*"
@@ -1529,7 +1522,7 @@ const UpdatePendingListing = () => {
 					<BUpload
 						title="Documents"
 						className="admin-property-form__upload-btn"
-						onChange={e =>
+						onChange={(e: any) =>
 							setDocuments([...documents, ...e.target.files])
 						}
 						accept="application/pdf"
