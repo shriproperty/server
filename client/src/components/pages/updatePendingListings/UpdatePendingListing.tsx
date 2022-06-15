@@ -1,12 +1,5 @@
 /* eslint-disable array-callback-return */
-import {
-	useState,
-	useEffect,
-	useContext,
-	FC,
-	FormEvent,
-	ChangeEvent,
-} from 'react';
+import { useState, useEffect, useContext, FC, FormEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
@@ -189,6 +182,8 @@ const UpdatePendingListing: FC = () => {
 			);
 		}
 	};
+
+	/* ---------------------------- ANCHOR Facility Checker ---------------------------- */
 
 	/**
 	 * Check if an facility exists in the facilities array
