@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import { BPrimary } from '../../../util/button/Button';
 import { HPrimary } from '../../../util/typography/Typography';
 import { ASuccess, AError } from '../../../util/alert/Alert';
-import { post } from '../../../../api/post';
+import postRequest from '../../../../api/post';
 
 import './form.scss';
 
@@ -53,7 +53,11 @@ const Form: FC = () => {
 			return;
 		}
 
-		const res = (await post('/contacts/add', formData)) as ApiResponse;
+		const res = (await postRequest(
+			'/contacts/add',
+			formData,
+			false
+		)) as ApiResponse;
 
 		setLoading(false);
 

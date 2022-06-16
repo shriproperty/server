@@ -2,7 +2,7 @@ import { useState, useContext, FC, FormEvent, ChangeEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import { BPrimary } from '../../util/button/Button';
-import { post } from '../../../api/post';
+import postRequest from '../../../api/post';
 import { SPrimary } from '../../util/typography/Typography';
 import { AError } from '../../util/alert/Alert';
 import Modal from '../../util/modal/Modal';
@@ -41,9 +41,13 @@ const Signup: FC = () => {
 
 		setBtnLoading(true);
 
-		const res = (await post('/otp/send', {
-			email: user.email,
-		})) as ApiResponse;
+		const res = (await postRequest(
+			'/otp/send',
+			{
+				email: user.email,
+			},
+			false
+		)) as ApiResponse;
 
 		setBtnLoading(false);
 
@@ -57,13 +61,21 @@ const Signup: FC = () => {
 	const verifyOtpHandler = async (e: FormEvent) => {
 		e.preventDefault();
 
-		const res = (await post('/otp/verify', {
-			email: user.email,
-			otp,
-		})) as ApiResponse;
+		const res = (await postRequest(
+			'/otp/verify',
+			{
+				email: user.email,
+				otp,
+			},
+			false
+		)) as ApiResponse;
 
 		if (res.success) {
-			const signupRes = (await post('/auth/signup', user)) as ApiResponse;
+			const signupRes = (await postRequest(
+				'/auth/signup',
+				user,
+				false
+			)) as ApiResponse;
 			setAuthFormSubmit(true);
 
 			if (signupRes.success) navigate('/');

@@ -4,7 +4,7 @@ import { useState, useEffect, FC, FormEvent } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { BPrimary } from '../../util/button/Button';
 import get from '../../../api/get';
-import { post } from '../../../api/post';
+import postRequest from '../../../api/post';
 import './property.scss';
 import { HPrimary, SPrimary } from '../../util/typography/Typography';
 import { AError } from '../../util/alert/Alert';
@@ -87,9 +87,13 @@ const Property: FC<PropertyProps> = props => {
 			return setErrorModalOpen(true);
 		}
 
-		const sendOtpResponse = (await post('/otp/send', {
-			email,
-		})) as ApiResponse;
+		const sendOtpResponse = (await postRequest(
+			'/otp/send',
+			{
+				email,
+			},
+			false
+		)) as ApiResponse;
 
 		setBtnLoading(false);
 
@@ -106,19 +110,27 @@ const Property: FC<PropertyProps> = props => {
 		e.preventDefault();
 		setBtnLoading(true);
 
-		const verifyOtpResponse = (await post('/otp/verify', {
-			email,
-			otp,
-		})) as ApiResponse;
+		const verifyOtpResponse = (await postRequest(
+			'/otp/verify',
+			{
+				email,
+				otp,
+			},
+			false
+		)) as ApiResponse;
 
 		setBtnLoading(false);
 		// if otp is valid than create new user
 		if (verifyOtpResponse.success) {
-			const newUserResponse = (await post('/temp-users/add', {
-				name,
-				email,
-				phone,
-			})) as ApiResponse;
+			const newUserResponse = (await postRequest(
+				'/temp-users/add',
+				{
+					name,
+					email,
+					phone,
+				},
+				false
+			)) as ApiResponse;
 
 			// if user is created successfully than save token and hide modal
 			if (newUserResponse.success) {

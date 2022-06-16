@@ -2,7 +2,7 @@ import { useState, useContext, FC, FormEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { TextField } from '@mui/material';
-import { post } from '../../../api/post';
+import postRequest from '../../../api/post';
 import { patchRequest } from '../../../api/patch';
 import { BPrimary } from '../../util/button/Button';
 import { SPrimary } from '../../util/typography/Typography';
@@ -35,10 +35,14 @@ const Login: FC = () => {
 
 		setBtnLoading(true);
 
-		const res = (await post('/auth/login', {
-			email,
-			password,
-		})) as ApiResponse;
+		const res = (await postRequest(
+			'/auth/login',
+			{
+				email,
+				password,
+			},
+			false
+		)) as ApiResponse;
 
 		setBtnLoading(false);
 
@@ -55,9 +59,13 @@ const Login: FC = () => {
 		e.preventDefault();
 		setBtnLoading(true);
 
-		const sendOtpResponse = (await post('/otp/send', {
-			email,
-		})) as ApiResponse;
+		const sendOtpResponse = (await postRequest(
+			'/otp/send',
+			{
+				email,
+			},
+			false
+		)) as ApiResponse;
 
 		setBtnLoading(false);
 
@@ -74,10 +82,14 @@ const Login: FC = () => {
 		e.preventDefault();
 		setBtnLoading(true);
 
-		const verifyOtpResponse = (await post('/otp/verify', {
-			email,
-			otp,
-		})) as ApiResponse;
+		const verifyOtpResponse = (await postRequest(
+			'/otp/verify',
+			{
+				email,
+				otp,
+			},
+			false
+		)) as ApiResponse;
 
 		setBtnLoading(false);
 		// if otp is valid than create new user

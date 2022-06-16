@@ -12,7 +12,7 @@ import { ASuccess, AError } from '../../util/alert/Alert';
 import { CheckBox } from '../../util/input/Input';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { UserContext } from '../../../helpers/Context';
-import { postFile } from '../../../api/post';
+import postRequest from '../../../api/post';
 
 import '../admin/property/form/form.scss';
 import { fakeFurnishingDetails, fakeProperty } from '../../../helpers/fakeData';
@@ -92,7 +92,7 @@ const Listing: FC = () => {
 		);
 
 		// post to server
-		postFile('/listings/add', body).then((data: any) => {
+		postRequest('/listings/add', body, true).then((data: any) => {
 			setLoading(false);
 
 			if (data.success) {

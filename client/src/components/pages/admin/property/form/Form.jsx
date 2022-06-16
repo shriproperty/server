@@ -11,7 +11,7 @@ import { CheckBox } from '../../../../util/input/Input';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import './form.scss';
-import { postFile } from '../../../../../api/post';
+import postRequest from '../../../../../api/post';
 import { Helmet } from 'react-helmet-async';
 
 const Form = () => {
@@ -111,7 +111,7 @@ const Form = () => {
 		);
 
 		// post to server
-		postFile('/properties/add', body).then(data => {
+		postRequest('/properties/add', body, true).then(data => {
 			setLoading(false);
 
 			if (data.success) {
