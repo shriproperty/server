@@ -1,28 +1,28 @@
-import { useState, useEffect, lazy, Suspense, FC } from 'react';
+import { CssBaseline } from '@mui/material';
+import { FC, lazy, Suspense, useEffect, useState } from 'react';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import {
 	BrowserRouter as Router,
-	Routes,
-	Route,
 	Navigate,
+	Route,
+	Routes,
 } from 'react-router-dom';
-import { CssBaseline } from '@mui/material';
-import { HelmetProvider, Helmet } from 'react-helmet-async';
 import get from './api/get';
-import Loader from './components/util/loader/Loader';
 import './app.scss';
+import Loader from './components/util/loader/Loader';
 
 import Contacts from './components/pages/admin/contacts/Contacts';
 import AddProperty from './components/pages/admin/property/form/Form';
 
-import { UserContext, AuthFormSubmitContext } from './helpers/Context';
+import { AuthFormSubmitContext, UserContext } from './helpers/Context';
 
-const Account = lazy(() => import('./components/pages/account/Account'));
+const Account = lazy(() => import('./components/pages/user/account/Account'));
 
 const TempUsers = lazy(
 	() => import('./components/pages/admin/tempUsers/TempUsers')
 );
 const UserUpdateProperty = lazy(
-	() => import('./components/pages/updateProperty/UpdateProperty')
+	() => import('./components/pages/user/updateProperty/UpdateProperty')
 );
 const NotFound = lazy(() => import('./components/pages/notFound/NotFound'));
 const Listings = lazy(
@@ -31,43 +31,49 @@ const Listings = lazy(
 const AdminListing = lazy(
 	() => import('./components/pages/admin/listing/Listing')
 );
-const Signup = lazy(() => import('./components/pages/signup/Signup'));
-const Login = lazy(() => import('./components/pages/login/Login'));
-const Form = lazy(() => import('./components/pages/home/form/Form'));
+const Signup = lazy(() => import('./components/pages/user/signup/Signup'));
+const Login = lazy(() => import('./components/pages/user/login/Login'));
+const Form = lazy(() => import('./components/pages/user/home/form/Form'));
 const Users = lazy(() => import('./components/pages/admin/users/Users'));
 const User = lazy(() => import('./components/pages/admin/user/User'));
 const PendingListings = lazy(
-	() => import('./components/pages/pendingListings/PendingListings')
+	() => import('./components/pages/user/pendingListings/PendingListings')
 );
 const UpdatePendingListing = lazy(
 	() =>
-		import('./components/pages/updatePendingListings/UpdatePendingListing')
+		import(
+			'./components/pages/user/updatePendingListings/UpdatePendingListing'
+		)
 );
 
 const Admin = lazy(() => import('./components/pages/admin/Admin'));
 const UpdateProperty = lazy(
 	() => import('./components/pages/admin/property/update/Update')
 );
-const Listing = lazy(() => import('./components/pages/listing/Listing'));
+const Listing = lazy(() => import('./components/pages/user/listing/Listing'));
 const Nav = lazy(() => import('./components/layout/nav/Nav'));
 const Footer = lazy(() => import('./components/layout/footer/Footer'));
 
 const Properties = lazy(
-	() => import('./components/pages/properties/Properties')
+	() => import('./components/pages/user/properties/Properties')
 );
-const AllImages = lazy(() => import('./components/pages/allimages/Images'));
-const Hero = lazy(() => import('./components/pages/home/hero/Hero'));
+const AllImages = lazy(
+	() => import('./components/pages/user/allimages/Images')
+);
+const Hero = lazy(() => import('./components/pages/user/home/hero/Hero'));
 const PropertiesSection = lazy(
-	() => import('./components/pages/home/properties/Properties')
+	() => import('./components/pages/user/home/properties/Properties')
 );
 const Category = lazy(
-	() => import('./components/pages/home/category/Category')
+	() => import('./components/pages/user/home/category/Category')
 );
 const ListingSection = lazy(
-	() => import('./components/pages/home/listing/Listing')
+	() => import('./components/pages/user/home/listing/Listing')
 );
 
-const Property = lazy(() => import('./components/pages/property/Property'));
+const Property = lazy(
+	() => import('./components/pages/user/property/Property')
+);
 
 const App: FC = () => {
 	const [submit, setSubmit] = useState(false);
