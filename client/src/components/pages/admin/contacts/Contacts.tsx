@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC, FormEvent } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -19,7 +19,7 @@ import deleteRequest from '../../../../api/delete';
 
 import './contacts.scss';
 
-const Users = () => {
+const Users: FC = () => {
 	const [response, setResponse] = useState([]);
 	const [errorMessage, setErrorMessage] = useState('');
 	const [status, setStatus] = useState('');
@@ -31,11 +31,11 @@ const Users = () => {
 		});
 	}, []);
 
-	const deleteHandler = id => {
-		return e => {
+	const deleteHandler = (id: string) => {
+		return (e: FormEvent) => {
 			e.preventDefault();
 
-			deleteRequest(`/contacts/delete/${id}`).then(data => {
+			deleteRequest(`/contacts/delete/${id}`).then((data: any) => {
 				if (data.success !== true) {
 					setErrorMessage(data.message);
 					setOpenError(true);
@@ -46,13 +46,13 @@ const Users = () => {
 		};
 	};
 
-	const updateHandler = id => {
-		return e => {
+	const updateHandler = (id: string) => {
+		return (e: FormEvent) => {
 			e.preventDefault();
 
 			patchRequest(`/contacts/update/${id}`, {
 				status,
-			}).then(data => {
+			}).then((data: any) => {
 				if (data.success !== true) {
 					setErrorMessage(data.message);
 					setOpenError(true);
@@ -71,7 +71,6 @@ const Users = () => {
 
 			<AError
 				title={errorMessage}
-				id="alert-error"
 				open={openError}
 				setOpen={setOpenError}
 			/>
@@ -143,7 +142,7 @@ const Users = () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{response.map(contact => (
+					{response.map((contact: Contact) => (
 						<TableRow key={contact._id}>
 							<TableCell
 								className="contact-table__cell"
