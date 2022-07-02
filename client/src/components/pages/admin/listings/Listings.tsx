@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import { Link } from 'react-router-dom';
 import getRequest from '../../../../api/get';
 import Loader from '../../../util/loader/Loader';
@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import '../admin.scss';
-const Listings = () => {
+const Listings: FC = () => {
 	const [response, setResponse] = useState<Listing[]>([]);
 	const [propertyLoading, setPropertyLoading] = useState(true);
 

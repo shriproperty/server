@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import { Link } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,8 +10,16 @@ import Loader from '../../../util/loader/Loader';
 import moment from 'moment';
 import { Helmet } from 'react-helmet-async';
 
-const Users = () => {
-	const [response, setResponse] = useState([]);
+interface User {
+	_id: string;
+	name: string;
+	email: string;
+	phone: string;
+	createdAt: string;
+}
+
+const Users: FC = () => {
+	const [response, setResponse] = useState<User[]>([]);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
