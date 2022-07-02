@@ -31,9 +31,7 @@ const UpdateProperty = () => {
 
 	/* --------------------------------- ANCHOR States --------------------------------- */
 	const [property, setProperty] = useState<any>(fakeProperty);
-	const [otherFeatures, setOtherFeatures] = useState<
-		Property['otherFeatures']
-	>([]);
+	const [otherFeatures, setOtherFeatures] = useState<string[]>([]);
 	const [furnishingDetails, setFurnishingDetails] =
 		useState<FurnishingDetails>(fakeFurnishingDetails);
 	const [facilities, setFacilities] = useState<string[]>([]);
@@ -165,14 +163,12 @@ const UpdateProperty = () => {
 	};
 
 	/* --------------------------------- ANCHOR Checkbox handler --------------------------------- */
+
 	/**
 	 * Checkbox handler
-	 *
-	 * `checked` If checkbox is checked: `true` or unchecked: `false`
-	 *
-	 * `title` The title of the facility
-	 *
-	 * `icon` Icon which will be used for facility should be same as icon name in file system
+	 * @param {boolean} checked If checkbox is checked: `true` or unchecked: `false`
+	 * @param {string} title The title of the facility
+	 * @param {string} icon Icon which will be used for facility should be same as icon name in file system
 	 */
 	const checkboxHandler = (checked: boolean, title: string, icon: string) => {
 		if (checked && !facilities.includes(JSON.stringify({ title, icon }))) {
@@ -195,7 +191,7 @@ const UpdateProperty = () => {
 	/**
 	 * Check if an facility exists in the facilities array
 	 *
-	 * `title` The title of the facility
+	 * @param {string} title The title of the facility
 	 */
 	const facilityChecker = (title: string) => {
 		return facilities.some(

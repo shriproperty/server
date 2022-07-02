@@ -15,14 +15,11 @@ interface ASuccessProps {
 
 /**
  * alert success
- *
- * `title` title to show on alert
- *
- * `open` if true alert will open else close
- *
- * `className` additional class names
- *
- * `setOpen` this will update state of open
+ * @param {{}} props Props
+ * @param {string} props.title title to show on alert
+ * @param {boolean} props.open if true alert will open else close
+ * @param {string} props.className additional class names
+ * @param {string} props.setOpen this will update state of open
  */
 export const ASuccess: FC<ASuccessProps> = props => {
 	return (
@@ -58,14 +55,11 @@ interface AErrorProps {
 
 /**
  * alert error
- *
- * `title` title to show on alert
- *
- * `open` if true alert will open else close
- *
- * `className` additional class names
- *
- * `setOpen` this will update state of open
+ * @param {{}} props Props
+ * @param {string} props.title title to show on alert
+ * @param {boolean} props.open if true alert will open else close
+ * @param {string} props.className additional class names
+ * @param {string} props.setOpen this will update state of open
  */
 export const AError: FC<AErrorProps> = props => {
 	return (
@@ -102,14 +96,11 @@ interface AWarningProps {
 
 /**
  * alert warning
- *
- * `title` title to show on alert
- *
- * `open` if true alert will open else close
- *
- * `className` additional class names
- *
- * `setOpen` this will update state of open
+ * @param {{}} props Props
+ * @param {string} props.title title to show on alert
+ * @param {boolean} props.open if true alert will open else close
+ * @param {string} props.className additional class names
+ * @param {string} props.setOpen this will update state of open
  */
 export const AWarning: FC<AWarningProps> = props => {
 	return (

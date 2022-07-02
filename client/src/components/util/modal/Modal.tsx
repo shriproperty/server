@@ -12,14 +12,11 @@ interface ModalProps {
 
 /**
  * Modal component
- *
- * `children` children
- *
- * `open` open state if `true` modal will open otherwise it will be closed
- *
- * `onClose` this function will run when clicked on body outside modal
- *
- * `className` additional classNames for extra styling
+ * @param {{}} props Props
+ * @param {any} props.children children
+ * @param {boolean} props.open open state if `true` modal will open otherwise it will be closed
+ * @param {string} props.onClose this function will run when clicked on body outside modal
+ * @param {string} props.className additional classNames for extra styling
  */
 const Modal: FC<ModalProps> = props => {
 	return (

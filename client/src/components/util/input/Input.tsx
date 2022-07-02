@@ -13,14 +13,11 @@ interface CheckBoxProps {
 
 /**
  * Check Box with label
- *
- *  `label`  The label of the input
- *
- *  `className`  The name of the input
- *
- *  `onChange` The function to be called when the check box is checked or unchecked
- *
- *  `checked`  If `true` the checkbox will be checked
+ * @param {{}} props Props
+ * @param {string} props.label  The label of the input
+ * @param {string} props.className  The name of the input
+ * @param {string} props.onChange The function to be called when the check box is checked or unchecked
+ * @param {boolean} props.checked  If `true` the checkbox will be checked
  */
 export const CheckBox: FC<CheckBoxProps> = props => {
 	return (

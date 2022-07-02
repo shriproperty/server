@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC, FormEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
@@ -16,56 +16,25 @@ import get from '../../../../../api/get';
 import deleteRequest from '../../../../../api/delete';
 import { CheckBox } from '../../../../util/input/Input';
 import { Helmet } from 'react-helmet-async';
+import {
+	fakeFurnishingDetails,
+	fakeProperty,
+} from '../../../../../helpers/fakeData';
 
 //NOTE Sass is coming from form.scss file in ../form folder
 
-const Update = () => {
+const Update: FC = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	/* --------------------------------- ANCHOR States --------------------------------- */
-	const [property, setProperty] = useState({
-		title: '',
-		description: '',
-		price: '',
-		specialPrice: '',
-		type: '',
-		security: '',
-		maintenance: '',
-		category: '',
-		status: '',
-		size: '',
-		unit: '',
-		bedroom: 0,
-		bathroom: 0,
-		openParking: 0,
-		closeParking: 0,
-		livingRoom: 0,
-		dinningRoom: 0,
-		store: 0,
-		poojaRoom: 0,
-		balcony: 0,
-		floor: '',
-		direction: '',
-		kitchen: 0,
-		lobby: 0,
-		address: '',
-		location: '',
-		locality: '',
-		featured: false,
-		owner: '',
-		ownerContact: '',
-		commission: 0,
-		age: 0,
-		possession: '',
-		purchaseType: '',
-		constructionStatus: '',
-	});
-	const [otherFeatures, setOtherFeatures] = useState([]);
-	const [furnishingDetails, setFurnishingDetails] = useState({});
-	const [facilities, setFacilities] = useState([]);
-	const [images, setImages] = useState([]);
-	const [videos, setVideos] = useState([]);
-	const [documents, setDocuments] = useState([]);
+	const [property, setProperty] = useState<any>(fakeProperty);
+	const [otherFeatures, setOtherFeatures] = useState<string[]>([]);
+	const [furnishingDetails, setFurnishingDetails] =
+		useState<FurnishingDetails>(fakeFurnishingDetails);
+	const [facilities, setFacilities] = useState<string[]>([]);
+	const [images, setImages] = useState<any[]>([]);
+	const [videos, setVideos] = useState<any[]>([]);
+	const [documents, setDocuments] = useState<any[]>([]);
 
 	const [openSuccess, setOpenSuccess] = useState(false);
 	const [openError, setOpenError] = useState(false);
@@ -83,10 +52,10 @@ const Update = () => {
 				setProperty(res.data);
 				setOtherFeatures(res.data.otherFeatures);
 				setFurnishingDetails(res.data.furnishingDetails);
-				res.data.facilities.forEach(fac => {
+				res.data.facilities.forEach((facility: string) => {
 					setFacilities(prevState => [
 						...prevState,
-						JSON.stringify(fac),
+						JSON.stringify(facility),
 					]);
 				});
 				setLoadingPage(false);
@@ -101,13 +70,15 @@ const Update = () => {
 	const body = new FormData();
 
 	/* -------------------------- ANCHOR submit handler ------------------------- */
-	const submitHandler = e => {
+	const submitHandler = (e: FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
 
 		// append data to body to send
 		for (const key in property) {
 			if (
+				key !== '_id' &&
+				key !== '__v' &&
 				key !== 'otherFeatures' &&
 				key !== 'facilities' &&
 				key !== 'furnishingDetails'
@@ -147,7 +118,7 @@ const Update = () => {
 		}
 
 		// post to server
-		patchFile(`/properties/update/${id}`, body).then(data => {
+		patchFile(`/properties/update/${id}`, body).then((data: any) => {
 			setLoading(false);
 
 			if (data.success) {
@@ -161,8 +132,17 @@ const Update = () => {
 		});
 	};
 
-	const deleteFileHandler = (id, type, key) => {
-		return e => {
+	/**
+	 * @param {string} id Id of file
+	 * @param {string} type type of file `image` | `video`
+	 * @param {string} key key of file
+	 */
+	const deleteFileHandler = (
+		id: string,
+		type: 'images' | 'videos',
+		key: string
+	) => {
+		return () => {
 			deleteRequest(`/properties/delete-file/${id}/${type}/${key}`).then(
 				data => {
 					setDeleteFile(true);
@@ -177,10 +157,9 @@ const Update = () => {
 	 * @param {boolean} checked If checkbox is checked: `true` or unchecked: `false`
 	 * @param {string} title The title of the facility
 	 * @param {string} icon Icon which will be used for facility should be same as icon name in file system
-	 * @return {Function} Function used by onChange event of checkbox
 	 */
-	const checkboxHandler = (checked, title, icon) => {
-		if (checked && !facilities.includes({ title, icon })) {
+	const checkboxHandler = (checked: string, title: string, icon: string) => {
+		if (checked && !facilities.includes(JSON.stringify({ title, icon }))) {
 			setFacilities(prevState => [
 				...prevState,
 				JSON.stringify({
@@ -199,9 +178,8 @@ const Update = () => {
 	/**
 	 * Check if an facility exists in the facilities array
 	 * @param {string} title The title of the facility
-	 * @return {boolean} `true` if the facility exists, `false` otherwise
 	 */
-	const facilityChecker = title => {
+	const facilityChecker = (title: string) => {
 		return facilities.some(
 			facility => JSON.parse(facility).title === title
 		);
@@ -712,8 +690,8 @@ const Update = () => {
 								})
 							}
 						>
-							<MenuItem value={true}>True</MenuItem>
-							<MenuItem value={false}>False</MenuItem>
+							<MenuItem value={'true'}>True</MenuItem>
+							<MenuItem value={'false'}>False</MenuItem>
 						</Select>
 					</FormControl>
 					<FormControl className="admin-property-form__select">
@@ -856,7 +834,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										ac: e.target.value,
+										ac: +e.target.value,
 									})
 								}
 							/>
@@ -870,7 +848,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										stove: e.target.value,
+										stove: +e.target.value,
 									})
 								}
 							/>
@@ -884,7 +862,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										modularKitchen: e.target.value,
+										modularKitchen: +e.target.value,
 									})
 								}
 							/>
@@ -898,7 +876,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										fans: e.target.value,
+										fans: +e.target.value,
 									})
 								}
 							/>
@@ -912,7 +890,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										fridge: e.target.value,
+										fridge: +e.target.value,
 									})
 								}
 							/>
@@ -926,7 +904,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										light: e.target.value,
+										light: +e.target.value,
 									})
 								}
 							/>
@@ -940,7 +918,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										beds: e.target.value,
+										beds: +e.target.value,
 									})
 								}
 							/>
@@ -954,7 +932,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										microwave: e.target.value,
+										microwave: +e.target.value,
 									})
 								}
 							/>
@@ -968,7 +946,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										dinningTable: e.target.value,
+										dinningTable: +e.target.value,
 									})
 								}
 							/>
@@ -982,7 +960,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										tv: e.target.value,
+										tv: +e.target.value,
 									})
 								}
 							/>
@@ -996,9 +974,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										dressingTable: e.target.value
-											? e.target.value
-											: 0,
+										dressingTable: +e.target.value,
 									})
 								}
 							/>
@@ -1012,9 +988,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										tvWallPanel: e.target.value
-											? e.target.value
-											: 0,
+										tvWallPanel: +e.target.value,
 									})
 								}
 							/>
@@ -1028,7 +1002,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										wardrobe: e.target.value,
+										wardrobe: +e.target.value,
 									})
 								}
 							/>
@@ -1042,7 +1016,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										washingMachine: e.target.value,
+										washingMachine: +e.target.value,
 									})
 								}
 							/>
@@ -1056,7 +1030,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										geyser: e.target.value,
+										geyser: +e.target.value,
 									})
 								}
 							/>
@@ -1070,7 +1044,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										curtains: e.target.value,
+										curtains: +e.target.value,
 									})
 								}
 							/>
@@ -1084,7 +1058,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										sofa: e.target.value,
+										sofa: +e.target.value,
 									})
 								}
 							/>
@@ -1098,7 +1072,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										waterPurifier: e.target.value,
+										waterPurifier: +e.target.value,
 									})
 								}
 							/>
@@ -1112,7 +1086,7 @@ const Update = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										exhaust: e.target.value,
+										exhaust: +e.target.value,
 									})
 								}
 							/>
@@ -1378,7 +1352,7 @@ const Update = () => {
 
 					<h1>Images</h1>
 					{property.images.length > 0 ? (
-						property.images.map(img => (
+						property.images.map((img: any) => (
 							<div
 								className="admin-property-form__preview-container"
 								key={img.key}
@@ -1403,7 +1377,7 @@ const Update = () => {
 					)}
 					<h1>Videos</h1>
 					{property.videos.length > 0 ? (
-						property.videos.map(vid => (
+						property.videos.map((vid: any) => (
 							<div
 								className="admin-property-form__preview-container"
 								key={vid.key}
@@ -1435,7 +1409,7 @@ const Update = () => {
 					<BUpload
 						title="Image"
 						className="admin-property-form__upload-btn"
-						onChange={e =>
+						onChange={(e: any) =>
 							setImages([...images, ...e.target.files])
 						}
 						accept="image/*"
@@ -1471,7 +1445,7 @@ const Update = () => {
 					<BUpload
 						title="Videos"
 						className="admin-property-form__upload-btn"
-						onChange={e =>
+						onChange={(e: any) =>
 							setVideos([...videos, ...e.target.files])
 						}
 						accept="video/*"
@@ -1515,7 +1489,7 @@ const Update = () => {
 					<BUpload
 						title="Documents"
 						className="admin-property-form__upload-btn"
-						onChange={e =>
+						onChange={(e: any) =>
 							setDocuments([...documents, ...e.target.files])
 						}
 						accept="application/pdf"

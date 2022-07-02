@@ -8,6 +8,8 @@ const JWT_SECRET = process.env.JWT_SECRET as string;
 
 /**
  * Generate JWT token
+ * @param {string | Buffer | object} body body of token
+ * @param {expire | undefined} expire after what time token should expire automatically
  */
 export const generateJWT = (
 	body: string | Buffer | object,
@@ -23,7 +25,8 @@ export const generateJWT = (
 };
 
 /**
- * takes `token` and verify and decode it
+ * Verify JWT token
+ * @param {string} token token to verify
  */
 export const verifyJWT = (token: string): JWT | null => {
 	try {

@@ -10,8 +10,9 @@ interface HPrimaryProps {
 
 /**
  * Heading Primary
- * takes `title` prop and `className` prop for additional classNames
- * for additional styling
+ * @param {{}} props Props
+ * @param {string} props.title text for heading
+  @param {string} props.className  additional classNames for additional styling
  */
 export const HPrimary: FC<HPrimaryProps> = props => {
 	return (
@@ -30,9 +31,10 @@ interface HSecondaryProps {
 }
 
 /**
- *  Heading Secondary
- *  takes `title` prop and `className` prop for additional classNames
- *  for additional styling
+ * Heading Primary
+ * @param {{}} props Props
+ * @param {string} props.title text for heading
+  @param {string} props.className  additional classNames for additional styling
  */
 export const HSecondary: FC<HSecondaryProps> = props => {
 	return (
@@ -51,9 +53,10 @@ interface SPrimaryProps {
 }
 
 /**
- * Para Primary
- * takes `title` prop and `className` prop for additional classNames
- * for additional styling
+ * Heading Primary
+ * @param {{}} props Props
+ * @param {string} props.title text for heading
+  @param {string} props.className  additional classNames for additional styling
  */
 export const SPrimary: FC<SPrimaryProps> = props => {
 	return (
@@ -73,9 +76,10 @@ interface SSecondaryProps {
 }
 
 /**
- * Para Secondary
- * takes `title` prop and `className` prop for additional classNames
- * for additional styling
+ * Heading Primary
+ * @param {{}} props Props
+ * @param {string} props.title text for heading
+  @param {string} props.className  additional classNames for additional styling
  */
 export const SSecondary: FC<SSecondaryProps> = props => {
 	return (

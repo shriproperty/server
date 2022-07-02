@@ -107,12 +107,9 @@ const Listing: FC = () => {
 	/* --------------------------------- ANCHOR Checkbox handler --------------------------------- */
 	/**
 	 * Checkbox handler
-	 *
-	 * `checked` If checkbox is checked: `true` or unchecked: `false`
-	 *
-	 * `title` The title of the facility
-	 *
-	 * `icon` Icon which will be used for facility should be same as icon name in file system
+	 * @param {boolean} checked If checkbox is checked: `true` or unchecked: `false`
+	 * @param {string} title The title of the facility
+	 * @param {string} icon Icon which will be used for facility should be same as icon name in file system
 	 */
 	const checkboxHandler = (checked: boolean, title: string, icon: string) => {
 		if (checked && !facilities.includes(JSON.stringify({ title, icon }))) {

@@ -15,17 +15,13 @@ interface BPrimaryProps {
 
 /**
  * Button primary component
- * `title` text to show on button
- *
- * `className` additional classNames to add to button
- *
- * `type` type of button eg-submit
- *
- * `loading` if true button will show loading indicator
- *
- * `style` type of style eg-padding: '0'
- *
- * `onClick` function to call on click
+ * @param {{}} props props
+ * @param {string} props.title text to show on button
+ * @param {string} props.className additional classNames to add to button
+ * @param {string} props.type type of button eg-submit
+ * @param {boolean} props.loading if true button will show loading indicator
+ * @param {string} props.style type of style eg-padding: '0'
+ * @param {Function} props.onClick function to call on click
  */
 export const BPrimary: FC<BPrimaryProps> = props => {
 	return (
@@ -50,13 +46,11 @@ interface BUploadProps {
 
 /**
  * Button to upload files
- * `title` text to show on button
- *
- * `className` additional classNames to add to button
- *
- * `onChange` onChange event handler
- *
- * `accept`
+ * @param {{}} props Props
+ * @param {string} props.title text to show on button
+ * @param {string} props.className additional classNames to add to button
+ * @param {string} props.onChange` onChange event handler
+ * @param {string} props.accept specify which type of files to accept eg:- `png` `jpg`
  */
 export const BUpload: FC<BUploadProps> = props => {
 	return (
