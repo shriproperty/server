@@ -13,7 +13,7 @@ import {
 import { Helmet } from 'react-helmet-async';
 import '../admin.scss';
 const Listings = () => {
-	const [response, setResponse] = useState([]);
+	const [response, setResponse] = useState<Listing[]>([]);
 	const [propertyLoading, setPropertyLoading] = useState(true);
 
 	useEffect(() => {
