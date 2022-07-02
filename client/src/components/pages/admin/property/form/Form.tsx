@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import { useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,52 +13,21 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import './form.scss';
 import postRequest from '../../../../../api/post';
 import { Helmet } from 'react-helmet-async';
+import {
+	fakeFurnishingDetails,
+	fakeProperty,
+} from '../../../../../helpers/fakeData';
 
-const Form = () => {
+const Form: FC = () => {
 	/* --------------------------------- ANCHOR States --------------------------------- */
-	const [property, setProperty] = useState({
-		title: '',
-		description: '',
-		price: '',
-		specialPrice: '',
-		type: '',
-		security: '',
-		maintenance: '',
-		category: '',
-		status: '',
-		size: '',
-		unit: '',
-		bedroom: 0,
-		bathroom: 0,
-		openParking: 0,
-		closeParking: 0,
-		livingRoom: 0,
-		dinningRoom: 0,
-		store: 0,
-		poojaRoom: 0,
-		balcony: 0,
-		floor: '',
-		direction: '',
-		kitchen: 0,
-		lobby: 0,
-		address: '',
-		location: '',
-		locality: '',
-		featured: false,
-		owner: '',
-		ownerContact: '',
-		commission: 0,
-		age: 0,
-		possession: '',
-		purchaseType: '',
-		constructionStatus: '',
-	});
-	const [otherFeatures, setOtherFeatures] = useState([]);
-	const [furnishingDetails, setFurnishingDetails] = useState({});
-	const [facilities, setFacilities] = useState([]);
-	const [images, setImages] = useState([]);
-	const [videos, setVideos] = useState([]);
-	const [documents, setDocuments] = useState([]);
+	const [property, setProperty] = useState<any>(fakeProperty);
+	const [otherFeatures, setOtherFeatures] = useState<string[]>([]);
+	const [furnishingDetails, setFurnishingDetails] =
+		useState<FurnishingDetails>(fakeFurnishingDetails);
+	const [facilities, setFacilities] = useState<string[]>([]);
+	const [images, setImages] = useState<any[]>([]);
+	const [videos, setVideos] = useState<any[]>([]);
+	const [documents, setDocuments] = useState<any[]>([]);
 
 	const [loading, setLoading] = useState(false);
 	const [openSuccess, setOpenSuccess] = useState(false);
@@ -69,7 +38,7 @@ const Form = () => {
 	const body = new FormData();
 
 	/* -------------------------- ANCHOR submit handler ------------------------- */
-	const submitHandler = e => {
+	const submitHandler = (e: FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
 
@@ -111,7 +80,7 @@ const Form = () => {
 		);
 
 		// post to server
-		postRequest('/properties/add', body, true).then(data => {
+		postRequest('/properties/add', body, true).then((data: any) => {
 			setLoading(false);
 
 			if (data.success) {
@@ -127,13 +96,15 @@ const Form = () => {
 	/* --------------------------------- ANCHOR Checkbox handler --------------------------------- */
 	/**
 	 * Checkbox handler
-	 * @param {boolean} checked If checkbox is checked: `true` or unchecked: `false`
-	 * @param {string} title The title of the facility
-	 * @param {string} icon Icon which will be used for facility should be same as icon name in file system
-	 * @return {Function} Function used by onChange event of checkbox
+	 *
+	 * `checked` If checkbox is checked: `true` or unchecked: `false`
+	 *
+	 * `title` The title of the facility
+	 *
+	 * `icon` Icon which will be used for facility should be same as icon name in file system
 	 */
-	const checkboxHandler = (checked, title, icon) => {
-		if (checked && !facilities.includes({ title, icon })) {
+	const checkboxHandler = (checked: string, title: string, icon: string) => {
+		if (checked && !facilities.includes(JSON.stringify({ title, icon }))) {
 			setFacilities(prevState => [
 				...prevState,
 				JSON.stringify({
@@ -605,8 +576,8 @@ const Form = () => {
 							})
 						}
 					>
-						<MenuItem value={true}>True</MenuItem>
-						<MenuItem value={false}>False</MenuItem>
+						<MenuItem value={'true'}>True</MenuItem>
+						<MenuItem value={'false'}>False</MenuItem>
 					</Select>
 				</FormControl>
 
@@ -694,7 +665,7 @@ const Form = () => {
 								})
 							}
 						>
-								<MenuItem value="Immediate">Immediate</MenuItem>
+							<MenuItem value="Immediate">Immediate</MenuItem>
 
 							<MenuItem value="Between 1 Month">
 								Between 1 Month
@@ -750,7 +721,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									ac: e.target.value ? e.target.value : 0,
+									ac: +e.target.value,
 								})
 							}
 						/>
@@ -763,7 +734,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									stove: e.target.value ? e.target.value : 0,
+									stove: +e.target.value,
 								})
 							}
 						/>
@@ -776,9 +747,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									modularKitchen: e.target.value
-										? e.target.value
-										: 0,
+									modularKitchen: +e.target.value,
 								})
 							}
 						/>
@@ -791,7 +760,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									fans: e.target.value ? e.target.value : 0,
+									fans: +e.target.value,
 								})
 							}
 						/>
@@ -804,7 +773,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									fridge: e.target.value ? e.target.value : 0,
+									fridge: +e.target.value,
 								})
 							}
 						/>
@@ -817,7 +786,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									light: e.target.value ? e.target.value : 0,
+									light: +e.target.value,
 								})
 							}
 						/>
@@ -830,7 +799,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									beds: e.target.value ? e.target.value : 0,
+									beds: +e.target.value,
 								})
 							}
 						/>
@@ -843,9 +812,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									microwave: e.target.value
-										? e.target.value
-										: 0,
+									microwave: +e.target.value,
 								})
 							}
 						/>
@@ -858,9 +825,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									dinningTable: e.target.value
-										? e.target.value
-										: 0,
+									dinningTable: +e.target.value,
 								})
 							}
 						/>
@@ -873,7 +838,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									tv: e.target.value ? e.target.value : 0,
+									tv: +e.target.value,
 								})
 							}
 						/>
@@ -886,9 +851,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									dressingTable: e.target.value
-										? e.target.value
-										: 0,
+									dressingTable: +e.target.value,
 								})
 							}
 						/>
@@ -901,9 +864,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									tvWallPanel: e.target.value
-										? e.target.value
-										: 0,
+									tvWallPanel: +e.target.value,
 								})
 							}
 						/>
@@ -916,9 +877,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									wardrobe: e.target.value
-										? e.target.value
-										: 0,
+									wardrobe: +e.target.value,
 								})
 							}
 						/>
@@ -931,9 +890,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									washingMachine: e.target.value
-										? e.target.value
-										: 0,
+									washingMachine: +e.target.value,
 								})
 							}
 						/>
@@ -946,7 +903,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									geyser: e.target.value ? e.target.value : 0,
+									geyser: +e.target.value,
 								})
 							}
 						/>
@@ -959,9 +916,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									curtains: e.target.value
-										? e.target.value
-										: 0,
+									curtains: +e.target.value,
 								})
 							}
 						/>
@@ -974,7 +929,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									sofa: e.target.value ? e.target.value : 0,
+									sofa: +e.target.value,
 								})
 							}
 						/>
@@ -987,9 +942,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									waterPurifier: e.target.value
-										? e.target.value
-										: 0,
+									waterPurifier: +e.target.value,
 								})
 							}
 						/>
@@ -1002,9 +955,7 @@ const Form = () => {
 							onChange={e =>
 								setFurnishingDetails({
 									...furnishingDetails,
-									exhaust: e.target.value
-										? e.target.value
-										: 0,
+									exhaust: +e.target.value,
 								})
 							}
 						/>
@@ -1275,7 +1226,9 @@ const Form = () => {
 				<BUpload
 					title="Image"
 					className="admin-property-form__upload-btn"
-					onChange={e => setImages([...images, ...e.target.files])}
+					onChange={(e: any) =>
+						setImages([...images, ...e.target.files])
+					}
 					accept="image/*"
 				/>
 
@@ -1314,7 +1267,9 @@ const Form = () => {
 				<BUpload
 					title="Videos"
 					className="admin-property-form__upload-btn"
-					onChange={e => setVideos([...videos, ...e.target.files])}
+					onChange={(e: any) =>
+						setVideos([...videos, ...e.target.files])
+					}
 					accept="video/*"
 				/>
 
@@ -1359,7 +1314,7 @@ const Form = () => {
 				<BUpload
 					title="Documents"
 					className="admin-property-form__upload-btn"
-					onChange={e =>
+					onChange={(e: any) =>
 						setDocuments([...documents, ...e.target.files])
 					}
 					accept="application/pdf"

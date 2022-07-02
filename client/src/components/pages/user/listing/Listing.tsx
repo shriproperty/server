@@ -84,11 +84,7 @@ const Listing: FC = () => {
 			body.append('facilities', facilities[facility]);
 		}
 
-		// append user id
-		body.append('userId', user.data._id);
-
 		// append furnishing details to body
-
 		body.append(
 			'furnishingDetails',
 			JSON.stringify(furnishingDetails ? furnishingDetails : {})
@@ -120,16 +116,16 @@ const Listing: FC = () => {
 	 */
 	const checkboxHandler = (checked: boolean, title: string, icon: string) => {
 		if (checked && !facilities.includes(JSON.stringify({ title, icon }))) {
-			setFacilities([
-				...facilities,
+			setFacilities(prevState => [
+				...prevState,
 				JSON.stringify({
 					title,
 					icon,
 				}),
 			]);
 		} else {
-			setFacilities(
-				facilities.filter(item => JSON.parse(item).title !== title)
+			setFacilities(prevState =>
+				prevState.filter(item => JSON.parse(item).title !== title)
 			);
 		}
 	};
