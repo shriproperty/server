@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -15,9 +15,17 @@ import get from '../../../../api/get';
 import deleteRequest from '../../../../api/delete';
 import { Helmet } from 'react-helmet-async';
 
-const User = () => {
+interface UserFromAPI {
+	listings: Listing[];
+	properties: Property[];
+}
+
+const User: FC = () => {
 	const { id } = useParams();
-	const [response, setResponse] = useState({});
+	const [response, setResponse] = useState<UserFromAPI>({
+		listings: [],
+		properties: [],
+	});
 	const [loading, setLoading] = useState(true);
 	const [errorMessage, setErrorMessage] = useState('');
 	const [openError, setOpenError] = useState(false);
@@ -35,13 +43,13 @@ const User = () => {
 		});
 	}, [id, submit]);
 
-	const deleteHandler = (id, type) => {
-		return e => {
+	const deleteHandler = (id: string, type: string) => {
+		return (e: any) => {
 			e.preventDefault();
 			setDeleteLoading(true);
 
 			deleteRequest(`/${type}/delete/${id}`)
-				.then(data => {
+				.then((data: any) => {
 					setDeleteLoading(false);
 					setOpenModal(false);
 
