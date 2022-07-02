@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import getRequest from '../../../api/get';
 import deleteRequest from '../../../api/delete';
@@ -29,8 +29,8 @@ import Select from '@mui/material/Select';
 import './admin.scss';
 import { Helmet } from 'react-helmet-async';
 
-const AdminPage = ({ submit, setSubmit }) => {
-	const [response, setResponse] = useState([]);
+const AdminPage: FC = () => {
+	const [response, setResponse] = useState<ApiResponse>({});
 	const [openModal, setOpenModal] = useState(false);
 	const [deleteLoading, setDeleteLoading] = useState(false);
 	const [propertyLoading, setPropertyLoading] = useState(true);
@@ -39,14 +39,9 @@ const AdminPage = ({ submit, setSubmit }) => {
 	const [successMessage, setSuccessMessage] = useState('');
 	const [openSuccess, setOpenSuccess] = useState(false);
 	const [sliderValue, setSliderValue] = useState(0);
+	const [submit, setSubmit] = useState(false);
 
-	const [filters, setFilters] = useState({
-		type: '',
-		category: '',
-		featured: '',
-		price: '',
-		title: '',
-	});
+	const [filters, setFilters] = useState<Filters>({});
 
 	useEffect(() => {
 		setPropertyLoading(true);
@@ -65,12 +60,12 @@ const AdminPage = ({ submit, setSubmit }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [submit, filters]);
 
-	const deleteHandler = id => {
-		return e => {
+	const deleteHandler = (id: string) => {
+		return (e: FormEvent) => {
 			e.preventDefault();
 			setDeleteLoading(true);
 
-			deleteRequest(`/properties/delete/${id}`).then(data => {
+			deleteRequest(`/properties/delete/${id}`).then((data: any) => {
 				setDeleteLoading(false);
 				setOpenModal(false);
 
@@ -118,7 +113,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 			<TextField
 				label="Search"
 				variant="outlined"
-				onKeyUp={e =>
+				onKeyUp={(e: any) =>
 					e.key === 'Enter' &&
 					setFilters({ ...filters, title: e.target.value })
 				}
@@ -249,11 +244,13 @@ const AdminPage = ({ submit, setSubmit }) => {
 							marks
 							min={parseInt(response.minPrice)}
 							max={parseInt(response.maxPrice)}
-							onChange={e => setSliderValue(e.target.value)}
+							onChange={(e: any) =>
+								setSliderValue(e.target.value)
+							}
 							onChangeCommitted={e =>
 								setFilters({
 									...filters,
-									price: sliderValue,
+									price: +sliderValue,
 								})
 							}
 						/>
@@ -311,7 +308,7 @@ const AdminPage = ({ submit, setSubmit }) => {
 						</TableHead>
 
 						<TableBody>
-							{response.data.map(item => (
+							{response.data.map((item: Property) => (
 								<TableRow key={item._id}>
 									{/* Modal */}
 									<Modal

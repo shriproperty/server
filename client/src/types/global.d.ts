@@ -7,15 +7,27 @@ declare global {
 
 	type ButtonTypes = 'submit' | 'reset' | 'button';
 
-	interface ApiResponse {
-		success: boolean;
-		message: string;
-		data: any;
-	}
+	type ApiResponse =
+		| ObjectWithAnyKeys
+		| {
+				success: boolean;
+				message: string;
+				data: any;
+				maxPrice?: any;
+				minPrice?: any;
+		  };
 
 	interface S3File {
 		url: string;
 		key: string;
+	}
+
+	interface Filters {
+		title?: string;
+		type?: string;
+		category?: string;
+		featured?: string;
+		price?: number;
 	}
 
 	interface LoggedInUser {

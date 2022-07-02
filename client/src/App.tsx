@@ -76,8 +76,6 @@ const Property = lazy(
 );
 
 const App: FC = () => {
-	const [submit, setSubmit] = useState(false);
-
 	return (
 		<HelmetProvider>
 			<Suspense fallback={<Loader fullScreen />}>
@@ -86,9 +84,7 @@ const App: FC = () => {
 					<Routes>
 						<Route
 							path={`${process.env.REACT_APP_ADMIN_ROUTE}`}
-							element={
-								<Admin submit={submit} setSubmit={setSubmit} />
-							}
+							element={<Admin />}
 						/>
 
 						<Route
