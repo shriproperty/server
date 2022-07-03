@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC, FormEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
@@ -17,56 +17,26 @@ import get from '../../../../api/get';
 import deleteRequest from '../../../../api/delete';
 import { CheckBox } from '../../../util/input/Input';
 import { Helmet } from 'react-helmet-async';
+import {
+	fakeFurnishingDetails,
+	fakeProperty,
+} from '../../../../helpers/fakeData';
 
 //NOTE: Sass is coming from form.scss file in ../form folder
 
-const Listing = () => {
+const Listing: FC = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
+
 	/* --------------------------------- ANCHOR States --------------------------------- */
-	const [property, setProperty] = useState({
-		title: '',
-		description: '',
-		price: '',
-		specialPrice: '',
-		type: '',
-		security: '',
-		maintenance: '',
-		category: '',
-		status: '',
-		size: '',
-		unit: '',
-		bedroom: 0,
-		bathroom: 0,
-		openParking: 0,
-		closeParking: 0,
-		livingRoom: 0,
-		dinningRoom: 0,
-		store: 0,
-		poojaRoom: 0,
-		balcony: 0,
-		floor: '',
-		direction: '',
-		kitchen: 0,
-		lobby: 0,
-		address: '',
-		location: '',
-		locality: '',
-		featured: false,
-		owner: '',
-		ownerContact: '',
-		commission: 0,
-		age: 0,
-		possession: '',
-		purchaseType: '',
-		constructionStatus: '',
-	});
-	const [otherFeatures, setOtherFeatures] = useState([]);
-	const [furnishingDetails, setFurnishingDetails] = useState({});
-	const [facilities, setFacilities] = useState([]);
-	const [images, setImages] = useState([]);
-	const [videos, setVideos] = useState([]);
-	const [documents, setDocuments] = useState([]);
+	const [property, setProperty] = useState<any>(fakeProperty);
+	const [otherFeatures, setOtherFeatures] = useState<string[]>([]);
+	const [furnishingDetails, setFurnishingDetails] =
+		useState<FurnishingDetails>(fakeFurnishingDetails);
+	const [facilities, setFacilities] = useState<string[]>([]);
+	const [images, setImages] = useState<any[]>([]);
+	const [videos, setVideos] = useState<any[]>([]);
+	const [documents, setDocuments] = useState<any[]>([]);
 
 	const [openSuccess, setOpenSuccess] = useState(false);
 	const [openError, setOpenError] = useState(false);
@@ -83,10 +53,10 @@ const Listing = () => {
 				setProperty(res.data);
 				setOtherFeatures(res.data.otherFeatures);
 				setFurnishingDetails(res.data.furnishingDetails);
-				res.data.facilities.forEach(fac => {
+				res.data.facilities.forEach((facility: string) => {
 					setFacilities(prevState => [
 						...prevState,
-						JSON.stringify(fac),
+						JSON.stringify(facility),
 					]);
 				});
 				setLoadingPage(false);
@@ -101,7 +71,7 @@ const Listing = () => {
 	const body = new FormData();
 
 	// submit handler
-	const updateHandler = e => {
+	const updateHandler = (e: FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
 
@@ -147,7 +117,7 @@ const Listing = () => {
 		}
 
 		// post to server
-		patchFile(`/listings/update/${id}`, body).then(data => {
+		patchFile(`/listings/update/${id}`, body).then((data: any) => {
 			setLoading(false);
 
 			if (data.success) {
@@ -161,25 +131,42 @@ const Listing = () => {
 		});
 	};
 
-	const approveHandler = id => {
-		return e => {
+	/**
+	 * Approve Listing
+	 * @param {string} id id of listing which is to be approved
+	 */
+	const approveHandler = (id: string) => {
+		return (e: FormEvent) => {
 			e.preventDefault();
 
-			putRequest(`/listings/approve/${property._id}`).then(data => {
-				if (data.success) {
-					setSuccessMessage(data.message);
-					setOpenSuccess(true);
-					navigate(`${process.env.REACT_APP_ADMIN_ROUTE}/listings`);
-				} else {
-					setErrorMessage(data.message);
-					setOpenError(true);
+			putRequest(`/listings/approve/${property._id}`).then(
+				(data: any) => {
+					if (data.success) {
+						setSuccessMessage(data.message);
+						setOpenSuccess(true);
+						navigate(
+							`${process.env.REACT_APP_ADMIN_ROUTE}/listings`
+						);
+					} else {
+						setErrorMessage(data.message);
+						setOpenError(true);
+					}
 				}
-			});
+			);
 		};
 	};
 
-	const deleteFileHandler = (id, type, key) => {
-		return e => {
+	/**
+	 * @param {string} id Id of file
+	 * @param {string} type type of file `image` | `video`
+	 * @param {string} key key of file
+	 */
+	const deleteFileHandler = (
+		id: string,
+		type: 'images' | 'videos',
+		key: string
+	) => {
+		return () => {
 			deleteRequest(`/listings/delete-file/${id}/${type}/${key}`).then(
 				data => {
 					setDeleteFile(true);
@@ -188,11 +175,15 @@ const Listing = () => {
 		};
 	};
 
-	const deleteHandler = id => {
-		return e => {
+	/**
+	 * Delete Listing
+	 * @param {string} id Id of listing to delete
+	 */
+	const deleteHandler = (id: string) => {
+		return (e: FormEvent) => {
 			e.preventDefault();
 
-			deleteRequest(`/listings/delete/${id}`).then(data => {
+			deleteRequest(`/listings/delete/${id}`).then((data: any) => {
 				if (data.success) {
 					setSuccessMessage(data.message);
 					setOpenSuccess(true);
@@ -211,10 +202,9 @@ const Listing = () => {
 	 * @param {boolean} checked If checkbox is checked: `true` or unchecked: `false`
 	 * @param {string} title The title of the facility
 	 * @param {string} icon Icon which will be used for facility should be same as icon name in file system
-	 * @return {Function} Function used by onChange event of checkbox
 	 */
-	const checkboxHandler = (checked, title, icon) => {
-		if (checked && !facilities.includes({ title, icon })) {
+	const checkboxHandler = (checked: string, title: string, icon: string) => {
+		if (checked && !facilities.includes(JSON.stringify({ title, icon }))) {
 			setFacilities(prevState => [
 				...prevState,
 				JSON.stringify({
@@ -233,9 +223,8 @@ const Listing = () => {
 	/**
 	 * Check if an facility exists in the facilities array
 	 * @param {string} title The title of the facility
-	 * @return {boolean} `true` if the facility exists, `false` otherwise
 	 */
-	const facilityChecker = title => {
+	const facilityChecker = (title: string) => {
 		return facilities.some(
 			facility => JSON.parse(facility).title === title
 		);
@@ -754,8 +743,8 @@ const Listing = () => {
 								})
 							}
 						>
-							<MenuItem value={true}>True</MenuItem>
-							<MenuItem value={false}>False</MenuItem>
+							<MenuItem value={'true'}>True</MenuItem>
+							<MenuItem value={'false'}>False</MenuItem>
 						</Select>
 					</FormControl>
 					<FormControl className="admin-property-form__select">
@@ -843,37 +832,37 @@ const Listing = () => {
 							>
 								<MenuItem value="Immediate">Immediate</MenuItem>
 
-							<MenuItem value="Between 1 Month">
-								Between 1 Month
-							</MenuItem>
+								<MenuItem value="Between 1 Month">
+									Between 1 Month
+								</MenuItem>
 
-							<MenuItem value="Between 2 Month">
-								Between 2 Month
-							</MenuItem>
+								<MenuItem value="Between 2 Month">
+									Between 2 Month
+								</MenuItem>
 
-							<MenuItem value="Between 3 Month">
-								Between 3 Month
-							</MenuItem>
+								<MenuItem value="Between 3 Month">
+									Between 3 Month
+								</MenuItem>
 
-							<MenuItem value="Between 6 Months">
-								Between 6 Months
-							</MenuItem>
+								<MenuItem value="Between 6 Months">
+									Between 6 Months
+								</MenuItem>
 
-							<MenuItem value="2023">2023</MenuItem>
+								<MenuItem value="2023">2023</MenuItem>
 
-							<MenuItem value="2024">2024</MenuItem>
+								<MenuItem value="2024">2024</MenuItem>
 
-							<MenuItem value="2025">2025</MenuItem>
+								<MenuItem value="2025">2025</MenuItem>
 
-							<MenuItem value="2026">2026</MenuItem>
+								<MenuItem value="2026">2026</MenuItem>
 
-							<MenuItem value="2027">2027</MenuItem>
+								<MenuItem value="2027">2027</MenuItem>
 
-							<MenuItem value="2028">2028</MenuItem>
+								<MenuItem value="2028">2028</MenuItem>
 
-							<MenuItem value="2029">2029</MenuItem>
+								<MenuItem value="2029">2029</MenuItem>
 
-							<MenuItem value="2030">2030</MenuItem>
+								<MenuItem value="2030">2030</MenuItem>
 							</Select>
 						</FormControl>
 					)}
@@ -896,7 +885,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										ac: e.target.value,
+										ac: +e.target.value,
 									})
 								}
 							/>
@@ -910,7 +899,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										stove: e.target.value,
+										stove: +e.target.value,
 									})
 								}
 							/>
@@ -924,7 +913,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										modularKitchen: e.target.value,
+										modularKitchen: +e.target.value,
 									})
 								}
 							/>
@@ -938,7 +927,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										fans: e.target.value,
+										fans: +e.target.value,
 									})
 								}
 							/>
@@ -952,7 +941,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										fridge: e.target.value,
+										fridge: +e.target.value,
 									})
 								}
 							/>
@@ -966,7 +955,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										light: e.target.value,
+										light: +e.target.value,
 									})
 								}
 							/>
@@ -980,7 +969,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										beds: e.target.value,
+										beds: +e.target.value,
 									})
 								}
 							/>
@@ -994,7 +983,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										microwave: e.target.value,
+										microwave: +e.target.value,
 									})
 								}
 							/>
@@ -1008,7 +997,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										dinningTable: e.target.value,
+										dinningTable: +e.target.value,
 									})
 								}
 							/>
@@ -1022,7 +1011,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										tv: e.target.value,
+										tv: +e.target.value,
 									})
 								}
 							/>
@@ -1036,9 +1025,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										dressingTable: e.target.value
-											? e.target.value
-											: 0,
+										dressingTable: +e.target.value,
 									})
 								}
 							/>
@@ -1052,9 +1039,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										tvWallPanel: e.target.value
-											? e.target.value
-											: 0,
+										tvWallPanel: +e.target.value,
 									})
 								}
 							/>
@@ -1068,7 +1053,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										wardrobe: e.target.value,
+										wardrobe: +e.target.value,
 									})
 								}
 							/>
@@ -1082,7 +1067,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										washingMachine: e.target.value,
+										washingMachine: +e.target.value,
 									})
 								}
 							/>
@@ -1096,7 +1081,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										geyser: e.target.value,
+										geyser: +e.target.value,
 									})
 								}
 							/>
@@ -1110,7 +1095,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										curtains: e.target.value,
+										curtains: +e.target.value,
 									})
 								}
 							/>
@@ -1124,7 +1109,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										sofa: e.target.value,
+										sofa: +e.target.value,
 									})
 								}
 							/>
@@ -1138,7 +1123,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										waterPurifier: e.target.value,
+										waterPurifier: +e.target.value,
 									})
 								}
 							/>
@@ -1152,7 +1137,7 @@ const Listing = () => {
 								onChange={e =>
 									setFurnishingDetails({
 										...furnishingDetails,
-										exhaust: e.target.value,
+										exhaust: +e.target.value,
 									})
 								}
 							/>
@@ -1418,7 +1403,7 @@ const Listing = () => {
 
 					<h1>Images</h1>
 					{property.images.length > 0 ? (
-						property.images.map(img => (
+						property.images.map((img: S3File) => (
 							<div
 								className="admin-property-form__preview-container"
 								key={img.key}
@@ -1443,7 +1428,7 @@ const Listing = () => {
 					)}
 					<h1>Videos</h1>
 					{property.videos.length > 0 ? (
-						property.videos.map(vid => (
+						property.videos.map((vid: S3File) => (
 							<div
 								className="admin-property-form__preview-container"
 								key={vid.key}
@@ -1475,7 +1460,7 @@ const Listing = () => {
 					<BUpload
 						title="Image"
 						className="admin-property-form__upload-btn"
-						onChange={e =>
+						onChange={(e: any) =>
 							setImages([...images, ...e.target.files])
 						}
 						accept="image/*"
@@ -1511,7 +1496,7 @@ const Listing = () => {
 					<BUpload
 						title="Videos"
 						className="admin-property-form__upload-btn"
-						onChange={e =>
+						onChange={(e: any) =>
 							setVideos([...videos, ...e.target.files])
 						}
 						accept="video/*"
@@ -1555,7 +1540,7 @@ const Listing = () => {
 					<BUpload
 						title="Documents"
 						className="admin-property-form__upload-btn"
-						onChange={e =>
+						onChange={(e: any) =>
 							setDocuments([...documents, ...e.target.files])
 						}
 						accept="application/pdf"
