@@ -331,7 +331,11 @@ const AdminPage: FC = () => {
 										{item.type}
 									</TableCell>
 
-									<TableCell className="contact-table__cell table_address">
+									<TableCell
+										className={`contact-table__cell ${
+											item.location && 'table_address'
+										}`}
+									>
 										{item.location && (
 											<a
 												href={item.location}
