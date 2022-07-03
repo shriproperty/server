@@ -6,17 +6,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { UserContext } from '../../../helpers/Context';
 
-import './nav.scss';
+import './userNav.scss';
 import { BPrimary } from '../../util/button/Button';
 
-const Nav: FC = () => {
+const UserNav: FC = () => {
 	const navigate = useNavigate();
 
 	const [search, setSearch] = useState('');
 	const [open, setOpen] = useState(false);
 
 	const user = useContext(UserContext);
-
 
 	return (
 		<header>
@@ -147,4 +146,4 @@ const Nav: FC = () => {
 	);
 };
 
-export default Nav;
+export default UserNav;

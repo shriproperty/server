@@ -88,28 +88,6 @@ const AdminPage: FC = () => {
 				<meta name="robots" content="noindex" />
 			</Helmet>
 
-			<HPrimary title="Admin Page" className="admin-page__heading" />
-
-			<Link to={`${process.env.REACT_APP_ADMIN_ROUTE}/contacts`}>
-				<BPrimary title="Contacts" className="admin-page__button" />
-			</Link>
-
-			<Link to={`${process.env.REACT_APP_ADMIN_ROUTE}/property/add`}>
-				<BPrimary title="Add Property" className="admin-page__button" />
-			</Link>
-
-			<Link to={`${process.env.REACT_APP_ADMIN_ROUTE}/temp-users`}>
-				<BPrimary title="Temporary" className="admin-page__button" />
-			</Link>
-
-			<Link to={`${process.env.REACT_APP_ADMIN_ROUTE}/listings`}>
-				<BPrimary title="Listings" className="admin-page__button" />
-			</Link>
-
-			<Link to={`${process.env.REACT_APP_ADMIN_ROUTE}/users`}>
-				<BPrimary title="Users" className="admin-page__button" />
-			</Link>
-
 			<TextField
 				label="Search"
 				variant="outlined"

@@ -51,7 +51,11 @@ const UpdateProperty = lazy(
 	() => import('./components/pages/admin/property/update/Update')
 );
 const Listing = lazy(() => import('./components/pages/user/listing/Listing'));
-const Nav = lazy(() => import('./components/layout/nav/Nav'));
+
+const UserNav = lazy(() => import('./components/layout/userNav/UserNav'));
+
+const AdminNav = lazy(() => import('./components/layout/adminNav/AdminNav'));
+
 const Footer = lazy(() => import('./components/layout/footer/Footer'));
 
 const Properties = lazy(
@@ -83,52 +87,43 @@ const App: FC = () => {
 				<Router>
 					<Routes>
 						<Route
-							path={`${process.env.REACT_APP_ADMIN_ROUTE}`}
-							element={<Admin />}
+							path={`${process.env.REACT_APP_ADMIN_ROUTE}/*`}
+							element={<AdminRoutes />}
 						/>
-
-						<Route
-							path={`${process.env.REACT_APP_ADMIN_ROUTE}/temp-users`}
-							element={<TempUsers />}
-						/>
-
-						<Route
-							path={`${process.env.REACT_APP_ADMIN_ROUTE}/property/add`}
-							element={<AddProperty />}
-						/>
-
-						<Route
-							path={`${process.env.REACT_APP_ADMIN_ROUTE}/property/update/:id`}
-							element={<UpdateProperty />}
-						/>
-
-						<Route
-							path={`${process.env.REACT_APP_ADMIN_ROUTE}/users`}
-							element={<Users />}
-						/>
-						<Route
-							path={`${process.env.REACT_APP_ADMIN_ROUTE}/users/:id`}
-							element={<User />}
-						/>
-
-						<Route
-							path={`${process.env.REACT_APP_ADMIN_ROUTE}/contacts`}
-							element={<Contacts />}
-						/>
-						<Route
-							path={`${process.env.REACT_APP_ADMIN_ROUTE}/listings`}
-							element={<Listings />}
-						/>
-						<Route
-							path={`${process.env.REACT_APP_ADMIN_ROUTE}/listings/:id`}
-							element={<AdminListing />}
-						/>
-
 						<Route path="*" element={<UserRoutes />} />
 					</Routes>
 				</Router>
 			</Suspense>
 		</HelmetProvider>
+	);
+};
+
+const AdminRoutes: FC = () => {
+	return (
+		<>
+			<AdminNav />
+			<Routes>
+				<Route path={`/`} element={<Admin />} />
+
+				<Route path={`temp-users`} element={<TempUsers />} />
+
+				<Route path={`property/add`} element={<AddProperty />} />
+
+				<Route
+					path={`property/update/:id`}
+					element={<UpdateProperty />}
+				/>
+
+				<Route path={`users`} element={<Users />} />
+				<Route path={`users/:id`} element={<User />} />
+
+				<Route path={`contacts`} element={<Contacts />} />
+
+				<Route path={`listings`} element={<Listings />} />
+
+				<Route path={`listings/:id`} element={<AdminListing />} />
+			</Routes>
+		</>
 	);
 };
 
@@ -174,7 +169,7 @@ const UserRoutes: FC = () => {
 					data: user.data,
 				}}
 			>
-				<Nav />
+				<UserNav />
 				<Routes>
 					<Route
 						path="/"
@@ -234,6 +229,7 @@ const UserRoutes: FC = () => {
 						path="/account/pending-listings/:id"
 						element={<UpdatePendingListing />}
 					/>
+
 					<Route path="/404" element={<NotFound />} />
 					<Route path="*" element={<Navigate replace to="/404" />} />
 				</Routes>
