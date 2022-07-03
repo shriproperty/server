@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -22,8 +22,19 @@ import deleteRequest from '../../../../api/delete';
 import './tempUsers.scss';
 import { Helmet } from 'react-helmet-async';
 
+interface TempUser {
+	_id: string;
+	name: string;
+	email: string;
+	phone: string;
+	callingStatus: 'Pending' | 'Rejected' | 'Call Again' | 'Done';
+	callAgainDate: string;
+	talkProgress: string;
+	createdAt: string;
+}
+
 const TempUsers = () => {
-	const [response, setResponse] = useState([]);
+	const [response, setResponse] = useState<TempUser[]>([]);
 	const [callingStatus, setCallingStatus] = useState('');
 	const [callAgainDate, setCallAgainDate] = useState('');
 	const [talkProgress, setTalkProgress] = useState('');
@@ -33,14 +44,16 @@ const TempUsers = () => {
 
 	useEffect(() => {
 		setSubmit(false);
-		getRequest('/temp-users/all').then(data => {
+		getRequest('/temp-users/all').then((data: any) => {
 			// sort data.data by date
-			data.data.sort((a, b) => {
-				return new Date(a.callAgainDate) - new Date(b.callAgainDate);
-			});
+
+			data.data.sort(
+				(a: TempUser, b: TempUser) =>
+					+new Date(a.callAgainDate) - +new Date(b.callAgainDate)
+			);
 
 			// sort data.data by status
-			data.data.sort((a, b) =>
+			data.data.sort((a: TempUser, b: TempUser) =>
 				a.callingStatus > b.callingStatus
 					? 1
 					: b.callingStatus > a.callingStatus
@@ -52,8 +65,12 @@ const TempUsers = () => {
 		});
 	}, [submit]);
 
-	const updateHandler = id => {
-		return e => {
+	/**
+	 * Update Calling status of user
+	 * @param {string} id id of user to update
+	 */
+	const updateHandler = (id: string) => {
+		return (e: FormEvent) => {
 			e.preventDefault();
 
 			patchRequest(`/temp-users/update-calling-status/${id}`, {
@@ -61,7 +78,7 @@ const TempUsers = () => {
 				talkProgress,
 				// set data to null if there is no date
 				callAgainDate: callAgainDate ? new Date(callAgainDate) : null,
-			}).then(data => {
+			}).then((data: any) => {
 				if (data.success === false) {
 					setErrorMessage(data.message);
 					return setOpenError(true);
@@ -72,11 +89,15 @@ const TempUsers = () => {
 		};
 	};
 
-	const deleteHandler = id => {
-		return e => {
+	/**
+	 * Delete Temp User
+	 * @param {string} id id of temp user to delete
+	 */
+	const deleteHandler = (id: string) => {
+		return (e: FormEvent) => {
 			e.preventDefault();
 
-			deleteRequest(`/temp-users/delete/${id}`).then(data => {
+			deleteRequest(`/temp-users/delete/${id}`).then((data: any) => {
 				if (data.success === false) {
 					setErrorMessage(data.message);
 					return setOpenError(true);
@@ -95,7 +116,6 @@ const TempUsers = () => {
 
 			<AError
 				title={errorMessage}
-				id="alert-error"
 				open={openError}
 				setOpen={setOpenError}
 			/>
