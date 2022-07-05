@@ -7,7 +7,7 @@ import { FC } from 'react';
 
 const Footer: FC = () => {
 	return (
-		<footer>
+		<footer className="footer">
 			<div className="footer-content">
 				<div className="footer-content__left">
 					<h1>About</h1>

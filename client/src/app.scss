@@ -43,8 +43,22 @@ html {
 body {
 	box-sizing: border-box;
 	overflow-x: hidden;
-	padding: 0 !important;
+	padding-bottom: 22rem !important; // height of footer
 	font-family: 'Nunito', sans-serif !important;
+	position: relative;
+	min-height: 100vh;
+
+	@media screen and (max-width: 800px) {
+		padding-bottom: 35rem !important;
+	}
+
+	@media screen and (max-width: 706px) {
+		padding-bottom: 45rem !important;
+	}
+
+	@media screen and (max-width: 316px) {
+		padding-bottom: 50rem !important;
+	}
 }
 
 a {

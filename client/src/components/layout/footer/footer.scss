@@ -1,6 +1,11 @@
 @import '../../../styles/variable.scss';
 @import '../../../styles/mixins.scss';
 
+.footer {
+	position: absolute;
+	bottom: 0;
+}
+
 .footer-content {
 	@include section-padding;
 	display: flex;
