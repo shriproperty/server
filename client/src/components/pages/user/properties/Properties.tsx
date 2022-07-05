@@ -26,44 +26,63 @@ const Properties: FC = () => {
 
 	useEffect(() => {
 		setLoading(true);
-		get('/properties/all').then((data: any) => {
-			// search functionality
-			if (searchQuery && data.data.length > 0) {
-				const filteredData: Property[] = data.data.filter(
-					(property: Property) => {
-						return (
-							property?.title
-								.toLowerCase()
-								.includes(searchQuery) ||
-							property?.description
-								.toLowerCase()
-								.includes(searchQuery) ||
-							property?.address
-								.toLowerCase()
-								.includes(searchQuery) ||
-							property?.type
-								.toLowerCase()
-								.includes(searchQuery) ||
-							property?.category
-								.toLowerCase()
-								.includes(searchQuery) ||
-							property?.status
-								.toLowerCase()
-								.includes(searchQuery) ||
-							property?.price.includes(searchQuery) ||
-							property?.size.includes(searchQuery)
-						);
-					}
-				);
 
-				if (filteredData.length === 0) setNotFound(true);
-				else setResponse(filteredData);
-			} else {
-				setResponse(data.data);
-			}
+		const propertiesFromSession = sessionStorage.getItem('properties');
+		const propertiesFromSessionInJSON: Property[] =
+			propertiesFromSession && JSON.parse(propertiesFromSession);
 
+		if (
+			!searchQuery &&
+			propertiesFromSessionInJSON &&
+			propertiesFromSessionInJSON.length > 0
+		) {
+			setResponse(propertiesFromSessionInJSON);
 			setLoading(false);
-		});
+		} else {
+			get('/properties/all').then((data: any) => {
+				// search functionality
+				if (searchQuery && data.data.length > 0) {
+					const filteredData: Property[] = data.data.filter(
+						(property: Property) => {
+							return (
+								property?.title
+									.toLowerCase()
+									.includes(searchQuery) ||
+								property?.description
+									.toLowerCase()
+									.includes(searchQuery) ||
+								property?.address
+									.toLowerCase()
+									.includes(searchQuery) ||
+								property?.type
+									.toLowerCase()
+									.includes(searchQuery) ||
+								property?.category
+									.toLowerCase()
+									.includes(searchQuery) ||
+								property?.status
+									.toLowerCase()
+									.includes(searchQuery) ||
+								property?.price.includes(searchQuery) ||
+								property?.size.includes(searchQuery)
+							);
+						}
+					);
+
+					if (filteredData.length === 0) setNotFound(true);
+					else setResponse(filteredData);
+				} else {
+					sessionStorage.setItem(
+						'properties',
+						JSON.stringify(data.data)
+					);
+					setResponse(data.data);
+				}
+
+				setLoading(false);
+			});
+		}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchQuery]);
 
