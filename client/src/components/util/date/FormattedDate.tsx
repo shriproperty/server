@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { dateToIntlDateFormatter } from '../../../helpers/date';
 
-interface DateProps {
+interface FormattedDateProps {
 	date: Date | string;
 }
 
@@ -9,8 +9,8 @@ interface DateProps {
  * @param {Object} props props
  * @param {Date | string} props.date date to format
  */
-const Date: FC<DateProps> = props => {
+const FormattedDate: FC<FormattedDateProps> = props => {
 	return <span>{dateToIntlDateFormatter(props.date)}</span>;
 };
 
-export default Date;
+export default FormattedDate;

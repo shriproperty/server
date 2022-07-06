@@ -9,7 +9,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import DoneIcon from '@mui/icons-material/Done';
-import moment from 'moment';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { AError } from '../../../util/alert/Alert';
@@ -18,6 +17,7 @@ import { patchRequest } from '../../../../api/patch';
 import { TextField } from '@mui/material';
 import { BPrimary } from '../../../util/button/Button';
 import deleteRequest from '../../../../api/delete';
+import FormattedDate from '../../../util/date/FormattedDate';
 
 import './tempUsers.scss';
 import { Helmet } from 'react-helmet-async';
@@ -186,9 +186,7 @@ const TempUsers = () => {
 								className="user-table__cell"
 								align="right"
 							>
-								{moment(new Date(user.createdAt)).format(
-									'DD/MM/YYYY'
-								)}
+								{<FormattedDate date={user.createdAt} />}
 							</TableCell>
 							<TableCell
 								className="user-table__cell"
@@ -201,11 +199,11 @@ const TempUsers = () => {
 								align="right"
 							>
 								{/* format date */}
-								{user.callAgainDate
-									? moment(user.callAgainDate).format(
-											'DD/MM/YYYY'
-									  )
-									: '----'}
+								{user.callAgainDate ? (
+									<FormattedDate date={user.callAgainDate} />
+								) : (
+									'----'
+								)}
 							</TableCell>
 							<TableCell
 								className="user-table__cell"
