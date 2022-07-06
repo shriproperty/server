@@ -102,7 +102,10 @@ const Signup: FC = () => {
 			</Helmet>
 
 			<Modal open={verifyOtpModel} className="model">
-				<form className="model-container" onSubmit={verifyOtpHandler}>
+				<form
+					className="signup-section__modal"
+					onSubmit={verifyOtpHandler}
+				>
 					<h2>Verify Otp</h2>
 					<SPrimary title="Please check your email" />
 
@@ -116,7 +119,7 @@ const Signup: FC = () => {
 						label="OTP"
 						type="number"
 						variant="outlined"
-						className="model-container__input"
+						className="model-form__input"
 						onChange={e => setOtp(e.target.value)}
 						fullWidth
 					/>
@@ -212,7 +215,7 @@ const Signup: FC = () => {
 						required
 					/>
 
-					<p className="login-section__link">
+					<p className="signup-section__link">
 						Already have account <Link to="/login">Login</Link>
 					</p>
 

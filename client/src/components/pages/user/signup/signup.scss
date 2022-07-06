@@ -6,6 +6,25 @@
 	justify-content: center;
 	margin: 5rem 0;
 
+	&__modal {
+		display: flex !important;
+		align-items: center !important;
+		flex-direction: column !important;
+
+		h2,
+		p,
+		span {
+			margin: 1rem 0;
+		}
+
+		span {
+			cursor: pointer;
+			font-size: 1.2rem;
+			text-decoration: underline;
+			font-weight: bold;
+		}
+	}
+
 	&__container {
 		display: flex;
 		align-items: center;
@@ -58,12 +77,13 @@
 	}
 
 	&__link {
-		font-size: 1.4rem;
+		font-size: 1.5rem;
 
 		a {
 			color: $color-primary;
 			text-decoration: underline;
 			transition: $transition-fast;
+			font-weight: bold;
 
 			&:hover {
 				color: #000;
