@@ -126,12 +126,11 @@ const Login: FC = () => {
 				<meta name="description" content="Login on Shri Property" />
 			</Helmet>
 
-			<Modal
-				open={modal}
-				onClose={() => setModal(false)}
-				className="model"
-			>
-				<form className="model-container" onSubmit={sendOtpHandler}>
+			<Modal open={modal} onClose={() => setModal(false)}>
+				<form
+					className="login-section__modal"
+					onSubmit={sendOtpHandler}
+				>
 					<h2>Forget Password</h2>
 
 					<AError
@@ -144,7 +143,7 @@ const Login: FC = () => {
 						label="email"
 						type="email"
 						variant="outlined"
-						className="model-container__input"
+						className="login-section__modal-input"
 						onChange={e => setEmail(e.target.value)}
 						fullWidth
 					/>
@@ -153,7 +152,7 @@ const Login: FC = () => {
 						label="New Password"
 						variant="outlined"
 						type="password"
-						className="model-container__input"
+						className="login-section__modal-input"
 						onChange={e => setNewPassword(e.target.value)}
 						fullWidth
 					/>
@@ -166,8 +165,11 @@ const Login: FC = () => {
 				</form>
 			</Modal>
 
-			<Modal open={verifyOtpModel} className="model">
-				<form className="model-container" onSubmit={verifyOtpHandler}>
+			<Modal open={verifyOtpModel}>
+				<form
+					className="login-section__modal"
+					onSubmit={verifyOtpHandler}
+				>
 					<h2>Verify Otp</h2>
 					<SPrimary title="Please check your email" />
 
@@ -181,7 +183,7 @@ const Login: FC = () => {
 						label="OTP"
 						type="number"
 						variant="outlined"
-						className="model-container__input"
+						className="login-section__modal-input"
 						onChange={e => setOtp(e.target.value)}
 						fullWidth
 					/>

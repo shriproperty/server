@@ -7,7 +7,7 @@ interface ModalProps {
 	children: string | JSX.Element;
 	open: boolean;
 	onClose?(): any;
-	className: string;
+	className?: string;
 }
 
 /**
