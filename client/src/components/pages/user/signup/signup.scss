@@ -22,6 +22,7 @@
 			font-size: 1.2rem;
 			text-decoration: underline;
 			font-weight: bold;
+			color: $color-secondary;
 		}
 	}
 
@@ -80,7 +81,7 @@
 		font-size: 1.5rem;
 
 		a {
-			color: $color-primary;
+			color: $color-secondary;
 			text-decoration: underline;
 			transition: $transition-fast;
 			font-weight: bold;
