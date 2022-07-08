@@ -1,0 +1,61 @@
+@import '../../../styles/variable.scss';
+
+.allImages-section {
+	display: flex;
+	flex-direction: column;
+	padding: 2rem 10rem;
+	margin-bottom: 5rem;
+	@media screen and (max-width: 900px) {
+		padding: 2rem;
+	}
+
+	&__main {
+		height: 95vh;
+		margin-top: 3rem;
+		display: flex;
+		background-color: $color-background;
+		justify-content: center;
+
+		@media screen and (max-width: 1260px) {
+			height: 80vh;
+		}
+
+		@media screen and (max-width: 1100px) {
+			height: 60vh;
+		}
+
+		@media screen and (max-width: 900px) {
+			height: 100%;
+		}
+
+		img,
+		video {
+			height: 100%;
+			@media screen and (max-width: 900px) {
+				height: fit-content;
+				width: 100%;
+			}
+		}
+
+		// video {
+		// 	height: 90vh;
+		// }
+	}
+
+	&__others {
+		display: flex;
+		margin-top: 2rem;
+		overflow-x: scroll;
+
+		img,
+		video {
+			height: 10rem;
+			width: auto;
+			cursor: pointer;
+
+			&:not(:last-child) {
+				margin-right: 2rem;
+			}
+		}
+	}
+}

@@ -11,46 +11,46 @@ import get from './api/get';
 import './app.scss';
 import Loader from './components/util/loader/Loader';
 
-import Contacts from './components/pages/admin/contacts/Contacts';
-import AddProperty from './components/pages/admin/property/form/Form';
+import Contacts from './pages/admin/contacts/Contacts';
+import AddProperty from './pages/admin/property/form/Form';
 
 import { AuthFormSubmitContext, UserContext } from './helpers/Context';
 
-const Account = lazy(() => import('./components/pages/user/account/Account'));
+const Account = lazy(() => import('./pages/user/account/Account'));
 
 const TempUsers = lazy(
-	() => import('./components/pages/admin/tempUsers/TempUsers')
+	() => import('./pages/admin/tempUsers/TempUsers')
 );
 const UserUpdateProperty = lazy(
-	() => import('./components/pages/user/updateProperty/UpdateProperty')
+	() => import('./pages/user/updateProperty/UpdateProperty')
 );
-const NotFound = lazy(() => import('./components/pages/notFound/NotFound'));
+const NotFound = lazy(() => import('./pages/notFound/NotFound'));
 const Listings = lazy(
-	() => import('./components/pages/admin/listings/Listings')
+	() => import('./pages/admin/listings/Listings')
 );
 const AdminListing = lazy(
-	() => import('./components/pages/admin/listing/Listing')
+	() => import('./pages/admin/listing/Listing')
 );
-const Signup = lazy(() => import('./components/pages/user/signup/Signup'));
-const Login = lazy(() => import('./components/pages/user/login/Login'));
-const Form = lazy(() => import('./components/pages/user/home/form/Form'));
-const Users = lazy(() => import('./components/pages/admin/users/Users'));
-const User = lazy(() => import('./components/pages/admin/user/User'));
+const Signup = lazy(() => import('./pages/user/signup/Signup'));
+const Login = lazy(() => import('./pages/user/login/Login'));
+const Form = lazy(() => import('./pages/user/home/form/Form'));
+const Users = lazy(() => import('./pages/admin/users/Users'));
+const User = lazy(() => import('./pages/admin/user/User'));
 const PendingListings = lazy(
-	() => import('./components/pages/user/pendingListings/PendingListings')
+	() => import('./pages/user/pendingListings/PendingListings')
 );
 const UpdatePendingListing = lazy(
 	() =>
 		import(
-			'./components/pages/user/updatePendingListings/UpdatePendingListing'
+			'./pages/user/updatePendingListings/UpdatePendingListing'
 		)
 );
 
-const Admin = lazy(() => import('./components/pages/admin/Admin'));
+const Admin = lazy(() => import('./pages/admin/Admin'));
 const UpdateProperty = lazy(
-	() => import('./components/pages/admin/property/update/Update')
+	() => import('./pages/admin/property/update/Update')
 );
-const Listing = lazy(() => import('./components/pages/user/listing/Listing'));
+const Listing = lazy(() => import('./pages/user/listing/Listing'));
 
 const UserNav = lazy(() => import('./components/layout/userNav/UserNav'));
 
@@ -59,24 +59,24 @@ const AdminNav = lazy(() => import('./components/layout/adminNav/AdminNav'));
 const Footer = lazy(() => import('./components/layout/footer/Footer'));
 
 const Properties = lazy(
-	() => import('./components/pages/user/properties/Properties')
+	() => import('./pages/user/properties/Properties')
 );
 const AllImages = lazy(
-	() => import('./components/pages/user/allimages/Images')
+	() => import('./pages/user/allimages/Images')
 );
-const Hero = lazy(() => import('./components/pages/user/home/hero/Hero'));
+const Hero = lazy(() => import('./pages/user/home/hero/Hero'));
 const PropertiesSection = lazy(
-	() => import('./components/pages/user/home/properties/Properties')
+	() => import('./pages/user/home/properties/Properties')
 );
 const Category = lazy(
-	() => import('./components/pages/user/home/category/Category')
+	() => import('./pages/user/home/category/Category')
 );
 const ListingSection = lazy(
-	() => import('./components/pages/user/home/listing/Listing')
+	() => import('./pages/user/home/listing/Listing')
 );
 
 const Property = lazy(
-	() => import('./components/pages/user/property/Property')
+	() => import('./pages/user/property/Property')
 );
 
 const App: FC = () => {

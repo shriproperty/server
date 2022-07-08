@@ -1,0 +1,50 @@
+@import '../../../../styles/mixins.scss';
+@import '../../../../styles/variable.scss';
+
+.hero-section {
+	@include section-padding;
+
+	background-image: url(../../../../../public/images/background/hero.webp);
+	height: 100vh;
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: $color-white;
+	@media screen and (max-width: 600px) {
+		padding: 0 3rem;
+	}
+
+	&__heading {
+		font-size: 5rem;
+		margin-bottom: 2rem;
+		font-weight: 600;
+
+		span {
+			background-image: linear-gradient(to top, #eee 4%, transparent 4%);
+		}
+
+		@media screen and (max-width: 600px) {
+			margin-top: 22rem;
+			font-size: 5.3rem;
+		}
+	}
+
+	&__para {
+		font-size: 2rem;
+		width: 55%;
+		@media screen and (max-width: 600px) {
+			width: 100%;
+			font-size: 2.5rem;
+		}
+	}
+
+	&__link {
+		text-decoration: none;
+		margin-top: 2.5rem !important;
+		@media screen and (max-width: 600px) {
+			margin-top: 5rem !important;
+		}
+	}
+}

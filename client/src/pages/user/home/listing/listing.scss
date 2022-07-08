@@ -1,0 +1,78 @@
+@import '../../../../styles/variable.scss';
+@import '../../../../styles/mixins.scss';
+
+.listing-section {
+	@include section-padding;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	background-color: $color-background;
+	margin: 8rem 0;
+	@media screen and (max-width: 800px) {
+		flex-direction: column;
+		margin: 4rem 0;
+	}
+	&__image {
+		padding: 2rem;
+		height: 40rem;
+		width: 70rem;
+		@media screen and (max-width: 800px) {
+			display: none;
+		}
+		img {
+			height: 100%;
+			width: 100%;
+
+			border-radius: 10px;
+		}
+	}
+}
+
+.listing-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 2rem;
+	margin: 1rem;
+
+	&__head {
+		font-size: 4.5rem;
+		margin-bottom: 3rem;
+		@media screen and (max-width: 770px) {
+			font-size: 3rem !important;
+		}
+	}
+
+	&__points {
+		margin-top: 2rem;
+	}
+
+	&__point {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		font-size: 1.3rem;
+		margin-bottom: 1rem;
+		@media screen and (max-width: 770px) {
+			font-size: 2rem !important;
+		}
+
+		h3 {
+			margin-left: 0.5rem;
+		}
+
+		svg {
+			fill: $color-primary;
+		}
+	}
+
+	&__btn {
+		margin-top: 2rem;
+	}
+}
+
+.btn {
+	font-size: 1.2rem !important;
+}

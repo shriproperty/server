@@ -1,0 +1,85 @@
+@import '../../../../styles/mixins.scss';
+
+.admin-property-form {
+	@include section-padding;
+
+	&__input {
+		margin: 1.5rem !important;
+		width: 12rem;
+		input {
+			font-size: 1.5rem !important;
+		}
+
+		label {
+			font-size: 1.5rem !important;
+			background-color: #fff;
+		}
+
+		// this is for helper text in other features field
+		p {
+			font-size: 1.3rem !important;
+		}
+	}
+
+	&__select {
+		margin: 2rem !important;
+		font-size: 1.5rem !important;
+		width: 12rem !important;
+
+		label {
+			font-size: 1.5rem !important;
+			background-color: #fff;
+		}
+	}
+
+	textarea {
+		font-size: 1.5rem !important;
+	}
+
+	&__upload-btn {
+		margin: 2rem !important;
+	}
+
+	&__submit-btn {
+		margin: 2rem !important;
+	}
+
+	// this is for image in /admin/listings/:id page
+	&__image {
+		height: 35rem;
+		width: 35rem;
+		margin: 1rem;
+	}
+
+	&__link {
+		font-size: 1.5rem;
+	}
+
+	&__preview-container {
+		display: inline-block;
+		position: relative;
+
+		button {
+			position: absolute;
+			left: 0;
+			padding: 1rem !important;
+		}
+	}
+
+	&__preview {
+		display: inline-block;
+		height: auto;
+		width: 20rem;
+		margin-right: 1rem;
+	}
+
+	&__facilities {
+		label {
+			margin: 0 2rem !important;
+		}
+	}
+}
+
+.MuiMenuItem-root {
+	font-size: 1.3rem !important;
+}

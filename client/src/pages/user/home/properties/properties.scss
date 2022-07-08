@@ -1,0 +1,170 @@
+@import '../../../../styles/variable.scss';
+@import '../../../../styles/mixins.scss';
+
+.properties-section {
+	@include section-padding;
+
+	display: flex;
+	background-color: $color-background;
+	padding-top: 2rem !important;
+	padding-bottom: 5rem !important;
+	flex-direction: column;
+
+	&__headings {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 2rem;
+		@media screen and (max-width: 1000px) {
+			text-align: center;
+		}
+
+		p {
+			margin: 1rem 0 !important;
+			width: 50% !important;
+			@media screen and (max-width: 1200px) {
+				width: 80% !important;
+			}
+			@media screen and (max-width: 600px) {
+				width: 100% !important;
+				font-size: 2rem !important;
+			}
+		}
+	}
+
+	&__properties {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(25rem, 40rem));
+		grid-gap: 3rem;
+		justify-content: space-evenly;
+		width: 100%;
+	}
+
+	&__btn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 2.5rem 0;
+	}
+
+	&__property {
+		color: $color-black;
+		background-color: $color-white;
+		border-radius: 7px;
+
+		.image-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 0.5rem;
+			border-radius: 7px;
+			background-color: $color-white;
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+		&-type {
+			position: absolute;
+			top: 0.5rem;
+			left: 0.5rem;
+			font-size: 1.5rem;
+			background-color: $color-primary;
+			color: white;
+			padding: 0.6rem 1rem;
+			border-radius: 8px;
+		}
+		&-image {
+			height: 25rem;
+			width: fit-content;
+			position: relative;
+			@media screen and (max-width: 600px) {
+				height: 35rem;
+			}
+			img {
+				border-radius: 7px;
+				height: 100%;
+				width: fit-content;
+			}
+		}
+
+		&-title {
+			margin: 1rem !important;
+		}
+
+		&-price {
+			font-size: 1.5rem;
+			margin: 1rem;
+			color: $color-secondary;
+			font-weight: bold;
+			display: flex;
+			flex-direction: column;
+			@media screen and (max-width: 400px) {
+				font-size: 2.5rem !important;
+			}
+			.price-text {
+				font-weight: normal;
+				color: #050505;
+			}
+		}
+
+		&-description {
+			margin: 1rem !important;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
+			@media screen and (max-width: 410px) {
+				font-size: 2rem !important;
+			}
+		}
+
+		&-iconbar {
+			margin: 1rem;
+			display: flex;
+
+			&-icon {
+				font-size: 1.5rem;
+				margin: 0.5rem;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+
+				&:hover {
+					color: $color-primary;
+				}
+
+				h4 {
+					font-size: 1.5rem;
+					margin: 1rem;
+					@media screen and (max-width: 600px) {
+						font-size: 2rem !important;
+					}
+				}
+
+				svg {
+					height: 1.8rem;
+					width: 1.8rem;
+					@media screen and (max-width: 410px) {
+						height: 3rem;
+						width: 3rem;
+					}
+				}
+			}
+		}
+
+		&-about {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			margin: 1rem 2rem 2rem 1rem;
+
+			&-title {
+				margin: 1rem;
+				font-size: 1.5rem;
+				font-weight: 700;
+			}
+		}
+	}
+}
+/* ---------------------------- properties-filter --------------------------- */
