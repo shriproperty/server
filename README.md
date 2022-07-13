@@ -15,6 +15,8 @@ Shri Property is committed to delivering a high level of expertise, customer ser
 
 **Server:** Node, Typescript, Express, Zod, Mongodb
 
+**Admin App:** React Native, Typescript
+
 ## Authors
 
 -   [@aayushchugh](https://www.github.com/aayushchugh)
