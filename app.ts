@@ -85,9 +85,9 @@ cron.schedule('0 0 * * *', () => backupDB());
 
 /* --------------------------------- ANCHOR server --------------------------------- */
 if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('client/build'));
+	app.use(express.static(path.resolve('build', 'build')));
 	app.get('*', (req: Request, res: Response) => {
-		res.sendFile(path.resolve('client', 'build', 'index.html'));
+		res.sendFile(path.resolve('build', 'build', 'index.html'));
 	});
 }
 
