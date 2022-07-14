@@ -10,6 +10,7 @@ import cron from 'node-cron';
 import compression from 'compression';
 import { unlink } from 'fs';
 import fileUpload from './middlewares/fileUpload.middleware.js';
+import cors from 'cors';
 
 config();
 
@@ -27,6 +28,7 @@ import { uploadFileToS3 } from './helpers/s3.helper.js';
 const app = express();
 
 /* ------------------------------- ANCHOR middlewares ------------------------------ */
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(
