@@ -8,6 +8,7 @@ import cron from 'node-cron';
 import compression from 'compression';
 import { unlink } from 'fs';
 import helmet from 'helmet';
+import cors from 'cors';
 import deserializeUser from './middlewares/deserializeUser.middleware';
 
 config();
@@ -30,6 +31,8 @@ const DB_URI = process.env.DB_URI as string;
 /* ------------------------------- ANCHOR middlewares ------------------------------ */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cors());
 app.use(cookieParser());
 app.use(
 	compression({
