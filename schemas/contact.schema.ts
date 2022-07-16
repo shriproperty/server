@@ -18,9 +18,13 @@ export const createContactSchema = {
 			.min(10, 'phone must be 10 digits long')
 			.max(10, 'phone must be 10 digits long'),
 
-		subject: z.string({ required_error: 'subject is required' }),
+		subject: z
+			.string({ required_error: 'subject is required' })
+			.max(100, 'Subject should not be more than 100 characters'),
 
-		message: z.string({ required_error: 'message is required' }),
+		message: z
+			.string({ required_error: 'message is required' })
+			.max(300, 'Message can not be longer than 300 characters'),
 	}),
 };
 
