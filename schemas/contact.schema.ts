@@ -20,11 +20,11 @@ export const createContactSchema = {
 
 		subject: z
 			.string({ required_error: 'subject is required' })
-			.max(100, 'Subject should not be more than 100 characters'),
+			.max(300, 'Subject should not be more than 300 characters'),
 
 		message: z
 			.string({ required_error: 'message is required' })
-			.max(300, 'Message can not be longer than 300 characters'),
+			.max(1000, 'Message can not be longer than 1000 characters'),
 	}),
 };
 
