@@ -34,13 +34,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
+app.use(
+	helmet({
+		contentSecurityPolicy: false,
+		crossOriginResourcePolicy: false,
+		crossOriginEmbedderPolicy: false,
+	})
+);
 app.use(cookieParser());
 app.use(
 	compression({
 		level: 9,
 	})
 );
-app.use(helmet());
 app.use('/api', apiAuth);
 app.use('/api', deserializeUser);
 
