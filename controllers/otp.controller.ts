@@ -1,11 +1,15 @@
-import { Otp, OtpModel } from '../models/otp.model';
+import { OtpModel } from '../models/otp.model';
 import { sendEmail } from '../helpers/email.helper';
 import logger from '../helpers/logger.helper';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { SendOtpBody, VerifyOtpSchema } from '../schemas/otp.schema';
 
 /* ------------------------------- ANCHOR send otp ------------------------------- */
-export const sendOtpHandler = async (req: Request, res: Response) => {
+export const sendOtpHandler = async (
+	req: Request<{}, {}, SendOtpBody>,
+	res: Response
+) => {
 	try {
 		const { email } = req.body;
 
@@ -45,7 +49,10 @@ export const sendOtpHandler = async (req: Request, res: Response) => {
 };
 
 /* ------------------------------- ANCHOR verify otp ------------------------------- */
-export const verifyOtpHandler = async (req: Request, res: Response) => {
+export const verifyOtpHandler = async (
+	req: Request<{}, {}, VerifyOtpSchema>,
+	res: Response
+) => {
 	try {
 		const { otp, email } = req.body;
 
