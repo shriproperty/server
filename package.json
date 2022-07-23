@@ -11,7 +11,8 @@
 	"scripts": {
 		"start": "node build/app.js",
 		"dev": "tsnd --exit-child --transpile-only app.ts",
-		"build": "tsc --build"
+		"build": "tsc --build",
+		"prebuild": "yarn install"
 	},
 	"dependencies": {
 		"aws-sdk": "^2.1059.0",
