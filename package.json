@@ -34,7 +34,7 @@
 		"typescript": "^4.7.4",
 		"zod": "^3.14.4",
 		"zod-express-middleware": "^1.4.0",
-		"@typegoose/typegoose": "^9.8.0",
+		"@typegoose/typegoose": "^9.8.0"
 	},
 	"devDependencies": {
 		"@types/bcrypt": "^5.0.0",
