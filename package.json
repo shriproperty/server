@@ -33,10 +33,10 @@
 		"pino-pretty": "^7.6.1",
 		"typescript": "^4.7.4",
 		"zod": "^3.14.4",
-		"zod-express-middleware": "^1.4.0"
+		"zod-express-middleware": "^1.4.0",
+		"@typegoose/typegoose": "^9.8.0",
 	},
 	"devDependencies": {
-		"@typegoose/typegoose": "^9.8.0",
 		"@types/bcrypt": "^5.0.0",
 		"@types/busboy": "^1.5.0",
 		"@types/compression": "^1.7.2",
