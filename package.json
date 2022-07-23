@@ -31,6 +31,7 @@
 		"nodemailer": "^6.7.2",
 		"pino": "^7.8.0",
 		"pino-pretty": "^7.6.1",
+		"typescript": "^4.7.4",
 		"zod": "^3.14.4",
 		"zod-express-middleware": "^1.4.0"
 	},
@@ -59,8 +60,7 @@
 		"nodemon": "^2.0.15",
 		"prettier": "^2.5.1",
 		"prettier-eslint": "^13.0.0",
-		"ts-node-dev": "^1.1.8",
-		"typescript": "^4.6.3"
+		"ts-node-dev": "^1.1.8"
 	},
 	"engines": {
 		"node": "16.x.x",
