@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/383.e40301d1.chunk.css","mappings":"AAAA,WACC,aAAc,CADf,kBAIE,uBAAyB","sources":["components/layout/adminNav/adminNav.scss"],"sourcesContent":[".admin-nav {\r\n\tmargin: 2rem 0;\r\n\r\n\tbutton {\r\n\t\tmargin: 0 2rem !important;\r\n\t}\r\n}\r\n"],"names":[],"sourceRoot":""}

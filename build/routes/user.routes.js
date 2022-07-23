@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const zod_express_middleware_1 = require("zod-express-middleware");
+const user_controller_1 = require("../controllers/user.controller");
+const user_schema_1 = require("../schemas/user.schema");
+const userRouter = (0, express_1.Router)();
+userRouter.get('/users/all', user_controller_1.getAllHandler);
+userRouter.get('/users/single/:id', (0, zod_express_middleware_1.processRequestParams)(user_schema_1.getSingleUserSchema.params), (0, zod_express_middleware_1.processRequestQuery)(user_schema_1.getSingleUserSchema.query), user_controller_1.getSingleUserHandler);
+userRouter.patch('/users/reset-password', (0, zod_express_middleware_1.processRequestBody)(user_schema_1.resetPasswordSchema.body), user_controller_1.resetPasswordHandler);
+exports.default = userRouter;

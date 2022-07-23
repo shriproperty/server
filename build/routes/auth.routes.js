@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const zod_express_middleware_1 = require("zod-express-middleware");
+const auth_controller_1 = require("../controllers/auth.controller");
+const auth_schema_1 = require("../schemas/auth.schema");
+const authRouter = (0, express_1.Router)();
+authRouter.post('/auth/signup', (0, zod_express_middleware_1.processRequestBody)(auth_schema_1.signupSchema.body), auth_controller_1.signupHandler);
+authRouter.post('/auth/login', (0, zod_express_middleware_1.processRequestBody)(auth_schema_1.loginSchema.body), auth_controller_1.loginHandler);
+authRouter.get('/auth/is-logged-in', auth_controller_1.isLoggedInHandler);
+authRouter.get('/auth/logout', auth_controller_1.logoutHandler);
+exports.default = authRouter;

@@ -1,0 +1,12 @@
+https://shriproperty.com/
+https://shriproperty.com/login
+https://shriproperty.com/signup
+https://shriproperty.com/account
+https://shriproperty.com/properties
+https://shriproperty.com/properties/:id
+https://shriproperty.com/listing
+https://shriproperty.com/allimages/:id
+https://shriproperty.com/account/pending-listings
+https://shriproperty.com/property/update/:id
+https://shriproperty.com/account/pending-listings/:id
+https://shriproperty.com/404
