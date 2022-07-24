@@ -1,0 +1,47 @@
+{
+	"todo": {
+		"prefix": "todo",
+		"body": ["//TODO: ${1:write here}"],
+		"description": "Write Todo"
+	},
+	"note": {
+		"prefix": "note",
+		"body": ["//NOTE: ${1:write here}"],
+		"description": "Write Note"
+	},
+	"bug": {
+		"prefix": "bug",
+		"body": ["//BUG: ${1:write here}"],
+		"description": "Write bug"
+	},
+	"hack": {
+		"prefix": "hack",
+		"body": ["//HACK: ${1:write here}"],
+		"description": "Write hack"
+	},
+	"fixme": {
+		"prefix": "fixme",
+		"body": ["//FIXME: ${1:write here}"],
+		"description": "Write fixme"
+	},
+	"question": {
+		"prefix": "question",
+		"body": ["//QUESTION: ${1:write here}"],
+		"description": "Write question"
+	},
+	"idea": {
+		"prefix": "idea",
+		"body": ["//IDEA: ${1:write here}"],
+		"description": "Write idea"
+	},
+	"review": {
+		"prefix": "review",
+		"body": ["//REVIEW: ${1:write here}"],
+		"description": "Write review"
+	},
+	"warning": {
+		"prefix": "warning",
+		"body": ["//WARNING: ${1:write here}"],
+		"description": "Write warning"
+	}
+}
