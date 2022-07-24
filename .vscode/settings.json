@@ -1,4 +1,10 @@
 {
 	"docwriter.style": "Auto-detect",
-	"cSpell.words": ["otps", "pino"]
+	"cSpell.words": ["otps", "pino"],
+	"search.exclude": {
+		"**/node_modules": true,
+		"**/bower_components": true,
+		"**/*.code-search": true,
+		"**/build": true
+	}
 }
