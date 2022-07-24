@@ -43,5 +43,12 @@
 		"prefix": "warning",
 		"body": ["//WARNING: ${1:write here}"],
 		"description": "Write warning"
+	},
+	"anchor": {
+		"prefix": "anchor",
+		"body": [
+			"/* --------------------------------- ANCHOR ${1: write here} --------------------------------- */"
+		],
+		"description": "Add an anchor"
 	}
 }
