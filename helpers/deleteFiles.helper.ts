@@ -23,7 +23,8 @@ export function deleteSingleFileFromDisk(path: string): string {
  * ```
  */
 export function deleteMultipleFilesFromDisk(files: MulterFile[]) {
-	files.forEach(file => {
-		if (file) deleteSingleFileFromDisk(file.path);
-	});
+	files &&
+		files.forEach(file => {
+			if (file) deleteSingleFileFromDisk(file.path);
+		});
 }

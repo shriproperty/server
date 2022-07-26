@@ -79,6 +79,8 @@ export const createPropertyHandler = async (
 			deleteSingleFileFromDisk(file.path);
 		}
 
+		logger.info(req.body.facilities);
+
 		// Parse Facilities
 		if (req.body.facilities && req.body.facilities.length > 0) {
 			req.body.facilities.forEach(facility =>
