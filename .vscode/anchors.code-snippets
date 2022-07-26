@@ -1,51 +1,31 @@
 {
 	"todo": {
-		"prefix": "todo",
+		"prefix": "sp-todo",
 		"body": ["//TODO: ${1:write here}"],
 		"description": "Write Todo"
 	},
 	"note": {
-		"prefix": "note",
+		"prefix": "sp-note",
 		"body": ["//NOTE: ${1:write here}"],
 		"description": "Write Note"
 	},
-	"bug": {
-		"prefix": "bug",
-		"body": ["//BUG: ${1:write here}"],
-		"description": "Write bug"
-	},
-	"hack": {
-		"prefix": "hack",
-		"body": ["//HACK: ${1:write here}"],
-		"description": "Write hack"
-	},
 	"fixme": {
-		"prefix": "fixme",
+		"prefix": "sp-fixme",
 		"body": ["//FIXME: ${1:write here}"],
 		"description": "Write fixme"
 	},
-	"question": {
-		"prefix": "question",
-		"body": ["//QUESTION: ${1:write here}"],
-		"description": "Write question"
-	},
-	"idea": {
-		"prefix": "idea",
-		"body": ["//IDEA: ${1:write here}"],
-		"description": "Write idea"
-	},
 	"review": {
-		"prefix": "review",
+		"prefix": "sp-review",
 		"body": ["//REVIEW: ${1:write here}"],
 		"description": "Write review"
 	},
 	"warning": {
-		"prefix": "warning",
+		"prefix": "sp-warning",
 		"body": ["//WARNING: ${1:write here}"],
 		"description": "Write warning"
 	},
 	"anchor": {
-		"prefix": "anchor",
+		"prefix": "sp-anchor",
 		"body": [
 			"/* --------------------------------- ANCHOR ${1: write here} --------------------------------- */"
 		],
