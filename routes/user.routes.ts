@@ -5,7 +5,7 @@ import {
 	processRequestQuery,
 } from 'zod-express-middleware';
 import {
-	getAllHandler,
+	getAllUsersHandler,
 	getSingleUserHandler,
 	resetPasswordHandler,
 } from '../controllers/user.controller';
@@ -16,7 +16,7 @@ import {
 
 const userRouter = Router();
 
-userRouter.get('/users/all', getAllHandler);
+userRouter.get('/users/all', getAllUsersHandler);
 userRouter.get(
 	'/users/single/:id',
 	processRequestParams(getSingleUserSchema.params),

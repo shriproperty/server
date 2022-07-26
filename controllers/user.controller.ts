@@ -10,9 +10,24 @@ import { ResetPasswordBody } from '../schemas/user.schema';
 
 /* ---------------------------- SECTION get all users ---------------------------- */
 
-export const getAllHandler = async (req: Request, res: Response) => {
+export const getAllUsersHandler = async (req: Request, res: Response) => {
 	try {
-		const users = await UserModel.find({});
+		const { listings, properties } = req.query;
+
+		let users;
+
+		// ANCHOR populate both listings and properties
+		if (listings && properties) {
+			users = await UserModel.find()
+				.populate('listings')
+				.populate('properties');
+		} else if (listings) {
+			users = await UserModel.find().populate('listings');
+		} else if (properties) {
+			users = await UserModel.find().populate('properties');
+		} else {
+			users = await UserModel.find();
+		}
 
 		return res.status(StatusCodes.OK).json({
 			success: true,
