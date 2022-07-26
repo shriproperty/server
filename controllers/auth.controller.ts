@@ -14,6 +14,18 @@ export const signupHandler = async (
 	try {
 		const { name, email, phone, password } = req.body;
 
+		const existingUser = await UserModel.find({
+			$or: [{ email }, { phone }],
+		});
+
+		if (existingUser) {
+			return res.status(StatusCodes.CONFLICT).json({
+				success: false,
+				message: 'User with same email or phone already exists',
+				data: {},
+			});
+		}
+
 		// NOTE: Password will be hashed in user.model.ts pre() decorator
 		// create user
 		const newUser = await UserModel.create({
