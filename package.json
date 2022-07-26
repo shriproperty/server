@@ -9,7 +9,7 @@
 		"url": "https://github.com/aayushchugh/shriproperty"
 	},
 	"scripts": {
-		"start": "node build/app.js",
+		"start": "node app.js",
 		"dev": "tsnd --exit-child --transpile-only app.ts",
 		"build": "tsc --build",
 		"prebuild": "yarn install"
