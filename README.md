@@ -26,7 +26,8 @@ Shri Property is committed to delivering a high level of expertise, customer ser
 ## Feedback
 
 If you have any feedback, please reach out to us at ayushchugh2006@gmail.com
+or create a issue on this repo
 
 ## Support
 
-For support, email ayushchugh2006@gmail.com
+For support, email ayushchugh2006@gmail.com or create a issue on this repo
