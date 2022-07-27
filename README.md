@@ -8,6 +8,7 @@ Shri Property is committed to delivering a high level of expertise, customer ser
 
 -   People can list properties on website for free
 -   Every listing will be reviewed before every update
+-   Mobile app for admin panel
 
 ## Tech Stack
 
