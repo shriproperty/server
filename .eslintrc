@@ -1,12 +1,22 @@
 {
 	"env": {
-		"browser": true,
-		"commonjs": true,
 		"es2021": true,
-		"node": true
+		"node": true,
+		"jest": true
 	},
+	"parser": "@typescript-eslint/parser",
+	"plugins": [
+		"@typescript-eslint",
+		"prettier",
+		"sonarjs",
+		"no-secrets",
+		"jsonc",
+		"pii",
+		"no-unsanitized"
+	],
 	"extends": [
 		"google",
+		"prettier",
 		"plugin:sonarjs/recommended",
 		"plugin:node/recommended",
 		"plugin:jsonc/base",
@@ -14,23 +24,35 @@
 		"plugin:no-unsanitized/DOM",
 		"plugin:prettier/recommended"
 	],
-
-	"plugins": [
-		"sonarjs",
-		"no-secrets",
-		"jsonc",
-		"pii",
-		"no-unsanitized",
-		"prettier"
-	],
 	"parserOptions": {
-		"ecmaVersion": 2020
+		"ecmaVersion": 2020,
+		"sourceType": "module"
+	},
+	"settings": {
+		"import/resolver": {
+			"typescript": {}
+		}
 	},
 	"rules": {
 		"semi": "error",
 		"no-console": "error",
 		"no-tabs": "off",
-		"indent": "off",
+		"indent": ["error", "tab"],
+		"space-infix-ops": "off",
+		"no-trailing-spaces": "error",
+		"space-before-blocks": "error",
+		"quotes": "off",
+		"camelcase": "error",
+		"node/no-unsupported-features/es-syntax": "off",
+		"node/no-missing-import": [
+			"error",
+			{
+				"allowModules": [],
+				"resolvePaths": ["/path/to/a/modules/directory"],
+				"tryExtensions": [".js", ".ts", ".json", ".node"]
+			}
+		],
+		"valid-jsdoc": "off",
 		"node/handle-callback-err": "error",
 		"node/no-path-concat": "error",
 		"node/no-process-exit": "error",
@@ -43,16 +65,18 @@
 		"pii/no-phone-number": "error",
 		"spaced-comment": "off",
 		"prefer-destructuring": ["error", { "object": true, "array": true }],
-		"no-unused-vars": ["error", { "argsIgnorePattern": "req|res|next" }],
+		"no-unused-vars": ["error"],
 		"linebreak-style": "off",
 		"object-curly-spacing": "off",
 		"comma-dangle": "off",
-		"new-cap": "off",
+		"new-cap": "error",
 		"require-await": "error",
-		"require-jsdoc": "off",
+		"require-jsdoc": "error",
 		"sonarjs/cognitive-complexity": "off",
 		"sonarjs/no-duplicate-string": "off",
 		"sonarjs/no-identical-functions": "off",
+		"@typescript-eslint/quotes": ["error", "double"],
+		"@typescript-eslint/explicit-function-return-type": "off",
 		"prettier/prettier": [
 			"error",
 			{
