@@ -37,7 +37,7 @@
 		"semi": "error",
 		"no-console": "error",
 		"no-tabs": "off",
-		"indent": ["error", "tab"],
+		"indent": "off",
 		"space-infix-ops": "off",
 		"no-trailing-spaces": "error",
 		"space-before-blocks": "error",
