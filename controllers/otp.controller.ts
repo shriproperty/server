@@ -1,15 +1,12 @@
-import { OtpModel } from '../models/otp.model';
-import { sendEmail } from '../helpers/email.helper';
-import logger from '../helpers/logger.helper';
-import { Request, Response } from 'express';
-import { StatusCodes } from 'http-status-codes';
-import { SendOtpBody, VerifyOtpSchema } from '../schemas/otp.schema';
+import { OtpModel } from "../models/otp.model";
+import { sendEmail } from "../helpers/email.helper";
+import logger from "../helpers/logger.helper";
+import { Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
+import { SendOtpBody, VerifyOtpSchema } from "../schemas/otp.schema";
 
 /* ------------------------------- ANCHOR send otp ------------------------------- */
-export const sendOtpHandler = async (
-	req: Request<{}, {}, SendOtpBody>,
-	res: Response
-) => {
+export const sendOtpHandler = async (req: Request<{}, {}, SendOtpBody>, res: Response) => {
 	try {
 		const { email } = req.body;
 
@@ -23,18 +20,18 @@ export const sendOtpHandler = async (
 		// generate otp
 		const otp = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
 
-		// send to email
-		await sendEmail(email, 'OTP for Shri Property', `Your OTP is: ${otp}`);
-
 		// save to db
 		const saveOtpToDB = await OtpModel.create({
 			email,
 			otp,
 		});
 
+		// send to email
+		await sendEmail(email, "OTP for Shri Property", `Your OTP is: ${otp}`);
+
 		return res.status(StatusCodes.CREATED).json({
 			success: true,
-			message: 'Otp sent successfully',
+			message: "Otp sent successfully",
 			data: saveOtpToDB,
 		});
 	} catch (err) {
@@ -42,17 +39,14 @@ export const sendOtpHandler = async (
 
 		return res.status(StatusCodes.NOT_ACCEPTABLE).json({
 			success: false,
-			message: 'Please enter valid Email',
+			message: "Please enter valid Email",
 			data: {},
 		});
 	}
 };
 
 /* ------------------------------- ANCHOR verify otp ------------------------------- */
-export const verifyOtpHandler = async (
-	req: Request<{}, {}, VerifyOtpSchema>,
-	res: Response
-) => {
+export const verifyOtpHandler = async (req: Request<{}, {}, VerifyOtpSchema>, res: Response) => {
 	try {
 		const { otp, email } = req.body;
 
@@ -61,7 +55,7 @@ export const verifyOtpHandler = async (
 		if (otpFromDB?.otp !== otp) {
 			return res.status(StatusCodes.BAD_REQUEST).json({
 				success: false,
-				message: 'Please enter valid otp',
+				message: "Please enter valid otp",
 				data: {},
 			});
 		}
@@ -71,7 +65,7 @@ export const verifyOtpHandler = async (
 
 		return res.status(StatusCodes.OK).json({
 			success: true,
-			message: 'Otp verified successfully',
+			message: "Otp verified successfully",
 			data: {},
 		});
 	} catch (err) {
@@ -79,7 +73,7 @@ export const verifyOtpHandler = async (
 
 		return res.status(StatusCodes.NOT_FOUND).json({
 			success: false,
-			message: 'Your OTP is expired',
+			message: "Your OTP is expired",
 			data: {},
 		});
 	}
