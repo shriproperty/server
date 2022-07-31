@@ -1,6 +1,11 @@
-import { getModelForClass, prop } from '@typegoose/typegoose';
+import { getModelForClass, prop } from "@typegoose/typegoose";
 
-export class TempUser {
+/**
+ * Guest Model
+ *
+ * @class Guest
+ */
+export class Guest {
 	@prop({ required: true })
 	public name: string;
 
@@ -12,8 +17,8 @@ export class TempUser {
 
 	@prop({
 		required: true,
-		enum: ['Pending', 'Rejected', 'Call Again', 'Done'],
-		default: 'Pending',
+		enum: ["Pending", "Rejected", "Call Again", "Done"],
+		default: "Pending",
 	})
 	public callingStatus: string;
 
@@ -24,7 +29,7 @@ export class TempUser {
 	public talkProgress: string;
 }
 
-export const TempUserModel = getModelForClass(TempUser, {
+export const GuestModel = getModelForClass(Guest, {
 	schemaOptions: {
 		timestamps: true,
 	},

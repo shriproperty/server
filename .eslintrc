@@ -70,7 +70,7 @@
 		"linebreak-style": "off",
 		"object-curly-spacing": "off",
 		"comma-dangle": "off",
-		"new-cap": "error",
+		"new-cap": "off",
 		"require-await": "error",
 		"require-jsdoc": "error",
 		"sonarjs/cognitive-complexity": "off",

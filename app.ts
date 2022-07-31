@@ -14,7 +14,7 @@ import deserializeUser from "./middlewares/deserializeUser.middleware";
 config();
 
 import apiAuth from "./middlewares/apiAuth.middleware";
-import tempUserRouter from "./routes/tempUser.routes";
+import GuestRouter from "./routes/guest.routes";
 import contactRouter from "./routes/contact.routes";
 import propertyRouter from "./routes/property.routes";
 import otpRouter from "./routes/otp.routes";
@@ -51,7 +51,7 @@ app.use("/api", apiAuth);
 app.use("/api", deserializeUser);
 
 /* --------------------------------- ANCHOR routes --------------------------------- */
-app.use("/api", tempUserRouter);
+app.use("/api", GuestRouter);
 app.use("/api", contactRouter);
 app.use("/api", propertyRouter);
 app.use("/api", otpRouter);
